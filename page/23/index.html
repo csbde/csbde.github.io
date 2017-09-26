@@ -261,7 +261,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/25/e5-b8-b8-e7-94-a8mysql-e7-9a-84-e5-91-bd-e4-bb-a4-e9-9b-86-e9-94-a6/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/25/MOTOA_Phone_1200虚拟内存设置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -283,514 +283,7 @@
             
               
                 
-                <a class="post-title-link" href="/2007/10/25/e5-b8-b8-e7-94-a8mysql-e7-9a-84-e5-91-bd-e4-bb-a4-e9-9b-86-e9-94-a6/" itemprop="url">
-                  常用MySQL的命令集锦
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2007-10-25T20:25:25+08:00">
-                2007-10-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一、连接MySQL        格式： mysql -h主机地址 -u用户名 －p用户密码</p>
-<pre><code>1、例1：连接到本机上的MYSQL。
-
-首先在打开DOS窗口，然后进入目录 mysqlbin，再键入命令mysql -uroot -p，回车后提示你输密码，如果刚安装好MYSQL，超级用户root是没有密码的，故直接回车即可进入到MYSQL中了，MYSQL的提示符是：mysql&amp;gt;。
-
-2、例2：连接到远程主机上的MYSQL。假设远程主机的IP为：110.110.110.110，用户名为root,密码为abcd123。则键入以下命令：
-
-mysql -h110.110.110.110 -uroot -pabcd123
-
-（注:u与root可以不用加空格，其它也一样）
-
-3、退出MYSQL命令： exit （回车）。
-
-二、修改密码
-
-格式：mysqladmin -u用户名 -p旧密码 password 新密码
-
-1、例1：给root加个密码ab12。首先在DOS下进入目录mysqlbin，然后键入以下命令：
-
-mysqladmin -uroot -password ab12
-
-注：因为开始时root没有密码，所以-p旧密码一项就可以省略了。
-
-2、例2：再将root的密码改为djg345。
-
-mysqladmin -uroot -pab12 password djg345
-
-三、增加新用户。（注意：和上面不同，下面的因为是MySQL环境中的命令，所以后面都带一个分号作为命令结束符）
-
-格式：grant select on 数据库.* to 用户名@登录主机 identified by \&quot;密码\&quot;
-
-例1、增加一个用户test1密码为abc，让他可以在任何主机上登录，并对所有数据库有查询、插入、修改、删除的权限。首先用以root用户连入MySQL，然后键入以下命令：
-
-grant select,insert,update,
-delete on *.* to test1@\&quot;%\&quot; Identified by \&quot;abc\&quot;;
-
-但例1增加的用户是十分危险的，你想如某个人知道test1的密码，那么他就可以在internet上的任何一台电脑上登录你的MySQL数据库并对你的数据可以为所欲为了，解决办法见例2。
-
-例2、增加一个用户test2密码为abc,让他只可以在localhost上登录，并可以对数据库mydb进行查询、插入、修改、删除的操作 （localhost指本地主机，即MySQL数据库所在的那台主机），这样用户即使用知道test2的密码，他也无法从internet上直接访问数据 库，只能通过MySQL主机上的web页来访问。
-
-grant select,insert,update,
-delete on mydb.* to test2@localhost identified by \&quot;abc\&quot;;
-
-如果你不想test2有密码，可以再打一个命令将密码消掉。
-
-grant select,insert,update,delete on mydb
-.* to test2@localhost identified by \&quot;\&quot;;
-
-在上面讲了登录、增加用户、密码更改等问题。下面我们来看看MySQL中有关数据库方面的操作。注意：你必须首先登录到MySQL中，以下操作都是在MySQL的提示符下进行的，而且每个命令以分号结束。
-</code></pre><p>一、操作技巧</p>
-<pre><code>1、如果你打命令时，回车后发现忘记加分号，你无须重打一遍命令，只要打个分号回车就可以了。也就是说你可以把一个完整的命令分成几行来打，完后用分号作结束标志就完成。
-
-2、你可以使用光标上下键调出以前的命令。但以前我用过的一个MySQL旧版本不支持。我现在用的是mysql-3.23.27-beta-win。
-
-二、显示命令
-
-1、显示数据库列表：
-
-show databases;
-
-刚开始时才两个数据库：mysql和test。MySQL库很重要它里面有MYSQL的系统信息，我们改密码和新增用户，实际上就是用这个库进行操作。
-
-2、显示库中的数据表：
-
-use mysql； ／／打开库，学过FOXBASE的一定不会陌生吧
-
-show tables;
-
-3、显示数据表的结构：
-
-describe 表名;
-
-4、建库：
-
-create database 库名;
-
-5、建表：
-
-use 库名；
-
-create table 表名 (字段设定列表)；
-
-6、删库和删表:
-
-drop database 库名;
-
-drop table 表名；
-
-7、将表中记录清空：
-
-delete from 表名;
-
-8、显示表中的记录：
-
-select * from 表名;
-
-三、一个建库和建表以及插入数据的实例
-
-drop database if exists school; //如果存在SCHOOL则删除
-
-create database school; //建立库SCHOOL
-
-use school; //打开库SCHOOL
-
-create table teacher //建立表TEACHER
-
-(
-
-id int(3) auto_increment not null primary key,
-
-name char(10) not null,
-
-address varchar(50) default ’深圳’,
-
-year date
-
-); //建表结束
-
-//以下为插入字段
-
-insert into teacher values(’’,’glchengang’,’深圳一中’,’1976-10-10’);
-
-insert into teacher values(’’,’jack’,’深圳一中’,’1975-12-23’);
-
-注：在建表中（1）将ID设为长度为3的数字字段:int(3)并让它每个记录自动加一:auto_increment并不能为空:not null而且让他成为主字段primary key（2）将NAME设为长度为10的字符字段（3）将ADDRESS设为长度50的字符字段，而且缺省值为深圳。varchar和char有什么区别 呢，只有等以后的文章再说了。（4）将YEAR设为日期字段。
-
-如果你在MySQL提示符键入上面的命令也可以，但不方便调试。你可以将以上命令原样写入一个文本文件中假设为school.sql，然后复制到c:\\下，并在DOS状态进入目录\\mysql\\bin，然后键入以下命令：
-
-mysql -uroot -p密码 &amp;lt; c:\\school.sql
-
-如果成功，空出一行无任何显示；如有错误，会有提示。（以上命令已经调试，你只要将//的注释去掉即可使用）。
-</code></pre><p>四、将文本数据转到数据库中</p>
-<pre><code>   1、文本数据应符合的格式：字段数据之间用tab键隔开，null值用\\n来代替。
-
-   例：
-
-   3 rose 深圳二中 1976-10-10
-
-   4 mike 深圳一中 1975-12-23
-
-   2、数据传入命令 load data local infile \&quot;文件名\&quot; into table 表名。
-
-   注意：你最好将文件复制到\\mysql\\bin目录下，并且要先用use命令打表所在的库。
-
-   五、备份数据库：
-
-   1、mysqldump --opt school&amp;gt;school.bbb
-
-   mysqldump --opt school&amp;gt;school.bbb
-   （命令在DOS的\\mysql\\bin目录下执行）
-
-   注释:将数据库school备份到school.bbb文件，school.bbb是一个文本文件，文件名任取，打开看看你会有新发现。
-
-   后记：其实MySQL的对数据库的操作与其它的SQL类数据库大同小异，您最好找本将SQL的书看看。我在这里只介绍一些基本的，其实我也就只懂这些了， 呵呵。最好的MYSQL教程还是“晏子“译的“MYSQL中文参考手册“不仅免费每个相关网站都有下载，而且它是最权威的。可惜不是象\&quot;PHP4中文手 册\&quot;那样是chm的格式，在查找函数命令的时候不太方便。
-
-   2、修改登录密码
-
-   1) mysqladmin -u用户名 -p旧密码 password 新密码:
-
-   例：mysqladmin -u root password 21century
-
-   注：因为开始时root没有密码，所以-p旧密码一项就可以省略了。
-
-   2)直接修改user表的root用户口令：
-
-   mysql&amp;gt; user mysql;
-   mysql&amp;gt; update user set pasword=password(&apos;21century&apos;) where user=&apos;root&apos;;
-   mysql&amp;gt; flush privileges;
-
-   注：flush privileges的意思是强制刷新内存授权表，否则用的还是缓冲中的口令。
-
-   3、测试密码是否修改成功:
-
-   1）不用密码登录:
-
-   [root@test1 local]# mysql
-   ERROR 1045: Access denied for user: &apos;root@localhost&apos; (Using password: NO)
-
-   显示错误，说明密码已经修改。
-
-   2）用修改后的密码登录:
-
-   [root@test1 local]# mysql -u root -p
-   Enter password: (输入修改后的密码21century)
-   Welcome to the MySQL monitor. Commands end with ; or \g.
-   Your MySQL connection id is 177 to server version: 3.23.48
-   Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the buffer.
-   mysql&amp;gt;
-
-   成功！
-
-   这是通过mysqladmin命令修改口令，也可通过修改库来更改口令。
-
-4、启动和停止:
-
-   启动：Mysql从3.23.15版本开始作了改动，默认安装后服务要用MySQL用户来启动，不允许root用户启动。
-
-   如果非要用root用户来启动，必须加上--user=root参数(./safe_mysqld --user=root &amp;amp;)停止：mysqladmin -u root -p shutdown。
-
-   5、导出meeting数据库：
-
-   mysqldump -uroot -p21century meeting &amp;gt; db_meeting.sql
-
-   导人dbname数据库:
-
-   mysqldump -uroot -p21century dbname &amp;lt; xxx.sql
-
-   导入数据库还可用类似于oracle中@my_script.sql的方式一次执行大量sql语句，这在使用mysqldump不起作用时非常有用。
-
-   例：#./mysql -uroot -p &amp;lt; /home/xuys/db_meeting_2003.sql
-
-   (注：create database、use databasename、create table和insert into语句都可写在上面的脚步文件中)
-
-   6、给表改名:
-
-   RENAME TABLE ztemp TO ztemp4;
-
-   7、修改字段属性：
-
-   ALTER TABLE bbabase CHANGE news_id id VARCHAR(5) NOT NULL;
-
-   8、在表中的content后增加一字段：
-
-   ALTER TABLE bbabase ADD leave_time DATETIME NOT NULL AFTER
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/25/linux-mysql-e5-9f-ba-e6-9c-ac-e5-91-bd-e4-bb-a4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="九王爷">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九王爷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2007/10/25/linux-mysql-e5-9f-ba-e6-9c-ac-e5-91-bd-e4-bb-a4/" itemprop="url">
-                  Linux Mysql基本命令
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2007-10-25T20:20:32+08:00">
-                2007-10-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>启动MySQL守护进程<br>/etc/rc.d/init.d/mysql start<br>关闭MySQL守护进程<br>/etc/rc.d/init.d/mysql stop<br>检查MySQL服务器运行情况<br>1、检查MySQL的属性<br>/usr/bin/mysqladmin variables<br>2、检查MySQL的版本信息/usr/bin/mysqladmin version<br>3、检查MySQL运行状态/usr/bin/mysqladmin status<br>4、检查MySQL服务器此时正运行的线程信息 /usr/bin/mysqladmin processlist<br>5、检查MySQL的状态 mysqladmin ping<br>6、刷新所有的表并重写日志文件 Flush all tables and close and open logfiles<br>mysqladmin refresh<br>连接和断开服务器<br>1、连接服务器 mysql -h host -u user -p</p>
-<p>#如果此服务运行在与MySQL相同的机器上，这个选项一般可以省略。</p>
-<p>#要求输入口令<br>2、断开服务器quit</p>
-<p>#进入MySQL之后可以敲help来获取帮助信息</p>
-<p>#还可以键入［Ctrl+D］来退出</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/25/motoa1200-e8-99-9a-e6-8b-9f-e5-86-85-e5-ad-98-e8-ae-be-e7-bd-ae/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="九王爷">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九王爷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2007/10/25/motoa1200-e8-99-9a-e6-8b-9f-e5-86-85-e5-ad-98-e8-ae-be-e7-bd-ae/" itemprop="url">
+                <a class="post-title-link" href="/2007/10/25/MOTOA_Phone_1200虚拟内存设置/" itemprop="url">
                   MOTOA Phone 1200虚拟内存设置
                 </a>
               
@@ -915,7 +408,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/24/moto-a1200-e7-9a-84usb-e9-a9-b1-e5-8a-a8-e7-a8-8b-e5-ba-8f/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/24/MOTO_A1200的USB驱动程序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -937,7 +430,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
             
               
                 
-                <a class="post-title-link" href="/2007/10/24/moto-a1200-e7-9a-84usb-e9-a9-b1-e5-8a-a8-e7-a8-8b-e5-ba-8f/" itemprop="url">
+                <a class="post-title-link" href="/2007/10/24/MOTO_A1200的USB驱动程序/" itemprop="url">
                   MOTO A1200的USB驱动程序
                 </a>
               
@@ -1056,7 +549,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/16/0-255-e7-9a-84ascii-e7-a0-81-ef-bc-8c-e4-be-9b-e6-9f-a5-e9-98-85/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/16/0-255的ASCII码，供查阅/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1078,7 +571,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
             
               
                 
-                <a class="post-title-link" href="/2007/10/16/0-255-e7-9a-84ascii-e7-a0-81-ef-bc-8c-e4-be-9b-e6-9f-a5-e9-98-85/" itemprop="url">
+                <a class="post-title-link" href="/2007/10/16/0-255的ASCII码，供查阅/" itemprop="url">
                   0-255的ASCII码，供查阅
                 </a>
               
@@ -1198,7 +691,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/09/21/keyzonealarm-license-key/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/09/21/'[KEY]zonealarm_license_key'/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1220,7 +713,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
             
               
                 
-                <a class="post-title-link" href="/2007/09/21/keyzonealarm-license-key/" itemprop="url">
+                <a class="post-title-link" href="/2007/09/21/'[KEY]zonealarm_license_key'/" itemprop="url">
                   [KEY]zonealarm license key
                 </a>
               
@@ -1347,7 +840,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/09/19/e5-a6-82-e4-bd-95-e5-ae-9e-e7-8e-b0-e5-90-b8-e5-85-89-e5-ba-a6-e4-b8-8e-e9-80-8f-e5-85-89-e7-8e-87-e4-b9-8b-e9-97-b4-e7-9a-84-e8-bd-ac-e6-8d-a2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/09/19/如何实现吸光度与透光率之间的转换/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1369,7 +862,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
             
               
                 
-                <a class="post-title-link" href="/2007/09/19/e5-a6-82-e4-bd-95-e5-ae-9e-e7-8e-b0-e5-90-b8-e5-85-89-e5-ba-a6-e4-b8-8e-e9-80-8f-e5-85-89-e7-8e-87-e4-b9-8b-e9-97-b4-e7-9a-84-e8-bd-ac-e6-8d-a2/" itemprop="url">
+                <a class="post-title-link" href="/2007/09/19/如何实现吸光度与透光率之间的转换/" itemprop="url">
                   如何实现吸光度与透光率之间的转换
                 </a>
               
@@ -1499,7 +992,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/09/04/e8-bd-ac-e5-90-91-e5-8f-8a-e8-b7-b3-e8-bd-ac-e4-bb-a3-e7-a0-81/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/09/04/转向及跳转代码/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1521,7 +1014,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
             
               
                 
-                <a class="post-title-link" href="/2007/09/04/e8-bd-ac-e5-90-91-e5-8f-8a-e8-b7-b3-e8-bd-ac-e4-bb-a3-e7-a0-81/" itemprop="url">
+                <a class="post-title-link" href="/2007/09/04/转向及跳转代码/" itemprop="url">
                   转向及跳转代码
                 </a>
               
@@ -1674,7 +1167,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/07/06/latex-e5-9c-a8ubuntu-e4-b8-8b-e7-9a-84-e5-ae-89-e8-a3-85-e4-b8-8e-e9-85-8d-e7-bd-ae/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/07/06/Latex在ubuntu下的安装与配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1696,7 +1189,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
             
               
                 
-                <a class="post-title-link" href="/2007/07/06/latex-e5-9c-a8ubuntu-e4-b8-8b-e7-9a-84-e5-ae-89-e8-a3-85-e4-b8-8e-e9-85-8d-e7-bd-ae/" itemprop="url">
+                <a class="post-title-link" href="/2007/07/06/Latex在ubuntu下的安装与配置/" itemprop="url">
                   Latex在ubuntu下的安装与配置
                 </a>
               
@@ -1838,7 +1331,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/07/02/locale-e8-af-a6-e8-a7-a3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/07/02/Locale_详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1860,7 +1353,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
             
               
                 
-                <a class="post-title-link" href="/2007/07/02/locale-e8-af-a6-e8-a7-a3/" itemprop="url">
+                <a class="post-title-link" href="/2007/07/02/Locale_详解/" itemprop="url">
                   Locale 详解
                 </a>
               
@@ -1939,11 +1432,292 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
           <p>Locale 详解locale 是国际化与本土化过程中的一个非常重要的概念，个人认为，对于中文用户来说，通常会涉及到的国际化或者本土化，大致包含三个方面：看中文，写中文，与 window中文系统的兼容和通信。从实际经验上看来，locale的设定与看中文关系不大，但是与写中文，及window分区的挂载方式有很密切的关系。本人认为就像一个纯英文的Windows能够浏览中文，日文或者意大利文网页一样，你不需要设定locale就可以看中文。那么，为什么要设定 locale呢？什么时候会用到locale呢？
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2007/07/02/locale-e8-af-a6-e8-a7-a3/#more" rel="contents">
+            <a class="btn" href="/2007/07/02/Locale_详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/07/02/ubuntu_7.04安装qq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2007/07/02/ubuntu_7.04安装qq/" itemprop="url">
+                  ubuntu 7.04安装qq
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2007-07-02T07:18:00+08:00">
+                2007-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>终于在ubuntu下成功安装好了QQ，兴奋<br>操作非常简单，只需要将QQ目录下的TIMPlatform.exe 删除就好了</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/07/02/Qemu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2007/07/02/Qemu/" itemprop="url">
+                  Qemu
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2007-07-02T07:17:00+08:00">
+                2007-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><span class="postbody">以前用过VMWare，编译内核驱动经常失败，只有VMWare－Server是免费的，但我的Feisty装VMWare出问题了，因此我就开始用Qemu,现在才发现Qemu这么好用，关键是，它属于我们开源社区。<br>Qemu作为开源虚拟机,安装简便,和Linux内核协作很好,安装Qemu加速器后性能也有了很大提升,完全不逊色<br>于其他商业软件，推荐大家使用Qemu。 </span><span class="postbody"><span style="font-weight: bold">Qemu虚拟机安装Windows</span><br>英文原文：<a href="https://help.ubuntu.com/community/WindowsXPUnderQemuHowTo" target="_blank" rel="external">https://help.ubuntu.com/community/WindowsXPUnderQemuHowTo</a></span><span class="postbody"><span style="font-weight: bold">1.安装</span></span></p>
+<table border="0" cellspacing="1" cellpadding="3" width="90%" align="center"><br><tbody><br><tr><br><td><span class="genmed"><strong>代码:</strong></span></td><br></tr><br><tr><br><td class="code">sudo apt-get install qemu kernel-package linux-source kqemu-source build-essential</td><br></tr><br></tbody></table><br><span class="postbody"><span style="font-weight: bold">2.Qemu的二进制程序已经安装，但Qemu加速器安装的是源码，所以要加以编译</span></span><br><table border="0" cellspacing="1" cellpadding="3" width="90%" align="center"><br><tbody><br><tr><br><td><span class="genmed"><strong>代码:</strong></span></td><br></tr><br><tr><br><td class="code">cd /usr/src/linux<br>sudo module-assistant prepare kqemu<br>sudo module-assistant build kqemu<br>sudo module-assistant install kqemu<br>sudo depmod -a</td><br></tr><br></tbody></table><br><span class="postbody"><span style="font-weight: bold">3.载入kqemu模块</span></span><br><table border="0" cellspacing="1" cellpadding="3" width="90%" align="center"><br><tbody><br><tr><br><td><span class="genmed"><strong>代码:</strong></span></td><br></tr><br><tr><br><td class="code">sudo modprobe kqemu<br>sudo mknod /dev/kqemu c 250 0<br>sudo chmod 666 /dev/kqemu</td><br></tr><br></tbody></table><br><span class="postbody"><span style="font-weight: bold">4.创建Windows虚拟硬盘</span></span><br><table border="0" cellspacing="1" cellpadding="3" width="90%" align="center"><br><tbody><br><tr><br><td><span class="genmed"><strong>代码:</strong></span></td><br></tr><br><tr><br><td class="code">qemu-img create -f qcow windows.img 2G</td><br></tr><br></tbody></table><br><span class="postbody"><br>(这里的2G大小可以自己设置,使用qcow文件格式,因此它根据用户使用而增大减小,但最大上限为2G) </span><span class="postbody"><span style="font-weight: bold">5.从光驱安装Windows</span></span><br><table border="0" cellspacing="1" cellpadding="3" width="90%" align="center"><br><tbody><br><tr><br><td><span class="genmed"><strong>代码:</strong></span></td><br></tr><br><tr><br><td class="code">qemu -localtime -cdrom /dev/cdrom -m 384 -boot d windows.img</td><br></tr><br></tbody></table><br><span class="postbody"><br>(同样也可以从硬盘镜像安装<br></span><br><table border="0" cellspacing="1" cellpadding="3" width="90%" align="center"><br><tbody><br><tr><br><td><span class="genmed"><strong>代码:</strong></span></td><br></tr><br><tr><br><td class="code">qemu -localtime -cdrom cdimagefile.iso -m 384 -boot d windows.img</td><br></tr><br></tbody></table><br><span class="postbody"><br>这里的-m 384是指定内存,384 MB是很好的XP最小内存<br>如果内存不够,可以这样<br></span><br><table border="0" cellspacing="1" cellpadding="3" width="90%" align="center"><br><tbody><br><tr><br><td><span class="genmed"><strong>代码:</strong></span></td><br></tr><br><tr><br><td class="code">sudo umount /dev/shm<br>sudo mount -t tmpfs -o size=400m none /dev/shm</td><br></tr><br></tbody></table><br><span class="postbody">) </span><span class="postbody"><em>64位用户请使用’qemu-system-x86_64’而不是’qemu’,否则”-kernel-kqemu”不能启用.
+</em>安装Windows 2000请加入参数’-win2k-hack’.</span><span class="postbody"><span style="font-weight: bold">6.使用</span><br>Ctrl + Alt 控制切换<br>Ctrl + Alt + F 全屏切换</span><br><br><span style="font-weight: bold">7.保存配置</span><br>每次启动qemu之前都要手动载入kqemu模,可以将那些命令写入/etc/rc.local,<br>这样系统启动就会运行这些命令<br><br><span style="font-weight: bold">8.网络</span><br>请参考<a href="http://fabrice.bellard.free.fr/qemu/qemu-doc.html" target="_blank" rel="external">http://fabrice.bellard.free.fr/qemu/qemu-doc.html</a><br><br><span style="font-weight: bold">9.宿主和客系统之间的文件共享</span><br>QEMU为你配置了一个虚拟局域网和DHCP服务器.<br>首先在宿主Ubuntu上配置好Samba,然后这样启动qemu<br>(这里假设你有个qemu_share文件夹)<br><table border="0" cellspacing="1" cellpadding="3" width="90%" align="center"><br><tbody><br><tr><br><td><span class="genmed"><strong>代码:</strong></span></td><br></tr><br><tr><br><td class="code">qemu -smb $HOME/qemu_share -m 384 -localtime windows.img</td><br></tr><br></tbody></table><br><span class="postbody"><br>在客系统Windows下,这样来访问共享文件<br>net use e: \10.0.2.2\qemu_share<br>而且宿主Ubuntu的IP地址永远是10.0.2.2,因此如果你在宿主Ubuntu上运行了服务器,同样可以访问,比如<br>ftp:\10.0.2.2,等等. </span><span class="postbody"><span style="font-weight: bold">10.挂载虚拟硬盘,先要确保关闭qemu</span></span><br><table border="0" cellspacing="1" cellpadding="3" width="90%" align="center"><br><tbody><br><tr><br><td><span class="genmed"><strong>代码:</strong></span></td><br></tr><br><tr><br><td class="code">sudo mount -o loop,offset=32256 windows.img /mnt</td><br></tr><br></tbody></table><br><span class="postbody"><span style="font-weight: bold">11.保存和恢复虚拟机的状态</span><br>当你安装好了一个虚拟机后,你可以在其上创建一个”叠加镜像”,</span><br><table border="0" cellspacing="1" cellpadding="3" width="90%" align="center"><br><tbody><br><tr><br><td><span class="genmed"><strong>代码:</strong></span></td><br></tr><br><tr><br><td class="code">qemu-img create -b windows.img -f qcow windows.ovl</td><br></tr><br></tbody></table><br><span class="postbody"><br>现在你可以运行叠加镜像<br></span><br><table border="0" cellspacing="1" cellpadding="3" width="90%" align="center"><br><tbody><br><tr><br><td><span class="genmed"><strong>代码:</strong></span></td><br></tr><br><tr><br><td class="code">qemu windows.ovl -enable-audio -user-net -localtime -smb qemu_share</td><br></tr><br></tbody></table><br><span class="postbody"><br>叠加镜像非常小,只保存对原始镜像作出的改变,如果你想回到安装后的初始状态,<br>只需简单地删掉叠加镜像,然后创建一个新的. </span><span class="postbody"><span style="font-weight: bold">12.运行QEMU命令</span><br>当QEMU正在运行时,他还可以接受命令<br>在QEMU窗口按CTRL+ALT+2,会出想QEMU监视器,输入help可以看到你能做很多事情<br>退出请按CTRL+ALT+1</span><span class="postbody"><span style="font-weight: bold">13.将raw格式的虚拟硬盘转换为qcow格式</span></span><br><table border="0" cellspacing="1" cellpadding="3" width="90%" align="center"><br><tbody><br><tr><br><td><span class="genmed"><strong>代码:</strong></span></td><br></tr><br><tr><br><td class="code">qemu-img convert windows.img -O qcow windows.qcow</td><br></tr><br></tbody></table><br><span class="postbody"><br><span style="font-weight: bold"><br>14.故障解决</span><br>如果你遇到鼠标始终挂在右下角,请在启动QEMU前运行<br></span><br><table border="0" cellspacing="1" cellpadding="3" width="90%" align="center"><br><tbody><br><tr><br><td><span class="genmed"><strong>代码:</strong></span></td><br></tr><br><tr><br><td class="code">export SDL_VIDEO_X11_DGAMOUSE=0</td><br></tr><br></tbody></table>
+          
         
       
     </div>
@@ -2022,7 +1796,7 @@ mysql -uroot -p密码 &amp;lt; c:\\school.sql
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">269</span>
+                <span class="site-state-item-count">267</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

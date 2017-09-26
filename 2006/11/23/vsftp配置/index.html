@@ -1,0 +1,2012 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux,CMD,Shell,MySQL," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="一、前言 Vsftp(Very Secure FTP)是一种在Unix/Linux中非常安全且快速稳定的FTP服务器，目前已经被许多大型站点所采用，如ftp.redhat.com,ftp.kde.org,ftp.gnome.org.等。Vsftpd的实现有三种方式 1、匿名用户形式：在默认安装的情况下，系统只提供匿名用户访问 2、本地用户形式：以/etc/passwd中的用户名为认证方式 3、虚拟">
+<meta name="keywords" content="Linux,CMD,Shell,MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vsftp配置">
+<meta property="og:url" content="http://yoursite.com/2006/11/23/vsftp配置/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="一、前言 Vsftp(Very Secure FTP)是一种在Unix/Linux中非常安全且快速稳定的FTP服务器，目前已经被许多大型站点所采用，如ftp.redhat.com,ftp.kde.org,ftp.gnome.org.等。Vsftpd的实现有三种方式 1、匿名用户形式：在默认安装的情况下，系统只提供匿名用户访问 2、本地用户形式：以/etc/passwd中的用户名为认证方式 3、虚拟">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.781Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vsftp配置">
+<meta name="twitter:description" content="一、前言 Vsftp(Very Secure FTP)是一种在Unix/Linux中非常安全且快速稳定的FTP服务器，目前已经被许多大型站点所采用，如ftp.redhat.com,ftp.kde.org,ftp.gnome.org.等。Vsftpd的实现有三种方式 1、匿名用户形式：在默认安装的情况下，系统只提供匿名用户访问 2、本地用户形式：以/etc/passwd中的用户名为认证方式 3、虚拟">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2006/11/23/vsftp配置/"/>
+
+
+
+
+
+  <title> vsftp配置 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/vsftp配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                vsftp配置
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2006-11-23T07:00:00+08:00">
+                2006-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一、前言</p>
+<p>Vsftp(Very Secure FTP)是一种在Unix/Linux中非常安全且快速稳定的FTP服务器，目前已经被许多大型站点所采用，如ftp.redhat.com,ftp.kde.org,ftp.gnome.org.等。Vsftpd的实现有三种方式</p>
+<p>1、匿名用户形式：在默认安装的情况下，系统只提供匿名用户访问</p>
+<p>2、本地用户形式：以/etc/passwd中的用户名为认证方式</p>
+<p>3、虚拟用户形式：支持将用户名和口令保存在数据库文件或数据库服务器中。相对于FTP的本地用户形式来说，虚拟用户只是FTP服务器的专有用户，虚拟用<br>户只能访问FTP服务器所提供的资源，这大大增强系统本身的安全性。相对于匿名用户而言，虚拟用户需要用户名和密码才能获取FTP服务器中的文件，增加了<br>对用户和下载的可管理性。对于需要提供下载服务，但又不希望所有人都可以匿名下载；既需要对下载用户进行管理，又考虑到主机安全和管理方便的FTP站点来<br>说，虚拟用户是一种极好的解决方案。</p>
+<p>二、获取最新版的Vsftp程序</p>
+<p>Vsftp官方下载：ftp://vsftpd.beasts.org/users/cevans/vsftpd-2.0.3.tar.gz，目前已经到2.0.3版本。假设我们已经将vsftpd-2.0.3.tar.gz文件下载到服务器的/home/xuchen目录</p>
+<p>CODE:<br>[Copy to clipboard]</p>
+<h1 id="cd-home-xuchen"><a href="#cd-home-xuchen" class="headerlink" title="cd /home/xuchen"></a>cd /home/xuchen</h1><h1 id="tar-xzvf-vsftpd-2-0-3-tar-gz-解压缩程序"><a href="#tar-xzvf-vsftpd-2-0-3-tar-gz-解压缩程序" class="headerlink" title="tar xzvf vsftpd-2.0.3.tar.gz //解压缩程序"></a>tar xzvf vsftpd-2.0.3.tar.gz //解压缩程序</h1><h1 id="cd-vsftpd-2-0-3"><a href="#cd-vsftpd-2-0-3" class="headerlink" title="cd vsftpd-2.0.3"></a>cd vsftpd-2.0.3</h1><p>三、三种方式的实现</p>
+<p>1、匿名用户形式实现</p>
+<h1 id="vi-builddefs-h-编辑builddefs-h-文件，文件内容如下："><a href="#vi-builddefs-h-编辑builddefs-h-文件，文件内容如下：" class="headerlink" title="vi builddefs.h \编辑builddefs.h 文件，文件内容如下："></a>vi builddefs.h \编辑builddefs.h 文件，文件内容如下：</h1><p>#ifndef VSF_BUILDDEFS_H</p>
+<p>#define VSF_BUILDDEFS_H</p>
+<p>#undef VSF_BUILD_TCPWRAPPERS</p>
+<p>#define VSF_BUILD_PAM</p>
+<p>#undef VSF_BUILD_SSL</p>
+<p>#endif /<em> VSF_BUILDDEFS_H </em>/</p>
+<p>将以上undef的都改为define，支持tcp_wrappers，支持PAM认证方式，支持SSL</p>
+<h1 id="make-直接在vsftpd-2-0-3里用make编译"><a href="#make-直接在vsftpd-2-0-3里用make编译" class="headerlink" title="make //直接在vsftpd-2.0.3里用make编译"></a>make //直接在vsftpd-2.0.3里用make编译</h1><h1 id="ls-l-vsftpd"><a href="#ls-l-vsftpd" class="headerlink" title="ls -l vsftpd"></a>ls -l vsftpd</h1><p>-rwxr-xr-x 1 root root 86088 Jun 6 12:29 vsftpd //可执行程序已被编译成功</p>
+<p>创建必要的帐号，目录：</p>
+<h1 id="useradd-nobody-可能你的系统已经存在此帐号，那就不用建立"><a href="#useradd-nobody-可能你的系统已经存在此帐号，那就不用建立" class="headerlink" title="useradd nobody //可能你的系统已经存在此帐号，那就不用建立"></a>useradd nobody //可能你的系统已经存在此帐号，那就不用建立</h1><h1 id="mkdir-usr-share-empty-可能你的系统已经存在此目录，那就不用建立"><a href="#mkdir-usr-share-empty-可能你的系统已经存在此目录，那就不用建立" class="headerlink" title="mkdir /usr/share/empty //可能你的系统已经存在此目录，那就不用建立"></a>mkdir /usr/share/empty //可能你的系统已经存在此目录，那就不用建立</h1><h1 id="mkdir-var-ftp-可能你的系统已经存在此目录，那就不用建立"><a href="#mkdir-var-ftp-可能你的系统已经存在此目录，那就不用建立" class="headerlink" title="mkdir /var/ftp //可能你的系统已经存在此目录，那就不用建立"></a>mkdir /var/ftp //可能你的系统已经存在此目录，那就不用建立</h1><h1 id="useradd-d-var-ftp-ftp-可能你的系统已经存在此帐号，那就不用建立"><a href="#useradd-d-var-ftp-ftp-可能你的系统已经存在此帐号，那就不用建立" class="headerlink" title="useradd -d /var/ftp ftp //可能你的系统已经存在此帐号，那就不用建立"></a>useradd -d /var/ftp ftp //可能你的系统已经存在此帐号，那就不用建立</h1><h1 id="chown-root-root-var-ftp"><a href="#chown-root-root-var-ftp" class="headerlink" title="chown root:root /var/ftp"></a>chown root:root /var/ftp</h1><h1 id="chmod-og-w-var-ftp"><a href="#chmod-og-w-var-ftp" class="headerlink" title="chmod og-w /var/ftp"></a>chmod og-w /var/ftp</h1><p>请记住，如果你不想让用户在本地登陆，那么你需要把他的登陆SHELL设置成/sbin/nologin，比如以上的nobody和ftp我就设置成/sbin/nologin</p>
+<p>安装vsftp配置文件，可执行程序，man等:</p>
+<h1 id="install-m-755-vsftpd-usr-local-sbin-vsftpd-ano"><a href="#install-m-755-vsftpd-usr-local-sbin-vsftpd-ano" class="headerlink" title="install -m 755 vsftpd /usr/local/sbin/vsftpd-ano"></a>install -m 755 vsftpd /usr/local/sbin/vsftpd-ano</h1><h1 id="install-m-644-vsftpd-8-usr-share-man-man8"><a href="#install-m-644-vsftpd-8-usr-share-man-man8" class="headerlink" title="install -m 644 vsftpd.8 /usr/share/man/man8"></a>install -m 644 vsftpd.8 /usr/share/man/man8</h1><h1 id="install-m-644-vsftpd-conf-5-usr-share-man-man5"><a href="#install-m-644-vsftpd-conf-5-usr-share-man-man5" class="headerlink" title="install -m 644 vsftpd.conf.5 /usr/share/man/man5"></a>install -m 644 vsftpd.conf.5 /usr/share/man/man5</h1><h1 id="install-m-644-vsftpd-conf-etc-vsftpd-ano-conf"><a href="#install-m-644-vsftpd-conf-etc-vsftpd-ano-conf" class="headerlink" title="install -m 644 vsftpd.conf /etc/vsftpd-ano.conf"></a>install -m 644 vsftpd.conf /etc/vsftpd-ano.conf</h1><p>这样就安装完成了，那么我们开始进行简单的配置</p>
+<h1 id="vi-etc-vsftpd-ano-conf-将如下三行加入文件"><a href="#vi-etc-vsftpd-ano-conf-将如下三行加入文件" class="headerlink" title="vi /etc/vsftpd-ano.conf ,将如下三行加入文件"></a>vi /etc/vsftpd-ano.conf ,将如下三行加入文件</h1><p>listen=YES</p>
+<p>listen_port=21</p>
+<p>tcp_wrappers=YES</p>
+<p>anon_root=/var/ftp //设置匿名用户本地目录，和ftp用户目录必须相同</p>
+<p>listen=YES的意思是使用standalone启动vsftpd，而不是super daemon(xinetd)控制它 (vsftpd推荐使用standalone方式)</p>
+<h1 id="usr-local-sbin-vsftpd-ano-etc-vsftpd-ano-conf-amp-以后台方式启动vsftpd"><a href="#usr-local-sbin-vsftpd-ano-etc-vsftpd-ano-conf-amp-以后台方式启动vsftpd" class="headerlink" title="/usr/local/sbin/vsftpd-ano /etc/vsftpd-ano.conf &amp; //以后台方式启动vsftpd"></a>/usr/local/sbin/vsftpd-ano /etc/vsftpd-ano.conf &amp; //以后台方式启动vsftpd</h1><p>注意：每行的值都不要有空格，否则启动时会出现错误，举个例子，假如我在listen=YES后多了个空格，那我启动时就出现如下错误：</p>
+<p>500 OOPS: bad bool value in config file for: listen</p>
+<p>测试搭建好的匿名用户方式</p>
+<h1 id="ftp-127-0-0-1"><a href="#ftp-127-0-0-1" class="headerlink" title="ftp 127.0.0.1"></a>ftp 127.0.0.1</h1><p>Connected to 127.0.0.1.</p>
+<p>220 (vsFTPd 2.0.3)</p>
+<p>530 Please login with USER and PASS.</p>
+<p>530 Please login with USER and PASS.</p>
+<p>KERBEROS_V4 rejected as an authentication type</p>
+<p>Name (127.0.0.1:root): ftp</p>
+<p>331 Please specify the password.</p>
+<p>Password:</p>
+<p>230 Login successful.</p>
+<p>Remote system type is UNIX.</p>
+<p>Using binary mode to transfer files.</p>
+<p>ftp&gt;; pwd</p>
+<p>257 “/“</p>
+<p>ftp&gt;; quit</p>
+<p>221 Goodbye.</p>
+<p>#</p>
+<p>OK，已经完成了，very nice.</p>
+<p>高级配置</p>
+<p>细心的朋友可能已经看出来我们只在默认配置文件增加了四行，就实现了FTP连接（也证明了vsftpd的易用性），那么让我们传个文件吧，呀！！传输失败了（见图1）</p>
+<p>为什么呢？因为 vsftpd 是为了安全需要，/var/ftp目录不能把所有的权限打开，所以我们这时要建一个目录pub，当然也还是需要继续修改配置文件的。</p>
+<h1 id="mkdir-var-ftp-pub"><a href="#mkdir-var-ftp-pub" class="headerlink" title="mkdir /var/ftp/pub"></a>mkdir /var/ftp/pub</h1><h1 id="chmod-R-777-var-ftp-pub"><a href="#chmod-R-777-var-ftp-pub" class="headerlink" title="chmod -R 777 /var/ftp/pub"></a>chmod -R 777 /var/ftp/pub</h1><p>为了测试方便，我们先建立一个名为kill-ano的脚本，是为了杀掉FTP程序的</p>
+<p>#!/bin/bash</p>
+<p>a=<code>/bin/ps -A | grep vsftpd-ano | awk &#39;{print $1}&#39;</code></p>
+<p>kill -9 $a</p>
+<p>那么现在大家看看我的匿名服务器配置文件吧</p>
+<p>anonymous_enable=YES //允许匿名访问，这是匿名服务器必须的</p>
+<p>write_enable=YES //全局配置可写</p>
+<p>no_anon_password=YES //匿名用户login时不询问口令</p>
+<p>anon_umask=077 //匿名用户上传的文件权限是-rw—-</p>
+<p>anon_upload_enable=YES //允许匿名用户上传文件</p>
+<p>anon_mkdir_write_enable=YES //允许匿名用户建立目录</p>
+<p>anon_other_write_enable=YES //允许匿名用户具有建立目录，上传之外的权限，如重命名，删除</p>
+<p>dirmessage_enable=YES //当使用者转换目录,则会显示该目录下的.message信息</p>
+<p>xferlog_enable=YES //记录使用者所有上传下载信息</p>
+<p>xferlog_file=/var/log/vsftpd.log //将上传下载信息记录到/var/log/vsftpd.log中</p>
+<p>xferlog_std_format=YES //日志使用标准xferlog格式</p>
+<p>idle_session_timeout=600 //客户端超过600S没有动作就自动被服务器踢出</p>
+<p>data_connection_timeout=120 //数据传输时超过120S没有动作被服务器踢出</p>
+<p>chown_uploads=YES</p>
+<p>chown_username=daemon //上传文件的属主</p>
+<p>ftpd_banner=Welcome to d-1701.com FTP service. //FTP欢迎信息</p>
+<p>anon_max_rate=80000 //这是匿名用户的下载速度为80KBytes/s</p>
+<p>check_shell=NO //不检测SHELL</p>
+<p>现在再测试，先kill掉再启动FTP程序</p>
+<h1 id="kill-ano"><a href="#kill-ano" class="headerlink" title="./kill-ano"></a>./kill-ano</h1><h1 id="usr-local-sbin-vsftpd-ano-etc-vsftpd-ano-conf-amp"><a href="#usr-local-sbin-vsftpd-ano-etc-vsftpd-ano-conf-amp" class="headerlink" title="/usr/local/sbin/vsftpd-ano /etc/vsftpd-ano.conf &amp;"></a>/usr/local/sbin/vsftpd-ano /etc/vsftpd-ano.conf &amp;</h1><p>上传一个文件测试一下，怎么样？OK了吧，下载刚上传的那个文件，恩？不行，提示</p>
+<p>550 Failed to open file.</p>
+<p>传输已失败！</p>
+<p>传输队列已完成</p>
+<p>1 个文件传输失败</p>
+<p>没有关系，你记得咱们设置了anon_umask=077了吗？所以你下载不了，如果你到服务器上touch 一个文件（644），测试一下，是可以被下载下来的，好了，匿名服务器就说到这里了。</p>
+<p>2、本地用户形式实现</p>
+<h1 id="cd-home-xuchen-vsftpd-2-0-3-进入vsftpd-2-0-3的源代码目录"><a href="#cd-home-xuchen-vsftpd-2-0-3-进入vsftpd-2-0-3的源代码目录" class="headerlink" title="cd /home/xuchen/vsftpd-2.0.3 //进入vsftpd-2.0.3的源代码目录"></a>cd /home/xuchen/vsftpd-2.0.3 //进入vsftpd-2.0.3的源代码目录</h1><h1 id="make-clean-清除编译环境"><a href="#make-clean-清除编译环境" class="headerlink" title="make clean //清除编译环境"></a>make clean //清除编译环境</h1><h1 id="vi-builddefs-h-继续编辑builddefs-h-文件，文件内容如下："><a href="#vi-builddefs-h-继续编辑builddefs-h-文件，文件内容如下：" class="headerlink" title="vi builddefs.h \继续编辑builddefs.h 文件，文件内容如下："></a>vi builddefs.h \继续编辑builddefs.h 文件，文件内容如下：</h1><p>#ifndef VSF_BUILDDEFS_H</p>
+<p>#define VSF_BUILDDEFS_H</p>
+<p>#define VSF_BUILD_TCPWRAPPERS</p>
+<p>#define VSF_BUILD_PAM</p>
+<p>#define VSF_BUILD_SSL</p>
+<p>#endif /<em> VSF_BUILDDEFS_H </em>/</p>
+<p>将以上define VSF_BUILD_PAM行的define改为undef，支持tcp_wrappers，不支持PAM认证方式，支持SSL，记住啊，如果支持了PAM认证方式，你本地用户是不能登陆的。</p>
+<h1 id="make-直接在vsftpd-2-0-3里用make编译-1"><a href="#make-直接在vsftpd-2-0-3里用make编译-1" class="headerlink" title="make //直接在vsftpd-2.0.3里用make编译"></a>make //直接在vsftpd-2.0.3里用make编译</h1><h1 id="ls-l-vsftpd-1"><a href="#ls-l-vsftpd-1" class="headerlink" title="ls -l vsftpd"></a>ls -l vsftpd</h1><p>-rwxr-xr-x 1 root root 84712 Jun 6 18:56 vsftpd //可执行程序已被编译成功</p>
+<p>创建必要的帐号，目录：</p>
+<h1 id="useradd-nobody-可能你的系统已经存在此帐号，那就不用建立-1"><a href="#useradd-nobody-可能你的系统已经存在此帐号，那就不用建立-1" class="headerlink" title="useradd nobody //可能你的系统已经存在此帐号，那就不用建立"></a>useradd nobody //可能你的系统已经存在此帐号，那就不用建立</h1><h1 id="mkdir-usr-share-empty-可能你的系统已经存在此目录，那就不用建立-1"><a href="#mkdir-usr-share-empty-可能你的系统已经存在此目录，那就不用建立-1" class="headerlink" title="mkdir /usr/share/empty //可能你的系统已经存在此目录，那就不用建立"></a>mkdir /usr/share/empty //可能你的系统已经存在此目录，那就不用建立</h1><h1 id="mkdir-var-ftp-可能你的系统已经存在此目录，那就不用建立-1"><a href="#mkdir-var-ftp-可能你的系统已经存在此目录，那就不用建立-1" class="headerlink" title="mkdir /var/ftp //可能你的系统已经存在此目录，那就不用建立"></a>mkdir /var/ftp //可能你的系统已经存在此目录，那就不用建立</h1><h1 id="useradd-d-var-ftp-ftp-可能你的系统已经存在此帐号，那就不用建立-1"><a href="#useradd-d-var-ftp-ftp-可能你的系统已经存在此帐号，那就不用建立-1" class="headerlink" title="useradd -d /var/ftp ftp //可能你的系统已经存在此帐号，那就不用建立"></a>useradd -d /var/ftp ftp //可能你的系统已经存在此帐号，那就不用建立</h1><h1 id="chown-root-root-var-ftp-1"><a href="#chown-root-root-var-ftp-1" class="headerlink" title="chown root:root /var/ftp"></a>chown root:root /var/ftp</h1><h1 id="chmod-og-w-var-ftp-1"><a href="#chmod-og-w-var-ftp-1" class="headerlink" title="chmod og-w /var/ftp"></a>chmod og-w /var/ftp</h1><p>请记住，如果你不想让用户在本地登陆，那么你需要把他的登陆SHELL设置成/sbin/nologin，比如以上的nobody和ftp我就设置成/sbin/nologin</p>
+<p>安装vsftp配置文件，可执行程序，man等:</p>
+<h1 id="install-m-755-vsftpd-usr-local-sbin-vsftpd-loc"><a href="#install-m-755-vsftpd-usr-local-sbin-vsftpd-loc" class="headerlink" title="install -m 755 vsftpd /usr/local/sbin/vsftpd-loc"></a>install -m 755 vsftpd /usr/local/sbin/vsftpd-loc</h1><h1 id="install-m-644-vsftpd-8-usr-share-man-man8-1"><a href="#install-m-644-vsftpd-8-usr-share-man-man8-1" class="headerlink" title="install -m 644 vsftpd.8 /usr/share/man/man8"></a>install -m 644 vsftpd.8 /usr/share/man/man8</h1><h1 id="install-m-644-vsftpd-conf-5-usr-share-man-man5-1"><a href="#install-m-644-vsftpd-conf-5-usr-share-man-man5-1" class="headerlink" title="install -m 644 vsftpd.conf.5 /usr/share/man/man5"></a>install -m 644 vsftpd.conf.5 /usr/share/man/man5</h1><h1 id="install-m-644-vsftpd-conf-etc-vsftpd-loc-conf"><a href="#install-m-644-vsftpd-conf-etc-vsftpd-loc-conf" class="headerlink" title="install -m 644 vsftpd.conf /etc/vsftpd-loc.conf"></a>install -m 644 vsftpd.conf /etc/vsftpd-loc.conf</h1><p>这样就安装完成了，那么我们开始进行简单的配置</p>
+<h1 id="vi-etc-vsftpd-loc-conf-将如下三行加入文件"><a href="#vi-etc-vsftpd-loc-conf-将如下三行加入文件" class="headerlink" title="vi /etc/vsftpd-loc.conf ,将如下三行加入文件"></a>vi /etc/vsftpd-loc.conf ,将如下三行加入文件</h1><p>listen=YES</p>
+<p>listen_port=21</p>
+<p>tcp_wrappers=YES //支持tcp_wrappers,限制访问(/etc/hosts.allow,/etc/hosts.deny)</p>
+<p>listen=YES的意思是使用standalone启动vsftpd，而不是super daemon(xinetd)控制它 (vsftpd推荐使用standalone方式)，注意事项请参看匿名用户的配置。</p>
+<p>anonymous_enable=NO</p>
+<p>local_enable=YES //这两项配置说不允许匿名用户登陆，允许本地用户登陆</p>
+<h1 id="usr-local-sbin-vsftpd-loc-etc-vsftpd-loc-conf-amp-以后台方式启动vsftpd"><a href="#usr-local-sbin-vsftpd-loc-etc-vsftpd-loc-conf-amp-以后台方式启动vsftpd" class="headerlink" title="/usr/local/sbin/vsftpd-loc /etc/vsftpd-loc.conf &amp; //以后台方式启动vsftpd"></a>/usr/local/sbin/vsftpd-loc /etc/vsftpd-loc.conf &amp; //以后台方式启动vsftpd</h1><p>测试搭建好的匿名用户方式，先测试root用户吧 ：）</p>
+<h1 id="ftp-127-0-0-1-1"><a href="#ftp-127-0-0-1-1" class="headerlink" title="ftp 127.0.0.1"></a>ftp 127.0.0.1</h1><p>Connected to 127.0.0.1.</p>
+<p>220 (vsFTPd 2.0.3)</p>
+<p>530 Please login with USER and PASS.</p>
+<p>530 Please login with USER and PASS.</p>
+<p>KERBEROS_V4 rejected as an authentication type</p>
+<p>Name (127.0.0.1:root): root</p>
+<p>331 Please specify the password.</p>
+<p>Password:</p>
+<p>230 Login successful.</p>
+<p>Remote system type is UNIX.</p>
+<p>Using binary mode to transfer files.</p>
+<p>ftp&gt;; pwd</p>
+<p>257 “/root”</p>
+<p>ftp&gt;; quit</p>
+<p>221 Goodbye.</p>
+<p>我们看到root用户可以登陆到ftp，他的登陆目录就是自己的主目录。</p>
+<p>再测试一个系统用户，那我们先建立一个用户名叫xuchen的</p>
+<h1 id="useradd-xuchen"><a href="#useradd-xuchen" class="headerlink" title="useradd xuchen"></a>useradd xuchen</h1><h1 id="passwd-xuchen"><a href="#passwd-xuchen" class="headerlink" title="passwd xuchen"></a>passwd xuchen</h1><p>Changing password for user xuchen.</p>
+<p>New UNIX password:</p>
+<p>Retype new UNIX password:</p>
+<p>passwd: all authentication tokens updated successfully.</p>
+<p>建立好了，让我们开始测试吧！！</p>
+<h1 id="ftp-127-0-0-1-2"><a href="#ftp-127-0-0-1-2" class="headerlink" title="ftp 127.0.0.1"></a>ftp 127.0.0.1</h1><p>Connected to 127.0.0.1.</p>
+<p>220 (vsFTPd 2.0.3)</p>
+<p>530 Please login with USER and PASS.</p>
+<p>530 Please login with USER and PASS.</p>
+<p>KERBEROS_V4 rejected as an authentication type</p>
+<p>Name (127.0.0.1:root): xuchen</p>
+<p>331 Please specify the password.</p>
+<p>Password:</p>
+<p>230 Login successful.</p>
+<p>Remote system type is UNIX.</p>
+<p>Using binary mode to transfer files.</p>
+<p>ftp&gt;; pwd</p>
+<p>257 “/home/xuchen”</p>
+<p>ftp&gt;; quit</p>
+<p>221 Goodbye.</p>
+<p>我们看到xuchen用户可以登陆到ftp，他的登陆目录也是自己的主目录。哈哈，又完成了！</p>
+<p>高级配置</p>
+<p>细心的朋友可能已经看出来如果我们不支持PAM认证方式，那么本地用户就可以登陆，而默认编译的vsftpd支持PAM认证方式，所以是不支持本地用户登陆的。恩，从这点说，这也是vsftp安全的一个表现—-禁止本地用户登陆。</p>
+<p>我们登陆后进行测试，传一个文件上去，得，失败了，那下载个文件下来吧，恩，这是成功的（见图2），而且我们发现我们可以进入到系统根目录（见图3），这样很危险。</p>
+<p>那么改配置文件吧，为了测试方便，我们先建立一个名为kill-loc的脚本，也是为了杀掉FTP程序的</p>
+<p>#!/bin/bash</p>
+<p>a=<code>/bin/ps -A | grep vsftpd-loc | awk &#39;{print $1}&#39;</code></p>
+<p>kill -9 $a</p>
+<p>现在提供我的本地用户验证服务器配置文件吧（在匿名里写过的注释我就不在这里写了）</p>
+<p>listen=YES</p>
+<p>listen_port=21</p>
+<p>tcp_wrappers=YES</p>
+<p>anonymous_enable=NO</p>
+<p>local_enable=YES</p>
+<p>write_enable=YES</p>
+<p>local_umask=022 //本地用户文件上传后的权限是-rw-r-r</p>
+<p>anon_upload_enable=NO</p>
+<p>anon_mkdir_write_enable=NO</p>
+<p>dirmessage_enable=YES</p>
+<p>xferlog_enable=YES</p>
+<p>xferlog_file=/var/log/vsftpd.log</p>
+<p>xferlog_std_format=YES</p>
+<p>connect_from_port_20=YES</p>
+<p>chroot_local_user=YES //限制用户在自己的主目录</p>
+<p>#local_root=/ftp //你可以指定所有本地用户登陆后的目录,如果不设置此项，用户都会登陆于自己的主目录，就跟咱们前面测试的结果是一样的</p>
+<p>local_max_rate=500000 //本地用户的下载速度为500KBytes/s</p>
+<p>idle_session_timeout=600</p>
+<p>data_connection_timeout=120</p>
+<p>nopriv_user= nobody //设定服务执行者为nobody,vsftpd推荐使用一个权限很低的用户，最好是没有家目录(/dev/null)，没有登陆shell（/sbin/nologin),系统会更安全</p>
+<p>ftpd_banner=Welcome to d-1701.com FTP service.</p>
+<p>check_shell=NO</p>
+<p>userlist_enable=YES</p>
+<p>userlist_deny=YES</p>
+<p>userlist_file=/etc/vsftpd.denyuser</p>
+<p>以上三条设定不允许登陆的用户,用户列表存放在/etc/vsftpd.denyuser中,一行一个帐号如果我把xuchen这个用户加到vsftpd.denyuser里，那么登陆时会出现如下错误：</p>
+<h1 id="ftp-127-0-0-1-3"><a href="#ftp-127-0-0-1-3" class="headerlink" title="ftp 127.0.0.1"></a>ftp 127.0.0.1</h1><p>Connected to 127.0.0.1.</p>
+<p>220 Welcome to d-1701.com FTP service.</p>
+<p>530 Please login with USER and PASS.</p>
+<p>530 Please login with USER and PASS.</p>
+<p>KERBEROS_V4 rejected as an authentication type</p>
+<p>Name (127.0.0.1:root): xuchen</p>
+<p>530 Permission denied.</p>
+<p>Login failed.</p>
+<p>呵呵，有意思吧，自己测试吧，本地用户登陆方式就介绍到这里吧！</p>
+<p>3、虚拟用户形式实现（db及mysql形式）</p>
+<h1 id="cd-home-xuchen-vsftpd-2-0-3-进入vsftpd-2-0-3的源代码目录-1"><a href="#cd-home-xuchen-vsftpd-2-0-3-进入vsftpd-2-0-3的源代码目录-1" class="headerlink" title="cd /home/xuchen/vsftpd-2.0.3 //进入vsftpd-2.0.3的源代码目录"></a>cd /home/xuchen/vsftpd-2.0.3 //进入vsftpd-2.0.3的源代码目录</h1><h1 id="make-clean-清除编译环境-1"><a href="#make-clean-清除编译环境-1" class="headerlink" title="make clean //清除编译环境"></a>make clean //清除编译环境</h1><h1 id="vi-builddefs-h-继续编辑builddefs-h-文件，文件内容如下：-1"><a href="#vi-builddefs-h-继续编辑builddefs-h-文件，文件内容如下：-1" class="headerlink" title="vi builddefs.h \继续编辑builddefs.h 文件，文件内容如下："></a>vi builddefs.h \继续编辑builddefs.h 文件，文件内容如下：</h1><p>#ifndef VSF_BUILDDEFS_H</p>
+<p>#define VSF_BUILDDEFS_H</p>
+<p>#define VSF_BUILD_TCPWRAPPERS</p>
+<p>#undef VSF_BUILD_PAM</p>
+<p>#define VSF_BUILD_SSL</p>
+<p>#endif /<em> VSF_BUILDDEFS_H </em>/</p>
+<p>将以上define VSF_BUILD_PAM行的undef改为define，支持tcp_wrappers，支持PAM认证方式，支持SSL，和匿名用户形式是一样的。</p>
+<h1 id="make-直接在vsftpd-2-0-3里用make编译-2"><a href="#make-直接在vsftpd-2-0-3里用make编译-2" class="headerlink" title="make //直接在vsftpd-2.0.3里用make编译"></a>make //直接在vsftpd-2.0.3里用make编译</h1><h1 id="ls-l-vsftpd-2"><a href="#ls-l-vsftpd-2" class="headerlink" title="ls -l vsftpd"></a>ls -l vsftpd</h1><p>-rwxr-xr-x 1 root root 86088 Jun 6 22:26 vsftpd //可执行程序已被编译成功</p>
+<p>创建必要的帐号，目录：</p>
+<h1 id="useradd-nobody-可能你的系统已经存在此帐号，那就不用建立-2"><a href="#useradd-nobody-可能你的系统已经存在此帐号，那就不用建立-2" class="headerlink" title="useradd nobody //可能你的系统已经存在此帐号，那就不用建立"></a>useradd nobody //可能你的系统已经存在此帐号，那就不用建立</h1><h1 id="mkdir-usr-share-empty-可能你的系统已经存在此目录，那就不用建立-2"><a href="#mkdir-usr-share-empty-可能你的系统已经存在此目录，那就不用建立-2" class="headerlink" title="mkdir /usr/share/empty //可能你的系统已经存在此目录，那就不用建立"></a>mkdir /usr/share/empty //可能你的系统已经存在此目录，那就不用建立</h1><h1 id="mkdir-var-ftp-可能你的系统已经存在此目录，那就不用建立-2"><a href="#mkdir-var-ftp-可能你的系统已经存在此目录，那就不用建立-2" class="headerlink" title="mkdir /var/ftp //可能你的系统已经存在此目录，那就不用建立"></a>mkdir /var/ftp //可能你的系统已经存在此目录，那就不用建立</h1><h1 id="useradd-d-var-ftp-ftp-可能你的系统已经存在此帐号，那就不用建立-2"><a href="#useradd-d-var-ftp-ftp-可能你的系统已经存在此帐号，那就不用建立-2" class="headerlink" title="useradd -d /var/ftp ftp //可能你的系统已经存在此帐号，那就不用建立"></a>useradd -d /var/ftp ftp //可能你的系统已经存在此帐号，那就不用建立</h1><h1 id="chown-root-root-var-ftp-2"><a href="#chown-root-root-var-ftp-2" class="headerlink" title="chown root:root /var/ftp"></a>chown root:root /var/ftp</h1><h1 id="chmod-og-w-var-ftp-2"><a href="#chmod-og-w-var-ftp-2" class="headerlink" title="chmod og-w /var/ftp"></a>chmod og-w /var/ftp</h1><p>请记住，如果你不想让用户在本地登陆，那么你需要把他的登陆SHELL设置成/sbin/nologin，比如以上的nobody和ftp我就设置成/sbin/nologin</p>
+<p>安装vsftp配置文件，可执行程序，man等:</p>
+<h1 id="install-m-755-vsftpd-usr-local-sbin-vsftpd-pam"><a href="#install-m-755-vsftpd-usr-local-sbin-vsftpd-pam" class="headerlink" title="install -m 755 vsftpd /usr/local/sbin/vsftpd-pam"></a>install -m 755 vsftpd /usr/local/sbin/vsftpd-pam</h1><h1 id="install-m-644-vsftpd-8-usr-share-man-man8-2"><a href="#install-m-644-vsftpd-8-usr-share-man-man8-2" class="headerlink" title="install -m 644 vsftpd.8 /usr/share/man/man8"></a>install -m 644 vsftpd.8 /usr/share/man/man8</h1><h1 id="install-m-644-vsftpd-conf-5-usr-share-man-man5-2"><a href="#install-m-644-vsftpd-conf-5-usr-share-man-man5-2" class="headerlink" title="install -m 644 vsftpd.conf.5 /usr/share/man/man5"></a>install -m 644 vsftpd.conf.5 /usr/share/man/man5</h1><h1 id="install-m-644-vsftpd-conf-etc-vsftpd-pam-conf"><a href="#install-m-644-vsftpd-conf-etc-vsftpd-pam-conf" class="headerlink" title="install -m 644 vsftpd.conf /etc/vsftpd-pam.conf"></a>install -m 644 vsftpd.conf /etc/vsftpd-pam.conf</h1><p>这样就安装完成了，那么我们开始进行简单的配置</p>
+<p>对于用DB库存储用户名及密码的方式来说：</p>
+<p>（1）查看系统是否有相应软件包</p>
+<h1 id="rpm-–qa-grep-db4"><a href="#rpm-–qa-grep-db4" class="headerlink" title="rpm –qa | grep db4"></a>rpm –qa | grep db4</h1><p>db4-devel-4.2.52-7.1</p>
+<p>db4-4.2.52-7.1</p>
+<p>db4-utils-4.2.52-7.1</p>
+<p>（2）建立一个logins.txt的文件，单行为用户名，双行为密码，例如</p>
+<h1 id="vi-home-logins-txt"><a href="#vi-home-logins-txt" class="headerlink" title="vi /home/logins.txt"></a>vi /home/logins.txt</h1><p>xuchen</p>
+<p>12345</p>
+<p>（3）建立数据库文件并设置文件属性</p>
+<h1 id="db-load-T-t-hash-f-home-logins-txt-etc-vsftpd-login-db"><a href="#db-load-T-t-hash-f-home-logins-txt-etc-vsftpd-login-db" class="headerlink" title="db_load -T -t hash -f /home/logins.txt /etc/vsftpd_login.db"></a>db_load -T -t hash -f /home/logins.txt /etc/vsftpd_login.db</h1><h1 id="chmod-600-etc-vsftpd-login-db"><a href="#chmod-600-etc-vsftpd-login-db" class="headerlink" title="chmod 600 /etc/vsftpd_login.db"></a>chmod 600 /etc/vsftpd_login.db</h1><p>（4）建立认证文件</p>
+<h1 id="vi-etc-pam-d-ftp-插入如下两行"><a href="#vi-etc-pam-d-ftp-插入如下两行" class="headerlink" title="vi /etc/pam.d/ftp 插入如下两行"></a>vi /etc/pam.d/ftp 插入如下两行</h1><p>auth required /lib/security/pam_userdb.so db=/etc/vsftpd_login</p>
+<p>account required /lib/security/pam_userdb.so db=/etc/vsftpd_login</p>
+<p>（5）建立一个虚拟用户</p>
+<p>useradd -d /home/vsftpd -s /sbin/nologin vsftpd</p>
+<p>ls -ld /home/vsftpd</p>
+<p>drwx—— 3 vsftpd vsftpd 1024 Jun 6 22:55 /home/vsftpd/</p>
+<p>（6）编写配置文件(注意事项请参看匿名用户的配置，这里不再赘述)</p>
+<h1 id="vi-etc-vsftpd-pam-conf"><a href="#vi-etc-vsftpd-pam-conf" class="headerlink" title="vi /etc/vsftpd-pam.conf"></a>vi /etc/vsftpd-pam.conf</h1><p>listen=YES</p>
+<p>listen_port=21</p>
+<p>tcp_wrappers=YES //支持tcp_wrappers,限制访问(/etc/hosts.allow,/etc/hosts.deny)</p>
+<p>listen=YES的意思是使用standalone启动vsftpd，而不是super daemon(xinetd)控制它 (vsftpd推荐使用standalone方式)</p>
+<p>anonymous_enable=NO</p>
+<p>local_enable=YES //PAM方式此处必须为YES，如果不是将出现如下错误：</p>
+<p>500 OOPS: vsftpd: both local and anonymous access disabled!</p>
+<p>write_enable=NO</p>
+<p>anon_upload_enable=NO</p>
+<p>anon_mkdir_write_enable=NO</p>
+<p>anon_other_write_enable=NO</p>
+<p>chroot_local_user=YES</p>
+<p>guest_enable=YES</p>
+<p>guest_username=vsftpd //这两行的意思是采用虚拟用户形式</p>
+<p>virtual_use_local_privs=YES //虚拟用户和本地用户权限相同</p>
+<p>pasv_enable=YES //建立资料联机采用被动方式</p>
+<p>pasv_min_port=30000 //建立资料联机所可以使用port 范围的上界，0表示任意。默认值为0。</p>
+<p>pasv_max_port=30999 //建立资料联机所可以使用port 范围的下界，0表示任意。默认值为0。</p>
+<p>（7）启动程序</p>
+<h1 id="usr-local-sbin-vsftpd-pam-etc-vsftpd-pam-conf-amp"><a href="#usr-local-sbin-vsftpd-pam-etc-vsftpd-pam-conf-amp" class="headerlink" title="/usr/local/sbin/vsftpd-pam /etc/vsftpd-pam.conf &amp;"></a>/usr/local/sbin/vsftpd-pam /etc/vsftpd-pam.conf &amp;</h1><p>（8）测试连通及功能</p>
+<h1 id="vi-home-vsftpd-test-建立一个文件，内容如下"><a href="#vi-home-vsftpd-test-建立一个文件，内容如下" class="headerlink" title="vi /home/vsftpd/test //建立一个文件，内容如下"></a>vi /home/vsftpd/test //建立一个文件，内容如下</h1><p>1234567890</p>
+<h1 id="chown-vsftpd-vsftpd-home-vsftpd-test"><a href="#chown-vsftpd-vsftpd-home-vsftpd-test" class="headerlink" title="chown vsftpd.vsftpd /home/vsftpd/test"></a>chown vsftpd.vsftpd /home/vsftpd/test</h1><h1 id="ftp-127-0-0-1-4"><a href="#ftp-127-0-0-1-4" class="headerlink" title="ftp 127.0.0.1"></a>ftp 127.0.0.1</h1><p>Connected to 127.0.0.1.</p>
+<p>220 (vsFTPd 2.0.3)</p>
+<p>530 Please login with USER and PASS.</p>
+<p>530 Please login with USER and PASS.</p>
+<p>KERBEROS_V4 rejected as an authentication type</p>
+<p>Name (127.0.0.1:root): xuchen</p>
+<p>331 Please specify the password.</p>
+<p>Password:</p>
+<p>230 Login successful.</p>
+<p>Remote system type is UNIX.</p>
+<p>Using binary mode to transfer files.</p>
+<p>ftp&gt;; pwd</p>
+<p>257 “/“</p>
+<p>ftp&gt;; size test</p>
+<p>213 11</p>
+<p>ftp&gt;; quit</p>
+<p>221 Goodbye.</p>
+<p>OK，用户名为xuchen,密码为12345可以连接到FTP服务器，看不到文件列表，但可以下载已知文件名的文件，不能上传文件，非常安全吧！！</p>
+<p>如果我们需要用户看到文件，怎么办？也好办,在配置文件中加入如下语句：</p>
+<p>anon_world_readable_only=NO //匿名登入者不能下载可阅读的档案，默认值为YES</p>
+<p>如果需要让用户上传文件和下载文件分开，建议如下这么做</p>
+<h1 id="vi-home-logins-txt-1"><a href="#vi-home-logins-txt-1" class="headerlink" title="vi /home/logins.txt"></a>vi /home/logins.txt</h1><p>xuchen</p>
+<p>12345</p>
+<p>upload</p>
+<p>45678</p>
+<p>//首先建立虚拟用户upload，密码为45678</p>
+<h1 id="db-load-T-t-hash-f-home-logins-txt-etc-vsftpd-login-db-更新数据文件"><a href="#db-load-T-t-hash-f-home-logins-txt-etc-vsftpd-login-db-更新数据文件" class="headerlink" title="db_load -T -t hash -f /home/logins.txt /etc/vsftpd_login.db //更新数据文件"></a>db_load -T -t hash -f /home/logins.txt /etc/vsftpd_login.db //更新数据文件</h1><h1 id="mkdir-home-vsftpd-upload"><a href="#mkdir-home-vsftpd-upload" class="headerlink" title="mkdir /home/vsftpd/upload"></a>mkdir /home/vsftpd/upload</h1><h1 id="vi-etc-vsftpd-pam-conf-加入如下语句"><a href="#vi-etc-vsftpd-pam-conf-加入如下语句" class="headerlink" title="vi /etc/vsftpd-pam.conf 加入如下语句"></a>vi /etc/vsftpd-pam.conf 加入如下语句</h1><p>user_config_dir=/etc/vsftpd_user_conf</p>
+<h1 id="mkdir-etc-vsftpd-user-conf"><a href="#mkdir-etc-vsftpd-user-conf" class="headerlink" title="mkdir /etc/vsftpd_user_conf"></a>mkdir /etc/vsftpd_user_conf</h1><h1 id="vi-etc-vsftpd-user-conf-upload-文件内容如下"><a href="#vi-etc-vsftpd-user-conf-upload-文件内容如下" class="headerlink" title="vi /etc/vsftpd_user_conf/upload 文件内容如下"></a>vi /etc/vsftpd_user_conf/upload 文件内容如下</h1><p>local_root=/home/vsftpd/upload</p>
+<p>write_enable=YES</p>
+<p>anon_world_readable_only=NO</p>
+<p>anon_upload_enable=YES</p>
+<p>anon_mkdir_write_enable=YES</p>
+<p>anon_other_write_enable=YES</p>
+<h1 id="chmod-700-home-vsftpd-upload"><a href="#chmod-700-home-vsftpd-upload" class="headerlink" title="chmod 700 /home/vsftpd/upload"></a>chmod 700 /home/vsftpd/upload</h1><h1 id="chown-vsftpd-vsftpd-home-vsftpd-upload"><a href="#chown-vsftpd-vsftpd-home-vsftpd-upload" class="headerlink" title="chown vsftpd.vsftpd /home/vsftpd/upload/"></a>chown vsftpd.vsftpd /home/vsftpd/upload/</h1><p>这样，xuchen用户可以下载/home/vsftpd里的文件及upload里的文件，而upload用户可以上传和下载/home/vsftpd/upload文件夹的东西，但不能到/home/vsftpd里下载文件，很简单得实现了分用户上传和下载</p>
+<p>对于用Mysql库存储用户名及密码的方式来说：</p>
+<p>就是把用户名和密码放在mysql库里，实现起来也相当简单</p>
+<p>（1）建立一个库并设置相应权限</p>
+<h1 id="mysql-–p"><a href="#mysql-–p" class="headerlink" title="mysql –p"></a>mysql –p</h1><p>mysql&gt;;create database ftpd;</p>
+<p>mysql&gt;;use ftpd;</p>
+<p>mysql&gt;;create table user(name char(20) binary,passwd char(20) binary);</p>
+<p>mysql&gt;;insert into user (name,passwd) values (‘test1’,’12345’);</p>
+<p>mysql&gt;;insert into user (name,passwd) values (‘test2’,’54321’);</p>
+<p>mysql&gt;;grant select on ftpd.user to ftpd@localhost identified by ‘123456’;</p>
+<p>mysql&gt;;flush privileges; 刷新权限设置</p>
+<p>mysql&gt;;quit</p>
+<p>（2）下载libpam-mysql进行安装编译</p>
+<p>下载地址如下：</p>
+<p><a href="http://nchc.dl.sourceforge.net/sourceforge/pam-mysql/pam_mysql-0.5.tar.gz" target="_blank" rel="external">http://nchc.dl.sourceforge.net/sourceforge/pam-mysql/pam_mysql-0.5.tar.gz</a></p>
+<p>假设我们把它放在了/home/xuchen目录下</p>
+<h1 id="cd-home-xuchen-1"><a href="#cd-home-xuchen-1" class="headerlink" title="cd /home/xuchen"></a>cd /home/xuchen</h1><h1 id="tar-xzvf-pam-mysql-0-5-tar-gz"><a href="#tar-xzvf-pam-mysql-0-5-tar-gz" class="headerlink" title="tar xzvf pam_mysql-0.5.tar.gz"></a>tar xzvf pam_mysql-0.5.tar.gz</h1><h1 id="cd-pam-mysql"><a href="#cd-pam-mysql" class="headerlink" title="cd pam_mysql"></a>cd pam_mysql</h1><h1 id="make"><a href="#make" class="headerlink" title="make"></a>make</h1><h1 id="cp-pam-mysql-so-lib-security"><a href="#cp-pam-mysql-so-lib-security" class="headerlink" title="cp pam_mysql.so /lib/security"></a>cp pam_mysql.so /lib/security</h1><p>（3）建立PAM认证信息</p>
+<h1 id="vi-etc-pam-d-ftp-内容如下"><a href="#vi-etc-pam-d-ftp-内容如下" class="headerlink" title="vi /etc/pam.d/ftp ,内容如下"></a>vi /etc/pam.d/ftp ,内容如下</h1><p>auth required /lib/security/pam_mysql.so user=ftpd passwd=123456<br>host=localhost db=ftpd table=user usercolumn=name passwdcolumn=passwd<br>crypt=0</p>
+<p>account required /lib/security/pam_mysql.so user=ftpd passwd=123456<br>host=localhost db=ftpd table=user usercolumn=name passwdcolumn=passwd<br>crypt=0</p>
+<p>注意：</p>
+<p>crypt= n</p>
+<p>crypt=0: 明文密码</p>
+<p>crypt=1: 使用crpyt()函数(对应SQL数据里的encrypt()，encrypt()随机产生salt)</p>
+<p>crypt=2: 使用MYSQL中的password()函数加密</p>
+<p>crypt=3：表示使用md5的散列方式</p>
+<p>（4）建立本地虚拟用户</p>
+<h1 id="useradd-d-home-ftpd-s-sbin-nologin-ftpd"><a href="#useradd-d-home-ftpd-s-sbin-nologin-ftpd" class="headerlink" title="useradd -d /home/ftpd -s /sbin/nologin ftpd"></a>useradd -d /home/ftpd -s /sbin/nologin ftpd</h1><p>（5）下面就差修改vsftpd.conf文件了，我把我的提供给大家参考吧：）</p>
+<h1 id="vi-etc-vsftpd-pam1-conf"><a href="#vi-etc-vsftpd-pam1-conf" class="headerlink" title="vi /etc/vsftpd-pam1.conf"></a>vi /etc/vsftpd-pam1.conf</h1><p>anonymous_enable=NO</p>
+<p>local_enable=YES</p>
+<p>write_enable=YES</p>
+<p>local_umask=022</p>
+<p>anon_upload_enable=YES</p>
+<p>anon_mkdir_write_enable=YES</p>
+<p>anon_other_write_enable=YES</p>
+<p>chroot_local_user=YES</p>
+<p>guest_enable=YES</p>
+<p>guest_username=ftpd</p>
+<p>listen=YES</p>
+<p>listen_port=21</p>
+<p>pasv_enable=YES</p>
+<p>pasv_min_port=30000</p>
+<p>pasv_max_port=30999</p>
+<p>anon_world_readable_only=NO</p>
+<p>virtual_use_local_privs=YES</p>
+<p>#user_config_dir=/etc/vsftpd_user_conf</p>
+<p>可以看出，和前面的用db库来验证没有多大区别，其实就是一个东西，一个用mysql来验证，一个用db库，我个人比较倾向于用db库来验证，在这个环境下，相对于Mysql来说，安全系数更高一点。</p>
+<p>（6）# /usr/local/sbin/vsftpd-pam /etc/vsftpd-pam1.conf &amp; //以后台方式启动</p>
+<p>（7）测试连通</p>
+<h1 id="ftp-127-0-0-1-5"><a href="#ftp-127-0-0-1-5" class="headerlink" title="ftp 127.0.0.1"></a>ftp 127.0.0.1</h1><p>Connected to 127.0.0.1.</p>
+<p>220 (vsFTPd 2.0.3)</p>
+<p>530 Please login with USER and PASS.</p>
+<p>530 Please login with USER and PASS.</p>
+<p>KERBEROS_V4 rejected as an authentication type</p>
+<p>Name (127.0.0.1:root): test1</p>
+<p>331 Please specify the password.</p>
+<p>Password:</p>
+<p>230 Login successful.</p>
+<p>Remote system type is UNIX.</p>
+<p>Using binary mode to transfer files.</p>
+<p>ftp&gt;; pwd</p>
+<p>257 “/“</p>
+<p>ftp&gt;; quit</p>
+<p>221 Goodbye.</p>
+<p>看，成功了！！这样就实现了mysql的认证方式，很简单吧？？</p>
+<p>4、为FTP增加磁盘配额，从而避免恶意用户用垃圾数据塞满你的硬盘</p>
+<p>我首先要说的是这个功能是系统自带的，而不是vsftp<br>的功能之一，千万别搞混了。好了，我们先假设我们的系统用户ftpd的主目录是/home/ftpd，它是建立在/home分区中,那么如果我们要对<br>ftpd用户进行磁盘限额，那我们需要修改/etc/fstab中根分区的记录，将/home分区的第4个字段改成defaults,usrquota，<br>如下:</p>
+<p>LABEL=/home /home ext3 defaults,usrquota 1 2</p>
+<h1 id="reboot-重新启动系统使设置生效"><a href="#reboot-重新启动系统使设置生效" class="headerlink" title="reboot //重新启动系统使设置生效"></a>reboot //重新启动系统使设置生效</h1><p>也可以用</p>
+<h1 id="mount-o-remount-dev-sda6-dev-sda6的挂接点就是-home-这样可以不用启动系统。"><a href="#mount-o-remount-dev-sda6-dev-sda6的挂接点就是-home-这样可以不用启动系统。" class="headerlink" title="mount -o remount /dev/sda6 ///dev/sda6的挂接点就是/home,这样可以不用启动系统。"></a>mount -o remount /dev/sda6 ///dev/sda6的挂接点就是/home,这样可以不用启动系统。</h1><p>这里我还要说明一下，如果我们对一个组进行磁配额，那我们需要增加参数grpquota，例如</p>
+<p>LABEL=/home /home ext3 defaults,grpquota 1 2</p>
+<p>也可以</p>
+<p>LABEL=/home /home ext3 defaults,usrquota,grpquota 1 2</p>
+<p>你想怎么限制都可以，自己组合参数吧。</p>
+<h1 id="quotacheck-avu"><a href="#quotacheck-avu" class="headerlink" title="quotacheck -avu"></a>quotacheck -avu</h1><p>说明：a-自动开启挂载文件系统的配额，v-显示信息，u-启用用户配额or g-启用组配额</p>
+<h1 id="edquota-ftpd-为用户ftpd设置磁盘配额"><a href="#edquota-ftpd-为用户ftpd设置磁盘配额" class="headerlink" title="edquota ftpd //为用户ftpd设置磁盘配额"></a>edquota ftpd //为用户ftpd设置磁盘配额</h1><p>OR</p>
+<h1 id="edquota-g-grp-为组grp设置磁盘配额"><a href="#edquota-g-grp-为组grp设置磁盘配额" class="headerlink" title="edquota -g grp //为组grp设置磁盘配额"></a>edquota -g grp //为组grp设置磁盘配额</h1><p>系统会自动打开配额文件,如下:</p>
+<p>Disk quotas for user ftpd (uid 502):</p>
+<p>Filesystem<br>blocks soft<br>hard inodes soft<br>hard</p>
+<p>/dev/sda6<br>424 0<br>0<br>13 0<br>0</p>
+<p>第一列是启用了配额的文件系统的名称。第二列显示了用户当前使用的块数，单位为KB。随后的两列用来设置用户在该文件系统上的软硬块限度。inodes<br>列显示了用户当前使用的i节点数量。最后两列用来设置用户在该文件系统上的软硬i节点限度.硬限是用户或组群可以使用的磁盘空间的绝对最大值。达到了该限<br>度后，磁盘空间就不能再被用户或组群使用了。软限定义可被使用的最大磁盘空间量。和硬限不同的是，软限可以在一段时期内被超过。这段时期被称为过渡期<br>（grace period），默认七天的超越。过渡期可以用秒钟、分钟、小时、天数、周数、或月数表示。如果以上值中的任何一个被设置为<br>0，那个限度就不会被设置。我设置了硬块限度为1KB，是为了测试方便。</p>
+<h1 id="quotaon-avu-打开磁盘配额监控进程，u是用户g是组，这里我没设置g参数"><a href="#quotaon-avu-打开磁盘配额监控进程，u是用户g是组，这里我没设置g参数" class="headerlink" title="quotaon -avu //打开磁盘配额监控进程，u是用户g是组，这里我没设置g参数"></a>quotaon -avu //打开磁盘配额监控进程，u是用户g是组，这里我没设置g参数</h1><p>要校验用户的配额是否被设置，我们可以使用以下命令：</p>
+<h1 id="quota-ftpd"><a href="#quota-ftpd" class="headerlink" title="quota ftpd"></a>quota ftpd</h1><p>Disk quotas for user ftpd (uid 502):</p>
+<p>Filesystem blocks quota<br>limit grace files<br>quota limit grace</p>
+<p>/dev/sda6 424* 0<br>1<br>13 0 0</p>
+<h1 id="edquota-–t（-g）来设置过渡期（grace-period）-当然只针对软限制而言"><a href="#edquota-–t（-g）来设置过渡期（grace-period）-当然只针对软限制而言" class="headerlink" title="edquota –t（-g）来设置过渡期（grace period） //当然只针对软限制而言"></a>edquota –t（-g）来设置过渡期（grace period） //当然只针对软限制而言</h1><p>和另一个 edquota 命令相似，这个命令也会在文本编辑器中打开当前的文件系统配额：</p>
+<p>Grace period before enforcing soft limits for users:</p>
+<p>Time units may be: days, hours, minutes, or seconds</p>
+<p>Filesystem<br>Block grace period Inode grace period</p>
+<p>/dev/sda6<br>7days<br>7days</p>
+<p>按你的需要修改后存盘退出</p>
+<p>用以下命令显示磁盘配额使用状态</p>
+<h1 id="repquota-a-或-repquota-dev-sda6（用户配额）"><a href="#repquota-a-或-repquota-dev-sda6（用户配额）" class="headerlink" title="repquota -a 或 repquota /dev/sda6（用户配额）"></a>repquota -a 或 repquota /dev/sda6（用户配额）</h1><h1 id="repquota-g-a-或-repquota-a-dev-sda6-组的配额"><a href="#repquota-g-a-或-repquota-a-dev-sda6-组的配额" class="headerlink" title="repquota -g -a 或 repquota -a /dev/sda6 (组的配额)"></a>repquota -g -a 或 repquota -a /dev/sda6 (组的配额)</h1><p>如果一切按照你的意思实施了，那么我们就进行测试了！如下图4</p>
+<p>我们传了一个&gt;;1k的文件，没有成功，这样我们就成功的为用户ftpd增添了磁盘配额，要是哪一天你不想加磁盘配额了，怎么办？参看如下命令：</p>
+<p>取消某个文件系统的配额限制</p>
+<p>#quotaoff -vug /dev/sda6 //删除home分区的磁盘限额</p>
+<p>#删除/etc/fstab中设置配额的部分</p>
+<p>修改软配额的最大超越时间</p>
+<p>注意：</p>
+<p>/，/boot/,/proc,/mnt/cdrom等不要使用配额，没用。而且磁盘配额不适合FAT和FAT32系统。</p>
+<p>以后当新设置了某个用户的配额，可以使用如下命令，马上生效。</p>
+<h1 id="quotacheck-auvgm-–是不尝试重新挂载文件系统"><a href="#quotacheck-auvgm-–是不尝试重新挂载文件系统" class="headerlink" title="quotacheck -auvgm –是不尝试重新挂载文件系统"></a>quotacheck -auvgm –是不尝试重新挂载文件系统</h1><p>备注：</p>
+<p>1、vsftpd配置参数详细整理</p>
+<p>#接受匿名用户</p>
+<p>anonymous_enable=YES</p>
+<p>#匿名用户login时不询问口令</p>
+<p>no_anon_password=YES</p>
+<p>#匿名用户主目录</p>
+<p>anon_root=(none)</p>
+<p>#接受本地用户</p>
+<p>local_enable=YES</p>
+<p>#本地用户主目录</p>
+<p>local_root=(none)</p>
+<p>#如果匿名用户需要密码,那么使用banned_email_file里面的电子邮件地址的用户不能登录</p>
+<p>deny_email_enable=YES</p>
+<p>#仅在没有pam验证版本时有用,是否检查用户有一个有效的shell来登录</p>
+<p>check_shell=YES</p>
+<p>#若启用此选项,userlist_deny选项才被启动</p>
+<p>userlist_enable=YES</p>
+<p>#若为YES,则userlist_file中的用户将不能登录,为NO则只有userlist_file的用户可以登录</p>
+<p>userlist_deny=NO</p>
+<p>#如果和chroot_local_user一起开启,那么用户锁定的目录来自/etc/passwd每个用户指定的目录(这个不是很清楚,很哪位熟悉的指点一下)</p>
+<p>passwd_chroot_enable=NO</p>
+<p>#定义匿名登入的使用者名称。默认值为ftp。</p>
+<p>ftp_username=FTP</p>
+<p>#################用户权限控制###############</p>
+<p>#可以上传(全局控制).</p>
+<p>write_enable=YES</p>
+<p>#本地用户上传文件的umask</p>
+<p>local_umask=022</p>
+<p>#上传文件的权限配合umask使用</p>
+<p>#file_open_mode=0666</p>
+<p>#匿名用户可以上传</p>
+<p>anon_upload_enable=NO</p>
+<p>#匿名用户可以建目录</p>
+<p>anon_mkdir_write_enable=NO</p>
+<p>匿名用户其它的写权利(更改权限?)</p>
+<p>anon_other_write_enable=NO</p>
+<p>如果设为YES，匿名登入者会被允许下载可阅读的档案。默认值为YES。</p>
+<p>anon_world_readable_only=YES</p>
+<p>#如果开启,那么所有非匿名登陆的用户名都会被切换成guest_username指定的用户名</p>
+<p>#guest_enable=NO</p>
+<p>所有匿名上传的文件的所属用户将会被更改成chown_username</p>
+<p>chown_uploads=YES</p>
+<p>匿名上传文件所属用户名</p>
+<p>chown_username=lightwiter</p>
+<p>#如果启动这项功能，则所有列在chroot_list_file之中的使用者不能更改根目录</p>
+<p>chroot_list_enable=YES</p>
+<p>#允许使用”async ABOR”命令,一般不用,容易出问题</p>
+<p>async_abor_enable=YES</p>
+<p>管控是否可用ASCII 模式上传。默认值为NO。</p>
+<p>ascii_upload_enable=YES</p>
+<p>#管控是否可用ASCII 模式下载。默认值为NO。</p>
+<p>ascii_download_enable=YES</p>
+<p>#这个选项必须指定一个空的数据夹且任何登入者都不能有写入的权限，当vsftpd 不需要file system 的权限时，就会将使用者限制在此数据夹中。默认值为/usr/share/empty</p>
+<p>secure_chroot_dir=/usr/share/empty</p>
+<p>###################超时设置##################</p>
+<p>#空闲连接超时</p>
+<p>idle_session_timeout=600</p>
+<p>#数据传输超时</p>
+<p>data_connection_timeout=120</p>
+<p>#PAVS请求超时</p>
+<p>ACCEPT_TIMEOUT=60</p>
+<p>#PROT模式连接超时</p>
+<p>connect_timeout=60</p>
+<p>################服务器功能选项###############</p>
+<p>#开启日记功能</p>
+<p>xferlog_enable=YES</p>
+<p>#使用标准格式</p>
+<p>xferlog_std_format=YES</p>
+<p>#当xferlog_std_format关闭且本选项开启时,记录所有ftp请求和回复,当调试比较有用.</p>
+<p>#log_ftp_protocol=NO</p>
+<p>#允许使用pasv模式</p>
+<p>pasv_enable=YES</p>
+<p>#关闭安全检查,小心呀.</p>
+<p>#pasv_promiscuous+NO</p>
+<p>#允许使用port模式</p>
+<p>#port_enable=YES</p>
+<p>#关闭安全检查</p>
+<p>#prot_promiscuous</p>
+<p>#开启tcp_wrappers支持</p>
+<p>tcp_wrappers=YES</p>
+<p>#定义PAM 所使用的名称，预设为vsftpd。</p>
+<p>pam_service_name=vsftpd</p>
+<p>#当服务器运行于最底层时使用的用户名</p>
+<p>nopriv_user=nobody</p>
+<p>#使vsftpd在pasv命令回复时跳转到指定的IP地址.(服务器联接跳转?)</p>
+<p>pasv_address=(none)</p>
+<p>#################服务器性能选项##############</p>
+<p>#是否能使用ls -R命令以防止浪费大量的服务器资源</p>
+<p>#ls_recurse_enable=YES</p>
+<p>#是否使用单进程模式</p>
+<p>#one_process_model</p>
+<p>#绑定到listen_port指定的端口,既然都绑定了也就是每时都开着的,就是那个什么standalone模式</p>
+<p>listen=YES</p>
+<p>#当使用者登入后使用ls -al 之类的指令查询该档案的管理权时，预设会出现拥有者的UID，而不是该档案拥有者的名称。若是希望出现拥有者的名称，则将此功能开启。</p>
+<p>text_userdb_names=NO</p>
+<p>#显示目录清单时是用本地时间还是GMT时间,可以通过mdtm命令来达到一样的效果</p>
+<p>use_localtime=NO</p>
+<p>#测试平台优化</p>
+<p>#use_sendfile=YES</p>
+<p>################信息类设置################</p>
+<p>#login时显示欢迎信息.如果设置了banner_file则此设置无效</p>
+<p>ftpd_banner=欢迎来到湖南三辰Fake-Ta FTP 网站.</p>
+<p>#允许为目录配置显示信息,显示每个目录下面的message_file文件的内容</p>
+<p>dirmessage_enable=YES</p>
+<p>#显示会话状态信息,关!</p>
+<p>#setproctitle_enable=YES</p>
+<p>############## 文件定义 ##################</p>
+<p>#定义不能更改用户主目录的文件</p>
+<p>chroot_list_file=/etc/vsftpd/vsftpd.chroot_list</p>
+<p>#定义限制/允许用户登录的文件</p>
+<p>userlist_file=/etc/vsftpd/vsftpd.user_list</p>
+<p>#定义登录信息文件的位置</p>
+<p>banner_file=/etc/vsftpd/banner</p>
+<p>#禁止使用的匿名用户登陆时作为密码的电子邮件地址</p>
+<p>banned_email_file=/etc/vsftpd.banned_emails</p>
+<p>#日志文件位置</p>
+<p>xferlog_file=/var/log/vsftpd.log</p>
+<p>#目录信息文件</p>
+<p>message_file=.message</p>
+<p>############## 目录定义 #################</p>
+<p>#定义用户配置文件的目录</p>
+<p>user_config_dir=/etc/vsftpd/userconf</p>
+<p>#定义本地用户登陆的根目录,注意定义根目录可以是相对路径也可以是绝对路径.相对路径是针对用户家目录来说的.</p>
+<p>local_root=webdisk #此项设置每个用户登陆后其根目录为/home/username/webdisk</p>
+<p>#匿名用户登陆后的根目录</p>
+<p>anon_root=/var/ftp</p>
+<p>#############用户连接选项#################</p>
+<p>#可接受的最大client数目</p>
+<p>max_clients=100</p>
+<p>#每个ip的最大client数目</p>
+<p>max_per_ip=5</p>
+<p>#使用标准的20端口来连接ftp</p>
+<p>connect_from_port_20=YES</p>
+<p>#绑定到某个IP,其它IP不能访问</p>
+<p>listen_address=192.168.0.2</p>
+<p>#绑定到某个端口</p>
+<p>#listen_port=2121</p>
+<p>#数据传输端口</p>
+<p>#ftp_data_port=2020</p>
+<p>#pasv连接模式时可以使用port 范围的上界，0 表示任意。默认值为0。</p>
+<p>pasv_max_port=0</p>
+<p>#pasv连接模式时可以使用port 范围的下界，0 表示任意。默认值为0。</p>
+<p>pasv_min_port=0</p>
+<p>##############数据传输选项#################</p>
+<p>#匿名用户的传输比率(b/s)</p>
+<p>anon_max_rate=51200</p>
+<p>#本地用户的传输比率(b/s)</p>
+<p>local_max_rate=5120000</p>
+<p>########################################</p>
+<p>别外,如果要对每个用户进行单独的控制,只需要在user_config_dir中建立username文件,内容为数据传输和用户权利里面设置个人的合适的选项,用户自定义文件同样适合用pam支持的虚拟用户</p>
+<p>附: FTP 数字代码的意义</p>
+<p>110 重新启动标记应答。</p>
+<p>120 服务在多久时间内ready。</p>
+<p>125 数据链路埠开启，准备传送。</p>
+<p>150 文件状态正常，开启数据连接端口。</p>
+<p>200 命令执行成功。</p>
+<p>202 命令执行失败。</p>
+<p>211 系统状态或是系统求助响应。</p>
+<p>212 目录的状态。</p>
+<p>213 文件的状态。</p>
+<p>214 求助的讯息。</p>
+<p>215 名称系统类型。</p>
+<p>220 新的联机服务ready。</p>
+<p>221 服务的控制连接埠关闭，可以注销。</p>
+<p>225 数据连结开启，但无传输动作。</p>
+<p>226 关闭数据连接端口，请求的文件操作成功。</p>
+<p>227 进入passive mode。</p>
+<p>230 使用者登入。</p>
+<p>250 请求的文件操作完成。</p>
+<p>257 显示目前的路径名称。</p>
+<p>331 用户名称正确，需要密码。</p>
+<p>332 登入时需要账号信息。</p>
+<p>350 请求的操作需要进一部的命令。</p>
+<p>421 无法提供服务，关闭控制连结。</p>
+<p>425 无法开启数据链路。</p>
+<p>426 关闭联机，终止传输。</p>
+<p>450 请求的操作未执行。</p>
+<p>451 命令终止：有本地的错误。</p>
+<p>452 未执行命令：磁盘空间不足。</p>
+<p>500 格式错误，无法识别命令。</p>
+<p>501 参数语法错误。</p>
+<p>502 命令执行失败。</p>
+<p>503 命令顺序错误。</p>
+<p>504 命令所接的参数不正确。</p>
+<p>530 未登入。</p>
+<p>532 储存文件需要账户登入。</p>
+<p>550 未执行请求的操作。</p>
+<p>551 请求的命令终止，类型未知。</p>
+<p>552 请求的文件终止，储存位溢出。</p>
+<p>553 未执行请求的的命令，名称不正确。</p>
+<p>2、VSFTPD官方资料翻译版（不完整版）—摘自中国Linux公社</p>
+<p>翻译了部分VSFTPD的官方资料。</p>
+<p>有些知道是什么意思，但难于翻译。有些涉及专业的知识，我自己也不懂，只好按字面翻译。有些我自己看不懂，只好尽量翻译。</p>
+<p>如果看了其中一部分觉得糊涂，请参阅官方文挡。</p>
+<p>安装篇</p>
+<p>===============</p>
+<p>这个文件详细介绍了如何从VSFTPD的.tar.gz分发包开始，建立和安装并运行VSFTPD。</p>
+<p>1）建立VSFTPD</p>
+<p>先进入解压.tar.gz文件后产生的目录内。如下：</p>
+<p>cd vsftpd-2.0.1</p>
+<p>编辑”builddefs.h”以操作compile-time设定。（tcp_wrappers build,等）</p>
+<p>输入make,回车（如果它不工作请发邮件通知我 .</p>
+<p>这将产生一个二进制文件，你可以验证一下。如下：</p>
+<p>[chris@localhost vsftpd]$ ls -l vsftpd</p>
+<p>-rwxrwxr-x 1 chris chris 61748 Sep 27 00:26 vsftpd</p>
+<p>2）满足VSFTPD安装所需的一些条件</p>
+<p>VSFTPD默认设置需要一个”nobody”用户，如果这个用户不存在，那么添加它。如下：</p>
+<p>[root@localhost root]# useradd nobody</p>
+<p>useradd: user nobody exists</p>
+<p>VSFTPD默认设置需要一个空目录：/usr/share/empty.增加这个目录，如果它还不存在的话。如下：</p>
+<p>[root@localhost root]# mkdir /usr/share/empty/</p>
+<p>mkdir: cannot create directory `/usr/share/empty’: File exists</p>
+<p>如果容许匿名用户（anonymous)，那么你将需要一个”ftp”用户和其home目录（这个home目录不属于“ftp”用户，而且“ftp”用户也对其没有写权限）在你的系统中存在。</p>
+<p>以下命令用来创建一个”ftp”用户，如果它还不存在的话。</p>
+<p>[root@localhost root]# mkdir /var/ftp/</p>
+<p>[root@localhost root]# useradd -d /var/ftp ftp</p>
+<p>（即使你的”ftp”用户已经存在，完成以下这两步也是很有好处的：）</p>
+<p>[root@localhost root]# chown root.root /var/ftp</p>
+<p>[root@localhost root]# chmod og-w /var/ftp</p>
+<p>3）安装VSFTPD的配置、执行和帮助文件。</p>
+<p>输入”make install”后会将二进制文件和帮助文件拷贝到适当的目录。</p>
+<p>你也可以手工拷贝这些文件：</p>
+<p>cp vsftpd /usr/local/sbin/vsftpd</p>
+<p>cp vsftpd.conf.5 /usr/local/man/man5</p>
+<p>cp vsftpd.8 /usr/local/man/man8</p>
+<p>“make install”不会拷贝默认的配置文件，所以建议你手工拷贝：</p>
+<p>cp vsftpd.conf /etc</p>
+<p>daidong注：根据你系统版本的不同，也可能是 cp vsftpd.conf /etc/vsftpd</p>
+<p>4)测试 （无inetd影响）</p>
+<p>VSFTPD能运行在独立模式（standalone)或者通过inetd(xinetd)来启动。</p>
+<p>你能通过inetd来运行vsftpd以更好地控制它。但我们在首次运行时不这么做，以便检查系统是否现在配置正常。</p>
+<p>编辑/etc/vsftpd.conf（daidong注：也可能是/etc/vsftpd/vsftpd.conf)，并在最下面加入以下这一行：</p>
+<p>listen=YES</p>
+<p>这将告诉VSFTPD不要从inetd启动。</p>
+<p>OK，现在试着启动FTP。</p>
+<p>以ROOT登录。</p>
+<p>确定你没有运行其他FTP服务（否则VSFTPD不能占用FTP所需的21端口）。</p>
+<p>运行那个二进制文件，如下：</p>
+<p>[root@localhost root]# /usr/local/sbin/vsftpd &amp;</p>
+<p>[1] 2104</p>
+<p>如果一切正常，那么你将连上FTP服务器，如下：</p>
+<p>[chris@localhost chris]$ ftp localhost</p>
+<p>Connected to localhost (127.0.0.1).</p>
+<p>220 (vsFTPd 1.1.1)</p>
+<p>Name (localhost:chris): ftp</p>
+<p>331 Please specify the password.</p>
+<p>Password:</p>
+<p>230 Login successful. Have fun.</p>
+<p>Remote system type is UNIX.</p>
+<p>Using binary mode to transfer files.</p>
+<p>ftp&gt;; ls</p>
+<p>227 Entering Passive Mode (127,0,0,1,229,133)</p>
+<p>150 Here comes the directory listing.</p>
+<p>d–x–x–x 2 0 0 4096 Jan 14 2002 bin</p>
+<p>d–x–x–x 2 0 0 4096 Apr 21 20:52 etc</p>
+<p>drwxr-xr-x 2 0 0 4096 Apr 21 20:52 lib</p>
+<p>drwxr-sr-x 2 0 50 4096 Jul 26 22:58 pub</p>
+<p>226 Directory send OK.</p>
+<p>ftp&gt;;</p>
+<p>5）从inetd或者类似方式启动（官方推荐使用standalone方式）</p>
+<p>你也许想通过inetd或者类似方式启动VSFTPD，因为这能给你更多的感受。例如xinetd就有很多的设置。</p>
+<p>（注意：VSFTPD的内在机制屏蔽了xinetd的大多数的有用的设置）。</p>
+<p>如果使用标准的”inetd”,你需要编辑/etc/inetd.conf,在其中加入以下一行：</p>
+<p>ftp stream tcp nowait root /usr/sbin/tcpd /usr/local/sbin/vsftpd</p>
+<p>（确定你删除或者注释掉一些已存在的FTP服务配置行。如果你没有安装tcp_wrappers,或者不想使用它们，那么请去掉/usr/sbin/tcpd part).</p>
+<p>inetd需要指定并重新载入它的配置文件：</p>
+<p>kill -SIGHUP <code>pidof inetd</code></p>
+<p>如果你想使用”xinetd”,请参阅我们提供的范例 /EXAMPLE/INTERNET_SITE/README. 而其他范例文件将告诉你如何调配出更强大的xinetd功能。</p>
+<p>6）为本地登录配置PAM文件（可选）</p>
+<p>如果你在一台激活了PAM的设备上运行VSFTPD，你需要提供一个 /etc/pam.d/ftp 文件。否则非匿名用户将无法登录服务器。</p>
+<p>（注：如果你的PAM版本比较老，那么这个文件也许是 /etc/pam.conf).</p>
+<p>做为一个标准设置，你可以拷贝一个已提供的范例文件，如下：</p>
+<p>cp RedHat/vsftpd.pam /etc/pam.d/ftp</p>
+<p>7）自定义你的配置文件</p>
+<p>完成以上的配置后，建议你安装一个配置文件。默认的配置文件位置是/etc/vsftpd.conf. 在VSFTPD软件分发包内有一个范例配置文件。</p>
+<p>你可以拷贝其为/etc/vsftpd.conf以做进一步修改。</p>
+<p>cp vsftpd.conf /etc</p>
+<p>（daidong注：也可能是 cp vsftpd.conf /etc/vsftpd ).</p>
+<p>这个默认配置即不容许本地登录也不容许匿名用户上传，也许你希望更改这个配置。</p>
+<p>其它</p>
+<p>===================</p>
+<p>测试平台 （已通过）</p>
+<p>-流行的，功能完善的平台都能测试通过。在以下平台的较新版本，VSFTPD工作得很好。在其大部分较早的版本下，也运行正常。</p>
+<ul>
+<li><p>RedHat Linux</p>
+</li>
+<li><p>RedHat Enterprise Linux</p>
+</li>
+<li><p>Solaris / GNU tools (Solaris 8 or newer)</p>
+</li>
+<li><p>SuSE Linux</p>
+</li>
+<li><p>Debian Linux</p>
+</li>
+<li><p>OpenBSD</p>
+</li>
+<li><p>FreeBSD</p>
+</li>
+<li><p>NetBSD</p>
+</li>
+<li><p>HP-UX / GNU tools</p>
+</li>
+<li><p>IRIX / GNU tools</p>
+</li>
+<li><p>Mac OS X (note; older versions have setgroups() problem. 10.3.4 reported OK)</p>
+</li>
+</ul>
+<p>虚拟用户1</p>
+<p>=============</p>
+<p>这个例子示范了如何为虚拟用户设置VSFTPD/PAM。</p>
+<p>虚拟用户是一个在系统中并不作为一个登录实体而存在的用户。使用虚拟用户比使用真实的用户更安全，因为这个账号只能用于FTP服务器。</p>
+<p>虚拟用户经常用来提供给不大可信任的用户访问某些资源，而这些资源通常是其他普通用户不能访问的。</p>
+<p>1）创建虚拟用户数据库</p>
+<p>我们将使用pam_userdb来认证虚拟用户。这需要提供一个“db”格式（一种通用数据库格式）的用户名/密码文件。</p>
+<p>创建一个”db”格式的文件，首先要创建一个标准文本文件，并把用户名，密码以竖直排列方式输入。如logins.txt：</p>
+<p>tom</p>
+<p>foo</p>
+<p>fired</p>
+<p>bar</p>
+<p>这个例子中,tom用户的密码是foo.fired用户的密码是bar.</p>
+<p>以ROOT登录，创建一个数据库文件，如下：</p>
+<p>db_load -T -t hash -f logins.txt /etc/vsftpd_login.db</p>
+<p>（这要求berkeley db程序已经安装）</p>
+<p>(注：一些系统也许安装了多个版本的”db”,所以某些情况下你可能使用”db3_load”才是正确的。对于一些 Debian系统就是这样。</p>
+<p>关键在于要让pam_userdb相信它的登录数据库是哪一个db版本所产生（一般都是db3，尽管你的系统里可能安装的是db4).）</p>
+<p>这将创建/etc/vsftpd_login.db文件。显然，你希望设定这个文件的权限：</p>
+<p>chmod 600 /etc/vsftpd_login.db</p>
+<p>要了解更多关于维护你的登录数据库的信息，请在”berkeley DB”察看相关文档：</p>
+<p><a href="http://www.sleepycat.com/docs/utility/index.html" target="_blank" rel="external">http://www.sleepycat.com/docs/utility/index.html</a></p>
+<p>2）用你的新数据库创建一个PAM文件</p>
+<p>请参考范例vsftpd.pam，它包含2行：</p>
+<p>auth required /lib/security/pam_userdb.so db=/etc/vsftpd_login</p>
+<p>account required /lib/security/pam_userdb.so db=/etc/vsftpd_login</p>
+<p>这是告诉PAM用新的数据库去验证用户。把这个PAM文件拷贝到PAM目录，一般是/etc/pam.d</p>
+<p>cp vsftpd.pam /etc/pam.d/ftp</p>
+<p>3)为虚拟用户设置home目录</p>
+<p>useradd -d /home/ftpsite virtual</p>
+<p>ls -ld /home/ftpsite</p>
+<p>(which should give):</p>
+<p>drwx—— 3 virtual virtual 4096 Jul 30 00:39 /home/ftpsite</p>
+<p>我们已经创建了一个名叫”virtual”的用户，home目录是”/home/ftpsite”.</p>
+<p>我们拷贝一些东西到这个下载目录：</p>
+<p>cp /etc/hosts /home/ftpsite</p>
+<p>chown virtual.virtual /home/ftpsite/hosts</p>
+<p>4）创建你的vsftpd.conf配置文件</p>
+<p>请参考这个目录下的例子。让我们一行行地看一看这些配置：</p>
+<p>anonymous_enable=NO</p>
+<p>local_enable=YES</p>
+<p>安全起见，屏蔽了匿名用户，只启用了非匿名用户（即虚拟用户使用的账号）</p>
+<p>write_enable=NO</p>
+<p>anon_upload_enable=NO</p>
+<p>anon_mkdir_write_enable=NO</p>
+<p>anon_other_write_enable=NO</p>
+<p>为了安全请确认这几个配置，这将关闭写的权限。</p>
+<p>chroot_local_user=YES</p>
+<p>这将把虚拟用户锁定在我们在以上设置的/home/ftpsite目录内。</p>
+<p>guest_enable=YES</p>
+<p>guest_username=virtual</p>
+<p>guest_enable非常重要-它激活了虚拟用户！而guest_username说明所有的虚拟用户都对应我们在上面设置的真实用户：“virtual”.</p>
+<p>这同时确定了虚拟用户在文件系统中的位置，也就是说，虚拟用户的home目录即”virtual”用户的home目录：/home/ftpsite。</p>
+<p>listen=YES</p>
+<p>listen_port=10021</p>
+<p>这让VSFTPD以独立模式(standalone)运行，而不是从inetd方式启动。也就是说，你运行VSFTPD可执行文件就启动了FTP服务。</p>
+<p>同时也让VSFTPD启用非标准端口10021来监听FTP请求（FTP一般使用21端口）。</p>
+<p>pasv_min_port=30000</p>
+<p>pasv_max_port=30999</p>
+<p>这设定了被动模式的FTP请求端口。当你配置了一个防火墙的时候，这个配置就很好用。</p>
+<p>拷贝范例配置文件到/etc</p>
+<p>cp vsftpd.conf /etc/</p>
+<p>(daidong注：也可能是/etc/vsftpd)</p>
+<p>5)启动VSFTPD</p>
+<p>到VSFTPD二进制文件所在的目录，输入：</p>
+<p>./vsftpd</p>
+<p>如果一切正常，这个命令将生效。否则，你将会看到一些错误信息的反馈。</p>
+<p>6）测试</p>
+<p>启动另一个会话。（或者ctrl-z，再输入”bg”,让VSFTPD在后台运行）。</p>
+<p>这是一个FTP会话的例子：</p>
+<p>ftp localhost 10021</p>
+<p>Connected to localhost (127.0.0.1).</p>
+<p>220 ready, dude (vsFTPd 1.1.0: beat me, break me)</p>
+<p>Name (localhost:chris): tom</p>
+<p>331 Please specify the password.</p>
+<p>Password:</p>
+<p>230 Login successful. Have fun.</p>
+<p>Remote system type is UNIX.</p>
+<p>Using binary mode to transfer files.</p>
+<p>ftp&gt;; pwd</p>
+<p>257 “/“</p>
+<p>ftp&gt;; ls</p>
+<p>227 Entering Passive Mode (127,0,0,1,117,135)</p>
+<p>150 Here comes the directory listing.</p>
+<p>226 Transfer done (but failed to open directory).</p>
+<p>ftp&gt;; size hosts</p>
+<p>213 147</p>
+<p>ftp&gt;;</p>
+<p>注释：</p>
+<p>密码是”foo”</p>
+<p>出现”failed to open directory“的话，别担心。这是因为/home/ftpsite目录不容许被任意浏览。</p>
+<p>（我们可以更改anon_world_readable_only=NO以消除告警，但为了安全，还是保留这个配置）。</p>
+<p>我们能通过size命令看到我们已经访问了被我们拷贝到这里的”hosts”文件。</p>
+<p>vsftpd.conf</p>
+<p>anonymous_enable=NO</p>
+<p>local_enable=YES</p>
+<p>write_enable=NO</p>
+<p>anon_upload_enable=NO</p>
+<p>anon_mkdir_write_enable=NO</p>
+<p>anon_other_write_enable=NO</p>
+<p>chroot_local_user=YES</p>
+<p>guest_enable=YES</p>
+<p>guest_username=virtual</p>
+<p>listen=YES</p>
+<p>listen_port=10021</p>
+<p>pasv_min_port=30000</p>
+<p>pasv_max_port=30999</p>
+<p>虚拟用户2</p>
+<p>===============</p>
+<p>这个例子将演示如何扩展“VIRTUAL_USERS”那个范例，从而实现更复杂一点的配置。</p>
+<p>让我们假定我们需要2种不同的虚拟用户：一种只能浏览并下载资源，另一种能上传文件并浏览站内资源。</p>
+<p>要激活这个设置，我们将使用VSFTPD的强大的“单个用户配置”功能（是V1.1.0后出现的新功能）。</p>
+<p>在前一个虚拟用户范例中，我们创建了2个用户-tom和fred.</p>
+<p>我们将实现fred有写权限以上传新文件，同时tom只能下载文件。</p>
+<p>1）激活单个用户配置功能。</p>
+<p>要激活这个功能，需要增加以下配置行到配置文件：</p>
+<p>user_config_dir=/etc/vsftpd_user_conf</p>
+<p>并且创建目录：</p>
+<p>mkdir /etc/vsftpd_user_conf</p>
+<p>2）授予tom读取所有文件和目录的权限</p>
+<p>在上一个例子的最后，我们注意到虚拟用户只能浏览所有的完全可读属性的目录和文件。我们使/home/ftpsite完全可读，而且被上传的文件也</p>
+<p>赋予了完全可读的权限（daidong注：意思是说这样虚拟用户就能读取所有的文件了）。但实现这个目的的另一个方法是授权tom能下载那些非完全可读的文件。</p>
+<p>对于tom,他的配置文件中需要修改一个设置：</p>
+<p>anon_world_readable_only:</p>
+<p>设为”anon_world_readable_only=NO” &gt;; /etc/vsftpd_user_conf/tom</p>
+<p>(daidong注：既把默认配置修改了anon_world_readable_only后，复制到/etc/vsftpd_user_conf下，名字为tom)</p>
+<p>验证一下结果-以tom登录，“ls”将返回一个目录列表。如果以fred登录将不会如此。</p>
+<p>注意：重启VSFTPD以启用配置文件/etc/vsftpd.conf(高级用户也可以发送SIGHUP给VSFTPD的监听进程).</p>
+<p>3)授予freg读取所有文件/目录并创建新文件/目录的权限,但让他不能对已存在的文件/目录进行操作.</p>
+<p>echo “anon_world_readable_only=NO” &gt;; /etc/vsftpd_user_conf/fred</p>
+<p>echo “write_enable=YES” &gt;;&gt;; /etc/vsftpd_user_conf/fred</p>
+<p>echo “anon_upload_enable=YES” &gt;;&gt;; /etc/vsftpd_user_conf/fred</p>
+<p>验证一下-以tom登录,将不能上传,而fred就可以.</p>
+<p>试图删除一个文件–噢,你们俩都不行!</p>
+<p>配置详解</p>
+<p>=============</p>
+<p>VSFTPD.CONF.5</p>
+<p>================</p>
+<p>名字</p>
+<p>vsftpd.conf ：VSFTPD的配置文件</p>
+<p>描述：</p>
+<p>vsftpd.conf 用来控制VSFTPD的各项功能。默认状态下，它的位置是/etc/vsftpd.conf。</p>
+<p>（译者注：也许老的LINUX版本下，配置文件是这个位置，但新的LINUX版本，例如FC2，配置文件是在/etc/vsftpd目录下。</p>
+<p>但是也很可能和安装方式有关，RPM包安装，配置文件是/etc/vsftpd.conf. 源码包安装：/etc/vsftpd/vsftpd.conf.我不确定。</p>
+<p>但以后我不再特别指出了，真累！！）</p>
+<p>然而，你也可以通过修改配置行来指定到其它目录。这一点很有用，因为也许你想使用一些高级inetd功能，例如xinetd，在一个多虚拟主机的机器上调用不同的配置文件。</p>
+<p>格式</p>
+<p>VSFTPD.conf 的格式非常简单，每行要么是一个注释，要么是一个指令。注释行以#开始并被忽略掉。指令行格式如下：</p>
+<p>配置项=参数值</p>
+<p>很重要的一点是，这个格式里不存在任何空格。</p>
+<p>默认的，每一个配置项在配置文件里都占一编辑行，可以被修改。</p>
+<p>布尔选项</p>
+<p>参数值的布尔选项可以是：</p>
+<p>YES或者NO</p>
+<p>allow_anon_ssl</p>
+<p>只有ss1_enable激活了才可以启用此项。如果设置为YES，匿名用户将容许使用安全的SSL连接服务器。</p>
+<p>默认值：NO</p>
+<p>anon_mkdir_write_enable</p>
+<p>如果设为YES，匿名用户将容许在指定的环境下创建新目录。如果此项要生效，那么配置write_enable必须被激活，并且匿名用户必须在其父目录有写权限。</p>
+<p>默认值：NO</p>
+<p>anon_other_write_enable</p>
+<p>如果设置为YES，匿名用户将被授予较大的写权限，例如删除和改名。一般不建议这么做，除非想完全授权。</p>
+<p>默认值：NO</p>
+<p>anon_upload_enable</p>
+<p>如果设为YES，匿名用户就容许在指定的环境下上传文件。如果此项要生效，那么配置write_enable必须激活。并且匿名用户必须在相关目录有写权限。</p>
+<p>默认值：NO</p>
+<p>anon_world_readable_only</p>
+<p>启用的时候，匿名用户只容许下载完全可读的文件，这也就容许了ftp用户拥有对文件的所有权，尤其是在上传的情况下。</p>
+<p>默认值：YES</p>
+<p>anonymous_enable</p>
+<p>控制是否容许匿名用户登录。如果容许，那么“ftp”和“anonymous”都将被视为“anonymous”而容许登录。</p>
+<p>默认值：YES</p>
+<p>ascii_download_enable</p>
+<p>启用时，用户下载时将以ASCII模式传送文件。</p>
+<p>默认值：NO</p>
+<p>ascii_upload_enable</p>
+<p>启用时，用户上传时将以ASCII模式传送文件。</p>
+<p>默认值：NO</p>
+<p>async_abor_enable</p>
+<p>启用时，一个特殊的FTP命令”async ABOR”将容许使用。只有不正常的FTP客户端要使用这一点。而且，这个功能又难于操作，所以，</p>
+<p>默认是把它关闭了。但是，有些客户端在取消一个传送的时候会被挂死（daidong注：估计是客户端无响应了），那你只有启用这个功能才能避免这种情况。</p>
+<p>默认值：NO</p>
+<p>background</p>
+<p>启用时，并且VSFTPD是“listen”模式启动的（daidong注：就是standalone模式），VSFTPD将把监听进程置于后台。但访问VSFTPD时，控制台将立即被返回到SHELL。</p>
+<p>默认值：NO</p>
+<p>check_shell</p>
+<p>注意：这个选项只对非PAM结构的VSFTPD才有效。如果关闭，VSFTPD将不检查/etc/shells以判定本地登录的用户是否有一个可用的SHELL。</p>
+<p>默认值：YES</p>
+<p>chmod_enable</p>
+<p>启用时，将容许使用SITE CHMOD命令。注意，这只能用于本地用户。匿名用户绝不能使用SITE CHMOD。</p>
+<p>默认值：YES</p>
+<p>chown_uploads</p>
+<p>如果启用，所以匿名用户上传的文件的所有者将变成在chown_username里指定的用户。这对管理FTP很有用，也许也对安全有益。</p>
+<p>默认值：NO</p>
+<p>chroot_list_enable</p>
+<p>如果激活，你要提供一个用户列表，表内的用户将在登录后被放在其home目录，锁定在虚根下（daidong注：进入FTP后，PWD一下，可以看到当前<br>目录是”/“,这就是虚根。是FTP的根目录，并非FTP服务器系统的根目录）。如果chroot_local_user设为YES后，其含义会发生一点<br>变化。</p>
+<p>在这种情况下，这个列表内的用户将不被锁定在虚根下。</p>
+<p>默认情况下，这个列表文件是/etc/vsftpd.chroot_list, 但你也可以通过修改chroot_list_file来改变默认值。</p>
+<p>默认值：NO</p>
+<p>chroot_local_user</p>
+<p>如果设为YES，本地用户登录后将被（默认地）锁定在虚根下，并被放在他的home目录下。</p>
+<p>警告：</p>
+<p>这个配置项有安全的意味，特别是如果用户有上传权限或者可使用SHELL的话。在你确定的前提下，再启用它。</p>
+<p>注意，这种安全暗示并非只存在于VSFTPD，其实是广泛用于所有的希望把用户锁定在虚根下的FTP软件。</p>
+<p>默认值：NO</p>
+<p>connect_from_port_20</p>
+<p>这用来控制服务器是否使用20端口号来做数据传输。为安全起见，有些客户坚持启用。相反，关闭这一项可以让VSFTPD更加大众化。</p>
+<p>默认值：NO （但在范例配置文件中，启用了，即YES）</p>
+<p>deny_email_enable</p>
+<p>如果激活，你要提供一个关于匿名用户的密码E-MAIL表（daidong注：我们都知道，匿名用户是用邮件地址做密码的）以阻止以这些密码登录的匿名用户。</p>
+<p>默认情况下，这个列表文件是/etc/vsftpd.banner_emails，但你也可以通过设置banned_email_file来改变默认值。</p>
+<p>默认值：NO</p>
+<p>dirlist_enable</p>
+<p>如果设置为NO，所有的列表命令（daidong注：如ls）都将被返回“permission denied”提示。</p>
+<p>默认值：YES</p>
+<p>dirmessage_enable</p>
+<p>如果启用，FTP服务器的用户在首次进入一个新目录的时候将显示一段信息。默认情况下，会在这个目录中查找.message文件，但你也可以</p>
+<p>通过更改message_file来改变默认值。</p>
+<p>默认值：NO （但在配置范例文件中启用了它）</p>
+<p>download_enable</p>
+<p>如果设为NO，下载请求将返回“permission denied”。</p>
+<p>默认值：YES</p>
+<p>dual_log_enable</p>
+<p>如果启用，两个LOG文件会各自产生，默认的是/var/log/xferlog和/var/log/vsftpd.log。前一个是wu-ftpd格式的LOG，能被通用工具分析。</p>
+<p>后一个是VSFTPD的专用LOG格式。</p>
+<p>默认值: NO</p>
+<p>force_dot_files</p>
+<p>如果激活，即使客户端没有使用“a”标记，（FTP里）以.开始的文件和目录都会显示在目录资源列表里。但是把”.”和”..”不会显示。(daidong注：即LINUX下</p>
+<p>的当前目录和上级目录不会以‘.’或‘..’方式显示）。</p>
+<p>默认值：NO</p>
+<p>force_local_data_ssl</p>
+<p>只有在ssl_enable激活后才能启用。如果启用，所有的非匿名用户将被强迫使用安全的SSL登录以在数据线路上收发数据。</p>
+<p>默认值：YES</p>
+<p>force_local_logins_ssl</p>
+<p>只有在ssl_enable激活后才能启用。如果启用，所有的非匿名用户将被强迫使用安全的SSL登录以发送密码。</p>
+<p>默认值：YES</p>
+<p>guest_enable</p>
+<p>如果启用，所有的非匿名用户登录时将被视为”游客“，其名字将被映射为guest_username里所指定的名字。</p>
+<p>默认值：NO</p>
+<p>hide_ids</p>
+<p>如果启用，目录资源列表里所有用户和组的信息将显示为”ftp”.</p>
+<p>默认值：NO</p>
+<p>listen</p>
+<p>如果启用，VSFTPD将以独立模式（standalone)运行，也就是说可以不依赖于inetd或者类似的东东启动。直接运行VSFTPD</p>
+<p>的可执行文件一次，然后VSFTPD就自己去监听和处理连接请求了。</p>
+<p>默认值：NO</p>
+<p>listen_ipv6</p>
+<p>类似于listen参数的功能，但有一点不同，启用后VSFTPD会去监听IPV6套接字而不是IPV4的。这个设置和listen的设置互相排斥。</p>
+<p>默认值：NO</p>
+<p>local_enable</p>
+<p>用来控制是否容许本地用户登录。如果启用，/etc/passwd里面的正常用户的账号将被用来登录。</p>
+<p>默认值：NO</p>
+<p>log_ftp_protocol</p>
+<p>启用后，如果xferlog_std_format没有被激活，所有的FTP请求和反馈信息将被纪录。这常用于调试(debugging)。</p>
+<p>默认值：NO</p>
+<p>ls_recurse_enable</p>
+<p>如果启用，”ls -R”将被容许使用。这是为了避免一点点安全风险。因为在一个大的站点内，在目录顶层使用这个命令将消耗大量资源。</p>
+<p>默认值：NO</p>
+<p>no_anon_password</p>
+<p>如果启用，VSFTPD将不会向匿名用户询问密码。匿名用户将直接登录。</p>
+<p>默认值:NO</p>
+<p>no_log_lock</p>
+<p>启用时，VSFTPD在写入LOG文件时将不会把文件锁住。这一项一般不启用。它对一些工作区操作系统问题，如Solaris / Veritas文件系统共存时有用。</p>
+<p>因为那在试图锁定LOG文件时，有时候看上去象被挂死（无响应）了。（daidong注：这我也不是很理解。所以翻译未必近乎原意。原文如下：It exists to workaround</p>
+<p>operating system bugs such as the Solaris / Veritas filesystem combination</p>
+<p>which has been observed to sometimes exhibit hangs trying to lock log files.）</p>
+<p>默认值：NO</p>
+<p>one_process_model</p>
+<p>如果你的LINUX核心是2.4的，那么也许能使用一种不同的安全模式，即一个连接只用一个进程。只是一个小花招，但能提高FTP的性能。请确定需要后再启用它，而且也请确定你的</p>
+<p>站点是否会有大量的人同时访问。</p>
+<p>默认值：NO</p>
+<p>passwd_chroot_enable (daidong注：这段自己看，无语…)</p>
+<p>if enabled, along with</p>
+<p>.BR chroot_local_user</p>
+<p>, then a chroot() jail location may be specified on a per-user basis. Each</p>
+<p>user’s jail is derived from their home directory string in /etc/passwd. The</p>
+<p>occurrence of /./ in the home directory string denotes that the jail is at that</p>
+<p>particular location in the path.</p>
+<p>默认值：NO</p>
+<p>pasv_enable</p>
+<p>如果你不想使用被动方式获得数据连接，请设为NO。</p>
+<p>默认值：YES</p>
+<p>pasv_promiscuous</p>
+<p>如果你想关闭被动模式安全检查（这个安全检查能确保数据连接源于同一个IP地址）的话，设为YES。确定后再启用它（daidong注：原话是：只有你清楚你在做什么时才启用它！）</p>
+<p>合理的用法是：在一些安全隧道配置环境下，或者更好地支持FXP时（才启用它）。</p>
+<p>默认值：NO</p>
+<p>port_enable</p>
+<p>如果你想关闭以端口方式获得数据连接时，请关闭它。</p>
+<p>默认值：YES</p>
+<p>port_promiscuous</p>
+<p>如果你想关闭端口安全检查（这个检查可以确保对外的(outgoing)数据线路只通向客户端）时，请关闭它。确认后再做！</p>
+<p>默认值：NO</p>
+<p>run_as_launching_user</p>
+<p>如果你想让一个用户能启动VSFTPD的时候，可以设为YES。当ROOT用户不能去启动VSFTPD的时候会很有用（daidong注：应该不是说ROOT用户没有权限启动VSFTPD，</p>
+<p>而是因为别的，例如安全限制，而不能以ROOT身份直接启动VSFTPD）。强烈警告！！别启用这一项，除非你完全清楚你在做什么（daidong:无语….)！！！随意地启动这一项会导致</p>
+<p>非常严重的安全问题，特别是VSFTPD没有或者不能使用虚根技术来限制文件访问的时候（甚至VSFTPD是被ROOT启动的）。有一个愚蠢的替代方案是启用deny_file，将其设置为{/<em>,</em>..*}等，</p>
+<p>但其可靠性却不能和虚根相比，也靠不住。</p>
+<p>如果启用这一项，其他配置项的限制也会生效。例如，非匿名登录请求，上传文件的所有权的转换，用于连接的20端口和低于1024的监听端口将不会工作。其他一些配置项也可能被影响。</p>
+<p>默认值:NO</p>
+<p>secure_email_list_enable</p>
+<p>如果你想只接受以指定E-MAIL地址登录的匿名用户的话，启用它。这一般用来在不必要用虚拟用户的情况下，以较低的安全限制去访问较低安全级别的资源。如果启用它，匿名用户除非</p>
+<p>用在email_password_file里指定的E-MAIL做为密码，否则不能登录。这个文件的格式是一个密码一行，而且没有额外的空格（daidong注：whitespace,译为空格，不知道是否正确）。</p>
+<p>默认的文件名是：/etc/vsftpd.email_passwords.</p>
+<p>默认值:NO</p>
+<p>session_support</p>
+<p>这将配置是否让VSFTPD去尝试管理登录会话。如果VSFTPD管理会话，它会尝试并更新utmp和wtmp。它也会打开一个pam会话（pam_session)，直到LOGOUT才会关闭它，如果使用PAM进行认证的话。</p>
+<p>如果你不需要会话纪录，或者想VSFTPD运行更少的进程，或者让它更大众化，你可以关闭它。</p>
+<p>注：utmp和wtmp只在有PAM的环境下才支持。</p>
+<p>默认值:NO</p>
+<p>setproctitle_enable</p>
+<p>如果启用，VSFTPD将在系统进程列表中显示会话状态信息。换句话说，进程名字将变成VSFTPD会话当前正在执行的动作（等待，下载等等）。为了安全目的，你可以关闭这一项。</p>
+<p>默认值:NO</p>
+<p>ssl_enable</p>
+<p>如果启用，vsftpd将启用openSSL，通过SSL支持安全连接。这个设置用来控制连接（包括登录）和数据线路。同时，你的客户端也要支持SSL才行。</p>
+<p>注意：小心启用此项.VSFTPD不保证OpenSSL库的安全性。启用此项，你必须确信你安装的OpenSSL库是安全的。</p>
+<p>默认值:NO</p>
+<p>ssl_sslv2</p>
+<p>要激活ssl_enable才能启用它。如果启用，将容许SSL V2协议的连接。TLS V1连接将是首选。</p>
+<p>默认值:NO</p>
+<p>ssl_sslv3</p>
+<p>要激活ssl_enable才能启用它。如果启用，将容许SSL V３协议的连接。TLS V1连接将是首选。</p>
+<p>默认值:NO</p>
+<p>ssl_tlsv1</p>
+<p>要激活ssl_enable才能启用它。如果启用，将容许TLS V1协议的连接。TLS V1连接将是首选。</p>
+<p>默认值:YES</p>
+<p>syslog_enable</p>
+<p>如果启用，系统log将取代vsftpd的log输出到/var/log/vsftpd.log.FTPD的了log工具将不工作。</p>
+<p>默认值:NO</p>
+<p>tcp_wrappers</p>
+<p>如果启用，vsftpd将被tcp_wrappers所支持。进入的(incoming）连接将被tcp_wrappers访问控制所反馈。如果tcp_wrappers设置了</p>
+<p>VSFTPD_LOAD_CONF环境变量，那么vsftpd将尝试调用这个变量所指定的配置。</p>
+<p>默认值:NO</p>
+<p>text_userdb_names</p>
+<p>默认情况下，在文件列表中，数字ID将被显示在用户和组的区域。你可以编辑这个参数以使其使用数字ID变成文字。为了保证FTP性能，默认</p>
+<p>情况下，此项被关闭。</p>
+<p>默认值:NO</p>
+<p>tilde_user_enable</p>
+<p>如果启用，vsftpd将试图解析类似于~chris/pics的路径名（一个”~”(tilde)后面跟着个用户名）。注意，vsftpd有时会一直解析路径名”~”和”~/“（在这里，～被解析成内部登录目录）。</p>
+<p>～用户路径（～user paths)只有在当前虚根下找到/etc/passwd文件时才被解析。</p>
+<p>默认值:NO</p>
+<p>use_localtime</p>
+<p>如果启用，vsftpd在显示目录资源列表的时候，在显示你的本地时间。而默认的是显示GMT（格林尼治时间）。通过MDTM FTP命令来显示时间的话也会被这个设置所影响。</p>
+<p>默认值:NO</p>
+<p>use_sendfile</p>
+<p>一个内部设定，用来测试在你的平台上使用sendfile()系统呼叫的相关好处（benefit).</p>
+<p>默认:YES</p>
+<p>userlist_deny</p>
+<p>这个设置在userlist_enable被激活后能被验证。如果你设置为NO，那么只有在userlist_file里明确列出的用户才能登录。</p>
+<p>如果是被拒绝登录，那么在被询问密码前，用户就将被系统拒绝。</p>
+<p>默认值:YES</p>
+<p>userlist_enable</p>
+<p>如果启用，vsftpd将在userlist_file里读取用户列表。如果用户试图以文件里的用户名登录，那么在被询问用户密码前，他们就将被系统拒绝。</p>
+<p>这将防止明文密码被传送。参见userlist_deny。</p>
+<p>默认值:NO</p>
+<p>virtual_use_local_privs</p>
+<p>如果启用，虚拟用户将拥有和本地用户一样的权限。默认情况下，虚拟用户就拥有和匿名用户一样的权限，而后者往往有更多的限制（特别是写权限）。</p>
+<p>默认值:NO</p>
+<p>write_enable</p>
+<p>这决定是否容许一些FTP命令去更改文件系统。这些命令是STOR, DELE, RNFR, RNTO, MKD, RMD, APPE 和 SITE。</p>
+<p>默认值:NO</p>
+<p>xferlog_enable</p>
+<p>如果启用，一个log文件将详细纪录上传和下载的信息。默认情况下，这个文件是/var/log/vsftpd.log，但你也可以通过更改vsftpd_log_file来指定其默认位置。</p>
+<p>默认值:NO (但在范例配置文件中，启用了这一项）</p>
+<p>xferlog_std_format</p>
+<p>如果启用，log文件将以标准的xferlog格式写入（wu-ftpd使用的格式)，以便于你用现有的统计分析工具进行分析。但默认的格式具有更好的可读性。默认情况下，log文件是在/var/log/xferlog。</p>
+<p>但是，你可以通过修改xferlog_file来指定新路径。</p>
+<p>默认值:NO</p>
+<p>＝＝＝＝＝＝</p>
+<p>数字选项</p>
+<p>以下是数字配置项。这些项必须设置为非负的整数。为了方便umask设置，容许输入八进制数，那样的话，数字必须以０开始。</p>
+<p>accept_timeout</p>
+<p>超时，以秒为单位，设定远程用户以被动方式建立连接时最大尝试建立连接的时间。</p>
+<p>默认值:60</p>
+<p>anon_max_rate</p>
+<p>对于匿名用户，设定容许的最大传送速率，单位：字节/秒。</p>
+<p>默认值:0　（无限制）</p>
+<p>anon_umask</p>
+<p>为匿名用户创建的文件设定权限。注意：如果你想输入８进制的值，那么其中的０不同于１０进制的０。</p>
+<p>默认值：０７７</p>
+<p>connect_timeout</p>
+<p>超时。单位：秒。是设定远程用户必须回应PORT类型数据连接的最大时间。</p>
+<p>默认值：６０</p>
+<p>data_connection_timeout</p>
+<p>超时，单位：秒。设定数据传输延迟的最大时间。时间一到，远程用户将被断开连接。</p>
+<p>默认值：３００</p>
+<p>file_open_mode</p>
+<p>对于上传的文件设定权限。如果你想被上传的文件可被执行，umask要改成０７７７。</p>
+<p>默认值：０６６６</p>
+<p>ftp_data_port</p>
+<p>设定PORT模式下的连接端口（只要connect_from_port_20被激活）。</p>
+<p>默认值：２０</p>
+<p>idle_session_timeout</p>
+<p>超时。单位：秒。设置远程客户端在两次输入FTP命令间的最大时间。时间一到，远程客户将被断开连接。</p>
+<p>默认值：３００</p>
+<p>listen_port</p>
+<p>如果vsftpd处于独立运行模式，这个端口设置将监听的FTP连接请求。</p>
+<p>默认值：２１</p>
+<p>local_max_rate</p>
+<p>为本地认证用户设定最大传输速度，单位：字节／秒。</p>
+<p>默认值：０（无限制）</p>
+<p>local_umask</p>
+<p>设置本地用户创建的文件的权限。注意：如果你想输入８进制的值，那么其中的０不同于１０进制的０。</p>
+<p>默认值：０７７</p>
+<p>max_clients</p>
+<p>如果vsftpd运行在独立运行模式，这里设置了容许连接的最大客户端数。再后来的用户端将得到一个错误信息。</p>
+<p>默认值：０（无限制）</p>
+<p>max_per_ip</p>
+<p>如果vsftpd运行在独立运行模式，这里设置了容许一个ＩＰ地址的最大接入客户端。如果超过了最大限制，将得到一个错误信息。</p>
+<p>默认值：０（无限制）</p>
+<p>pasv_max_port</p>
+<p>指定为被动模式数据连接分配的最大端口。可用来指定一个较小的范围以配合防火墙。</p>
+<p>默认值：０（使用任何端口）</p>
+<p>pasv_min_port</p>
+<p>指定为被动模式数据连接分配的最小端口。可用来指定一个较小的范围以配合防火墙。</p>
+<p>默认值：０（使用任何端口）</p>
+<p>trans_chunk_size</p>
+<p>你一般不需要改这个设置。但也可以尝试改为如８１９２去减小带宽限制的影响。</p>
+<p>默认值：０（让vsftpd自行选择）</p>
+<p>＝＝＝＝＝＝＝＝＝＝＝</p>
+<p>STRING 配置项</p>
+<p>以下是STRING 配置项</p>
+<p>anon_root</p>
+<p>设置一个目录，在匿名用户登录后，vsftpd会尝试进到这个目录下。如果失败则略过。</p>
+<p>默认值：无</p>
+<p>banned_email_file</p>
+<p>deny_email_enable启动后，匿名用户如果使用这个文件里指定的E-MAIL密码登录将被拒绝。</p>
+<p>默认值：/etc/vsftpd.banned_emails</p>
+<p>banner_file</p>
+<p>设置一个文本，在用户登录后显示文本内容。如果你设置了ftpd_banner，ftpd_banner将无效。</p>
+<p>默认值：无</p>
+<p>chown_username</p>
+<p>改变匿名用户上传的文件的所有者。需设定chown_uploads。</p>
+<p>默认值：ＲＯＯＴ</p>
+<p>chroot_list_file</p>
+<p>这个项提供了一个本地用户列表，表内的用户登录后将被放在虚根下，并锁定在home目录。这需要chroot_list_enable项被启用。</p>
+<p>如果chroot_local_user项被启用，这个列表就变成一个不将列表里的用户锁定在虚根下的用户列表了。</p>
+<p>默认值：/etc/vsftpd.chroot_list</p>
+<p>cmds_allowed</p>
+<p>以逗号分隔的方式指定可用的FTP命令（post　login. USER, PASS and QUIT 是始终可用的命令）。</p>
+<p>其他命令将被屏蔽。这是一个强有力的locking down一个FTP服务器的手段。例如：cmds_allowed=PASV,RETR,QUIT</p>
+<p>默认值：无</p>
+<p>deny_file</p>
+<p>这可以设置一个文件名或者目录名式样以阻止在任何情况下访问它们。并不是隐藏它们，而是拒绝任何试图对它们进行的操作（下载，改变目录层，</p>
+<p>和其他有影响的操作）。这个设置很简单，而且不会用于严格的访问控制－文件系统权限将优先生效。然而，这个设置对确定的虚拟用户设置很有用。</p>
+<p>特别是如果一个文件能多个用户名访问的话（可能是通过软连接或者硬连接），那就要拒绝所有的访问名。</p>
+<p>建议你为使用文件系统权限设置一些重要的安全策略以获取更高的安全性。如deny_file={<em>.mp3,</em>.mov,.private}</p>
+<p>默认值：无</p>
+<p>dsa_cert_file</p>
+<p>这个设置为SSL加密连接指定了DSA证书的位置。</p>
+<p>默认值：无（有一个RSA证书就够了）</p>
+<p>email_password_file</p>
+<p>在设置了secure_email_list_enable后，这个设置可以用来提供一个备用文件。</p>
+<p>默认值：/etc/vsftpd.email_passwords</p>
+<p>ftp_username</p>
+<p>这是用来控制匿名FTP的用户名。这个用户的home目录是匿名FTP区域的根。</p>
+<p>默认值：ftp</p>
+<p>ftpd_banner</p>
+<p>当一个连接首次接入时将现实一个欢迎界面。</p>
+<p>默认值：无（默认的界面会被显示）</p>
+<p>guest_username</p>
+<p>参见相关设置guest_enable。这个设置设定了游客进入后，其将会被映射的名字。</p>
+<p>默认：ftp</p>
+<p>hide_file</p>
+<p>设置了一个文件名或者目录名列表，这个列表内的资源会被隐藏，不管是否有隐藏属性。但如果用户知道了它的存在，</p>
+<p>将能够对它进行完全的访问。hide_file里的资源和符合hide_file指定的规则表达式的资源将被隐藏。vsftpd的</p>
+<p>规则表达式很简单，例如hide_file={<em>.mp3,.hidden,hide</em>,h?}</p>
+<p>默认值：无</p>
+<p>listen_address</p>
+<p>如果vsftpd运行在独立模式下，本地接口的默认监听地址将被这个设置代替。</p>
+<p>需要提供一个数字化的地址。</p>
+<p>默认值：无</p>
+<p>listen_address6</p>
+<p>如果vsftpd运行在独立模式下，要为IPV6指定一个监听地址（如果listen_ipv6被启用的话）。</p>
+<p>需要提供一个IPV6格式的地址。</p>
+<p>默认值：无</p>
+<p>local_root</p>
+<p>设置一个本地（非匿名）用户登录后，vsftpd试图让他进入到的一个目录。如果失败，则略过。</p>
+<p>默认值：无</p>
+<p>message_file</p>
+<p>当进入一个新目录的时候，会查找这个文件并显示文件里的内容给远程用户。dirmessage_enable需启用。</p>
+<p>默认值：.message</p>
+<p>nopriv_user</p>
+<p>这是vsftpd做为完全无特权的用户的名字。这是一个专门的用户，比nobody更甚。用户nobody往往用来在一些机器上做一些重要的事情。</p>
+<p>默认值：nobody</p>
+<p>pam_service_name</p>
+<p>设定vsftpd将要用到的PAM服务的名字。</p>
+<p>默认值:ftp</p>
+<p>pasv_address</p>
+<p>当使用PASV命令时，vsftpd会用这个地址进行反馈。需要提供一个数字化的IP地址。</p>
+<p>默认值：无（地址将取自进来（incoming)的连接的套接字）</p>
+<p>rsa_cert_file</p>
+<p>这个设置指定了SSL加密连接需要的RSA证书的位置。</p>
+<p>默认值：/usr/share/ssl/certs/vsftpd.pem</p>
+<p>secure_chroot_dir</p>
+<p>这个设置指定了一个空目录，这个目录不容许ftp　user写入。在vsftpd不希望文件系统被访问时，目录为安全的虚根所使用。</p>
+<p>默认值： /usr/share/empty</p>
+<p>ssl_ciphers</p>
+<p>这个设置将选择vsftpd为加密的SSL连接所用的SSL密码。详细信息参见ciphers。</p>
+<p>默认值：DES-CBC3-SHA</p>
+<p>user_config_dir</p>
+<p>这个强大的设置容许覆盖一些在手册页中指定的配置项（基于单个用户的）。用法很简单，最好结合范例。如果你把user_config_dir</p>
+<p>改为/etc/vsftpd_user_conf，那么以chris登录，vsftpd将调用配置文件/etc/vsftpd_user_conf/chris。</p>
+<p>默认值：无</p>
+<p>user_sub_token</p>
+<p>这个设置将依据一个模板为每个虚拟用户创建home目录。例如，如果真实用户的home目录通过guest_username为/home/virtual/$USER 指定，</p>
+<p>并且user_sub_token设置为 $USER ，那么虚拟用户fred登录后将锁定在/home/virtual/fred下。</p>
+<p>默认值：无</p>
+<p>userlist_file</p>
+<p>当userlist_enable被激活，系统将去这里调用文件。</p>
+<p>默认值：/etc/vsftpd.user_list</p>
+<p>vsftpd_log_file</p>
+<p>只有xferlog_enable被设置，而xferlog_std_format没有被设置时，此项才生效。这是被生成的vsftpd格式的log文件的名字。</p>
+<p>dual_log_enable和这个设置不能同时启用。如果你启用了syslog_enable，那么这个文件不会生成，而只产生一个系统log.</p>
+<p>默认值：/var/log/vsftpd.log</p>
+<p>xferlog_file</p>
+<p>这个设置是设定生成wu-ftpd格式的log的文件名。只有启用了xferlog_enable和xferlog_std_format后才能生效。</p>
+<p>但不能和dual_log_enable同时启用。</p>
+<p>默认值：/var/log/xferlog</p>
+<p>3、未完成的实验</p>
+<p>his example should quickly show you the possibilites of per-IP configuration</p>
+<p>with vsftpd’s tcp_wrappers integration. This is new with v1.1.3.</p>
+<p>To use this, you need vsftpd built with tcp_wrappers! This is accomplished</p>
+<p>by editing “builddefs.h” and changing</p>
+<p>#undef VSF_BUILD_TCPWRAPPERS</p>
+<p>to</p>
+<p>#define VSF_BUILD_TCPWRAPPERS</p>
+<p>And then rebuild. If you are lucky your vendor will have shipped the vsftpd</p>
+<p>binary with this already done for you.</p>
+<p>Next, to enable tcp_wrappers integration, you need this in your vsftpd.conf:</p>
+<p>tcp_wrappers=YES</p>
+<p>And you’ll need a tcp_wrappers config file. An example one is supplied in this</p>
+<p>directory: hosts.allow. It lives at /etc/hosts.allow.</p>
+<p>Let’s have a look at the example:</p>
+<p>vsftpd: 192.168.1.3: setenv VSFTPD_LOAD_CONF /etc/vsftpd_tcp_wrap.conf</p>
+<p>vsftpd: 192.168.1.4: DENY</p>
+<p>The first line:</p>
+<p>If a client connects from 192.168.1.3, then vsftpd will apply the vsftpd</p>
+<p>config file /etc/vsftpd_tcp_wrap.conf to the session! These settings are</p>
+<p>applied ON TOP of the default vsftpd.conf.</p>
+<p>This is obviously very powerful. You might use this to apply different</p>
+<p>access restrictions for some IPs (e.g. the ability to upload).</p>
+<p>Or you could give certain classes of IPs the ability to skip connection</p>
+<p>limits (max_clients=0).</p>
+<p>Or you could increase / decrease the bandwidth limiter for certain classes</p>
+<p>of IPs.</p>
+<p>You get the point</p>
+<p>The second line:</p>
+<p>Denies the ability of 192.168.1.4 to connect. Very useful to take care of</p>
+<p>troublemakers. And now you don’t need xinetd to do it - hurrah.</p>
+<p>This example shows how you might set up virtual hosts. Virtual hosting is</p>
+<p>where different clients access your machine on different IP addresses (virtual</p>
+<p>IPs) and get redirected to different ftp sites.</p>
+<p>For example, if your machine responds to two IPs - 127.0.0.1 and 127.0.0.2,</p>
+<p>you could have the two different IPs represent two totally different FTP sites.</p>
+<p>For this example, we are going to build on the “INTERNET_SITE” example.</p>
+<p>Step 1) Set up a virtual IP address.</p>
+<p>ifconfig eth0:1 192.168.1.10 up</p>
+<p>(the standard IP address is 192.168.1.2)</p>
+<p>(note - this isn’t quite complete, the route for local connects hasn’t been</p>
+<p>added, but it will do for now)</p>
+<p>Step 2) Create a user / location for the new virtual site.</p>
+<p>useradd -d /var/ftp_site2 ftp_site2</p>
+<p>chown root.root /var/ftp_site2</p>
+<p>chmod a+rx /var/ftp_site2</p>
+<p>umask 022</p>
+<p>mkdir /var/ftp_site2/pub</p>
+<p>echo “test” &gt;; /var/ftp_site2/pub/content</p>
+<p>Step 3) Modify the existing site to respond to the primary IP.</p>
+<p>Edit /etc/xinetd.d/vsftpd, and add the config line:</p>
+<p>This example shows how you might set up virtual hosts. Virtual hosting is</p>
+<p>where different clients access your machine on different IP addresses (virtual</p>
+<p>IPs) and get redirected to different ftp sites.</p>
+<p>For example, if your machine responds to two IPs - 127.0.0.1 and 127.0.0.2,</p>
+<p>you could have the two different IPs represent two totally different FTP sites.</p>
+<p>For this example, we are going to build on the “INTERNET_SITE” example.</p>
+<p>Step 1) Set up a virtual IP address.</p>
+<p>ifconfig eth0:1 192.168.1.10 up</p>
+<p>(the standard IP address is 192.168.1.2)</p>
+<p>(note - this isn’t quite complete, the route for local connects hasn’t been</p>
+<p>added, but it will do for now)</p>
+<p>Step 2) Create a user / location for the new virtual site.</p>
+<p>useradd -d /var/ftp_site2 ftp_site2</p>
+<p>chown root.root /var/ftp_site2</p>
+<p>chmod a+rx /var/ftp_site2</p>
+<p>umask 022</p>
+<p>mkdir /var/ftp_site2/pub</p>
+<p>echo “test” &gt;; /var/ftp_site2/pub/content</p>
+<p>Step 3) Modify the existing site to respond to the primary IP.</p>
+<p>Edit /etc/xinetd.d/vsftpd, and add the config line:</p>
+<p>bind = 192.168.1.2</p>
+<p>Step 4) Create the new site, responding on the virtual IP.</p>
+<p>cp /etc/xinetd.d/vsftpd /etc/xinetd.d/vsftpd2</p>
+<p>Edit vsftpd2, and change</p>
+<ul>
+<li><p>The bind line to refer to the IP address 192.168.1.10</p>
+</li>
+<li><p>Add the line</p>
+</li>
+</ul>
+<p>server_args = /etc/vsftpd_site2.conf</p>
+<p>This launches this FTP site with a different vsftpd configuration file.</p>
+<p>cp /etc/vsftpd.conf /etc/vsftpd_site2.conf</p>
+<p>Add two lines:</p>
+<p>ftp_username=ftp_site2</p>
+<p>ftpd_banner=This is the alternative FTP site.</p>
+<p>Step 5) Restart xinetd and test!</p>
+<p>/etc/rc.d/init.d/xinetd restart</p>
+<p>[chris@localhost vsftpd]$ ftp 192.168.1.2</p>
+<p>Connected to 192.168.1.2 (192.168.1.2).</p>
+<p>220 ready, dude (vsFTPd 1.1.0: beat me, break me)</p>
+<p>Name (192.168.1.2:chris): [chris@localhost vsftpd]$</p>
+<p>[chris@localhost vsftpd]$ ftp 192.168.1.2</p>
+<p>Connected to 192.168.1.2 (192.168.1.2).</p>
+<p>220 ready, dude (vsFTPd 1.1.0: beat me, break me)</p>
+<p>Name (192.168.1.2:chris):</p>
+<p>530 This FTP server is anonymous only.</p>
+<p>Login failed.</p>
+<p>ftp&gt;; quit</p>
+<p>221 Goodbye.</p>
+<p>[chris@localhost vsftpd]$ ftp 192.168.1.10</p>
+<p>Connected to 192.168.1.10 (192.168.1.10).</p>
+<p>220 This is the alternative FTP site.</p>
+<p>Name (192.168.1.10:chris):</p>
+<p>530 This FTP server is anonymous only.</p>
+<p>Login failed.</p>
+<p>ftp&gt;;</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/CMD/" rel="tag"># CMD</a>
+          
+            <a href="/tags/Shell/" rel="tag"># Shell</a>
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2006/11/23/ssh配置权威指南/" rel="next" title="ssh配置权威指南">
+                <i class="fa fa-chevron-left"></i> ssh配置权威指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2006/11/24/文件编码批量转换脚本/" rel="prev" title="文件编码批量转换脚本">
+                文件编码批量转换脚本 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-home-xuchen"><span class="nav-number">1.</span> <span class="nav-text">cd /home/xuchen</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tar-xzvf-vsftpd-2-0-3-tar-gz-解压缩程序"><span class="nav-number">2.</span> <span class="nav-text">tar xzvf vsftpd-2.0.3.tar.gz //解压缩程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-vsftpd-2-0-3"><span class="nav-number">3.</span> <span class="nav-text">cd vsftpd-2.0.3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-builddefs-h-编辑builddefs-h-文件，文件内容如下："><span class="nav-number">4.</span> <span class="nav-text">vi builddefs.h \编辑builddefs.h 文件，文件内容如下：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make-直接在vsftpd-2-0-3里用make编译"><span class="nav-number">5.</span> <span class="nav-text">make //直接在vsftpd-2.0.3里用make编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ls-l-vsftpd"><span class="nav-number">6.</span> <span class="nav-text">ls -l vsftpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#useradd-nobody-可能你的系统已经存在此帐号，那就不用建立"><span class="nav-number">7.</span> <span class="nav-text">useradd nobody //可能你的系统已经存在此帐号，那就不用建立</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mkdir-usr-share-empty-可能你的系统已经存在此目录，那就不用建立"><span class="nav-number">8.</span> <span class="nav-text">mkdir /usr/share/empty //可能你的系统已经存在此目录，那就不用建立</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mkdir-var-ftp-可能你的系统已经存在此目录，那就不用建立"><span class="nav-number">9.</span> <span class="nav-text">mkdir /var/ftp //可能你的系统已经存在此目录，那就不用建立</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#useradd-d-var-ftp-ftp-可能你的系统已经存在此帐号，那就不用建立"><span class="nav-number">10.</span> <span class="nav-text">useradd -d /var/ftp ftp //可能你的系统已经存在此帐号，那就不用建立</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown-root-root-var-ftp"><span class="nav-number">11.</span> <span class="nav-text">chown root:root /var/ftp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-og-w-var-ftp"><span class="nav-number">12.</span> <span class="nav-text">chmod og-w /var/ftp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-m-755-vsftpd-usr-local-sbin-vsftpd-ano"><span class="nav-number">13.</span> <span class="nav-text">install -m 755 vsftpd /usr/local/sbin/vsftpd-ano</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-m-644-vsftpd-8-usr-share-man-man8"><span class="nav-number">14.</span> <span class="nav-text">install -m 644 vsftpd.8 /usr/share/man/man8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-m-644-vsftpd-conf-5-usr-share-man-man5"><span class="nav-number">15.</span> <span class="nav-text">install -m 644 vsftpd.conf.5 /usr/share/man/man5</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-m-644-vsftpd-conf-etc-vsftpd-ano-conf"><span class="nav-number">16.</span> <span class="nav-text">install -m 644 vsftpd.conf /etc/vsftpd-ano.conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-etc-vsftpd-ano-conf-将如下三行加入文件"><span class="nav-number">17.</span> <span class="nav-text">vi /etc/vsftpd-ano.conf ,将如下三行加入文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#usr-local-sbin-vsftpd-ano-etc-vsftpd-ano-conf-amp-以后台方式启动vsftpd"><span class="nav-number">18.</span> <span class="nav-text">/usr/local/sbin/vsftpd-ano /etc/vsftpd-ano.conf & //以后台方式启动vsftpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ftp-127-0-0-1"><span class="nav-number">19.</span> <span class="nav-text">ftp 127.0.0.1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mkdir-var-ftp-pub"><span class="nav-number">20.</span> <span class="nav-text">mkdir /var/ftp/pub</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-R-777-var-ftp-pub"><span class="nav-number">21.</span> <span class="nav-text">chmod -R 777 /var/ftp/pub</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kill-ano"><span class="nav-number">22.</span> <span class="nav-text">./kill-ano</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#usr-local-sbin-vsftpd-ano-etc-vsftpd-ano-conf-amp"><span class="nav-number">23.</span> <span class="nav-text">/usr/local/sbin/vsftpd-ano /etc/vsftpd-ano.conf &</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-home-xuchen-vsftpd-2-0-3-进入vsftpd-2-0-3的源代码目录"><span class="nav-number">24.</span> <span class="nav-text">cd /home/xuchen/vsftpd-2.0.3 //进入vsftpd-2.0.3的源代码目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make-clean-清除编译环境"><span class="nav-number">25.</span> <span class="nav-text">make clean //清除编译环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-builddefs-h-继续编辑builddefs-h-文件，文件内容如下："><span class="nav-number">26.</span> <span class="nav-text">vi builddefs.h \继续编辑builddefs.h 文件，文件内容如下：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make-直接在vsftpd-2-0-3里用make编译-1"><span class="nav-number">27.</span> <span class="nav-text">make //直接在vsftpd-2.0.3里用make编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ls-l-vsftpd-1"><span class="nav-number">28.</span> <span class="nav-text">ls -l vsftpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#useradd-nobody-可能你的系统已经存在此帐号，那就不用建立-1"><span class="nav-number">29.</span> <span class="nav-text">useradd nobody //可能你的系统已经存在此帐号，那就不用建立</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mkdir-usr-share-empty-可能你的系统已经存在此目录，那就不用建立-1"><span class="nav-number">30.</span> <span class="nav-text">mkdir /usr/share/empty //可能你的系统已经存在此目录，那就不用建立</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mkdir-var-ftp-可能你的系统已经存在此目录，那就不用建立-1"><span class="nav-number">31.</span> <span class="nav-text">mkdir /var/ftp //可能你的系统已经存在此目录，那就不用建立</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#useradd-d-var-ftp-ftp-可能你的系统已经存在此帐号，那就不用建立-1"><span class="nav-number">32.</span> <span class="nav-text">useradd -d /var/ftp ftp //可能你的系统已经存在此帐号，那就不用建立</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown-root-root-var-ftp-1"><span class="nav-number">33.</span> <span class="nav-text">chown root:root /var/ftp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-og-w-var-ftp-1"><span class="nav-number">34.</span> <span class="nav-text">chmod og-w /var/ftp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-m-755-vsftpd-usr-local-sbin-vsftpd-loc"><span class="nav-number">35.</span> <span class="nav-text">install -m 755 vsftpd /usr/local/sbin/vsftpd-loc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-m-644-vsftpd-8-usr-share-man-man8-1"><span class="nav-number">36.</span> <span class="nav-text">install -m 644 vsftpd.8 /usr/share/man/man8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-m-644-vsftpd-conf-5-usr-share-man-man5-1"><span class="nav-number">37.</span> <span class="nav-text">install -m 644 vsftpd.conf.5 /usr/share/man/man5</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-m-644-vsftpd-conf-etc-vsftpd-loc-conf"><span class="nav-number">38.</span> <span class="nav-text">install -m 644 vsftpd.conf /etc/vsftpd-loc.conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-etc-vsftpd-loc-conf-将如下三行加入文件"><span class="nav-number">39.</span> <span class="nav-text">vi /etc/vsftpd-loc.conf ,将如下三行加入文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#usr-local-sbin-vsftpd-loc-etc-vsftpd-loc-conf-amp-以后台方式启动vsftpd"><span class="nav-number">40.</span> <span class="nav-text">/usr/local/sbin/vsftpd-loc /etc/vsftpd-loc.conf & //以后台方式启动vsftpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ftp-127-0-0-1-1"><span class="nav-number">41.</span> <span class="nav-text">ftp 127.0.0.1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#useradd-xuchen"><span class="nav-number">42.</span> <span class="nav-text">useradd xuchen</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#passwd-xuchen"><span class="nav-number">43.</span> <span class="nav-text">passwd xuchen</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ftp-127-0-0-1-2"><span class="nav-number">44.</span> <span class="nav-text">ftp 127.0.0.1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ftp-127-0-0-1-3"><span class="nav-number">45.</span> <span class="nav-text">ftp 127.0.0.1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-home-xuchen-vsftpd-2-0-3-进入vsftpd-2-0-3的源代码目录-1"><span class="nav-number">46.</span> <span class="nav-text">cd /home/xuchen/vsftpd-2.0.3 //进入vsftpd-2.0.3的源代码目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make-clean-清除编译环境-1"><span class="nav-number">47.</span> <span class="nav-text">make clean //清除编译环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-builddefs-h-继续编辑builddefs-h-文件，文件内容如下：-1"><span class="nav-number">48.</span> <span class="nav-text">vi builddefs.h \继续编辑builddefs.h 文件，文件内容如下：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make-直接在vsftpd-2-0-3里用make编译-2"><span class="nav-number">49.</span> <span class="nav-text">make //直接在vsftpd-2.0.3里用make编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ls-l-vsftpd-2"><span class="nav-number">50.</span> <span class="nav-text">ls -l vsftpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#useradd-nobody-可能你的系统已经存在此帐号，那就不用建立-2"><span class="nav-number">51.</span> <span class="nav-text">useradd nobody //可能你的系统已经存在此帐号，那就不用建立</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mkdir-usr-share-empty-可能你的系统已经存在此目录，那就不用建立-2"><span class="nav-number">52.</span> <span class="nav-text">mkdir /usr/share/empty //可能你的系统已经存在此目录，那就不用建立</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mkdir-var-ftp-可能你的系统已经存在此目录，那就不用建立-2"><span class="nav-number">53.</span> <span class="nav-text">mkdir /var/ftp //可能你的系统已经存在此目录，那就不用建立</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#useradd-d-var-ftp-ftp-可能你的系统已经存在此帐号，那就不用建立-2"><span class="nav-number">54.</span> <span class="nav-text">useradd -d /var/ftp ftp //可能你的系统已经存在此帐号，那就不用建立</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown-root-root-var-ftp-2"><span class="nav-number">55.</span> <span class="nav-text">chown root:root /var/ftp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-og-w-var-ftp-2"><span class="nav-number">56.</span> <span class="nav-text">chmod og-w /var/ftp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-m-755-vsftpd-usr-local-sbin-vsftpd-pam"><span class="nav-number">57.</span> <span class="nav-text">install -m 755 vsftpd /usr/local/sbin/vsftpd-pam</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-m-644-vsftpd-8-usr-share-man-man8-2"><span class="nav-number">58.</span> <span class="nav-text">install -m 644 vsftpd.8 /usr/share/man/man8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-m-644-vsftpd-conf-5-usr-share-man-man5-2"><span class="nav-number">59.</span> <span class="nav-text">install -m 644 vsftpd.conf.5 /usr/share/man/man5</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-m-644-vsftpd-conf-etc-vsftpd-pam-conf"><span class="nav-number">60.</span> <span class="nav-text">install -m 644 vsftpd.conf /etc/vsftpd-pam.conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rpm-–qa-grep-db4"><span class="nav-number">61.</span> <span class="nav-text">rpm –qa | grep db4</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-home-logins-txt"><span class="nav-number">62.</span> <span class="nav-text">vi /home/logins.txt</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#db-load-T-t-hash-f-home-logins-txt-etc-vsftpd-login-db"><span class="nav-number">63.</span> <span class="nav-text">db_load -T -t hash -f /home/logins.txt /etc/vsftpd_login.db</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-600-etc-vsftpd-login-db"><span class="nav-number">64.</span> <span class="nav-text">chmod 600 /etc/vsftpd_login.db</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-etc-pam-d-ftp-插入如下两行"><span class="nav-number">65.</span> <span class="nav-text">vi /etc/pam.d/ftp 插入如下两行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-etc-vsftpd-pam-conf"><span class="nav-number">66.</span> <span class="nav-text">vi /etc/vsftpd-pam.conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#usr-local-sbin-vsftpd-pam-etc-vsftpd-pam-conf-amp"><span class="nav-number">67.</span> <span class="nav-text">/usr/local/sbin/vsftpd-pam /etc/vsftpd-pam.conf &</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-home-vsftpd-test-建立一个文件，内容如下"><span class="nav-number">68.</span> <span class="nav-text">vi /home/vsftpd/test //建立一个文件，内容如下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown-vsftpd-vsftpd-home-vsftpd-test"><span class="nav-number">69.</span> <span class="nav-text">chown vsftpd.vsftpd /home/vsftpd/test</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ftp-127-0-0-1-4"><span class="nav-number">70.</span> <span class="nav-text">ftp 127.0.0.1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-home-logins-txt-1"><span class="nav-number">71.</span> <span class="nav-text">vi /home/logins.txt</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#db-load-T-t-hash-f-home-logins-txt-etc-vsftpd-login-db-更新数据文件"><span class="nav-number">72.</span> <span class="nav-text">db_load -T -t hash -f /home/logins.txt /etc/vsftpd_login.db //更新数据文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mkdir-home-vsftpd-upload"><span class="nav-number">73.</span> <span class="nav-text">mkdir /home/vsftpd/upload</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-etc-vsftpd-pam-conf-加入如下语句"><span class="nav-number">74.</span> <span class="nav-text">vi /etc/vsftpd-pam.conf 加入如下语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mkdir-etc-vsftpd-user-conf"><span class="nav-number">75.</span> <span class="nav-text">mkdir /etc/vsftpd_user_conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-etc-vsftpd-user-conf-upload-文件内容如下"><span class="nav-number">76.</span> <span class="nav-text">vi /etc/vsftpd_user_conf/upload 文件内容如下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-700-home-vsftpd-upload"><span class="nav-number">77.</span> <span class="nav-text">chmod 700 /home/vsftpd/upload</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown-vsftpd-vsftpd-home-vsftpd-upload"><span class="nav-number">78.</span> <span class="nav-text">chown vsftpd.vsftpd /home/vsftpd/upload/</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql-–p"><span class="nav-number">79.</span> <span class="nav-text">mysql –p</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-home-xuchen-1"><span class="nav-number">80.</span> <span class="nav-text">cd /home/xuchen</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tar-xzvf-pam-mysql-0-5-tar-gz"><span class="nav-number">81.</span> <span class="nav-text">tar xzvf pam_mysql-0.5.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-pam-mysql"><span class="nav-number">82.</span> <span class="nav-text">cd pam_mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make"><span class="nav-number">83.</span> <span class="nav-text">make</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cp-pam-mysql-so-lib-security"><span class="nav-number">84.</span> <span class="nav-text">cp pam_mysql.so /lib/security</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-etc-pam-d-ftp-内容如下"><span class="nav-number">85.</span> <span class="nav-text">vi /etc/pam.d/ftp ,内容如下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#useradd-d-home-ftpd-s-sbin-nologin-ftpd"><span class="nav-number">86.</span> <span class="nav-text">useradd -d /home/ftpd -s /sbin/nologin ftpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-etc-vsftpd-pam1-conf"><span class="nav-number">87.</span> <span class="nav-text">vi /etc/vsftpd-pam1.conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ftp-127-0-0-1-5"><span class="nav-number">88.</span> <span class="nav-text">ftp 127.0.0.1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reboot-重新启动系统使设置生效"><span class="nav-number">89.</span> <span class="nav-text">reboot //重新启动系统使设置生效</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mount-o-remount-dev-sda6-dev-sda6的挂接点就是-home-这样可以不用启动系统。"><span class="nav-number">90.</span> <span class="nav-text">mount -o remount /dev/sda6 ///dev/sda6的挂接点就是/home,这样可以不用启动系统。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#quotacheck-avu"><span class="nav-number">91.</span> <span class="nav-text">quotacheck -avu</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#edquota-ftpd-为用户ftpd设置磁盘配额"><span class="nav-number">92.</span> <span class="nav-text">edquota ftpd //为用户ftpd设置磁盘配额</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#edquota-g-grp-为组grp设置磁盘配额"><span class="nav-number">93.</span> <span class="nav-text">edquota -g grp //为组grp设置磁盘配额</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#quotaon-avu-打开磁盘配额监控进程，u是用户g是组，这里我没设置g参数"><span class="nav-number">94.</span> <span class="nav-text">quotaon -avu //打开磁盘配额监控进程，u是用户g是组，这里我没设置g参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#quota-ftpd"><span class="nav-number">95.</span> <span class="nav-text">quota ftpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#edquota-–t（-g）来设置过渡期（grace-period）-当然只针对软限制而言"><span class="nav-number">96.</span> <span class="nav-text">edquota –t（-g）来设置过渡期（grace period） //当然只针对软限制而言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#repquota-a-或-repquota-dev-sda6（用户配额）"><span class="nav-number">97.</span> <span class="nav-text">repquota -a 或 repquota /dev/sda6（用户配额）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#repquota-g-a-或-repquota-a-dev-sda6-组的配额"><span class="nav-number">98.</span> <span class="nav-text">repquota -g -a 或 repquota -a /dev/sda6 (组的配额)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#quotacheck-auvgm-–是不尝试重新挂载文件系统"><span class="nav-number">99.</span> <span class="nav-text">quotacheck -auvgm –是不尝试重新挂载文件系统</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

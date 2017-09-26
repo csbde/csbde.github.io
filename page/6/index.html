@@ -261,7 +261,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/11/php-curl-e5-a4-9a-e7-ba-bf-e7-a8-8b-e5-ae-9e-e7-8e-b0/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/11/在Linux下查看、修改Windows分区的卷标/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -283,149 +283,7 @@
             
               
                 
-                <a class="post-title-link" href="/2010/09/11/php-curl-e5-a4-9a-e7-ba-bf-e7-a8-8b-e5-ae-9e-e7-8e-b0/" itemprop="url">
-                  PHP Curl 多线程实现
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2010-09-11T11:59:49+08:00">
-                2010-09-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Uncategorized/" itemprop="url" rel="index">
-                    <span itemprop="name">Uncategorized</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <div>$urls = array(“<a href="http://baidu.com" target="_blank" rel="external">http://baidu.com</a>“, “<a href="http://21andy.com" target="_blank" rel="external">http://21andy.com</a>“, “<a href="http://google.com" target="_blank" rel="external">http://google.com</a>“);<br>$mp = new MultiHttpRequest($urls);<br>$mp-&gt;start();</div><br><div>class_curl_multi.php<br>&lt;?php<br>/<em>
-</em> Curl 多线程类<br><em> 使用方法：
-</em> ========================<br>$urls = array(“<a href="http://baidu.com" target="_blank" rel="external">http://baidu.com</a>“, “<a href="http://dzone.com" target="_blank" rel="external">http://dzone.com</a>“, “<a href="http://google.com" target="_blank" rel="external">http://google.com</a>“);<br>$mp = new MultiHttpRequest($urls);<br>$mp-&gt;start();<br><em> ===============<a name="\&quot;entrymore\&quot;"></a>=========
-</em>/<br>class MultiHttpRequest {<br>public $urls = array();<br>public $curlopt_header = 1;<br>public $method = “GET”;<br><br>function __construct($urls = false) {<br>$this-&gt;urls = $urls;<br>}<br><br>function set_urls($urls) {<br>$this-&gt;urls = $urls;<br>return $this;<br>}<br><br>function is_return_header($b) {<br>$this-&gt;curlopt_header = $b;<br>return $this;<br>}<br><br>function set_method($m) {<br>$this-&gt;medthod = strtoupper($m);<br>return $this;<br>}<br><br>function start() {<br>if(!is_array($this-&gt;urls) or count($this-&gt;urls) == 0){<br>return false;<br>}<br>$curl = $text = array();<br>$handle = curl_multi_init();<br>foreach($this-&gt;urls as $k=&gt;$v){<br>$curl[$k] = $this-&gt;add_handle($handle, $v);<br>}<br><br>$this-&gt;exec_handle($handle);<br>foreach($this-&gt;urls as $k=&gt;$v){<br>curl_multi_getcontent($curl[$k]);<br>echo $curl[$k].”\n”;<br>//$text[$k] =  curl_multi_getcontent($curl[$k]);<br>//echo $text[$k], “\n\n”;<br>curl_multi_remove_handle($handle, $curl[$k]);<br>}<br>curl_multi_close($handle);<br>}<br><br>private function add_handle($handle, $url) {<br>$curl = curl_init();<br>curl_setopt($curl, CURLOPT_URL, $url);<br>curl_setopt($curl, CURLOPT_HEADER, $this-&gt;curlopt_header);<br>curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);<br>curl_multi_add_handle($handle, $curl);<br>return $curl;<br>}<br><br>private function exec_handle($handle) {<br>$flag = null;<br>do {<br>curl_multi_exec($handle, $flag);<br>} while ($flag &gt; 0);<br>}<br>}</div>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/11/e5-9c-a8linux-e4-b8-8b-e6-9f-a5-e7-9c-8b-e3-80-81-e4-bf-ae-e6-94-b9windows-e5-88-86-e5-8c-ba-e7-9a-84-e5-8d-b7-e6-a0-87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="九王爷">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九王爷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2010/09/11/e5-9c-a8linux-e4-b8-8b-e6-9f-a5-e7-9c-8b-e3-80-81-e4-bf-ae-e6-94-b9windows-e5-88-86-e5-8c-ba-e7-9a-84-e5-8d-b7-e6-a0-87/" itemprop="url">
+                <a class="post-title-link" href="/2010/09/11/在Linux下查看、修改Windows分区的卷标/" itemprop="url">
                   在Linux下查看、修改Windows分区的卷标
                 </a>
               
@@ -542,7 +400,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/11/e5-a6-82-e4-bd-95-e7-94-a8-e6-ad-a3-e7-a1-ae-e7-9a-84-e6-96-b9-e6-b3-95-e6-9d-a5-e5-86-99-e5-87-ba-e8-b4-a8-e9-87-8f-e5-a5-bd-e7-9a-84-e8-bd-af-e4-bb-b6-e7-9a-8475-e6-9d-a1-e4-bd-93-e4-bc-9a/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/11/如何用正确的方法来写出质量好的软件的75条体会/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -564,7 +422,7 @@
             
               
                 
-                <a class="post-title-link" href="/2010/09/11/e5-a6-82-e4-bd-95-e7-94-a8-e6-ad-a3-e7-a1-ae-e7-9a-84-e6-96-b9-e6-b3-95-e6-9d-a5-e5-86-99-e5-87-ba-e8-b4-a8-e9-87-8f-e5-a5-bd-e7-9a-84-e8-bd-af-e4-bb-b6-e7-9a-8475-e6-9d-a1-e4-bd-93-e4-bc-9a/" itemprop="url">
+                <a class="post-title-link" href="/2010/09/11/如何用正确的方法来写出质量好的软件的75条体会/" itemprop="url">
                   如何用正确的方法来写出质量好的软件的75条体会
                 </a>
               
@@ -643,7 +501,7 @@
           <div><br><br>1. 你们的项目组使用源代码管理工具了么？<br>应该用。VSS、CVS、PVCS、ClearCase、CCC/Harvest、FireFly都可以。我的选择是VSS。<br><br>2. 你们的项目组使用缺陷管理系统了么？<br>应该用。ClearQuest太复杂，我的推荐是BugZilla。<br><br>3. 你们的测试组还在用Word写测试用例么？<br>不要用Word写测试用例（Test Case）。应该用一个专门的系统，可以是Test Manager，也可以是自己开发一个ASP.NET的小网站。主要目的是Track和Browse。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2010/09/11/e5-a6-82-e4-bd-95-e7-94-a8-e6-ad-a3-e7-a1-ae-e7-9a-84-e6-96-b9-e6-b3-95-e6-9d-a5-e5-86-99-e5-87-ba-e8-b4-a8-e9-87-8f-e5-a5-bd-e7-9a-84-e8-bd-af-e4-bb-b6-e7-9a-8475-e6-9d-a1-e4-bd-93-e4-bc-9a/#more" rel="contents">
+            <a class="btn" href="/2010/09/11/如何用正确的方法来写出质量好的软件的75条体会/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -686,7 +544,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/11/linux-e8-ae-be-e7-bd-aeshell-e6-8f-90-e7-a4-ba-e7-ac-a6-e7-9a-84-e6-96-b9-e6-b3-95/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/11/Linux设置shell提示符的方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -708,7 +566,7 @@
             
               
                 
-                <a class="post-title-link" href="/2010/09/11/linux-e8-ae-be-e7-bd-aeshell-e6-8f-90-e7-a4-ba-e7-ac-a6-e7-9a-84-e6-96-b9-e6-b3-95/" itemprop="url">
+                <a class="post-title-link" href="/2010/09/11/Linux设置shell提示符的方法/" itemprop="url">
                   Linux设置shell提示符的方法
                 </a>
               
@@ -787,7 +645,7 @@
           <div><br><br><a href="http://www.linuxsong.org/category/linux/" target="_blank" rel="external">Linux</a>系统终端提示符的特征由系统环境变量PS1定义。通过命令echo $PS1查看当前设置。<br><br>PS1的值由一系列静态文本或\和转义字符序列组成，如:<br>PS1=”\u@\H \w$ “<br><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2010/09/11/linux-e8-ae-be-e7-bd-aeshell-e6-8f-90-e7-a4-ba-e7-ac-a6-e7-9a-84-e6-96-b9-e6-b3-95/#more" rel="contents">
+            <a class="btn" href="/2010/09/11/Linux设置shell提示符的方法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -830,7 +688,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/11/e7-ab-af-e5-8f-a3-e5-88-97-e8-a1-a8-e5-8f-8a-e5-8a-9f-e8-83-bd-e8-af-a6-e8-a7-a3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/11/端口列表及功能详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -852,7 +710,7 @@
             
               
                 
-                <a class="post-title-link" href="/2010/09/11/e7-ab-af-e5-8f-a3-e5-88-97-e8-a1-a8-e5-8f-8a-e5-8a-9f-e8-83-bd-e8-af-a6-e8-a7-a3/" itemprop="url">
+                <a class="post-title-link" href="/2010/09/11/端口列表及功能详解/" itemprop="url">
                   端口列表及功能详解
                 </a>
               
@@ -931,7 +789,7 @@
           <div><br><br>1　tcpmux　TCP Port Service Multiplexer　　 传输控制协议端口服务多路开关选择器<br>2　compressnet　Management Utility　　　　 compressnet 管理实用程序<br>3　compressnet　Compression Process　　　　 压缩进程<br>5　rje　Remote Job Entry　　　　　　　　　 远程作业登录<br>7　echo　Echo　　　　　　　　　　　　　　　 回显<br>9　discard　Discard　　　　　　　　　　　　 丢弃<br>11　systat　Active Users　　　　　　　　　 在线用户<br>13　daytime　Daytime　　　　　　　　　　　 时间<br>17　qotd　Quote of the Day　　　　　　　　 每日引用<br>18　msp　Message Send Protocol　　　　　　 消息发送协议<br>19　chargen　Character Generator　　　　　 字符发生器<br>20　ftp-data　File Transfer[Default Data]　 文件传输协议(默认数据口)
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2010/09/11/e7-ab-af-e5-8f-a3-e5-88-97-e8-a1-a8-e5-8f-8a-e5-8a-9f-e8-83-bd-e8-af-a6-e8-a7-a3/#more" rel="contents">
+            <a class="btn" href="/2010/09/11/端口列表及功能详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -974,7 +832,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/01/e5-a4-8d-e6-9d-82-e7-89-88-e7-9a-84-e7-bc-96-e7-a8-8b-e8-a7-84-e8-8c-83/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/01/复杂版的编程规范/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -996,7 +854,7 @@
             
               
                 
-                <a class="post-title-link" href="/2010/09/01/e5-a4-8d-e6-9d-82-e7-89-88-e7-9a-84-e7-bc-96-e7-a8-8b-e8-a7-84-e8-8c-83/" itemprop="url">
+                <a class="post-title-link" href="/2010/09/01/复杂版的编程规范/" itemprop="url">
                   复杂版的编程规范
                 </a>
               
@@ -1121,7 +979,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/01/e7-ae-80-e5-8d-95-e7-bc-96-e7-a8-8b-e8-a7-84-e8-8c-83/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/01/简单编程规范/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1143,7 +1001,7 @@
             
               
                 
-                <a class="post-title-link" href="/2010/09/01/e7-ae-80-e5-8d-95-e7-bc-96-e7-a8-8b-e8-a7-84-e8-8c-83/" itemprop="url">
+                <a class="post-title-link" href="/2010/09/01/简单编程规范/" itemprop="url">
                   简单编程规范
                 </a>
               
@@ -1268,7 +1126,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/01/linux-e4-b8-8b-e8-bf-9e-e6-8e-a5windows-e6-a1-8c-e9-9d-a2-e3-80-90-e8-bd-ac-e3-80-91/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/01/linux下连接windows桌面【转】/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1290,7 +1148,7 @@
             
               
                 
-                <a class="post-title-link" href="/2010/09/01/linux-e4-b8-8b-e8-bf-9e-e6-8e-a5windows-e6-a1-8c-e9-9d-a2-e3-80-90-e8-bd-ac-e3-80-91/" itemprop="url">
+                <a class="post-title-link" href="/2010/09/01/linux下连接windows桌面【转】/" itemprop="url">
                   linux下连接windows桌面【转】
                 </a>
               
@@ -1424,7 +1282,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/01/e4-b8-80-e5-8f-a5-e8-af-9d-e6-90-9e-e5-ae-9alinux-e4-b8-8bssh-e4-bb-a3-e7-90-86/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/01/一句话搞定linux下ssh代理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1446,7 +1304,7 @@
             
               
                 
-                <a class="post-title-link" href="/2010/09/01/e4-b8-80-e5-8f-a5-e8-af-9d-e6-90-9e-e5-ae-9alinux-e4-b8-8bssh-e4-bb-a3-e7-90-86/" itemprop="url">
+                <a class="post-title-link" href="/2010/09/01/一句话搞定linux下ssh代理/" itemprop="url">
                   一句话搞定linux下ssh代理
                 </a>
               
@@ -1580,7 +1438,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/08/10/e6-9f-90-e9-9b-86-e5-9b-a2-e6-8a-a5-e9-81-93-e4-b8-93-e7-94-a8-e8-af-8d/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/08/10/某集团报道专用词/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1602,7 +1460,7 @@
             
               
                 
-                <a class="post-title-link" href="/2010/08/10/e6-9f-90-e9-9b-86-e5-9b-a2-e6-8a-a5-e9-81-93-e4-b8-93-e7-94-a8-e8-af-8d/" itemprop="url">
+                <a class="post-title-link" href="/2010/08/10/某集团报道专用词/" itemprop="url">
                   某集团报道专用词
                 </a>
               
@@ -1681,7 +1539,151 @@
           <p>为进一步规范新闻发布和公文稿件用语，正确引导舆论，更好地服务于集团公司改革、发展、稳定的大局，根据集团公司《关于加强新闻发布制度建设意见的通知》（中油办字[2006]330号）和《重大敏感信息发布管理暂行规定》（中油办字[2007]315号）文件精神，参照新华社有关新闻报道禁用词，制定《中国石油天然气集团公司新闻报道公文稿件慎用词汇表》，供新闻发布之用。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2010/08/10/e6-9f-90-e9-9b-86-e5-9b-a2-e6-8a-a5-e9-81-93-e4-b8-93-e7-94-a8-e8-af-8d/#more" rel="contents">
+            <a class="btn" href="/2010/08/10/某集团报道专用词/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/08/02/'[转]实用jquery插件'/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2010/08/02/'[转]实用jquery插件'/" itemprop="url">
+                  [转]实用jquery插件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2010-08-02T13:16:59+08:00">
+                2010-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Site/" itemprop="url" rel="index">
+                    <span itemprop="name">Site</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Query 是继 prototype 之后又一个优秀的 Javascript 框架。其宗旨是—写更少的代码,做更多的事情。它是轻量级的 js 库(压缩后只有21k) ，这是其它的 js 库所不<a href="http://www.cnblogs.com/images/cnblogs_com/Terrylee/WindowsLiveWriter/240jQuery_128F5/jquery_2.gif" target="_blank" rel="external"><img src="http://www.cnblogs.com/images/cnblogs_com/Terrylee/WindowsLiveWriter/240jQuery_128F5/jquery_thumb.gif" alt=""></a>及的，它兼容 CSS3， 还兼容各种浏览器（IE 6.0+, FF 1.5+, Safari 2.0+, Opera 9.0+）。 jQuery 是一个快速的，简洁的  javaScript 库，使用户能更方便地处理 HTML documents、events、实现动画效果，并且方便地为网站提供 AJAX 交互。 jQuery 还有一个比较大的优势是，它的文档说明很全，而且各种应用也说得很详细，同时还有许多成熟的插件可供选择。 jQuery 能够使用户的 html 页保持代码和 html 内容分离，也就是说，不用再在 html 里面插入一堆js来调用命令了，只需定义 id 即可。特推荐如下。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2010/08/02/'[转]实用jquery插件'/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1764,7 +1766,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">269</span>
+                <span class="site-state-item-count">267</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

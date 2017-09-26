@@ -1,0 +1,718 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="安装方法：其实很简单，如下： Step one: 到这里下载MinGW,网速慢的话可能打不开，是个外国网站（上面的网站镜像可能出了点问题,有的东西下载下来却不能用,等我有空我会给大家提供下载）。 Step two :双击安装包，一切按默认设置，一路的“下一步”以后就能搞定。 Step three:环境变量可能会在安装过程中自动设置好，在cmd中输入gcc测试一下，假如显示 gcc: no inpu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MinGW安装与使用简介">
+<meta property="og:url" content="http://yoursite.com/2010/09/22/MinGW安装与使用简介/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="安装方法：其实很简单，如下： Step one: 到这里下载MinGW,网速慢的话可能打不开，是个外国网站（上面的网站镜像可能出了点问题,有的东西下载下来却不能用,等我有空我会给大家提供下载）。 Step two :双击安装包，一切按默认设置，一路的“下一步”以后就能搞定。 Step three:环境变量可能会在安装过程中自动设置好，在cmd中输入gcc测试一下，假如显示 gcc: no inpu">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MinGW安装与使用简介">
+<meta name="twitter:description" content="安装方法：其实很简单，如下： Step one: 到这里下载MinGW,网速慢的话可能打不开，是个外国网站（上面的网站镜像可能出了点问题,有的东西下载下来却不能用,等我有空我会给大家提供下载）。 Step two :双击安装包，一切按默认设置，一路的“下一步”以后就能搞定。 Step three:环境变量可能会在安装过程中自动设置好，在cmd中输入gcc测试一下，假如显示 gcc: no inpu">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2010/09/22/MinGW安装与使用简介/"/>
+
+
+
+
+
+  <title> MinGW安装与使用简介 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/22/MinGW安装与使用简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MinGW安装与使用简介
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2010-09-22T10:50:49+08:00">
+                2010-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Uncategorized/" itemprop="url" rel="index">
+                    <span itemprop="name">Uncategorized</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>安装方法：其实很简单，如下：</p>
+<p>Step one: 到这里下载MinGW,网速慢的话可能打不开，是个外国网站（上面的网站镜像可能出了点问题,有的东西下载下来却不能用,等我有空我会给大家提供下载）。</p>
+<p>Step two :双击安装包，一切按默认设置，一路的“下一步”以后就能搞定。</p>
+<p>Step three:环境变量可能会在安装过程中自动设置好，在cmd中输入gcc测试一下，假如显示 gcc: no input file ，则安装已成功。</p>
+<p>否则，自己把c:/mingw/bin的目录手动加到环境变量中，方法如下（很简单的哟，没必要害怕嘛）</p>
+<p>1.右键“我的电脑”==&gt;属性==&gt;“高级”==&gt;“环境变量”</p>
+<p>2.在用户变量(注意不是系统变量)中，假如有path变量，就选择“编辑”，在原先值后面加个分号，在把MinGW的bin目录加上就好了。假如没有path就自己“新建”一个，再把MinGW的bin目录加上。</p>
+<p>3.测试方法同上，over。</p>
+<p>这里是英文用法,高手请看，下面是我的翻译，仅供参考，翻译不得当的地方请不吝指出。</p>
+<p>使用MinGW进行编译和创建（应有程序）</p>
+<p>怎样创建一个终端应用程序?</p>
+<p><strong>C语言代码编译：</strong></p>
+<p>这里有一个例子。下面是一个简单的c语言程序的代码示例，请把它剪切并粘贴到一个叫作hello.c的文件中试试看:</p>
+<p><pre class="brush:cpp">#include &lt;stdio.h&gt;<br>int main(int argc, char **argv)<br>{<br>printf (“Hello World!”);<br>return (0);<br>}</pre><br>假如你想从hello.c生成一个在终端模式下的可执行文件hello.exe.试一下下面的方法：</p>
+<p>gcc -c hello.c<br>这个命令把hello.c编译成一个目标文件hello.o,然后用下面的方法：<br>gcc -o hello hello.o<br>这个命令从hello.o文件生成一个可执行的hello.exe文件。事实上，作为一种选择，你可以使用下面的命令把编译和链接放到一步中完成：<br>gcc -o hello hello.c</p>
+<p><strong>C++语言代码编译：</strong></p>
+<p>下面是一个简单的c++程序的代码示例，复制并粘贴到一个叫hello.cpp的文件中试试看：</p>
+<p><pre class="brush:cpp">#include &lt;iostream&gt;<br>int main(int argc, char **argv)<br>{<br>std::cout &lt;&lt; “C++ Hello World! 感谢” &lt;&lt; std::endl;<br>return (0);<br>}</pre><br>对于c++程序来说，使用下面的命令来编译和链接：<br>g++ -c hello.cpp<br>g++ -o hello hello.o</p>
+<p>(同样你可以把他们合并到一步中完成）</p>
+<p><strong>windows应用程序编译：</strong></p>
+<p>这里有一个例子。下面是一个简单的windows应用程序的代码示例，请把它复制并粘贴到一个叫作winhello.c的文件中试试看 :</p>
+<p>#include &lt;windows.h&gt;<br>int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow)<br>{<br>MessageBox (NULL, “Hello”, “Hello Demo”, MB_OK);<br>return (0);<br>}</p>
+<p>假如你想从一个叫winhello.c的c语言源文件创建一个从窗体执行的（Windows executable）winhello.exe,请试用下列命令：</p>
+<p>gcc -c winhello.c<br>首先产生了目标文件winhello.o,然后用：</p>
+<p>gcc -o winhello winhello.o -mwindows</p>
+<p>这会从hello.o创建一个可执行的hello.exe, -mwindows用来说明要创建的是Windows应用程序而非从终端执行的程序，它确保正确的Windows库被链接。</p>
+<p>要同时得到一个终端屏幕和标准的Windows应用程序，在</p>
+<p>-mwindows标志后面增加一个-mconsole标志（flag）</p>
+<p>假如你有新的资源（一个后缀名为.rc的文件）也要添加到你的程序中,你需要编译这些资源文件（resource file）和别的一些资源文件，并且在链接时包含进这些编译过的资源文件以创建你的程序,下面的例子将告诉你怎样编译和链接一个叫做resfile.rc 的资源文件：<br>windres -o resfile.o resfile.rc<br>gcc -o winhello winhello.o resfile.o -mwindows</p>
+<p><strong>创建DLL编译：</strong></p>
+<p>这里有个例子。把下面的代码复制并粘贴到一个叫dllfct.h的文件中：</p>
+<p>#ifdef BUILD_DLL  // the dll exports</p>
+<p>#define EXPORT __declspec(dllexport)</p>
+<p>#else  // the exe imports</p>
+<p>#define EXPORT __declspec(dllimport)</p>
+<p>#endif // function to be imported/exported<br>EXPORT void tstfunc (void);<br>把下面的代码复制并粘贴到一个叫dllfct.c的文件中:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>#include “dllfct.h”<br>EXPORT void tstfunc (void)<br>{<br>printf (“DLL Hello World!”);<br>}<br>把下面的代码复制并粘贴到一个叫dllHello.c的文件中:</p>
+<p>#include “dllfct.h”<br>int main ()<br>{<br>tstfunc ();<br>return (0);<br>}</p>
+<p>为了创建一个dll和一个使用他的程序，试试下面的命令：</p>
+<p>gcc -c dllHello.c<br>gcc -c -DBUILD_DLL dllfct.c<br>gcc -shared -o tst.dll -Wl,–out-implib,libtstdll.a dllfct.o<br>gcc -o dllHello.exe dllHello.o -L./ -ltstdll<br>注：蓝色字体如果DLL更改过了，只要重新编辑DLL即可，dllHello不用重新编译。<br>比如我们修改dllfct.c文件为</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>#include “dllfct.h”<br>EXPORT void tstfunc (void)<br>{<br>printf (“DLL Hello World! 感谢”);<br>}<br>我们执行下面的命令，重新生成 tst.dll<br>gcc -c -DBUILD_DLL dllfct.c<br>gcc -shared -o tst.dll -Wl,–out-implib,libtstdll.a dllfct.o<br>下面我们执行：dllHello.exe程序<br>那么程序将显示：DLL Hello World! 感谢</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2010/09/19/非常实用的sql语句/" rel="next" title="非常实用的sql语句">
+                <i class="fa fa-chevron-left"></i> 非常实用的sql语句
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2010/10/25/为何你应该假装自己是一个电脑白痴/" rel="prev" title="为何你应该假装自己是一个电脑白痴">
+                为何你应该假装自己是一个电脑白痴 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

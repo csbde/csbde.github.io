@@ -1,0 +1,722 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="MySQL," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="1.备份整个数据库  mysqldump –all-databases &amp;gt;/path/dbname.sql -uroot -pmysqldump –opt database &amp;gt; db.sql 2.备份一个单独或者几个表  mysqldump db_name tab_name &amp;gt;/path/sqlname.sql -uroot -p 3.恢复数据库  mysql -D db_nam">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL数据库备份">
+<meta property="og:url" content="http://yoursite.com/2006/11/23/MySQL数据库备份/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="1.备份整个数据库  mysqldump –all-databases &amp;gt;/path/dbname.sql -uroot -pmysqldump –opt database &amp;gt; db.sql 2.备份一个单独或者几个表  mysqldump db_name tab_name &amp;gt;/path/sqlname.sql -uroot -p 3.恢复数据库  mysql -D db_nam">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.781Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL数据库备份">
+<meta name="twitter:description" content="1.备份整个数据库  mysqldump –all-databases &amp;gt;/path/dbname.sql -uroot -pmysqldump –opt database &amp;gt; db.sql 2.备份一个单独或者几个表  mysqldump db_name tab_name &amp;gt;/path/sqlname.sql -uroot -p 3.恢复数据库  mysql -D db_nam">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2006/11/23/MySQL数据库备份/"/>
+
+
+
+
+
+  <title> MySQL数据库备份 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/MySQL数据库备份/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MySQL数据库备份
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2006-11-23T06:48:00+08:00">
+                2006-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1.备份整个数据库</p>
+<hr>
+<h1 id="mysqldump-–all-databases-gt-path-dbname-sql-uroot-p"><a href="#mysqldump-–all-databases-gt-path-dbname-sql-uroot-p" class="headerlink" title="mysqldump –all-databases &gt;/path/dbname.sql -uroot -p"></a>mysqldump –all-databases &gt;/path/dbname.sql -uroot -p</h1><h1 id="mysqldump-–opt-database-gt-db-sql"><a href="#mysqldump-–opt-database-gt-db-sql" class="headerlink" title="mysqldump –opt database &gt; db.sql"></a>mysqldump –opt database &gt; db.sql</h1><hr>
+<p>2.备份一个单独或者几个表</p>
+<hr>
+<h1 id="mysqldump-db-name-tab-name-gt-path-sqlname-sql-uroot-p"><a href="#mysqldump-db-name-tab-name-gt-path-sqlname-sql-uroot-p" class="headerlink" title="mysqldump db_name tab_name &gt;/path/sqlname.sql -uroot -p"></a>mysqldump db_name tab_name &gt;/path/sqlname.sql -uroot -p</h1><hr>
+<p>3.恢复数据库</p>
+<hr>
+<h1 id="mysql-D-db-name-lt-db-sql-uroot-p"><a href="#mysql-D-db-name-lt-db-sql-uroot-p" class="headerlink" title="mysql -D db_name &lt; db.sql -uroot -p"></a>mysql -D db_name &lt; db.sql -uroot -p</h1><hr>
+<p>mysqldump部分选项如</p>
+<p>–add-locks<br>在每个表导出之前增加LOCK TABLES并且之后UNLOCK TABLE。(为了使得更快地插入到MySQL)。<br>–add-drop-table<br>在每个create语句之前增加一个drop table。<br>–allow-keywords<br>允许创建是关键词的列名字。这由表名前缀于每个列名做到。<br>-c, –complete-insert<br>使用完整的insert语句(用列名字)。<br>-C, –compress<br>如果客户和服务器均支持压缩，压缩两者间所有的信息。<br>–delayed<br>用INSERT DELAYED命令插入行。<br>-e, –extended-insert<br>使用全新多行INSERT语法。（给出更紧缩并且更快的插入语句）<br>-#, –debug[=option_string]<br>跟踪程序的使用(为了调试)。<br>–help<br>显示一条帮助消息并且退出。<br>–fields-terminated-by=…</p>
+<p>–fields-enclosed-by=…</p>
+<p>–fields-optionally-enclosed-by=…</p>
+<p>–fields-escaped-by=…</p>
+<p>–fields-terminated-by=…<br>这些选择与-T选择一起使用，并且有相应的LOAD DATA INFILE子句相同的含义。<br>LOAD DATA INFILE语法。<br>-F, –flush-logs<br>在开始导出前，洗掉在MySQL服务器中的日志文件。<br>-f, –force,<br>即使我们在一个表导出期间得到一个SQL错误，继续。<br>-h, –host=..<br>从命名的主机上的MySQL服务器导出数据。缺省主机是localhost。<br>-l, –lock-tables.<br>为开始导出锁定所有表。<br>-t, –no-create-info<br>不写入表创建信息(CREATE TABLE语句）<br>-d, –no-data<br>不写入表的任何行信息。如果你只想得到<br>一个表的结构的导出，这是很有用的！<br>–opt<br>同–quick –add-drop-table –add-locks –extended-insert –lock-tables。<br>应该给你为读入一个MySQL服务器的尽可能最快的导出。<br>-pyour_pass, –password[=your_pass]<br>与服务器连接时使用的口令。如果你不指定“=your_pass”部分，mysqldump需要来自终端的口令。<br>-P port_num, –port=port_num<br>与一台主机连接时使用的TCP/IP端口号。（这用于连接到localhost以外的主机，因为它使用 Unix套接字。）<br>-q, –quick<br>不缓冲查询，直接导出至stdout；使用mysql_use_result()做它。<br>-S /path/to/socket, –socket=/path/to/socket<br>与localhost连接时（它是缺省主机)使用的套接字文件。<br>-T, –tab=path-to-some-directory<br>对于每个给定的表，创建一个table_name.sql文件，它包含SQL CREATE 命令，和一个table_name.txt文件，它包含数据。 注意：这只有在mysqldump运行在mysqld守护进程运行的同一台机器上的时候才工作。.txt文件的格式根据–fields-xxx和– lines–xxx选项来定。<br>-u user_name, –user=user_name<br>与服务器连接时，MySQL使用的用户名。缺省值是你的Unix登录名。<br>-O var=option, –set-variable var=option设置一个变量的值。可能的变量被列在下面。<br>-v, –verbose<br>冗长模式。打印出程序所做的更多的信息。<br>-V, –version<br>打印版本信息并且退出。<br>-w, –where=’where-condition’<br>只导出被选择了的记录；注意引号是强制的！<br>“–where=user=’jimf’” “-wuserid&gt;1” “-wuserid&lt;1”</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2006/11/23/Linux日志/" rel="next" title="Linux日志">
+                <i class="fa fa-chevron-left"></i> Linux日志
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2006/11/23/Linux－关于locale的设定/" rel="prev" title="Linux－关于locale的设定">
+                Linux－关于locale的设定 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mysqldump-–all-databases-gt-path-dbname-sql-uroot-p"><span class="nav-number">1.</span> <span class="nav-text">mysqldump –all-databases >/path/dbname.sql -uroot -p</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysqldump-–opt-database-gt-db-sql"><span class="nav-number">2.</span> <span class="nav-text">mysqldump –opt database > db.sql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysqldump-db-name-tab-name-gt-path-sqlname-sql-uroot-p"><span class="nav-number">3.</span> <span class="nav-text">mysqldump db_name tab_name >/path/sqlname.sql -uroot -p</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql-D-db-name-lt-db-sql-uroot-p"><span class="nav-number">4.</span> <span class="nav-text">mysql -D db_name < db.sql -uroot -p</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

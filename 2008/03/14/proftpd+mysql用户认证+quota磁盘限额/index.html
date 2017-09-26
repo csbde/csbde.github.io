@@ -1,0 +1,683 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Proftpd," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="proftpd+mysql用户认证+quota磁盘限额  整理编辑：mars (mars_diy@21cn.com) 网上关于proftpd的安装文章实在是不少，我只是稍微整理了一下，并且使用了新的 quota磁盘限额模块 由于proftpd最新版1.2.8目前还是RC版，加上有些设置不能通用， 所以在这里还是使用1.2.7版">
+<meta name="keywords" content="Proftpd">
+<meta property="og:type" content="article">
+<meta property="og:title" content="proftpd+mysql用户认证+quota磁盘限额">
+<meta property="og:url" content="http://yoursite.com/2008/03/14/proftpd+mysql用户认证+quota磁盘限额/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="proftpd+mysql用户认证+quota磁盘限额  整理编辑：mars (mars_diy@21cn.com) 网上关于proftpd的安装文章实在是不少，我只是稍微整理了一下，并且使用了新的 quota磁盘限额模块 由于proftpd最新版1.2.8目前还是RC版，加上有些设置不能通用， 所以在这里还是使用1.2.7版">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="proftpd+mysql用户认证+quota磁盘限额">
+<meta name="twitter:description" content="proftpd+mysql用户认证+quota磁盘限额  整理编辑：mars (mars_diy@21cn.com) 网上关于proftpd的安装文章实在是不少，我只是稍微整理了一下，并且使用了新的 quota磁盘限额模块 由于proftpd最新版1.2.8目前还是RC版，加上有些设置不能通用， 所以在这里还是使用1.2.7版">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/03/14/proftpd+mysql用户认证+quota磁盘限额/"/>
+
+
+
+
+
+  <title> proftpd+mysql用户认证+quota磁盘限额 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/14/proftpd+mysql用户认证+quota磁盘限额/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                proftpd+mysql用户认证+quota磁盘限额
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-03-14T10:44:56+08:00">
+                2008-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Server/" itemprop="url" rel="index">
+                    <span itemprop="name">Server</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <font id="zoom" class="f14">proftpd+mysql用户认证+quota磁盘限额  </font><font id="zoom" class="f14">整理编辑：mars (mars_diy@21cn.com) </font><font id="zoom" class="f14">网上关于proftpd的安装文章实在是不少，我只是稍微整理了一下，并且使用了新的 quota磁盘限额模块 </font><font id="zoom" class="f14">由于proftpd最新版1.2.8目前还是RC版，加上有些设置不能通用， 所以在这里还是使用1.2.7版<br><br><a id="more"></a><br><br>首先下载源码<br>proftpd1.2.7:<br>ftp://ftp.proftpd.org/distrib/sourc…d-1.2.7.tar.bz2<br><br>mod_quotatab-1.2.4 (1.2.5 版本的mod_quotatab是用在最新的1.2.8rc1上的)<br><a href="http://www.castaglia.org/proftpd/mo...ab-1.2.4.tar.gz" target="_blank" rel="external">http://www.castaglia.org/proftpd/mo...ab-1.2.4.tar.gz</a><br><br>假定你的机器上已经安装好了mysql<br>开始编译安装<br>将proftpd的源码包解压缩到某临时目录下：<br>localhost proftpd # tar -jxvf proftpd-1.2.7.tar.bz2<br>解压缩 mod_quotatab-1.2.4<br>localhost proftpd # tar -zxvf proftpd-mod-quotatab-1.2.4.tar.gz<br>进入 mod_quotatab 目录<br>localhost proftpd # cd mod_quotatab<br>把mod_quotatab中的文件拷贝到 proftpd 中的modules 目录中<br>localhost mod_quotatab # cp * ../proftpd-1.2.7/modules<br><br>在开始运行configure之前，我们要先改动一个文件<br>进入 proftpd-1.2.7/contrib 目录<br>localhost mod_quotatab # cd ../proftpd-1.2.7/contrib<br>修改 mod_sql_mysql.c<br>localhost contrib # vi mod_sql_mysql.c<br>找到#include &lt;mysql/mysql.h&gt;; 把他该为你实际路径<br>如果你的mysql 安装在 /usr/local/mysql 下，就把它修改为#include &lt;/usr/local/mysql/include/mysql/mysql.h&gt;;r<br>然后<br>localhost contrib # cd ..<br>localhost proftpd-1.2.7 # cd ..<br>localhost proftpd #./configure –prefix=DIR –with-modules=mod_sql:mod_sql_mysql:mod_quotatab:mod_quotatab_sql –with-includes=DIR –with-libraries=DIR<br>需要修改的三个地方<br>–prefix=DIR 你要安装到哪里<br>–with-includes=DIR mysql 的includes 目录<br>–with-libraries=DIR mysql 的lib 目录<br>然后<br>make<br>make install 完成安装<br><br>接下来，进入你安装好的proftpd目录 ，修改etc/proftpd.conf 文件开始配置<br>基本配置我就不多说了，网上这类文章有很多，实在不会的话，自己找找就是了，这里主要介绍如何配置mysql用户认证和磁盘限额<br><br>mysql 用户认证部分：<br>在proftpd.conf中加入以下内容<br><br>#设置MySQL认证：<br>#数据库联接的信息，DatabaseName是数据库名， HostName是主机名，<br>#Port是端口号，UserName是连接数据库的用户名，Password是密码。<br>SQLConnectInfo DatabaseName@HostName:port UserName Password<br><br>#数据库认证的类型：<br>SQLAuthTypes Backend Plaintext<br><br>#指定用来做用户认证的表的有关信息。(“FTPUSERS”和”FTPGRPS”是数据表名字，等一会而在下面建立)<br>SQLUserInfo FTPUSERS userid passwd uid gid homedir shell<br><br>SQLGroupInfo FTPGRPS groupname gid members<br><br>#设置如果shell为空时允许用户登录：<br>RequireValidShell off<br><br>#数据库的鉴别<br>SQLAuthenticate users groups usersetfast groupsetfast<br><br>#如果home目录不存在，则系统会为根据它的home项新建一个目录：<br>SQLHomedirOnDemand on<br><br>然后在这个数据库中建立一个用户表FTPUSERS，这个表是必须的：<br><br>use FTP;<br>create table FTPUSERS (<br>userid TEXT NOT NULL,<br>passwd TEXT NOT NULL,<br>uid INT NOT NULL,<br>gid INT NOT NULL,<br>home TEXT,<br>shell TEXT<br>);<br>此表格是为了用户认证所需要的，其中userid、passwd是必不可少的，userid是用做FTP服务的用户名；passwd是指此用户的 密码；uid是系统用户的ID，也就是所映射的系统用户；gid是所属系统组的ID；home是该用户所在的HOME目录；shell可以为该用户指定相 应的shell。当然你可以建立更多的字段，例如：用来记录用户登录次数的count，或者是日期的date，如果你对配置熟悉了之后，你可以根据自己的 喜欢添加更多的功能。在此就不多讲。<br>3、如果你想需要所有的功能，你还可以添加另外一个需要的表：FTPGRPS，也就是确定组的表格，当然也可以不用，这里讲一个它的格式：<br>create table FTPGRPS (<br>grpname TEXT NOT NULL,<br>gid SMALLINT NOT NULL,<br>members TEXT NOT NULL,<br>);<br>其中grpname是组的名称，gid是系统组的ID，members是组的成员。注意：多成员，他们之间要用逗号隔开，不能使用空格。<br><br>4、为空表格插入记录：<br>INSERT INTO FTPUSERS (userid, passwd, uid, gid, home, shell)<br>valueS (‘user1’, ‘999999’, ‘1000’, ‘1000’, ‘/home/FTP/user1’, ‘’ );<br><br>按此格式你可以插入这每一个用户添加一个记录。<br>如果你要想应用到更多的功能，且建立了组的表格，你也要为此添加记录，不过一定要注意在members的字段多个成员一定要用逗号隔开。<br><br>INSERT INTO FTPGRPS VALUES (‘FTPGRPS’, 1000, ‘FTPUSR’);<br>四、为FTP用户建立相应的系统用户。<br>在本例中，只整个FTP服务只提供一个有效的系统用户FTPUSR和组FTPGRP，当然你也可以设置多个系统用户。但出于安全的考虑，我只设一个，用他来启动FTP daemon，并把所有的FTP用户映射过这个用户。<br><br>先建立FTPGRP组：<br>groupadd -g 1000 -r FTPGRP<br>建立FTPUSR用户：<br>adduser -u 1000 -g 1000 -d /home/FTP -s /bin/bash -r FTPUSR<br><br>为FTPUSR建立HOME，把所有的FTP user 活动空间全放在此目录下：<br>mkdir /home/FTP<br>chown FTPUSR /home/FTP<br>chgrp FTPGRP /home/FTP<br><br>到这里MYSQL认证部分就算基本配置好了，接下来是磁盘限额部分<br><br>首先，还是编辑proftpd文件<br><br>#磁盘限额部分<br>QuotaDirectoryTally on<br><br>#磁盘限额单位 b”|”Kb”|”Mb”|”Gb”<br>QuotaDisplayUnits “Kb”<br><br>QuotaEngine on<br><br>#磁盘限额日志记录<br>QuotaLog “你的LOG路径”<br><br># 打开磁盘限额信息，当登陆FTP帐户后，使用命令 “quote SITE QUOTA” 后可显示当前用户的磁盘限额<br>QuotaShowQuotas on<br><br>#以下是SQL调用语句，不用修改直接拷贝过去<br><br>SQLNamedQuery get-quota-limit SELECT “name, quota_type, per_session, limit_type, bytes_in_avail, \<br>bytes_out_avail, bytes_xfer_avail, files_in_avail, files_out_avail, files_xfer_avail FROM quotalimits \<br>WHERE name = ‘%{0}’ AND quota_type = ‘%{1}’”<br><br>SQLNamedQuery get-quota-tally SELECT “name, quota_type, bytes_in_used, bytes_out_used, \<br>bytes_xfer_used, files_in_used, files_out_used, files_xfer_used FROM quotatallies \<br>WHERE name = ‘%{0}’ AND quota_type = ‘%{1}’”<br><br>SQLNamedQuery update-quota-tally UPDATE “bytes_in_used = bytes_in_used + %{0}, \<br>bytes_out_used = bytes_out_used + %{1}, bytes_xfer_used = bytes_xfer_used + %{2}, \<br>files_in_used = files_in_used + %{3}, files_out_used = files_out_used + %{4}, \<br>files_xfer_used = files_xfer_used + %{5} \<br>WHERE name = ‘%{6}’ AND quota_type = ‘%{7}’” quotatallies<br><br>SQLNamedQuery insert-quota-tally INSERT “%{0}, %{1}, %{2}, %{3}, %{4}, %{5}, %{6}, %{7}” quotatallies<br><br>QuotaLimitTable sql:/get-quota-limit<br>QuotaTallyTable sql:/get-quota-tally/update-quota-tally/insert-quota-tally<br><br>然后建立mysql 数据表<br>CREATE TABLE quotalimits (<br>name VARCHAR(30),<br>quota_type ENUM(“user”, “group”, “class”, “all”) NOT NULL,<br>per_session ENUM(“false”, “true”) NOT NULL,<br>limit_type ENUM(“soft”, “hard”) NOT NULL,<br>bytes_in_avail FLOAT NOT NULL,<br>bytes_out_avail FLOAT NOT NULL,<br>bytes_xfer_avail FLOAT NOT NULL,<br>files_in_avail INT UNSIGNED NOT NULL,<br>files_out_avail INT UNSIGNED NOT NULL,<br>files_xfer_avail INT UNSIGNED NOT NULL<br>);<br><br>CREATE TABLE quotatallies (<br>name VARCHAR(30) NOT NULL,<br>quota_type ENUM(“user”, “group”, “class”, “all”) NOT NULL,<br>bytes_in_used FLOAT NOT NULL,<br>bytes_out_used FLOAT NOT NULL,<br>bytes_xfer_used FLOAT NOT NULL,<br>files_in_used INT UNSIGNED NOT NULL,<br>files_out_used INT UNSIGNED NOT NULL,<br>files_xfer_used INT UNSIGNED NOT NULL<br>);<br><br>说明一下，quotatallies表不需要作修改，它记录了用户当前的磁盘使用情况，由程序自动记录<br>要注意的是quotalimits 表中一些字段的含意<br>quota_type 磁盘限额的鉴别,可以设置单各用户，也可以设置一各组中的全部用户，还可以设置全部用户<br>bytes_in_avail 上传最大字节数，就是FTP用户空间容量 (设置个字段的时候是以byte(字节)为单位，如果要限额在10M，那就是10240000,下面也一样)<br>bytes_out_avail 下载最大字节数，需要注意的是，这个字段中记录的是用户总共能从服务器上下载多少数据，数据是累计的。<br>bytes_xfer_avail 总共可传输的文件的最大字节数(上传和下载流量)需要注意的是，这个字段中记录的是用户总共能传输文件的最大字节数，数据是累计的。<br>files_in_avail INT 总共能上传文件的数目<br>files_out_avail INT 能从服务器上下载文件的总数目<br>files_xfer_avail INT 总共可传输文件的数目(上传和下载)<br><br>好了，开始使用磁盘限额，我们要将上面建立的user1帐号给予10M空间，最多能上传500个文件到服务器上，文件传输流量为20M，只能传输10个文件。只要在MYSQL中<br>插入 <code>INSERT INTO</code>quotalimits<code>(</code>name<code>,</code>quota_type<code>,</code>per_session<code>,</code>limit_type<code>,</code><br><br><code>bytes_in_avail` , `bytes_out_avail` , `bytes_xfer_avail` , `files_in_avail` , `
+</code>files_out_avail<code>,</code>files_xfer_avail<code>)</code><br>VALUES (‘user1’, ‘user’, ‘false’, ‘soft’, ‘10240000’, ‘0’, ‘2048000’, ‘500’, ‘0’, ‘10’);<br>就可以了，不需要设置的部分用0代替就可以了<br>现在运行proftpd，登陆到user1 ，使用quote SITE QUOTA 就会显示user1用户的磁盘使用情况<br><br>ftp&gt;; quote SITE QUOTA<br>200-The current quota for this session are [current/limit]:<br>Name: user1<br>Quota Type: User<br>Per Session: False<br>Limit Type: Soft<br>Uploaded Kb: 0.00/10000.00<br>Downloaded Kb: unlimited<br>Transferred Kb: 0.00/2000.00<br>Uploaded files: 0/500<br>Downloaded files: unlimited<br>Transferred files: 0/10<br>200 Please contact root@localhost if these entries are inaccurate<br><br>OK,安装完毕<br><br>具体可以参照<a href="http://www.chinaunix.net/jh/15/3028.html" target="_blank" rel="external">这里</a>的帖子<br><br></font>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Proftpd/" rel="tag"># Proftpd</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/03/14/proftpd_+_mysql_安装参考资料/" rel="next" title="proftpd + mysql 安装参考资料">
+                <i class="fa fa-chevron-left"></i> proftpd + mysql 安装参考资料
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/03/16/linux用户的权限管理详细说明/" rel="prev" title="linux用户的权限管理详细说明">
+                linux用户的权限管理详细说明 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

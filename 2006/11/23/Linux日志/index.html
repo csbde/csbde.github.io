@@ -1,0 +1,724 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux,Shell,Apache," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="1. 日志简介日志对于安全来说，非常重要，他记录了系统每天发生的各种各样的事情，你可以通过他来检查错误发生的原因，或者受到攻击时攻击者留下的痕迹。日志主要的功能有：审计和监测。他还可以实时的监测系统状态，监测和追踪侵入者等等。在Linux系统中，有三个主要的日志子系统：连接时间日志–由多个程序执行，把纪录写入到/var/log/wtmp和/var/run/utmp，login等程序更新wtmp和u">
+<meta name="keywords" content="Linux,Shell,Apache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux日志">
+<meta property="og:url" content="http://yoursite.com/2006/11/23/Linux日志/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="1. 日志简介日志对于安全来说，非常重要，他记录了系统每天发生的各种各样的事情，你可以通过他来检查错误发生的原因，或者受到攻击时攻击者留下的痕迹。日志主要的功能有：审计和监测。他还可以实时的监测系统状态，监测和追踪侵入者等等。在Linux系统中，有三个主要的日志子系统：连接时间日志–由多个程序执行，把纪录写入到/var/log/wtmp和/var/run/utmp，login等程序更新wtmp和u">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.781Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux日志">
+<meta name="twitter:description" content="1. 日志简介日志对于安全来说，非常重要，他记录了系统每天发生的各种各样的事情，你可以通过他来检查错误发生的原因，或者受到攻击时攻击者留下的痕迹。日志主要的功能有：审计和监测。他还可以实时的监测系统状态，监测和追踪侵入者等等。在Linux系统中，有三个主要的日志子系统：连接时间日志–由多个程序执行，把纪录写入到/var/log/wtmp和/var/run/utmp，login等程序更新wtmp和u">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2006/11/23/Linux日志/"/>
+
+
+
+
+
+  <title> Linux日志 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/Linux日志/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux日志
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2006-11-23T06:47:00+08:00">
+                2006-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><span style="color: green">1. 日志简介<br>日志对于安全来说，非常重要，他记录了系统每天发生的各种各样的事情，你可以通过他来检查错误发生的原因，或者受到攻击时攻击者留下的痕迹。日志主要的功能有：审计和监测。他还可以实时的监测系统状态，监测和追踪侵入者等等。<br>在Linux系统中，有三个主要的日志子系统：<br>连接时间日志–由多个程序执行，把纪录写入到/var/log/wtmp和/var/run/utmp，login等程序更新wtmp和utmp文件，使系统管理员能够跟踪谁在何时登录到系统。<br>进程统计–由系统内核执行。当一个进程终止时，为每个进程往进程统计文件（pacct或acct）中写一个纪录。进程统计的目的是为系统中的基本服务提供命令使用统计。<br>错误日志–由syslogd（8）执行。各种系统守护进程、用户程序和内核通过syslog（3）向文件/var/log/messages报告值得注意的事件。另外有许多UNIX程序创建日志。像HTTP和FTP这样提供网络服务的服务器也保持详细的日志。<br>常用的日志文件如下：<br>access-log 纪录HTTP/web的传输<br>acct/pacct 纪录用户命令<br>aculog 纪录MODEM的活动<br>btmp 纪录失败的纪录<br>lastlog 纪录最近几次成功登录的事件和最后一次不成功的登录<br>messages 从syslog中记录信息（有的链接到syslog文件）<br>sudolog 纪录使用sudo发出的命令<br>sulog 纪录使用su命令的使用<br>syslog 从syslog中记录信息（通常链接到messages文件）<br>utmp 纪录当前登录的每个用户<br>wtmp 一个用户每次登录进入和退出时间的永久纪录<br>xferlog 纪录FTP会话<br>utmp、 wtmp和lastlog日志文件是多数重用UNIX日志子系统的关键–保持用户登录进入和 退出的纪录。有关当前登录用户的信息记录在文件utmp中；登录进入和退出纪录在文件 wtmp中；最后一次登录文件可以用lastlog命令察看。数据交换、关机和重起也记录在w<br>tmp文件中。所有的纪录都包含时间戳。这些文件（lastlog通常不大）在具有大量用户 的系统中增长十分迅速。例如wtmp文件可以无限增长，除非定期截取。许多系统以一天 或者一周为单位把wtmp配置成循环使用。它通常由cron运行的脚本来修改。这些脚本重<br>新命名并循环使用wtmp文件。通常，wtmp在第一天结束后命名为wtmp.1；第二天后wtmp .1变为wtmp.2等等，直到wtmp.7。<br>每 次有一个用户登录时，login程序在文件lastlog中察看用户的UID。如果找到了，则把 用户上次登录、退出时间和主机名写到标准输出中，然后login程序在lastlog中纪录新 的登录时间。在新的lastlog纪录写入后，utmp文件打开并插入用户的utmp纪录。该纪录<br>一直用到用户登录退出时删除。utmp文件被各种命令文件使用，包括who、w、users和finger。<br>下一步，login程序打开文件wtmp附加用户的utmp纪录。当用户登录退出时，具有更新时 间戳的同一utmp纪录附加到文件中。wtmp文件被程序last和ac使用。<br>2. 具体命令<br>wtmp 和utmp文件都是二进制文件，他们不能被诸如tail命令剪贴或合并（使用cat命令）。用户需要使用who、w、users、last和ac来使用这 两个文件包含的信息。 who：who命令查询utmp文件并报告当前登录的每个用户。Who的缺省输出包括用户名、终端类型、登录日期及远程主机。例如：who（回车）显示<br>chyang pts/0 Aug 18 15:06<br>ynguo pts/2 Aug 18 15:32<br>ynguo pts/3 Aug 18 13:55<br>lewis pts/4 Aug 18 13:35<br>ynguo pts/7 Aug 18 14:12<br>ylou pts/8 Aug 18 14:15<br>如果指明了wtmp文件名，则who命令查询所有以前的纪录。命令who /var/log/wtmp将报告自从wtmp文件创建或删改以来的每一次登录。<br>w：w命令查询utmp文件并显示当前系统中每个用户和它所运行的进程信息。<br>例如：w（回车）显示：3:36pm up 1 day, 22:34, 6 users, load average: 0.23, 0.29, 0.27<br>USER TTY FROM LOGIN@ IDLE JCPU PCPU WHAT<br>chyang pts/0 202.38.68.242 3:06pm 2:04 0.08s 0.04s -bash<br>ynguo pts/2 202.38.79.47 3:32pm 0.00s 0.14s 0.05s w<br>lewis pts/3 202.38.64.233 1:55pm 30:39 0.27s 0.22s -bash<br>lewis pts/4 202.38.64.233 1:35pm 6.00s 4.03s 0.01s sh /home/users/<br>ynguo pts/7 simba.nic.ustc.e 2:12pm 0.00s 0.47s 0.24s telnet mail<br>ylou pts/8 202.38.64.235 2:15pm 1:09m 0.10s 0.04s -bash<br>users：users用单独的一行打印出当前登录的用户，每个显示的用户名对应一个登录会话。如果一个用户有不止一个登录会话，那他的用户名将显示相同的次数。</span><span style="color: green">例如：users（回车）显示：chyang lewis lewis ylou ynguo ynguo<br>last：last命令往回搜索wtmp来显示自从文件第一次创建以来登录过的用户。例如：<br>chyang pts/9 202.38.68.242 Tue Aug 1 08:34 - 11:23 (02:49)<br>cfan pts/6 202.38.64.224 Tue Aug 1 08:33 - 08:48 (00:14)<br>chyang pts/4 202.38.68.242 Tue Aug 1 08:32 - 12:13 (03:40)<br>lewis pts/3 202.38.64.233 Tue Aug 1 08:06 - 11:09 (03:03)<br>lewis pts/2 202.38.64.233 Tue Aug 1 07:56 - 11:09 (03:12)<br>如果指明了用户，那么last只报告该用户的近期活动，例如：last ynguo（回车）显示<br>：<br>ynguo pts/4 simba.nic.ustc.e Fri Aug 4 16:50 - 08:20 (15:30)<br>ynguo pts/4 simba.nic.ustc.e Thu Aug 3 23:55 - 04:40 (04:44)<br>ynguo pts/11 simba.nic.ustc.e Thu Aug 3 20:45 - 22:02 (01:16)<br>ynguo pts/0 simba.nic.ustc.e Thu Aug 3 03:17 - 05:42 (02:25)<br>ynguo pts/0 simba.nic.ustc.e Wed Aug 2 01:04 - 03:16 1+02:12)<br>ynguo pts/0 simba.nic.ustc.e Wed Aug 2 00:43 - 00:54 (00:11)<br>ynguo pts/9 simba.nic.ustc.e Thu Aug 1 20:30 - 21:26 (00:55)<br>ac：ac命令根据当前的/var/log/wtmp文件中的登录进入和退出来报告用户连结的时间（小时），如果不使用标志，则报告总的时间。例如：ac（回车）显示：total 5177.47<br>ac -d（回车）显示每天的总的连结时间<br>Aug 12 total 261.87<br>Aug 13 total 351.39<br>Aug 14 total 396.09<br>Aug 15 total 462.63<br>Aug 16 total 270.45<br>Aug 17 total 104.29<br>Today total 179.02<br>ac -p （回车）显示每个用户的总的连接时间<br>ynguo 193.23<br>yucao 3.35<br>rong 133.40<br>hdai 10.52<br>zjzhu 52.87<br>zqzhou 13.14<br>liangliu 24.34<br>total 5178.24<br>lastlog： lastlog文件在每次有用户登录时被查询。可以使用lastlog命令来检查某特定用户上次登录的时间，并格式化输出上次登录日志 /var/log/lastlog的内容。它根据UID排序显示登录名、端口号（tty）和上次登录时间。如果一个用户从未登录过，lastlo<br>g显示”<strong>Never logged</strong>。注意需要以root运行该命令，例如：<br>rong 5 202.38.64.187 Fri Aug 18 15:57:01 +0800 2000<br>dbb <strong>Never logged in</strong><br>xinchen <strong>Never logged in</strong><br>pb9511 <strong>Never logged in</strong><br>xchen 0 202.38.64.190 Sun Aug 13 10:01:22 +0800 2000<br>另外，可一加一些参数，例如，last -u 102将报告UID为102的用户；last -t 7表示限<br>制上一周的报告。<br>3. 进程统计<br>UNIX 可以跟踪每个用户运行的每条命令，如果想知道昨晚弄乱了哪些重要的文件，进程统计子系统可以告诉你。它对还跟踪一个侵入者有帮助。与连接时间日志不同，进 程统计子系统缺省不激活，它必须启动。在Linux系统中启动进程统计使用accton命令，必须用root身份来运行。Accton命令的形式 accton file，file必须先存在。先使用touch命令来创建pacct文件：touch /var/log/pacct，然后运行accton： accton /var/log/pacct。一旦accton被激活，就可以使用lastcomm命令监测系统中任何时候执行的命令。若要关闭统计，可以使用不带任何 参数的accton命令。<br>lastcomm命令报告以前执行的文件。不带参数时，lastcomm命令显示当前统计文件生命周期内纪录的所有命令的有关信息。包括命令名、用户、 tty、命令花费的CPU时间和一个时间戳。如果系统有许多用户，输入则可能很长。下面的例子：<br>crond F root ?? 0.00 secs Sun Aug 20 00:16<br>promisc_check.s S root ?? 0.04 secs Sun Aug 20 00:16<br>promisc_check root ?? 0.01 secs Sun Aug 20 00:16<br>grep root ?? 0.02 secs Sun Aug 20 00:16<br>tail root ?? 0.01 secs Sun Aug 20 00:16<br>sh root ?? 0.01 secs Sun Aug 20 00:15<br>ping S root ?? 0.01 secs Sun Aug 20 00:15<br>ping6.pl F root ?? 0.01 secs Sun Aug 20 00:15<br>sh root ?? 0.01 secs Sun Aug 20 00:15<br>ping S root ?? 0.02 secs Sun Aug 20 00:15<br>ping6.pl F root ?? 0.02 secs Sun Aug 20 00:15<br>sh root ?? 0.02 secs Sun Aug 20 00:15<br>ping S root ?? 0.00 secs Sun Aug 20 00:15<br>ping6.pl F root ?? 0.01 secs Sun Aug 20 00:15<br>sh root ?? 0.01 secs Sun Aug 20 00:15<br>ping S root ?? 0.01 secs Sun Aug 20 00:15<br>sh root ?? 0.02 secs Sun Aug 20 00:15<br>ping S root ?? 1.34 secs Sun Aug 20 00:15<br>locate root ttyp0 1.34 secs Sun Aug 20 00:15<br>accton S root ttyp0 0.00 secs Sun Aug 20 00:15<br>进 程统计的一个问题是pacct文件可能增长的十分迅速。这时需要交互式的或经过cron机制运行sa命令来保持日志数据在系统控制内。sa命令报告、清理 并维护进程统计文件。它能把/var/log/pacct中的信息压缩到摘要文件/var/log/savacct和 /var/log/usracct<br>中。这些摘要包含按命令名和用户名分类的系统统计数据。sa缺省情况下先读它们，然后读pacct文件，使报告能包含所有的可用信息。sa的输出有下面一些标记项：<br>avio–每次执行的平均I/O操作次数<br>cp–用户和系统时间总和，以分钟计<br>cpu–和cp一样<br>k–内核使用的平均CPU时间，以1k为单位<br>k<em>sec–CPU存储完整性，以1k-core秒<br>re–实时时间，以分钟计<br>s–系统时间，以分钟计<br>tio–I/O操作的总数<br>u–用户时间，以分钟计<br>例如：<br>842 173.26re 4.30cp 0avio 358k<br>2 10.98re 4.06cp 0avio 299k find<br>9 24.80re 0.05cp 0avio 291k **</em>other<br>105 30.44re 0.03cp 0avio 302k ping<br>104 30.55re 0.03cp 0avio 394k sh<br>162 0.11re 0.03cp 0avio 413k security.sh<em><br>154 0.03re 0.02cp 0avio 273k ls<br>56 31.61re 0.02cp 0avio 823k ping6.pl</em><br>2 3.23re 0.02cp 0avio 822k ping6.pl<br>35 0.02re 0.01cp 0avio 257k md5sum<br>97 0.02re 0.01cp 0avio 263k initlog<br>12 0.19re 0.01cp 0avio 399k promisc_check.s<br>15 0.09re 0.00cp 0avio 288k grep<br>11 0.08re 0.00cp 0avio 332k awk<br>用户还可以根据用户而不是命令来提供一个摘要报告。例如sa -m显示如下：<br>885 173.28re 4.31cp 0avk<br>root 879 173.23re 4.31cp 0avk<br>alias 3 0.05re 0.00cp 0avk<br>qmailp 3 0.01re 0.00cp 0avk<br>4. Syslog设备<br>Syslog已被许多日志函数采纳，它用在许多保护措施中–任何程序都可以通过syslog 纪录事件。Syslog可以纪录系统事件，可以写到一个文件或设备中，或给用户发送一个信息。它能纪录本地事件或通过网络纪录另一个主机上的事件。<br>Syslog 设备依据两个重要的文件：/etc/syslogd（守护进程）和/etc/syslog.conf配置文件，习惯上，多数syslog信息被写到 /var/adm或/var/log目录下的信息文件中（messages.*）。一个典型的syslog纪录包括生成程序的名字和一个文本信息。它还包 括一个设备和一个优先级范围（但不在日之中出现）。<br>每个syslog消息被赋予下面的主要设备之一：<br>LOG_AUTH–认证系统：login、su、getty等<br>LOG_AUTHPRIV–同LOG_AUTH，但只登录到所选择的单个用户可读的文件中<br>LOG_CRON–cron守护进程<br>LOG_DAEMON–其他系统守护进程，如routed<br>LOG_FTP–文件传输协议：ftpd、tftpd<br>LOG_KERN–内核产生的消息<br>LOG_LPR–系统打印机缓冲池：lpr、lpd<br>LOG_MAIL–电子邮件系统<br>LOG_NEWS–网络新闻系统<br>LOG_SYSLOG–由syslogd（8）产生的内部消息<br>LOG_USER–随机用户进程产生的消息<br>LOG_UUCP–UUCP子系统<br>LOG_LOCAL0~LOG_LOCAL7–为本地使用保留<br>Syslog为每个事件赋予几个不同的优先级：<br>LOG_EMERG–紧急情况<br>LOG_ALERT–应该被立即改正的问题，如系统数据库破坏<br>LOG_CRIT–重要情况，如硬盘错误<br>LOG_ERR–错误<br>LOG_WARNING–警告信息<br>LOG_NOTICE–不是错误情况，但是可能需要处理<br>LOG_INFO–情报信息<br>LOG_DEBUG–包含情报的信息，通常旨在调试一个程序时使用<br>syslog.conf 文件指明syslogd程序纪录日志的行为，该程序在启动时查询配置文件。该文件由不同程序或消息分类的单个条目组成，每个占一行。对每类消息提供一个选 择域和一个动作域。这些域由tab隔开：选择域指明消息的类型和优先级；动作域指明syslogd接收到一个与选择标准相匹配的消息时所执行的动作。每个 选项是由设备和优先级组成。当指明一个优先级时，syslogd将纪录一个拥有相同或更高优先级的消息。所以如果指明 “crit”，那所有标为crit、alert和emerg的消息将被纪录。每行的行动域指明当选择域选择了一个给定消息后应该把他发送到哪儿。例如，如 果想把所有邮件消息纪录到一个文件中，如下：</span></p>
+<p>#Log all the mail messages in one place<br>mail.* /var/log/maillog<br>其他设备也有自己的日志。UUCP和news设备能产生许多外部消息。它把这些消息存到自己的日志（/var/log/spooler）中并把级别限为”err”或更高。例如：</p>
+<h1 id="Save-mail-and-news-errors-of-level-err-and-higher-in-aspecial-file"><a href="#Save-mail-and-news-errors-of-level-err-and-higher-in-aspecial-file" class="headerlink" title="Save mail and news errors of level err and higher in aspecial file."></a>Save mail and news errors of level err and higher in aspecial file.</h1><p>uucp,news.crit /var/log/spooler<br>当一个紧急消息到来时，可能想让所有的用户都得到。也可能想让自己的日志接收并保存。</p>
+<p>#Everybody gets emergency messages， plus log them on anther machine<br><em>.emerg </em><br>*.emerg @linuxaid.com.cn<br>alert消息应该写到root和tiger的个人账号中：</p>
+<p>#Root and Tiger get alert and higher messages<br>*.alert root,tiger<br>有时syslogd将产生大量的消息。例如内核（”kern”设备）可能很冗长。用户可能想把内核消息纪录到/dev/console中。下面的例子表明内核日志纪录被注释掉了：</p>
+<p>#Log all kernel messages to the console</p>
+<p>#Logging much else clutters up the screen</p>
+<p>#kern.* /dev/console<br>用户可以在一行中指明所有的设备。下面的例子把info或更高级别的消息送到/var/log<br>/messages，除了mail以外。级别”none”禁止一个设备：</p>
+<p>#Log anything（except mail）of level info or higher</p>
+<p>#Don log private authentication messages!<br>*.info:mail.none;authpriv.none /var/log/messages<br>在有些情况下，可以把日志送到打印机，这样网络入侵者怎么修改日志都没有用了。通常要广泛纪录日志。Syslog设备是一个攻击者的显著目标。一个为其他主机维护日志的系统对于防范服务器攻击特别脆弱，因此要特别注意。<br>有个小命令logger为syslog（3）系统日志文件提供一个shell命令接口，使用户能创建日志文件中的条目。</p>
+<p>用法：logger</p>
+<p>例如：logger This is a test！<br>它将产生一个如下的syslog纪录：Aug 19 22:22:34 tiger: This is a test!<br>注意不要完全相信日志，因为攻击者很容易修改它的。<br>5. 程序日志<br>许多程序通过维护日志来反映系统的安全状态。su命令允许用户获得另一个用户的权限，所以它的安全很重要，它的文件为sulog。同样的还有 sudolog。另外，想Apache有两个日志：access_log和error_log。</p>
+<p></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/Shell/" rel="tag"># Shell</a>
+          
+            <a href="/tags/Apache/" rel="tag"># Apache</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2006/11/23/nmap使用手册/" rel="next" title="nmap使用手册">
+                <i class="fa fa-chevron-left"></i> nmap使用手册
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2006/11/23/MySQL数据库备份/" rel="prev" title="MySQL数据库备份">
+                MySQL数据库备份 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Save-mail-and-news-errors-of-level-err-and-higher-in-aspecial-file"><span class="nav-number">1.</span> <span class="nav-text">Save mail and news errors of level err and higher in aspecial file.</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

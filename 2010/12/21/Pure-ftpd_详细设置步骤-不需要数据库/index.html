@@ -1,0 +1,731 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="老规矩，转的。原址在这里http://www.it.com/html/diannaojichu/fuwuqipeizhi/2010/0614/2195.html`使用pure-ftp最头疼的估计是要使用mysql做数据库和使用web管理了 　　其实就算没有装或不使用mysql也一样可以顺利且简便的使用pure-ftp搭建ftp服务器 　　下面介绍一下简单配置的经过 　　1、当然是取得pure-ft">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pure-ftpd 详细设置步骤-不需要数据库">
+<meta property="og:url" content="http://yoursite.com/2010/12/21/Pure-ftpd_详细设置步骤-不需要数据库/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="老规矩，转的。原址在这里http://www.it.com/html/diannaojichu/fuwuqipeizhi/2010/0614/2195.html`使用pure-ftp最头疼的估计是要使用mysql做数据库和使用web管理了 　　其实就算没有装或不使用mysql也一样可以顺利且简便的使用pure-ftp搭建ftp服务器 　　下面介绍一下简单配置的经过 　　1、当然是取得pure-ft">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pure-ftpd 详细设置步骤-不需要数据库">
+<meta name="twitter:description" content="老规矩，转的。原址在这里http://www.it.com/html/diannaojichu/fuwuqipeizhi/2010/0614/2195.html`使用pure-ftp最头疼的估计是要使用mysql做数据库和使用web管理了 　　其实就算没有装或不使用mysql也一样可以顺利且简便的使用pure-ftp搭建ftp服务器 　　下面介绍一下简单配置的经过 　　1、当然是取得pure-ft">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2010/12/21/Pure-ftpd_详细设置步骤-不需要数据库/"/>
+
+
+
+
+
+  <title> Pure-ftpd 详细设置步骤-不需要数据库 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/12/21/Pure-ftpd_详细设置步骤-不需要数据库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Pure-ftpd 详细设置步骤-不需要数据库
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2010-12-21T05:42:41+08:00">
+                2010-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Uncategorized/" itemprop="url" rel="index">
+                    <span itemprop="name">Uncategorized</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>老规矩，转的。原址在这里<br><a href="http://www.it.com/html/diannaojichu/fuwuqipeizhi/2010/0614/2195.html" target="_blank" rel="external">http://www.it.com/html/diannaojichu/fuwuqipeizhi/2010/0614/2195.html</a><br>`<br>使用pure-ftp最头疼的估计是要使用mysql做数据库和使用web管理了</p>
+<p>　　其实就算没有装或不使用mysql也一样可以顺利且简便的使用pure-ftp搭建ftp服务器</p>
+<p>　　下面介绍一下简单配置的经过</p>
+<p>　　1、当然是取得pure-ftp了，直接在线安装，命令：</p>
+<p>　　$ sudo apt-get install pure-ftpd 即可安装。</p>
+<p>　　2、测试：当安装好以后没有进行配置的时候，ftp指向的默认目录是/home文件夹，如果使用ftp客户端软件链接127.0.0.1:21，提示你输入用户名和密码，则ftp已经安装好了。</p>
+<p>　　3、配置：</p>
+<p>　　1）了解pure-ftpd调用配置文件的方式。pure-ftp不是调用某一个配置文件，而是调用/etc/pure-ftpd/conf/中的一堆文件进行配置加载，这和samba，apache配置有所区别。每一个配置文件其实只有一行，要么yes，要么no，或者1，0等等，比较方便定义。</p>
+<p>　　2）开始进行基本配置。</p>
+<p>　　进入到/etc/pure-ftpd/conf中，这里记下目录和目录中文件的权限，分别是755和644。</p>
+<p>　　列目录为以下情况，只有 AltLog MinUID NoAnonymous PAMAuthentication PureDB UnixAuthentication等文件，这些文件都是配置文件。光有这些还不够，因此自己还要添加其他配置文件。</p>
+<p>　　编辑基本配置，如监听21端口，使用某IP地址：</p>
+<p>　　$ su #切换到root</p>
+<p>　　（如果没有设置root账号是没有办法切换的，可以不切换，回到上层菜单将conf/的（包含子目录）权限设置为777，$ sudo chmod -R 777 conf/ 即可使用nano编写，编写玩毕之后恢复目录755及文件644的属性），或者对shell脚本熟悉的可以使用sudo sh -c “echo ‘xxx’ &gt; XXX” 来编写添加配置文件。以下均使用root权限编写。</p>
+<p>　　监听端口</p>
+<p>　　# echo ,21 &gt; Bind <em>**</em>添加bind 21端口监听 如果没有root权限则可以这样 $ sudo nano Bind 然后在其中编辑,21后保存加入，或 $ sudo sh -c “echo ‘,21’ &gt; Bind” 来添加</p>
+<p>　　# echo 192.xx.xx.22 &gt; ForcePassiveIP <em>**</em>添加IP</p>
+<p>　　# echo 4500 4600 &gt; PassivePortRange <em>**</em>添加端口范围</p>
+<p>　　字符编码及文件设置</p>
+<p>　　文件FSCharset中设定为UTF-8，这样有的在使用浏览器ftp的时候会出现中文乱码，增加一个客户端字符编码文件就可以解决</p>
+<p>　　# echo gbk &gt; ClientCharset <em>**</em>(或gbk2132) 都可以</p>
+<p>　　# echo yes &gt; KeepAllFiles <em>**</em>保留所有文件，用户不能删除文件</p>
+<p>　　# echo yes &gt; AutoRename <em>**</em>自动更名，防止文件被覆盖</p>
+<p>　　推荐的安全配置</p>
+<p>　　#echo yes &gt; ChrootEveryone <em>**</em>限制用户root权限</p>
+<p>　　# echo yes &gt; ProhibitDotFilesRead <em>**</em>可以读取以.开头的文件</p>
+<p>　　# echo yes &gt; ProhibitDotFilesWrite <em>**</em>可以写以.开头的文件</p>
+<p>　　# echo yes &gt; NoChmod <em>**</em>不允许更改权限</p>
+<p>　　# echo yes &gt; BrokenClientsCompatibility <em>**</em>多种兼容性客户端</p>
+<p>　　网络设置</p>
+<p>　　# echo 4 &gt; MaxClientsPerIP <em>**</em>每个IP最大连接数</p>
+<p>　　# echo 20 &gt; MaxClientsNumber <em>**</em>客户端同时链接最大数</p>
+<p>　　3）设置认证方式，将unix和PAM认证都设置为“no“，这一步中本身目录中就有这两个文件，只要修改其字符就可以了，unix原来就是no，用nano将PAM中的yes改为no就可以。如果没有这两个文件，则自己添加。</p>
+<p>　　# echo no &gt; PAMAuthentication</p>
+<p>　　# echo no &gt; UnixAuthentication</p>
+<p>　　# echo /etc/pure-ftpd/pureftpd.pdb &gt; PureDB <em>**</em>建立pure-ftp的认证文件 这句可以使用nano建立PureDB文件，其内容为/etc/pure-ftpd/pureftpd.pdb</p>
+<p>　　# ln -s /etc/pure-ftpd/conf/PureDB ../auth/50pure <em>**</em>建立认证链接文件</p>
+<p>　　创建用户和指定ftp目录</p>
+<p>　　# groupadd -g 2001 ftpgroup <em>**</em>增加GID为2001的ftpgroup组</p>
+<p>　　# useradd -u 2001 -s /bin/false -d /dev/null -c “pureftpd user” -g ftpgroup ftpuser <em>**</em>增加ftpuser用户，切没有/bin的shell操作与/dev的设备操作权</p>
+<p>　　使用pure-pw命令添加虚拟用户</p>
+<p>　　# pure-pw useradd yourname -u ftpuser -d /yourname/ftp/ <em>**</em>增加（yourname）用户并指定ftp目录为 /yourname/ftp/ 这里根据实际情况自行修改</p>
+<p>　　回车后就提示输入密码（输入2次）</p>
+<p>　　# pure-pw mkdb <em>**</em>添加进认证数据文件</p>
+<p>　　最后重启pure-ftpd</p>
+<p>　　# /etc/init.d/pure-ftpd restart</p>
+<p>　　如果仅仅是单位或定向ftp，则只添加一个账户就可以了，便于管理。如果使用所账户或可以匿名登录的，那就需要使用mysql的数据库来管理，配置也不繁唢。 如果觉得还不够安全可以使用openssl来添加TLS/SSL支持，激活一个私有证书，这样传输内容经过加密，就更安全。</p>
+<p>　　4）“关于ssl“</p>
+<p>　　安装： # apt-get install openssl</p>
+<p>　　# echo 1 &gt; TLS <em>**</em>打开TLS加密</p>
+<p>　　# openssl req -x509 -nodes -newkey rsa:1024 -keyout /etc/ssl/private/pure-ftpd.pem -out /etc/ssl/private/pure-ftpd.pem <em>**</em>生成加密文件</p>
+<p>　　# chmod 600 /etc/ssl/private/pure-ftpd.pem <em>**</em>更改加密文件权限</p>
+<p>　　重启pure-ftpd生效</p>
+<p>　　5）“关于FXP协议“</p>
+<p>　　如果只是内网或认证用户使用ftp，则可以打开FXP协议。由于FXP协议很不安全，不建议外网或允许匿名访问的ftp服务器打开FXP协议支持。</p>
+<p>　　4、至此一个玩整的ftp服务器就架构好了，可以使用任何一种ftp客户端登录<br>使用。多用户还可以分别指定其目录或自动生成目录，设置目录UMASK等等，总体<br>来说 功能还是很强大的。<br>`</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2010/12/12/weblogger_插件的一点错误/" rel="next" title="weblogger 插件的一点错误">
+                <i class="fa fa-chevron-left"></i> weblogger 插件的一点错误
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2010/12/21/搬新服务器了/" rel="prev" title="搬新服务器了">
+                搬新服务器了 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

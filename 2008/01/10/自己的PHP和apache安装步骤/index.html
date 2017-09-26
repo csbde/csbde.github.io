@@ -1,0 +1,728 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Apache,MySQL,PHP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="第一步：yum安装一些需要使用的软件 yum upgradeyum install –y ntpcrontab -e0 23   * /usr/sbin/ntpdate 210.72.145.44以上命令设置好后存盘。 /sbin/service crond reload">
+<meta name="keywords" content="Apache,MySQL,PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己的PHP和apache安装步骤">
+<meta property="og:url" content="http://yoursite.com/2008/01/10/自己的PHP和apache安装步骤/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="第一步：yum安装一些需要使用的软件 yum upgradeyum install –y ntpcrontab -e0 23   * /usr/sbin/ntpdate 210.72.145.44以上命令设置好后存盘。 /sbin/service crond reload">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自己的PHP和apache安装步骤">
+<meta name="twitter:description" content="第一步：yum安装一些需要使用的软件 yum upgradeyum install –y ntpcrontab -e0 23   * /usr/sbin/ntpdate 210.72.145.44以上命令设置好后存盘。 /sbin/service crond reload">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/01/10/自己的PHP和apache安装步骤/"/>
+
+
+
+
+
+  <title> 自己的PHP和apache安装步骤 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/01/10/自己的PHP和apache安装步骤/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                自己的PHP和apache安装步骤
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-01-10T17:46:03+08:00">
+                2008-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Apache/" itemprop="url" rel="index">
+                    <span itemprop="name">Apache</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>第一步：yum安装一些需要使用的软件</p>
+<h1 id="yum-upgrade"><a href="#yum-upgrade" class="headerlink" title="yum upgrade"></a>yum upgrade</h1><h1 id="yum-install-–y-ntp"><a href="#yum-install-–y-ntp" class="headerlink" title="yum install –y ntp"></a>yum install –y ntp</h1><h1 id="crontab-e"><a href="#crontab-e" class="headerlink" title="crontab -e"></a>crontab -e</h1><p>0 23 <em> </em> * /usr/sbin/ntpdate 210.72.145.44<br>以上命令设置好后存盘。</p>
+<h1 id="sbin-service-crond-reload"><a href="#sbin-service-crond-reload" class="headerlink" title="/sbin/service crond reload"></a>/sbin/service crond reload<a id="more"></a></h1><p>2、装GD库</p>
+<h1 id="cd-usr-local-src"><a href="#cd-usr-local-src" class="headerlink" title="cd /usr/local/src"></a>cd /usr/local/src</h1><h1 id="wget-http-www-libgd-org-releases-gd-2-0-35-tar-gz"><a href="#wget-http-www-libgd-org-releases-gd-2-0-35-tar-gz" class="headerlink" title="wget http://www.libgd.org/releases/gd-2.0.35.tar.gz"></a>wget <a href="http://www.libgd.org/releases/gd-2.0.35.tar.gz" target="_blank" rel="external">http://www.libgd.org/releases/gd-2.0.35.tar.gz</a></h1><h1 id="tar-xzvf-gd-2-0-35-tar-gz"><a href="#tar-xzvf-gd-2-0-35-tar-gz" class="headerlink" title="tar xzvf gd-2.0.35.tar.gz"></a>tar xzvf gd-2.0.35.tar.gz</h1><h1 id="cd-gd-2-0-35"><a href="#cd-gd-2-0-35" class="headerlink" title="cd gd-2.0.35"></a>cd gd-2.0.35</h1><h1 id="yum-install-libtool-libtool-ltdl"><a href="#yum-install-libtool-libtool-ltdl" class="headerlink" title="yum install libtool libtool-ltdl"></a>yum install libtool libtool-ltdl</h1><h1 id="aclocal"><a href="#aclocal" class="headerlink" title="aclocal"></a>aclocal</h1><h1 id="configure-–prefix-usr-local-gd2-–mandir-usr-share-man"><a href="#configure-–prefix-usr-local-gd2-–mandir-usr-share-man" class="headerlink" title="./configure –prefix=/usr/local/gd2 –mandir=/usr/share/man"></a>./configure –prefix=/usr/local/gd2 –mandir=/usr/share/man</h1><h1 id="make-make-是用来编译的，它从-Makefile-中读取指令，然后编译。"><a href="#make-make-是用来编译的，它从-Makefile-中读取指令，然后编译。" class="headerlink" title="make //make 是用来编译的，它从 Makefile 中读取指令，然后编译。"></a>make //make 是用来编译的，它从 Makefile 中读取指令，然后编译。</h1><h1 id="make-install-make-install-是用来安装的，它也从-Makefile-中读取指令，安装到指定的位置。"><a href="#make-install-make-install-是用来安装的，它也从-Makefile-中读取指令，安装到指定的位置。" class="headerlink" title="make install //make install 是用来安装的，它也从 Makefile 中读取指令，安装到指定的位置。"></a>make install //make install 是用来安装的，它也从 Makefile 中读取指令，安装到指定的位置。</h1><p>3、安装mysql<br>直接yum安装的</p>
+<p>4、安装apache2</p>
+<h1 id="cd-usr-local-src-1"><a href="#cd-usr-local-src-1" class="headerlink" title="cd /usr/local/src"></a>cd /usr/local/src</h1><h1 id="wget-http-www-ip97-com-apache-org-httpd-httpd-2-2-6-tar-gz"><a href="#wget-http-www-ip97-com-apache-org-httpd-httpd-2-2-6-tar-gz" class="headerlink" title="wget http://www.ip97.com/apache.org/httpd/httpd-2.2.6.tar.gz"></a>wget <a href="http://www.ip97.com/apache.org/httpd/httpd-2.2.6.tar.gz" target="_blank" rel="external">http://www.ip97.com/apache.org/httpd/httpd-2.2.6.tar.gz</a></h1><h1 id="tar-zxvf-httpd-2-2-6-tar-gz"><a href="#tar-zxvf-httpd-2-2-6-tar-gz" class="headerlink" title="tar zxvf httpd-2.2.6.tar.gz"></a>tar zxvf httpd-2.2.6.tar.gz</h1><h1 id="cd-httpd-2-2-6"><a href="#cd-httpd-2-2-6" class="headerlink" title="cd httpd-2.2.6"></a>cd httpd-2.2.6</h1><p>先依次安装apr和apr-util</p>
+<h1 id="cd-srclib-apr"><a href="#cd-srclib-apr" class="headerlink" title="cd srclib/apr"></a>cd srclib/apr</h1><h1 id="configure-–prefix-usr-local-apr-–enable-threads-–enable-other-child-–enable-static"><a href="#configure-–prefix-usr-local-apr-–enable-threads-–enable-other-child-–enable-static" class="headerlink" title="./configure –prefix=/usr/local/apr –enable-threads –enable-other-child –enable-static"></a>./configure –prefix=/usr/local/apr –enable-threads –enable-other-child –enable-static</h1><h1 id="make-amp-amp-make-install"><a href="#make-amp-amp-make-install" class="headerlink" title="make &amp;&amp; make install"></a>make &amp;&amp; make install</h1><h1 id="cd-apr-util"><a href="#cd-apr-util" class="headerlink" title="cd ../apr-util"></a>cd ../apr-util</h1><p>#./configure –prefix=/usr/local/apr-util –with-apr=/usr/local/apr/ –with-mysql=/usr/lib/mysql</p>
+<h1 id="make-amp-amp-make-install-1"><a href="#make-amp-amp-make-install-1" class="headerlink" title="make &amp;&amp; make install"></a>make &amp;&amp; make install</h1><p>cd /usr/local/src/httpd-2.2.6</p>
+<p>#./configure -prefix=/usr/local/apache2 -enable-mods-shared=all -with-mysql=/usr/lib/mysql -enable-cache -enable-file-cache -enable-mem-cache -enable-disk-cache -enable-static-support -enable-static-htpasswd -enable-static-htdigest -enable-static-rotatelogs -enable-static-logresolve -enable-static-htdbm -enable-static-ab -enable-static-checkgid  -with-apr=/usr/local/apr/ -with-apr-util=/usr/local/apr-util/ -enable-ssl -with-ssl=/usr/include/openssl -with-pcre  -enable-so -enable-suexec  -with-suexec-bin=/usr/local/apache2/bin/suexec -with-suexec-caller=apache -with-suexec-userdir=html -with-suexec-logfile=/usr/local/apache2/logs/suexec_log –with-suexec-docroot=/var/www</p>
+<p>注解：<br>./configure //配置源代码树<br>–prefix=/usr/local/apache2 //体系无关文件的顶级安装目录PREFIX ，也就Apache的安装目录。<br>–enable-module=so //打开 so 模块，so 模块是用来提 DSO 支持的 apache 核心模块<br>–enable-mods-shared=all //编译全部的模板，对于不需要我们可以在httpd.conf去掉。<br>–enable-cache //支持缓存<br>–enable-file-cache //支持文件缓存<br>–enable-mem-cache //支持记忆缓存<br>–enable-disk-cache //支持磁盘缓存<br>–enable-static-support //支持静态连接(默认为动态连接)<br>–enable-static-htpasswd //使用静态连接编译 htpasswd - 管理用于基本认证的用户文件<br>–enable-static-htdigest //使用静态连接编译 htdigest - 管理用于摘要认证的用户文件<br>–enable-static-rotatelogs //使用静态连接编译 rotatelogs - 滚动 Apache 日志的管道日志程序<br>–enable-static-logresolve //使用静态连接编译 logresolve - 解析 Apache 日志中的IP地址为主机名<br>–enable-static-htdbm //使用静态连接编译 htdbm - 操作 DBM 密码数据库<br>–enable-static-ab //使用静态连接编译 ab - Apache HTTP 服务器性能测试工具<br>–enable-static-checkgid //使用静态连接编译 checkgid<br>–disable-cgid //禁止用一个外部 CGI 守护进程执行CGI脚本<br>–disable-cgi //禁止编译 CGI 版本的 PHP<br>–enable-ssl // 编译 ssl模块。</p>
+<p>将apache设置成开机自启动:<br>在/etc/rc.d/rc.local文件中加入一行<br>/usr/local/apache2/bin/apachectl start<br>这样每次重新启动系统以后,apache也会随系统一起启动.<br>或者将apache安装为系统服务</p>
+<h1 id="cp-usr-local-apache2-bin-apachectl-etc-rc-d-init-d-httpd"><a href="#cp-usr-local-apache2-bin-apachectl-etc-rc-d-init-d-httpd" class="headerlink" title="cp /usr/local/apache2/bin/apachectl /etc/rc.d/init.d/httpd"></a>cp /usr/local/apache2/bin/apachectl /etc/rc.d/init.d/httpd</h1><p>然后 vi /etc/rc.d/init.d/httpd 添加(#!/bin/sh下面)</p>
+<h1 id="chkconfig-2345-50-90"><a href="#chkconfig-2345-50-90" class="headerlink" title="chkconfig: 2345 50 90"></a>chkconfig: 2345 50 90</h1><h1 id="description-Activates-Deactivates-Apache-Web-Server"><a href="#description-Activates-Deactivates-Apache-Web-Server" class="headerlink" title="description: Activates/Deactivates Apache Web Server"></a>description: Activates/Deactivates Apache Web Server</h1><p>最后，运行chkconfig把Apache添加到系统的启动服务组里面：</p>
+<h1 id="chkconfig-–add-httpd"><a href="#chkconfig-–add-httpd" class="headerlink" title="chkconfig –add httpd"></a>chkconfig –add httpd</h1><h1 id="chkconfig-httpd-on"><a href="#chkconfig-httpd-on" class="headerlink" title="chkconfig httpd on"></a>chkconfig httpd on</h1><p>5、编译php 5.2.5</p>
+<p>Suhosin是php增强型安全补丁，可以编译到静态内核中，也可以编译成php动态扩展。我个人强烈你建议安装成静态内核。Suhosin已经进入 Gentoo Linux、FreeBSD、OpenSuSE Linux、Mandriva Linux、Debian Linux官方包。下面的以下先说静态安装步骤。当然你也可以在安装php后将它编译成php的动态扩展。</p>
+<h1 id="cd-usr-local-src-2"><a href="#cd-usr-local-src-2" class="headerlink" title="cd /usr/local/src"></a>cd /usr/local/src</h1><h1 id="wget-http-cn-php-net-get-php-5-2-5-tar-gz-from-this-mirror"><a href="#wget-http-cn-php-net-get-php-5-2-5-tar-gz-from-this-mirror" class="headerlink" title="wget http://cn.php.net/get/php-5.2.5.tar.gz/from/this/mirror"></a>wget <a href="http://cn.php.net/get/php-5.2.5.tar.gz/from/this/mirror" target="_blank" rel="external">http://cn.php.net/get/php-5.2.5.tar.gz/from/this/mirror</a></h1><p>wget <a href="http://www.hardened-php.net/suhosin/_media/suhosin-patch-5.2.5-0.9.6.2.patch.gz" target="_blank" rel="external">http://www.hardened-php.net/suhosin/_media/suhosin-patch-5.2.5-0.9.6.2.patch.gz</a></p>
+<h1 id="tar-zxvf-php-5-2-5-tar-gz"><a href="#tar-zxvf-php-5-2-5-tar-gz" class="headerlink" title="tar zxvf php-5.2.5.tar.gz"></a>tar zxvf php-5.2.5.tar.gz</h1><h1 id="gunzip-suhosin-patch-5-2-5-0-9-6-2-patch-gz"><a href="#gunzip-suhosin-patch-5-2-5-0-9-6-2-patch-gz" class="headerlink" title="gunzip suhosin-patch-5.2.5-0.9.6.2.patch.gz"></a>gunzip suhosin-patch-5.2.5-0.9.6.2.patch.gz</h1><h1 id="cd-php-5-2-5"><a href="#cd-php-5-2-5" class="headerlink" title="cd php-5.2.5"></a>cd php-5.2.5</h1><h1 id="patch-p-1-i-suhosin-patch-5-2-5-0-9-6-2-patch"><a href="#patch-p-1-i-suhosin-patch-5-2-5-0-9-6-2-patch" class="headerlink" title="patch -p 1 -i ../suhosin-patch-5.2.5-0.9.6.2.patch"></a>patch -p 1 -i ../suhosin-patch-5.2.5-0.9.6.2.patch</h1><h1 id="buildconf-–force"><a href="#buildconf-–force" class="headerlink" title="./buildconf –force"></a>./buildconf –force</h1><h1 id="configure-–prefix-usr-local-php-–with-apxs2-usr-local-apache2-bin-apxs-–with-pear-usr-share-php-–with-zlib-dir-–with-bz2-–with-libxml-dir-usr-–with-gd-usr-local-gd2-–enable-gd-native-ttf-–enable-gd-jis-conv-–with-freetype-dir-–with-jpeg-dir-–with-png-dir-–with-ttf-shared-usr-–enable-mbstring-–with-mysql-usr-lib-mysql-–with-mysqli-usr-lib-mysql-mysql-config-–with-config-file-path-etc-–with-iconv-–disable-ipv6-–enable-static-–enable-zend-multibyte-–enable-inline-optimization-–enable-zend-multibyte-–enable-sockets-–enable-soap-–with-openssl-–with-gettext-–enable-suhosin"><a href="#configure-–prefix-usr-local-php-–with-apxs2-usr-local-apache2-bin-apxs-–with-pear-usr-share-php-–with-zlib-dir-–with-bz2-–with-libxml-dir-usr-–with-gd-usr-local-gd2-–enable-gd-native-ttf-–enable-gd-jis-conv-–with-freetype-dir-–with-jpeg-dir-–with-png-dir-–with-ttf-shared-usr-–enable-mbstring-–with-mysql-usr-lib-mysql-–with-mysqli-usr-lib-mysql-mysql-config-–with-config-file-path-etc-–with-iconv-–disable-ipv6-–enable-static-–enable-zend-multibyte-–enable-inline-optimization-–enable-zend-multibyte-–enable-sockets-–enable-soap-–with-openssl-–with-gettext-–enable-suhosin" class="headerlink" title="./configure –prefix=/usr/local/php –with-apxs2=/usr/local/apache2/bin/apxs –with-pear=/usr/share/php –with-zlib-dir –with-bz2 –with-libxml-dir=/usr –with-gd=/usr/local/gd2 –enable-gd-native-ttf –enable-gd-jis-conv –with-freetype-dir –with-jpeg-dir –with-png-dir –with-ttf=shared,/usr –enable-mbstring –with-mysql=/usr/lib/mysql –with-mysqli=/usr/lib/mysql/mysql_config –with-config-file-path=/etc –with-iconv –disable-ipv6 –enable-static –enable-zend-multibyte –enable-inline-optimization –enable-zend-multibyte –enable-sockets –enable-soap –with-openssl –with-gettext –enable-suhosin"></a>./configure –prefix=/usr/local/php –with-apxs2=/usr/local/apache2/bin/apxs –with-pear=/usr/share/php –with-zlib-dir –with-bz2 –with-libxml-dir=/usr –with-gd=/usr/local/gd2 –enable-gd-native-ttf –enable-gd-jis-conv –with-freetype-dir –with-jpeg-dir –with-png-dir –with-ttf=shared,/usr –enable-mbstring –with-mysql=/usr/lib/mysql –with-mysqli=/usr/lib/mysql/mysql_config –with-config-file-path=/etc –with-iconv –disable-ipv6 –enable-static –enable-zend-multibyte –enable-inline-optimization –enable-zend-multibyte –enable-sockets –enable-soap –with-openssl –with-gettext –enable-suhosin</h1><p>配置成功会提示：<br>+——————————————————————–+<br>| License: |<br>| This software is subject to the PHP License, available in this |<br>| distribution in the file LICENSE. By continuing this installation |<br>| process, you are bound by the terms of this license agreement. |<br>| If you do not agree with the terms of this license, you must abort |<br>| the installation process at this point. |<br>+——————————————————————–+<br>Thank you for using PHP.</p>
+<h1 id="make"><a href="#make" class="headerlink" title="make"></a>make</h1><h1 id="make-test"><a href="#make-test" class="headerlink" title="make test"></a>make test</h1><h1 id="make-install"><a href="#make-install" class="headerlink" title="make install"></a>make install</h1><h1 id="cp-php-ini-recommended-etc-php-ini"><a href="#cp-php-ini-recommended-etc-php-ini" class="headerlink" title="cp php.ini-recommended /etc/php.ini"></a>cp php.ini-recommended /etc/php.ini</h1><h1 id="echo-“-usr-local-php-lib”-gt-gt-etc-ld-so-conf-amp-amp-ldconfig"><a href="#echo-“-usr-local-php-lib”-gt-gt-etc-ld-so-conf-amp-amp-ldconfig" class="headerlink" title="echo “/usr/local/php/lib” &gt;&gt; /etc/ld.so.conf &amp;&amp; ldconfig"></a>echo “/usr/local/php/lib” &gt;&gt; /etc/ld.so.conf &amp;&amp; ldconfig</h1>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Apache/" rel="tag"># Apache</a>
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/01/10/proftp中时间与北京时间相差8小时的解决办法/" rel="next" title="proftp中时间与北京时间相差8小时的解决办法">
+                <i class="fa fa-chevron-left"></i> proftp中时间与北京时间相差8小时的解决办法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/01/11/CentOS_5_全功能WWW服务器搭建全教程_V3.0/" rel="prev" title="CentOS 5 全功能WWW服务器搭建全教程 V3.0">
+                CentOS 5 全功能WWW服务器搭建全教程 V3.0 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#yum-upgrade"><span class="nav-number">1.</span> <span class="nav-text">yum upgrade</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yum-install-–y-ntp"><span class="nav-number">2.</span> <span class="nav-text">yum install –y ntp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#crontab-e"><span class="nav-number">3.</span> <span class="nav-text">crontab -e</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sbin-service-crond-reload"><span class="nav-number">4.</span> <span class="nav-text">/sbin/service crond reload</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-usr-local-src"><span class="nav-number">5.</span> <span class="nav-text">cd /usr/local/src</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wget-http-www-libgd-org-releases-gd-2-0-35-tar-gz"><span class="nav-number">6.</span> <span class="nav-text">wget http://www.libgd.org/releases/gd-2.0.35.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tar-xzvf-gd-2-0-35-tar-gz"><span class="nav-number">7.</span> <span class="nav-text">tar xzvf gd-2.0.35.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-gd-2-0-35"><span class="nav-number">8.</span> <span class="nav-text">cd gd-2.0.35</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yum-install-libtool-libtool-ltdl"><span class="nav-number">9.</span> <span class="nav-text">yum install libtool libtool-ltdl</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#aclocal"><span class="nav-number">10.</span> <span class="nav-text">aclocal</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#configure-–prefix-usr-local-gd2-–mandir-usr-share-man"><span class="nav-number">11.</span> <span class="nav-text">./configure –prefix=/usr/local/gd2 –mandir=/usr/share/man</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make-make-是用来编译的，它从-Makefile-中读取指令，然后编译。"><span class="nav-number">12.</span> <span class="nav-text">make //make 是用来编译的，它从 Makefile 中读取指令，然后编译。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make-install-make-install-是用来安装的，它也从-Makefile-中读取指令，安装到指定的位置。"><span class="nav-number">13.</span> <span class="nav-text">make install //make install 是用来安装的，它也从 Makefile 中读取指令，安装到指定的位置。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-usr-local-src-1"><span class="nav-number">14.</span> <span class="nav-text">cd /usr/local/src</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wget-http-www-ip97-com-apache-org-httpd-httpd-2-2-6-tar-gz"><span class="nav-number">15.</span> <span class="nav-text">wget http://www.ip97.com/apache.org/httpd/httpd-2.2.6.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tar-zxvf-httpd-2-2-6-tar-gz"><span class="nav-number">16.</span> <span class="nav-text">tar zxvf httpd-2.2.6.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-httpd-2-2-6"><span class="nav-number">17.</span> <span class="nav-text">cd httpd-2.2.6</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-srclib-apr"><span class="nav-number">18.</span> <span class="nav-text">cd srclib/apr</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#configure-–prefix-usr-local-apr-–enable-threads-–enable-other-child-–enable-static"><span class="nav-number">19.</span> <span class="nav-text">./configure –prefix=/usr/local/apr –enable-threads –enable-other-child –enable-static</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make-amp-amp-make-install"><span class="nav-number">20.</span> <span class="nav-text">make && make install</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-apr-util"><span class="nav-number">21.</span> <span class="nav-text">cd ../apr-util</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make-amp-amp-make-install-1"><span class="nav-number">22.</span> <span class="nav-text">make && make install</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cp-usr-local-apache2-bin-apachectl-etc-rc-d-init-d-httpd"><span class="nav-number">23.</span> <span class="nav-text">cp /usr/local/apache2/bin/apachectl /etc/rc.d/init.d/httpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chkconfig-2345-50-90"><span class="nav-number">24.</span> <span class="nav-text">chkconfig: 2345 50 90</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#description-Activates-Deactivates-Apache-Web-Server"><span class="nav-number">25.</span> <span class="nav-text">description: Activates/Deactivates Apache Web Server</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chkconfig-–add-httpd"><span class="nav-number">26.</span> <span class="nav-text">chkconfig –add httpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chkconfig-httpd-on"><span class="nav-number">27.</span> <span class="nav-text">chkconfig httpd on</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-usr-local-src-2"><span class="nav-number">28.</span> <span class="nav-text">cd /usr/local/src</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wget-http-cn-php-net-get-php-5-2-5-tar-gz-from-this-mirror"><span class="nav-number">29.</span> <span class="nav-text">wget http://cn.php.net/get/php-5.2.5.tar.gz/from/this/mirror</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tar-zxvf-php-5-2-5-tar-gz"><span class="nav-number">30.</span> <span class="nav-text">tar zxvf php-5.2.5.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gunzip-suhosin-patch-5-2-5-0-9-6-2-patch-gz"><span class="nav-number">31.</span> <span class="nav-text">gunzip suhosin-patch-5.2.5-0.9.6.2.patch.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-php-5-2-5"><span class="nav-number">32.</span> <span class="nav-text">cd php-5.2.5</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#patch-p-1-i-suhosin-patch-5-2-5-0-9-6-2-patch"><span class="nav-number">33.</span> <span class="nav-text">patch -p 1 -i ../suhosin-patch-5.2.5-0.9.6.2.patch</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#buildconf-–force"><span class="nav-number">34.</span> <span class="nav-text">./buildconf –force</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#configure-–prefix-usr-local-php-–with-apxs2-usr-local-apache2-bin-apxs-–with-pear-usr-share-php-–with-zlib-dir-–with-bz2-–with-libxml-dir-usr-–with-gd-usr-local-gd2-–enable-gd-native-ttf-–enable-gd-jis-conv-–with-freetype-dir-–with-jpeg-dir-–with-png-dir-–with-ttf-shared-usr-–enable-mbstring-–with-mysql-usr-lib-mysql-–with-mysqli-usr-lib-mysql-mysql-config-–with-config-file-path-etc-–with-iconv-–disable-ipv6-–enable-static-–enable-zend-multibyte-–enable-inline-optimization-–enable-zend-multibyte-–enable-sockets-–enable-soap-–with-openssl-–with-gettext-–enable-suhosin"><span class="nav-number">35.</span> <span class="nav-text">./configure –prefix=/usr/local/php –with-apxs2=/usr/local/apache2/bin/apxs –with-pear=/usr/share/php –with-zlib-dir –with-bz2 –with-libxml-dir=/usr –with-gd=/usr/local/gd2 –enable-gd-native-ttf –enable-gd-jis-conv –with-freetype-dir –with-jpeg-dir –with-png-dir –with-ttf=shared,/usr –enable-mbstring –with-mysql=/usr/lib/mysql –with-mysqli=/usr/lib/mysql/mysql_config –with-config-file-path=/etc –with-iconv –disable-ipv6 –enable-static –enable-zend-multibyte –enable-inline-optimization –enable-zend-multibyte –enable-sockets –enable-soap –with-openssl –with-gettext –enable-suhosin</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make"><span class="nav-number">36.</span> <span class="nav-text">make</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make-test"><span class="nav-number">37.</span> <span class="nav-text">make test</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make-install"><span class="nav-number">38.</span> <span class="nav-text">make install</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cp-php-ini-recommended-etc-php-ini"><span class="nav-number">39.</span> <span class="nav-text">cp php.ini-recommended /etc/php.ini</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#echo-“-usr-local-php-lib”-gt-gt-etc-ld-so-conf-amp-amp-ldconfig"><span class="nav-number">40.</span> <span class="nav-text">echo “/usr/local/php/lib” >> /etc/ld.so.conf && ldconfig</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

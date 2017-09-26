@@ -261,7 +261,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/linux-e7-9a-84-e4-b8-80-e4-ba-9b-e5-91-bd-e4-bb-a4-e4-bb-8b-e7-bb-8d/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/MySQL4.0.27数据库_转移_MySQL5.0.24/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -283,435 +283,7 @@
             
               
                 
-                <a class="post-title-link" href="/2006/11/23/linux-e7-9a-84-e4-b8-80-e4-ba-9b-e5-91-bd-e4-bb-a4-e4-bb-8b-e7-bb-8d/" itemprop="url">
-                  Linux的一些命令介绍
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2006-11-23T06:32:00+08:00">
-                2006-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong><span style="font-size: 7px">which</span></strong><br>which -a : 它使 which 向您显示您的 PATH 中给定程序的所有实例</p>
-<p><span style="font-size: 7px">find</span><br>$ find /usr/share/doc -name README*</p>
-<p>搜索中忽略大小写：<br>$ find /usr/share/doc -iname readme*</p>
-<p>使用 -regex 选项将把输出限制成匹配某一模式的文件名<br>项，该选项忽略模式中的大小写。例如：<br>$ find /etc -iregex ‘.<em>xt.</em>‘</p>
-<p>-type 选项允许您查找某一类型的文件系统对象-type 参数是<br>b （块设备）、c（字符设备）、d（目录）、p（命名管道）、f（常规文件）、l（符号链接）和 s（套接字）<br>例：<br>$ find /home -name ‘<em>sh</em>‘ -type f</p>
-<p>-mtime 选项允许您根据最近一次的修改时间来选择文件。mtime 的参数以 24 小时为单位，<br>当输入时带加号（表示”之后”）或者减号（表示”之前”）时，它最有用。例</p>
-<p>find . -name ? -mtime -1 :搜索在过去的 24 小时之内创建的文件</p>
-<p>-daystart 选项</p>
-<p>时间周期以今天的开始时为开始，而不是 24 小时之前。例如，这是昨天和前天创建的一组文件</p>
-<p>-size 选项<br>size 选项允许您根据文件的大小来查找它们。缺省情况下，-size 的参数是 512 个字节的块，但是添加后缀可以使操作更简便<br>可用的后缀是 b（512 字节的块）、c（字节）、k（千字节）和 w（2 字节的字）。另外，您可以在前放置加号（”大于”）或者减号（”小于”）。</p>
-<p>例如，要在 /usr/bin 中查找小于 50 个字节的常规文件：</p>
-<p>$ find /usr/bin -type f -size -50c</p>
-<p>-exec<br>选项处理找到的文件<br>这个选项接受命令行作为它的参数来执行，它以 ; 中断，并用文件名来替换任何出现的 {} 。下面这个示例可以帮助您完全理解它：<br>例：<br>$ find /usr/bin -type f -size -50c -exec ls -l ‘{}’ ‘;’</p>
-<p><span style="font-size: 7px">locate</span><br>运行 updatedb 来生成搜索数据库</p>
-<p>slocate</p>
-<p>在 Linux 的许多分发版（distribution）中，locate 命令已经被 slocate 所替代。通常有一个至”locate”的符号链接，这样<br>您不需要记住拥有的是哪一个。slocate 代表”安全定位（secure locate）”。它将许可权信息存储在数据库中，这样普通用户不<br>能以别的方式窥探他们不能读取的目录。slocate 的用法信息在本质上与 locate 的信息相同，尽管输出可能不同（取决于正在运行<br>命令的用户）。</p>
-<p>停止进程 ctrl +C</p>
-<p>使用 fg 命令使其可以在前台运行<br>使用 bg命令使其可以在后台运行<br>使用 &amp;使其在后台运行</p>
-<p>jobs -l 列出了从您 bash 会话上启动的进程</p>
-<p>killall -TERM mysqld 干掉mysql进程，其他同理</p>
-<p>nohup<br>使用户注销以后程序依然可以运行</p>
-<p>例如：# nonup /local/bin/my_back_script.sh</p>
-<h1 id="exit"><a href="#exit" class="headerlink" title="exit"></a>exit</h1><p><span style="font-size: 7px">ps</span><br>查看您系统上所有的进程<br>例如：</p>
-<h1 id="ps-aux"><a href="#ps-aux" class="headerlink" title="ps aux"></a>ps aux</h1><p>–forest 选项可以很容易地查看进程的层次结构</p>
-<h1 id="ps-x-–forest"><a href="#ps-x-–forest" class="headerlink" title="ps x –forest"></a>ps x –forest</h1><p>top<br>同PS相同查看进程列表，不过这个是动态的<br>nice 修运进程的运行级<br>renice :如果您想要更改正在运行的进程 nice 值设置，那么使用 renice</p>
-<p>“&gt;” 重定向</p>
-<p>&gt;&gt; 追加.<br>例如：<br>$ echo ‘some’ &gt; myfile.sh # 将字符串写进文件（覆盖方式）如果文件不存在，则自动创建</p>
-<p><span style="font-size: 7px">bzip2</span></p>
-<p>例： $ bzip2 -d linux-2.4.16.tar.bz2</p>
-<p>echo</p>
-<p>echo 将它的参数打印到终端。如果您想要嵌入反斜杠转义序列，那么使用 -e 选项；例如<br>echo -e “foonfoo” 将打印 foo，然后打印一个换行，接着再打印 foo。使用 -n 选项<br>告知 echo 省略缺省情况下附加到输出的最后一个换行。</p>
-<p>cat、sort 和 uniq</p>
-<p>cat 将指定为参数的文件内容打印到终端。作为管道的第一个命令，这是很方便的，例如，cat foo.txt | blah。</p>
-<p>sort</p>
-<p>sort 按字母次序打印在命令行上指定的文件内容。当然，sort 也接受用管道传送的输入。输入 man sort 来熟悉控制排序行为的各种选项。</p>
-<p>uniq</p>
-<p>uniq 获取已排序的文件或数据流（通过管道）并除去重复行。</p>
-<p>wc、head 和 tail</p>
-<p>wc 打印出指定文件或输入流（来自管道）中的行、字和字节的数量。输入 man wc 来学习如何精调显示的内容。</p>
-<p><span style="font-size: 7px">head</span></p>
-<p>head 打印出文件或流的前十行。使用 -n 选项来指定应显示的行数。</p>
-<p>tail</p>
-<p>打印出文件或流的最后十行。使用 -n 选项来指定应显示的行数</p>
-<p><span style="font-size: 7px">tac、expand 和 unexpand</span></p>
-<p>tac</p>
-<p>tac 与 cat 类似，但它以逆向顺序打印所有行，换句话说，先打印最后一行。</p>
-<p>expand</p>
-<p>expand 将输入制表符转换为空格。使用 -t 选项来指定制表符停止位。</p>
-<p>unexpand</p>
-<p>unexpand 将输入空格转换为制表符。使用 -t 选项来指定制表符停止位。</p>
-<p><span style="font-size: 7px">cut、nl 和 pr</span></p>
-<p>cut</p>
-<p>cut 从输入文件或流的每个行上抽取出由字符限定的字段。</p>
-<p>nl</p>
-<p>nl 将行号添加到输入的每个行上。这对于打印输出很有用。</p>
-<p>pr</p>
-<p>pr 将文件分解为多个页面的输出；通常用于打印。</p>
-<p><span style="font-size: 7px">tr、sed 和 awk</span></p>
-<p>tr</p>
-<p>tr 是字符转换工具；它用来将输入流中的某些字符映射成输出流中的某些其它字符。</p>
-<p>sed</p>
-<p>sed 是一个功能强大的面向流的文本编辑器。您可以在下面的 developerWorks 文章中学习有关 sed 的知识：</p>
-<p>Sed by example, Part 1: Get to know the powerful UNIX editor<br>Sed by example, Part 2: Taking further advantage of the UNIX text editor<br>Sed by example, Part 3: Data crunching, sed style</p>
-<p>awk</p>
-<p>awk 是一种方便的面向行的文本处理语言。要学习有关 awk 的知识，请阅读下面 IBM 的 developerWorks 文章：</p>
-<p>Awk by example, Part 1: Intro to the great language with the strange name<br>Awk by example, Part 2: Records, loops, and arrays<br>Awk by example, Part 3: String functions and … checkbooks?</p>
-<p>od、split 和 fmt</p>
-<p>od</p>
-<p>od 将输入流转换为八进制或十六进制的”转储”格式。</p>
-<p>split</p>
-<p>split 将较大的文件拆分成许多较小、更易处理的块。</p>
-<p>fmt</p>
-<p>fmt 对段落重新格式化以便在其边缘处进行换行。这个能力被构建到大多数文本编辑器中，但是应知道它仍是一个好工具。</p>
-<p><span style="font-size: 7px">paste、join 和 tee</span></p>
-<p>paste</p>
-<p>paste 获取两个或更多文件作为输入，连接输入文件上的每个后续行，并输出结果行。它对于创建文本的表或列是很有用的。</p>
-<p>join</p>
-<p>join 与 paste 类似，但它在每个输入行中使用一个字段（缺省情况下是第一个字段）来匹配一在单行上合并的字段。</p>
-<p>tee</p>
-<p>tee 将它的输入打印到文件和屏幕。当您想创建某些日志记录，但还想在屏幕上看时，这很有用。</p>
-<p><strong><span style="font-size: 7px; font-family: Verdana">改变 suid 和 sgid</span></strong></p>
-<p><span style="font-size: 130%; font-family: Verdana"><u>设置和除去 suid 与 sgid 位相当简单。这里，我们设置 suid 位：</u></span></p>
-<pre><code>&lt;span style=&quot;font-size: 130%; font-family: Verdana&quot;&gt;&lt;u&gt;# chmod u+s /usr/bin/myapp&lt;/u&gt;&lt;/span&gt;`&lt;/pre&gt;
-&lt;span style=&quot;font-size: 130%; font-family: Verdana&quot;&gt;&lt;u&gt;此处，我们从一个目录_除去_ sgid 位。我们将看到 sgid 位怎样影响下面几屏中的目录：&lt;/u&gt;&lt;/span&gt;
-&lt;pre&gt;`&lt;span style=&quot;font-size: 130%; font-family: Verdana&quot;&gt;&lt;u&gt; # chmod g-s /home/drobbins&lt;/u&gt;&lt;/span&gt;
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/wget-e2-80-94-e2-80-94-e4-bc-98-e7-a7-80-e7-9a-84-e4-b8-8b-e8-bd-bd-e5-b7-a5-e5-85-b7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="九王爷">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九王爷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2006/11/23/wget-e2-80-94-e2-80-94-e4-bc-98-e7-a7-80-e7-9a-84-e4-b8-8b-e8-bd-bd-e5-b7-a5-e5-85-b7/" itemprop="url">
-                  wget——优秀的下载工具
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2006-11-23T06:27:00+08:00">
-                2006-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>wget是一个命令行工具，用于批量下载文件，支持HTTP和FTP。究竟比其他的工具好在哪里？看看内容吧 :)</p>
-<p>wget基本上所有的Linux版本都自己带了，但是有多少人在用呢？呵呵，如果你没有用过，不妨试试。Windows下面的用户可以使用GNUwin32的项目，wget，基本功能完全一致。好吧，我们来以几个简单的例子看看wget的威力。</p>
-<p>如果我们想下载ftp里面某个目录里面的所有文件，我们也可以不用ftp这个笨蛋，呵呵，可以享受cute ftp等图形化工具的拖一个目录的轻松了。如</p>
-<p><strong>wget -r ftp://10.8.8.8/movie/</strong></p>
-<p>呵呵，等吧！下完了，发觉有些不对劲，怎么出来个10.8.8.8的目录，进去看看，又是一个movie，哦，wget将目录结构和网站标题都给记录下来了，不要？？没有问题！比如说还是这个例子</p>
-<p><strong>wget -r <span style="color: #0000ff">-nd</span> ftp://10.8.8.8/movie/</strong></p>
-<p>结果什么目录都没有了，faint！怎么会这样？呵呵，你如果想要这样就让它这样吧，否则使用</p>
-<p><strong>wget -r <span style="color: #0000ff">-nH</span> ftp://10.8.8.8/movie/</strong></p>
-<p>恩？movie也不要？OK，那就这样</p>
-<p><strong>wget -r -nH <span style="color: #0000ff">–cut-dirs=1</span> ftp://10.8.8.8/movie/</strong></p>
-<p>这有什么用啊？cuteftp比他好用多了，而且，你这断了线能连吗？呵呵，不好意思，可以连</p>
-<p><strong>wget <span style="color: #0000ff">-c</span> -r -nH –cut-dirs=1 ftp://10.8.8.8/movie/</strong></p>
-<p>但 是cuteftp能做下面的事情吗？比如，现在很多网站使用Apache建站，并不提供ftp服务，但是Apache有一个indexing功能，可以 提供一个类似于ftp的界面，好多文件我想下啊，怎么办？由于是HTTP协议，CuteFTP无能为力了，倒是flash get等有什么get all这种功能，不知道他们对于目录处理怎么样。但是wget一点问题都没有，不信？我们拿CTAN为例（例子并不恰当，CTAN有FTP服务），我们下 载这里面所有的宏包，呵呵</p>
-<p><strong>wget -r <span style="color: #0000ff">-k</span> <a href="http://www.ctan.org/tex-archive/macros/latex/" target="_blank" rel="external">http://www.ctan.org/tex-archive/macros/latex/</a></strong></p>
-<p>-k表示将连接转换为本地连接。但是现在同样有上面的问题啊，那就把你需要的加上吧，另外也许你根本不需要向下走那么多层，比如，我们就要到第二层，那么</p>
-<p><strong>wget -r <span style="color: #0000ff">-l2</span> -k <a href="http://www.ctan.org/tex-archive/macros/latex/" target="_blank" rel="external">http://www.ctan.org/tex-archive/macros/latex/</a></strong></p>
-<p>现在新的问题是，由于网页有一个排序功能，很讨厌，因为下载的时候把网页重复了好多次，那么我们可使用-A和-R开关控制下载类型，并且可以使用通配符，呵呵，现在随心所欲了吧</p>
-<p><strong>wget -r <span style="color: #0000ff">-R “<em>.htm</em>?*”</span> -k <a href="http://www.ctan.org/tex-archive/macros/latex/" target="_blank" rel="external">http://www.ctan.org/tex-archive/macros/latex/</a></strong></p>
-<p>这次没有那种网页了吧？<strong>-R</strong>的意义在于拒绝下载匹配类型的文件，<strong>-A</strong>表示仅仅接受的文件类型，如<strong>-A “*.gif”</strong>将仅下载gif图片，如果有多个允许或者不允许，可以使用<strong>,</strong>分开。</p>
-<p>那 么，我们现在在使用代理服务器，怎么办呢？呵呵，很高兴你选择了wget，你可以使用它的配置文件，环境变量来利用代理。这里推荐使用环境变量，如在 bash里面我们可以把天天用的proxy加到.bash_profile里面，这是Linux标准写法（很多软件都用的，什么apt-get，yum等 等）</p>
-<p><strong>export http_proxy=<a href="http://10.20.30.40:8080" target="_blank" rel="external">http://10.20.30.40:8080</a></strong></p>
-<p>然后，proxy就默认打开了，如果需要暂时关闭，可以使用</p>
-<p><strong>wget <span style="color: #0000ff">–proxy=off</span> -r -k <a href="http://www.ctan.org/tex-archive/macros/latex/" target="_blank" rel="external">http://www.ctan.org/tex-archive/macros/latex/</a></strong></p>
-<p>当然，写一个<strong>.wgetrc</strong>文件也可以，该文件可以从<strong>/usr/local/etc</strong>里面找到，里面有很详细的注释，我就不多说了。</p>
-<p>下载网页的时候比较麻烦的事情是，有的网页被同时指向了很多遍，那么为了避免多次下载，我们使用</p>
-<p><strong>wget <span style="color: #0000ff">-nc</span> -r -k <a href="http://www.ctan.org/tex-archive/macros/latex/" target="_blank" rel="external">http://www.ctan.org/tex-archive/macros/latex/</a></strong></p>
-<p>可以避免这件事情。为了不被有的连接指向非<a href="http://www.ctan.org/tex-archive/macros/latex/内层目录，我们还应该加上" target="_blank" rel="external">http://www.ctan.org/tex-archive/macros/latex/内层目录，我们还应该加上</a></p>
-<p><strong>wget -nc <span style="color: #0000ff">-np</span> -r -k <a href="http://www.ctan.org/tex-archive/macros/latex/" target="_blank" rel="external">http://www.ctan.org/tex-archive/macros/latex/</a></strong></p>
-<p>避免下载非该目录里面的文件，这也避免了到不同的host上面去。当然，如果你希望有这个功能，在多个host之间跳来跳去的下载，可以使用</p>
-<p><strong>wget -nc -np <span style="color: #0000ff">-H</span> -r -k <a href="http://www.ctan.org/tex-archive/macros/latex/" target="_blank" rel="external">http://www.ctan.org/tex-archive/macros/latex/</a></strong></p>
-<p>使得可以在多个host之间span，同时-I和-X可以使得我们仅仅跟踪某些目录或者不跟踪某些目录。如果某些HTML里面你需要的东西不是由这种东西作出来的，你就得使用<strong>–follow-tags</strong>和<strong>–ignore-tags</strong>了。嘿，我有个文件里面都是连接，怎么办？要是不是html你只需要</p>
-<p></p><p align="center"><strong>wget <span style="color: #0000ff">-i</span> your.file</strong><br>如果是，那也不繁<br><strong>wget <span style="color: #0000ff">-F</span> **</strong>-i <strong><strong>your.file</strong></strong>Wget 的完全用法<br>-V 版本信息<br>-h 帮助信息<br>-b 后台执行Wget<br>-o filename 把记录放在文件filename<br>-a filename 把记录附加在文件filename<br>-d 显示调试信息<br>-q 无输出下载方式<br>-v 详细的屏幕输出（默认）<br>-nv 简单的屏幕输出<br>-i inputfiles 从文本文件内读取地址列表<br>-F forcehtml 从html文件内读取地址列表<br>-t number number次重试下载(0时为无限次)<br>-O output document file 写文件到文件<br>-nc 不覆盖已有的文件<br>-c 断点下传<br>-N 时间时间戳。该参数指定wget只下载更新的文件，也就是说，与本地目录中的对应文件的长度和最后修改日期一样的文件将不被下载。<br>-S 显示服务器响应<br>-T timeout 超时时间设置(单位秒)<br>-w time 重试延时(单位秒)<br>-Y proxy=on/off 是否打开代理<br>-Q quota=number 重试次数<br>目录:<br>-nd –no-directories 不建立目录.<br>-x, –force-directories 强制进行目录建立的工作.<br>-nH, –no-host-directories 不建立主机的目录.<br>-P, –directory-prefix=PREFIX 把档案存到 PREFIX/…<br>–cut-dirs=NUMBER 忽略 NUMBER 个远端的目录元件.<br>HTTP 选项:<br>–http-user=USER 设 http 使用者为 USER.<br>–http0passwd=PASS 设 http 使用者的密码为 PASS.<br>-C, –cache=on/off 提供/关闭快取伺服器资料 (正常情况为提供).<br>–ignore-length 忽略 <code>Content-Length&#39; 标头栏位.
---proxy-user=USER 设 USER 为 Proxy 使用者名称.
---proxy-passwd=PASS 设 PASS 为 Proxy 密码.
--s, --save-headers 储存 HTTP 标头成为档案.
--U, --user-agent=AGENT 使用 AGENT 取代 Wget/VERSION 作为识别代号.
-FTP 选项:
---retr-symlinks 取回 FTP 的象徵连结.
--g, --glob=on/off turn file name globbing on ot off.
---passive-ftp 使用 &quot;passive&quot; 传输模式.
-使用递回方式的取回:
--r, --recursive 像是吸入 web 的取回 -- 请小心使用!.
--l, --level=NUMBER 递回层次的最大值 (0 不限制).
---delete-after 删除下载完毕的档案.
--k, --convert-links 改变没有关连的连结成为有关连.
--m, --mirror 开启适合用来映射的选项.
--nr, --dont-remove-listing 不要移除</code>.listing’ 档.<br>递回式作业的允许与拒绝选项:<br>-A, –accept=LIST 允许的扩充项目的列表<br>. -R, –reject=LIST 拒绝的扩充项目的列表.<br>-D, –domains=LIST 允许的网域列表.<br>–exclude-domains=LIST 拒绝的网域列表 (使用逗号来分隔).<br>-L, –relative 只跟随关联连结前进.<br>–follow-ftp 跟随 HTML 文件里面的 FTP 连结.<br>-H, –span-hosts 当开始递回时便到外面的主机.<br>-I, –include-directories=LIST 允许的目录列表.<br>-X, –exclude-directories=LIST 排除的目录列表.<br>-nh, –no-host-lookup 不透过 DNS 查寻主机.<br>-np, –no-parent 不追朔到起源目录.<br>wget -t0 -c -nH -np -b -m -P /localdir <a href="http://freesoft.online.sh.cn/mirrors/ftp.redhat.com" target="_blank" rel="external">http://freesoft.online.sh.cn/mirrors/ftp.redhat.com</a> -o</p>
-<p>**wget经常用于成批量地下载Internet网站上的文件，或制作远程网站的镜像。</p>
-<p>语法:</p>
-<p>wget [options] [URL-list]<br>URL地址格式说明:可以使用如下格式的URL:<br><a href="http://host%5b/path" target="_blank" rel="external"><span style="color: #0000ff">http://host[:port]/path</span></a><br>例如:<br><a href="http://fly.cc.fer.hr/" target="_blank" rel="external"><span style="color: #0000ff">http://fly.cc.fer.hr/</span></a><br><a href="ftp://ftp.xemacs.org/pub/xemacs/xemacs-19.14.tar.gz" target="_blank" rel="external"><span style="color: #0000ff">ftp://ftp.xemacs.org/pub/xemacs/xemacs-19.14.tar.gz</span></a><br><a href="ftp://username:password@host/dir/file" target="_blank" rel="external"><span style="color: #0000ff">ftp://username:password@host/dir/file</span></a><br>在最后一种形式中，以URL编码形式为FTP主机提供了用户名和密码（当然，也可以使<br>用参数提供该信息，见后）。</p>
-<p>参数说明：</p>
-<p>wget的参数较多，但大部分应用只需要如下几个常用的参数：<br>-r 递归；对于HTTP主机，wget首先下载URL指定的文件，然后（如果该文件是<br>一个HTML文档的话）递归下载该文件所引用（超级连接）的所有文件（递归深度<br>由参数-l指定）。对FTP主机，该参数意味着要下载URL指定的目录中的所有文件，<br>递归方法与HTTP主机类似。</p>
-<p>-N 时间戳：该参数指定wget只下载更新的文件，也就是说，与本地目录中的对<br>应文件的长度和最后修改日期一样的文件将不被下载。</p>
-<p>-m 镜像：相当于同时使用-r和-N参数。</p>
-<p>-l 设置递归级数；默认为5。-l1相当于不递归；-l0为无穷递归；注意，当递<br>归深度增加时，文件数量将呈指数级增长。</p>
-<p>-t 设置重试次数。当连接中断（或超时）时，wget将试图重新连接。如果指<br>定-t0，则重试次数设为无穷多。</p>
-<p>-c 指定断点续传功能。实际上，wget默认具有断点续传功能，只有当你使用别<br>的ftp工具下载了某一文件的一部分，并希望wget接着完成此工作的时候，才需要<br>指定此参数。</p>
-<p>使用举例：<br>wget -m -l4 -t0 <a href="http://oneweb.com.cn/" target="_blank" rel="external"><span style="color: #0000ff">http://oneweb.com.cn/</span></a><br>将在本地硬盘建立<a href="http://oneweb.com.cn/" target="_blank" rel="external"><span style="color: #0000ff">http://oneweb.com.cn/</span></a>的镜像，镜像文件存入当前目录下一个名为<br>oneweb.com.cn的子目录中（你也可以使用-nH参数指定不建立该子目录，而直接在当前<br>目录下建立镜像的目录结构），递归深度为4，重试次数为无穷（若连接出现问题，<br>wget将坚韧不拔地永远重试下去，知道任务完成！）</p>
-<p>另外一些使用频率稍低的参数如下：<br>-A acclist / -R rejlist：<br>这两个参数用于指定wget接受或排除的文件扩展名，多个名称之间用逗号隔开。例如，<br>假设我们不想下载MPEG视频影像文件和.AU声音文件，可使用如下参数：<br>-R mpg,mpeg,au</p>
-<p>其它参数还有：<br>-L 只扩展相对连接，该参数对于抓取指定站点很有用，可以避免向宿主主机<br>的其他目录扩散。例如，某个人网站地址为：<a href="http://www.xys.org/%7Eppfl/" target="_blank" rel="external"><span style="color: #0000ff">http://www.xys.org/~ppfl/</span></a>，使用<br>如下命令行：<br>wget -L <a href="http://www.xys.org/%7Eppfl/" target="_blank" rel="external"><span style="color: #0000ff">http://www.xys.org/~ppfl/</span></a><br>则只提取该个人网站，而不涉及主机<a href="http://www.xys.org/" target="_blank" rel="external"><span style="color: #0000ff">www.xys.org</span></a>上的其他目录。</p>
-<p>-k 转换连接：HTML文件存盘时，将其中的非相对连接转换成为相对连接。</p>
-<p>-X 在下载FTP主机上的文件时，排除若干指定的目录</p>
-<p>另外，下面参数用于设置wget的工作界面：<br>-v 设置wget输出详细的工作信息。<br>-q 设置wget不输出任何信息。</p>
-<p>如果我们已经在一个HTML文档（或普通文本文档）中存储了所要提取的文件的连接，<br>可以让wget直接从该文件中提取信息，而不用在命令行中提供URL地址，参数格式为：<br>-i filename<br>地址文件也可以不是HTML文档，例如，一个普通的文本文件，其中有需要下载的URL列<br>表即可。<br>我们可以用以下技巧提高下载速度：由于Linux是一个多任务系统，我们可以同时运行<br>多个wget进程以提高下载速度，例如，先下载某主页文件（index.html），然后将该<br>文件所列出的所有地址分别用一个独立的wget进程进行下载。</p>
-<p>至于其他的参数，可参考wget的man手册页，命令为：<br>man wget</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/mysql4027-e6-95-b0-e6-8d-ae-e5-ba-93-e8-bd-ac-e7-a7-bb-mysql5024/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="九王爷">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九王爷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2006/11/23/mysql4027-e6-95-b0-e6-8d-ae-e5-ba-93-e8-bd-ac-e7-a7-bb-mysql5024/" itemprop="url">
+                <a class="post-title-link" href="/2006/11/23/MySQL4.0.27数据库_转移_MySQL5.0.24/" itemprop="url">
                   MySQL4.0.27数据库 转移 MySQL5.0.24
                 </a>
               
@@ -839,7 +411,7 @@ FTP 选项:
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/e9-98-b2-e7-81-ab-e5-a2-99-e8-84-9a-e6-9c-ac/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/防火墙脚本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -861,7 +433,7 @@ FTP 选项:
             
               
                 
-                <a class="post-title-link" href="/2006/11/23/e9-98-b2-e7-81-ab-e5-a2-99-e8-84-9a-e6-9c-ac/" itemprop="url">
+                <a class="post-title-link" href="/2006/11/23/防火墙脚本/" itemprop="url">
                   防火墙脚本
                 </a>
               
@@ -995,7 +567,7 @@ FTP 选项:
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/client-does-not-support-authenticationprotocol-req/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/Client_does_not_support_authenticationprotocol_req/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1017,7 +589,7 @@ FTP 选项:
             
               
                 
-                <a class="post-title-link" href="/2006/11/23/client-does-not-support-authenticationprotocol-req/" itemprop="url">
+                <a class="post-title-link" href="/2006/11/23/Client_does_not_support_authenticationprotocol_req/" itemprop="url">
                   Client does not support authenticationprotocol req
                 </a>
               
@@ -1142,7 +714,7 @@ FTP 选项:
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/apache-e9-85-8d-e7-bd-ae-e5-ae-89-e5-85-a8/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/Apache_配置安全/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1164,7 +736,7 @@ FTP 选项:
             
               
                 
-                <a class="post-title-link" href="/2006/11/23/apache-e9-85-8d-e7-bd-ae-e5-ae-89-e5-85-a8/" itemprop="url">
+                <a class="post-title-link" href="/2006/11/23/Apache_配置安全/" itemprop="url">
                   Apache 配置安全
                 </a>
               
@@ -1355,7 +927,7 @@ FTP 选项:
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/e9-99-90-e5-88-b6apache-e7-9a-84-e8-bf-9b-e7-a8-8b/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/限制APACHE的进程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1377,7 +949,7 @@ FTP 选项:
             
               
                 
-                <a class="post-title-link" href="/2006/11/23/e9-99-90-e5-88-b6apache-e7-9a-84-e8-bf-9b-e7-a8-8b/" itemprop="url">
+                <a class="post-title-link" href="/2006/11/23/限制APACHE的进程/" itemprop="url">
                   限制APACHE的进程
                 </a>
               
@@ -1518,7 +1090,7 @@ FTP 选项:
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/linux-e8-bf-90-e8-a1-8c-e7-8e-af-e5-a2-83-e5-ae-89-e8-a3-85-e5-85-a8-e8-a7-a3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/Linux运行环境安装全解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1540,7 +1112,7 @@ FTP 选项:
             
               
                 
-                <a class="post-title-link" href="/2006/11/23/linux-e8-bf-90-e8-a1-8c-e7-8e-af-e5-a2-83-e5-ae-89-e8-a3-85-e5-85-a8-e8-a7-a3/" itemprop="url">
+                <a class="post-title-link" href="/2006/11/23/Linux运行环境安装全解/" itemprop="url">
                   Linux运行环境安装全解
                 </a>
               
@@ -1675,7 +1247,7 @@ FTP 选项:
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/rhel-as4u3httpd22tomcat55mysql50php51/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/RHEL_AS4U3+httpd2.2+tomcat5.5+mysql5.0+php5.1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1697,7 +1269,7 @@ FTP 选项:
             
               
                 
-                <a class="post-title-link" href="/2006/11/23/rhel-as4u3httpd22tomcat55mysql50php51/" itemprop="url">
+                <a class="post-title-link" href="/2006/11/23/RHEL_AS4U3+httpd2.2+tomcat5.5+mysql5.0+php5.1/" itemprop="url">
                   RHEL AS4U3+httpd2.2+tomcat5.5+mysql5.0+php5.1
                 </a>
               
@@ -2110,7 +1682,7 @@ CustomLog logs/170-access_log common
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">269</span>
+                <span class="site-state-item-count">267</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

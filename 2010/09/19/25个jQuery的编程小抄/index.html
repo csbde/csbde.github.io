@@ -1,0 +1,751 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="1. jQuery 1.2 Cheat-sheet [PNG] 2. jQuery 1.2 Cheat Sheet v1.0 [PDF] 3. jQuery 1.3 Cheatsheet [PDF] 4. jQuery API Browser [Adobe AIR, HTML] 5. jQuery1.1 Cheat Sheet [HTML] 6. jTouch – jQuery Cheat She">
+<meta property="og:type" content="article">
+<meta property="og:title" content="25个jQuery的编程小抄">
+<meta property="og:url" content="http://yoursite.com/2010/09/19/25个jQuery的编程小抄/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="1. jQuery 1.2 Cheat-sheet [PNG] 2. jQuery 1.2 Cheat Sheet v1.0 [PDF] 3. jQuery 1.3 Cheatsheet [PDF] 4. jQuery API Browser [Adobe AIR, HTML] 5. jQuery1.1 Cheat Sheet [HTML] 6. jTouch – jQuery Cheat She">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/1.png">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/2.png">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/32.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/42.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/52.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/62.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/7.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/82.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/9.png">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/102.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/112.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/12.gif">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/13.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/14.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/15.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/16.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/17.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/18.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/19.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/20.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/211.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/22.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/23.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/24.jpg">
+<meta property="og:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/25.jpg">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="25个jQuery的编程小抄">
+<meta name="twitter:description" content="1. jQuery 1.2 Cheat-sheet [PNG] 2. jQuery 1.2 Cheat Sheet v1.0 [PDF] 3. jQuery 1.3 Cheatsheet [PDF] 4. jQuery API Browser [Adobe AIR, HTML] 5. jQuery1.1 Cheat Sheet [HTML] 6. jTouch – jQuery Cheat She">
+<meta name="twitter:image" content="http://technologytosoftware.com/wp-content/uploads/2010/09/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2010/09/19/25个jQuery的编程小抄/"/>
+
+
+
+
+
+  <title> 25个jQuery的编程小抄 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/19/25个jQuery的编程小抄/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                25个jQuery的编程小抄
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2010-09-19T10:06:18+08:00">
+                2010-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Language</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-jQuery-1-2-Cheat-sheet-PNG"><a href="#1-jQuery-1-2-Cheat-sheet-PNG" class="headerlink" title="1. jQuery 1.2 Cheat-sheet [PNG]"></a><a href="http://colorcharge.com/jquery/" target="_blank" rel="external">1. jQuery 1.2 Cheat-sheet</a> [PNG]</h3><p><a href="http://colorcharge.com/jquery/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/1.png" alt="" title="1"></a></p>
+<h3 id="2-jQuery-1-2-Cheat-Sheet-v1-0-PDF"><a href="#2-jQuery-1-2-Cheat-Sheet-v1-0-PDF" class="headerlink" title="2. jQuery 1.2 Cheat Sheet v1.0 [PDF]"></a><a href="http://www.gscottolson.com/weblog/2008/01/11/jquery-cheat-sheet/" target="_blank" rel="external">2. jQuery 1.2 Cheat Sheet v1.0</a> [PDF]</h3><p><a href="http://www.gscottolson.com/weblog/2008/01/11/jquery-cheat-sheet/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/2.png" alt="" title="2"></a></p>
+<h3 id="3-jQuery-1-3-Cheatsheet-PDF"><a href="#3-jQuery-1-3-Cheatsheet-PDF" class="headerlink" title="3. jQuery 1.3 Cheatsheet [PDF]"></a><a href="http://blog.acodingfool.com/cheatsheets/jquery-1-3-cheatsheet/" target="_blank" rel="external">3. jQuery 1.3 Cheatsheet</a> [PDF]</h3><p><a href="http://blog.acodingfool.com/cheatsheets/jquery-1-3-cheatsheet/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/32.jpg" alt="" title="3"></a></p>
+<h3 id="4-jQuery-API-Browser-Adobe-AIR-HTML"><a href="#4-jQuery-API-Browser-Adobe-AIR-HTML" class="headerlink" title="4. jQuery API Browser [Adobe AIR, HTML]"></a><a href="http://api.jquery.com/" target="_blank" rel="external">4. jQuery API Browser</a> [Adobe AIR, HTML]</h3><p><a href="http://api.jquery.com/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/42.jpg" alt="" title="4"></a></p>
+<h3 id="5-jQuery1-1-Cheat-Sheet-HTML"><a href="#5-jQuery1-1-Cheat-Sheet-HTML" class="headerlink" title="5. jQuery1.1 Cheat Sheet [HTML]"></a>5. <a href="http://n-bp.com/jquery_cheat_sheet/v11/" target="_blank" rel="external">jQuery1.1 Cheat Sheet</a> [HTML]</h3><p><a href="http://n-bp.com/jquery_cheat_sheet/v11/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/52.jpg" alt="" title="5"></a></p>
+<h3 id="6-jTouch-–-jQuery-Cheat-Sheet-for-iPhone-HTML"><a href="#6-jTouch-–-jQuery-Cheat-Sheet-for-iPhone-HTML" class="headerlink" title="6. jTouch – jQuery Cheat Sheet for iPhone [HTML]"></a>6. <a href="http://jtouch.colorcharge.com/" target="_blank" rel="external">jTouch – jQuery Cheat Sheet for iPhone</a> [HTML]</h3><p><a href="http://jtouch.colorcharge.com/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/62.jpg" alt="" title="6"></a></p>
+<h3 id="7-jQuery-1-4-API-Cheat-Sheet-HTML-PDF-PNG"><a href="#7-jQuery-1-4-API-Cheat-Sheet-HTML-PDF-PNG" class="headerlink" title="7. jQuery 1.4 API Cheat Sheet [HTML, PDF, PNG]"></a>7.<a href="http://www.futurecolors.ru/jquery/" target="_blank" rel="external"> jQuery 1.4 API Cheat Sheet</a> [HTML, PDF, PNG]</h3><p><a href="http://www.futurecolors.ru/jquery/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/7.jpg" alt="" title="7"></a></p>
+<h3 id="8-jQuery-Selectors-PDF"><a href="#8-jQuery-Selectors-PDF" class="headerlink" title="8. jQuery Selectors [PDF]"></a>8. <a href="http://refcardz.dzone.com/refcardz/jquery-selectors" target="_blank" rel="external">jQuery Selectors</a> [PDF]</h3><p><a href="http://refcardz.dzone.com/refcardz/jquery-selectors" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/82.jpg" alt="" title="8"></a></p>
+<h3 id="9-jQuery-1-3-Quick-API-Reference-HTML"><a href="#9-jQuery-1-3-Quick-API-Reference-HTML" class="headerlink" title="9. jQuery 1.3 Quick API Reference [ HTML]"></a>9.<a href="http://oscarotero.com/jquery/" target="_blank" rel="external"> jQuery 1.3 Quick API Reference</a> [ HTML]</h3><p><a href="http://oscarotero.com/jquery/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/9.png" alt="" title="9"></a></p>
+<h3 id="10-jQuery-UI-1-7-Quick-API-Reference-HTML"><a href="#10-jQuery-UI-1-7-Quick-API-Reference-HTML" class="headerlink" title="10. jQuery UI 1.7 Quick API Reference [ HTML]"></a>10.<a href="http://oscarotero.com/jquery/ui.html" target="_blank" rel="external"> </a><a href="http://oscarotero.com/jquery/ui.html" target="_blank" rel="external">jQuery UI 1.7 Quick API Reference</a> [ HTML]</h3><p><a href="http://oscarotero.com/jquery/ui.html" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/102.jpg" alt="" title="10"></a></p>
+<h3 id="11-jQuery-1-3-2-Cheat-Sheet-Microsoft-Excel-XLS-PDF-PNG"><a href="#11-jQuery-1-3-2-Cheat-Sheet-Microsoft-Excel-XLS-PDF-PNG" class="headerlink" title="11. jQuery 1.3.2 Cheat Sheet [Microsoft Excel (XLS), PDF, PNG]"></a>11. <a href="http://www.javascripttoolbox.com/jquery/cheatsheet/" target="_blank" rel="external">jQuery 1.3.2 Cheat Sheet</a> [Microsoft Excel (XLS), PDF, PNG]</h3><p><a href="http://www.javascripttoolbox.com/jquery/cheatsheet/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/112.jpg" alt="" title="11"></a></p>
+<h3 id="12-jQuery-1-1-3-Cheat-Sheet-Microsoft-Excel-XLS-PDF-PNG"><a href="#12-jQuery-1-1-3-Cheat-Sheet-Microsoft-Excel-XLS-PDF-PNG" class="headerlink" title="12. jQuery 1.1.3 Cheat Sheet [Microsoft Excel (XLS), PDF, PNG]"></a>12. <a href="http://www.javascripttoolbox.com/jquery/cheatsheet/" target="_blank" rel="external">jQuery 1.1.3 Cheat Sheet</a> [Microsoft Excel (XLS), PDF, PNG]</h3><p><a href="http://www.javascripttoolbox.com/jquery/cheatsheet/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/12.gif" alt="" title="12"></a></p>
+<h3 id="13-jQuery-1-3-Visual-Cheat-Sheet-PDF"><a href="#13-jQuery-1-3-Visual-Cheat-Sheet-PDF" class="headerlink" title="13. jQuery 1.3 Visual Cheat Sheet [PDF]"></a>13. <a href="http://woork.blogspot.com/2009/09/jquery-visual-cheat-sheet.html" target="_blank" rel="external">jQuery 1.3 Visual Cheat Sheet</a> [PDF]</h3><p><a href="http://woork.blogspot.com/2009/09/jquery-visual-cheat-sheet.html" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/13.jpg" alt="" title="13"></a></p>
+<h3 id="14-jQuery-1-4-2-Visual-Cheat-Sheet-JPEG-PDF"><a href="#14-jQuery-1-4-2-Visual-Cheat-Sheet-JPEG-PDF" class="headerlink" title="14. jQuery 1.4.2 Visual Cheat Sheet [JPEG, PDF]"></a>14.<a href="http://woorkup.com/2010/06/13/jquery-1-4-2-visual-cheat-sheet/" target="_blank" rel="external"> jQuery 1.4.2 Visual Cheat Sheet</a> [JPEG, PDF]</h3><p><a href="http://woorkup.com/2010/06/13/jquery-1-4-2-visual-cheat-sheet/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/14.jpg" alt="" title="14"></a></p>
+<h3 id="15-jQuery-API-HTML"><a href="#15-jQuery-API-HTML" class="headerlink" title="15. jQuery API [HTML]"></a>15. <a href="http://remysharp.com/jquery-api/" target="_blank" rel="external">jQuery API</a> [HTML]</h3><p><a href="http://remysharp.com/jquery-api/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/15.jpg" alt="" title="15"></a></p>
+<h3 id="16-jQuery-1-4-Cheat-Sheet-PDF"><a href="#16-jQuery-1-4-Cheat-Sheet-PDF" class="headerlink" title="16. jQuery 1.4 Cheat Sheet [PDF]"></a>16. <a href="http://labs.impulsestudios.ca/jquery-cheat-sheet" target="_blank" rel="external">jQuery 1.4 Cheat Sheet</a> [PDF]</h3><p><a href="http://labs.impulsestudios.ca/jquery-cheat-sheet" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/16.jpg" alt="" title="16"></a></p>
+<h3 id="17-jQuery-cheatsheet-Wallpaper"><a href="#17-jQuery-cheatsheet-Wallpaper" class="headerlink" title="17. jQuery cheatsheet Wallpaper"></a>17.<a href="http://chris4403.blogspot.com/2008/01/jquery-cheatsheet-wallpaper.html" target="_blank" rel="external"> jQuery cheatsheet Wallpaper</a></h3><p><a href="http://chris4403.blogspot.com/2008/01/jquery-cheatsheet-wallpaper.html" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/17.jpg" alt="" title="17"></a></p>
+<h3 id="18-jQuery-–-YUI3-Rosetta-Stone-HTML"><a href="#18-jQuery-–-YUI3-Rosetta-Stone-HTML" class="headerlink" title="18. jQuery – YUI3 Rosetta Stone [HTML]"></a>18. <a href="http://carlos.bueno.org/jq-yui.html" target="_blank" rel="external">jQuery – YUI3 Rosetta Stone</a> [HTML]</h3><p><a href="http://carlos.bueno.org/jq-yui.html" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/18.jpg" alt="" title="18"></a></p>
+<h3 id="19-jQuery-1-2-by-Adrien-Gibrat-PDF"><a href="#19-jQuery-1-2-by-Adrien-Gibrat-PDF" class="headerlink" title="19. jQuery 1.2 by Adrien Gibrat [PDF]"></a>19. <a href="http://www.cheat-sheets.org/#jQuery" target="_blank" rel="external">jQuery 1.2 by Adrien Gibrat</a> [PDF]</h3><p><a href="http://www.cheat-sheets.org/#jQuery" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/19.jpg" alt="" title="19"></a></p>
+<h3 id="20-jQuery-1-3-Cheat-Sheet"><a href="#20-jQuery-1-3-Cheat-Sheet" class="headerlink" title="20. jQuery 1.3 Cheat Sheet"></a>20. <a href="http://acodingfool.typepad.com/blog/2009/01/jquery-13-cheat-sheet.html" target="_blank" rel="external">jQuery 1.3 Cheat Sheet</a></h3><p><a href="http://acodingfool.typepad.com/blog/2009/01/jquery-13-cheat-sheet.html" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/20.jpg" alt="" title="20"></a></p>
+<h3 id="21-jQuery-1-3-Cheatsheet-Wallpaper-1920×1200-1680×1050-and-1440×900"><a href="#21-jQuery-1-3-Cheatsheet-Wallpaper-1920×1200-1680×1050-and-1440×900" class="headerlink" title="21. jQuery 1.3 Cheatsheet Wallpaper [1920×1200, 1680×1050 and 1440×900]"></a>21. <a href="http://www.gmtaz.com/index.php/jquery-13-cheatsheet-wallpaper/" target="_blank" rel="external">jQuery 1.3 Cheatsheet Wallpaper </a>[1920×1200, 1680×1050 and 1440×900]</h3><p><a href="http://www.gmtaz.com/index.php/jquery-13-cheatsheet-wallpaper/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/211.jpg" alt="" title="21"></a></p>
+<h3 id="22-jQuery-1-3-Visual-Cheat-Sheet-by-Antonio-Lupetti-PDF"><a href="#22-jQuery-1-3-Visual-Cheat-Sheet-by-Antonio-Lupetti-PDF" class="headerlink" title="22. jQuery 1.3 Visual Cheat Sheet by Antonio Lupetti [PDF]"></a><a href="http://www.cheat-sheets.org/saved-copy/jQuery.1.3.Visual.Cheat.Sheet.by.WOORK.pdf" target="_blank" rel="external">22. jQuery 1.3 Visual Cheat Sheet by Antonio Lupetti</a> [PDF]</h3><p><a href="http://www.cheat-sheets.org/saved-copy/jQuery.1.3.Visual.Cheat.Sheet.by.WOORK.pdf" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/22.jpg" alt="" title="22"></a></p>
+<h3 id="23-jQuery-Selectors-Cheatsheet-HTML"><a href="#23-jQuery-Selectors-Cheatsheet-HTML" class="headerlink" title="23. jQuery Selectors Cheatsheet [HTML]"></a><a href="http://codylindley.com/jqueryselectors/" target="_blank" rel="external">23. jQuery Selectors Cheatsheet</a> [HTML]</h3><p><a href="http://codylindley.com/jqueryselectors/" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/23.jpg" alt="" title="23"></a></p>
+<h3 id="24-jQuery-UI-–-Effects-Cheatsheet-HTML"><a href="#24-jQuery-UI-–-Effects-Cheatsheet-HTML" class="headerlink" title="24. jQuery UI – Effects Cheatsheet [HTML]"></a><a href="http://jn.orz.hm/jquery/ui_effect.html" target="_blank" rel="external">24. jQuery UI – Effects Cheatsheet</a> [HTML]</h3><p><a href="http://jn.orz.hm/jquery/ui_effect.html" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/24.jpg" alt="" title="24"></a></p>
+<h3 id="25-jQuery-Validator-Cheatsheet-–-Elegant-Code-PDF"><a href="#25-jQuery-Validator-Cheatsheet-–-Elegant-Code-PDF" class="headerlink" title="25. jQuery Validator Cheatsheet – Elegant Code [PDF]"></a>25. <a href="http://elegantcode.com/wp-content/uploads/2010/03/Jquery-Validator-Cheat-sheet.pdf" target="_blank" rel="external">jQuery Validator Cheatsheet </a>– Elegant Code [PDF]</h3><p><a href="http://elegantcode.com/wp-content/uploads/2010/03/Jquery-Validator-Cheat-sheet.pdf" target="_blank" rel="external"><img src="http://technologytosoftware.com/wp-content/uploads/2010/09/25.jpg" alt="" title="25"></a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2010/09/17/全球免费开放的电子图书馆/" rel="next" title="全球免费开放的电子图书馆">
+                <i class="fa fa-chevron-left"></i> 全球免费开放的电子图书馆
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2010/09/19/非常实用的sql语句/" rel="prev" title="非常实用的sql语句">
+                非常实用的sql语句 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-jQuery-1-2-Cheat-sheet-PNG"><span class="nav-number">1.</span> <span class="nav-text">1. jQuery 1.2 Cheat-sheet [PNG]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-jQuery-1-2-Cheat-Sheet-v1-0-PDF"><span class="nav-number">2.</span> <span class="nav-text">2. jQuery 1.2 Cheat Sheet v1.0 [PDF]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-jQuery-1-3-Cheatsheet-PDF"><span class="nav-number">3.</span> <span class="nav-text">3. jQuery 1.3 Cheatsheet [PDF]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-jQuery-API-Browser-Adobe-AIR-HTML"><span class="nav-number">4.</span> <span class="nav-text">4. jQuery API Browser [Adobe AIR, HTML]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-jQuery1-1-Cheat-Sheet-HTML"><span class="nav-number">5.</span> <span class="nav-text">5. jQuery1.1 Cheat Sheet [HTML]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-jTouch-–-jQuery-Cheat-Sheet-for-iPhone-HTML"><span class="nav-number">6.</span> <span class="nav-text">6. jTouch – jQuery Cheat Sheet for iPhone [HTML]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-jQuery-1-4-API-Cheat-Sheet-HTML-PDF-PNG"><span class="nav-number">7.</span> <span class="nav-text">7. jQuery 1.4 API Cheat Sheet [HTML, PDF, PNG]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-jQuery-Selectors-PDF"><span class="nav-number">8.</span> <span class="nav-text">8. jQuery Selectors [PDF]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-jQuery-1-3-Quick-API-Reference-HTML"><span class="nav-number">9.</span> <span class="nav-text">9. jQuery 1.3 Quick API Reference [ HTML]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-jQuery-UI-1-7-Quick-API-Reference-HTML"><span class="nav-number">10.</span> <span class="nav-text">10. jQuery UI 1.7 Quick API Reference [ HTML]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-jQuery-1-3-2-Cheat-Sheet-Microsoft-Excel-XLS-PDF-PNG"><span class="nav-number">11.</span> <span class="nav-text">11. jQuery 1.3.2 Cheat Sheet [Microsoft Excel (XLS), PDF, PNG]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-jQuery-1-1-3-Cheat-Sheet-Microsoft-Excel-XLS-PDF-PNG"><span class="nav-number">12.</span> <span class="nav-text">12. jQuery 1.1.3 Cheat Sheet [Microsoft Excel (XLS), PDF, PNG]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-jQuery-1-3-Visual-Cheat-Sheet-PDF"><span class="nav-number">13.</span> <span class="nav-text">13. jQuery 1.3 Visual Cheat Sheet [PDF]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-jQuery-1-4-2-Visual-Cheat-Sheet-JPEG-PDF"><span class="nav-number">14.</span> <span class="nav-text">14. jQuery 1.4.2 Visual Cheat Sheet [JPEG, PDF]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-jQuery-API-HTML"><span class="nav-number">15.</span> <span class="nav-text">15. jQuery API [HTML]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-jQuery-1-4-Cheat-Sheet-PDF"><span class="nav-number">16.</span> <span class="nav-text">16. jQuery 1.4 Cheat Sheet [PDF]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-jQuery-cheatsheet-Wallpaper"><span class="nav-number">17.</span> <span class="nav-text">17. jQuery cheatsheet Wallpaper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-jQuery-–-YUI3-Rosetta-Stone-HTML"><span class="nav-number">18.</span> <span class="nav-text">18. jQuery – YUI3 Rosetta Stone [HTML]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-jQuery-1-2-by-Adrien-Gibrat-PDF"><span class="nav-number">19.</span> <span class="nav-text">19. jQuery 1.2 by Adrien Gibrat [PDF]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-jQuery-1-3-Cheat-Sheet"><span class="nav-number">20.</span> <span class="nav-text">20. jQuery 1.3 Cheat Sheet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-jQuery-1-3-Cheatsheet-Wallpaper-1920×1200-1680×1050-and-1440×900"><span class="nav-number">21.</span> <span class="nav-text">21. jQuery 1.3 Cheatsheet Wallpaper [1920×1200, 1680×1050 and 1440×900]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-jQuery-1-3-Visual-Cheat-Sheet-by-Antonio-Lupetti-PDF"><span class="nav-number">22.</span> <span class="nav-text">22. jQuery 1.3 Visual Cheat Sheet by Antonio Lupetti [PDF]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-jQuery-Selectors-Cheatsheet-HTML"><span class="nav-number">23.</span> <span class="nav-text">23. jQuery Selectors Cheatsheet [HTML]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-jQuery-UI-–-Effects-Cheatsheet-HTML"><span class="nav-number">24.</span> <span class="nav-text">24. jQuery UI – Effects Cheatsheet [HTML]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#25-jQuery-Validator-Cheatsheet-–-Elegant-Code-PDF"><span class="nav-number">25.</span> <span class="nav-text">25. jQuery Validator Cheatsheet – Elegant Code [PDF]</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

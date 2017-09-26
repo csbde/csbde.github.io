@@ -1,0 +1,812 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux,Windows," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="经过一段时间的使用，最终还是回到了ubuntu 上面来。 其实我更喜欢的还是arch，但arch有个问题，就是得经常的去滚它，如果你 跟我一样，有可能一段时间不去滚。那么，当你想滚的时候，会发现，实在太痛苦了 所以，还是回到了ubuntu的怀抱，特别适LTS版本的，几年不用担心出现问题。 前面的一些设置忘掉了，现在开始记录 安装的软件 wine gnome3*   shell chrome xbm">
+<meta name="keywords" content="Linux,Windows">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu 12.04 粗略设置">
+<meta property="og:url" content="http://yoursite.com/2013/08/14/Ubuntu_12.04_粗略设置/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="经过一段时间的使用，最终还是回到了ubuntu 上面来。 其实我更喜欢的还是arch，但arch有个问题，就是得经常的去滚它，如果你 跟我一样，有可能一段时间不去滚。那么，当你想滚的时候，会发现，实在太痛苦了 所以，还是回到了ubuntu的怀抱，特别适LTS版本的，几年不用担心出现问题。 前面的一些设置忘掉了，现在开始记录 安装的软件 wine gnome3*   shell chrome xbm">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu 12.04 粗略设置">
+<meta name="twitter:description" content="经过一段时间的使用，最终还是回到了ubuntu 上面来。 其实我更喜欢的还是arch，但arch有个问题，就是得经常的去滚它，如果你 跟我一样，有可能一段时间不去滚。那么，当你想滚的时候，会发现，实在太痛苦了 所以，还是回到了ubuntu的怀抱，特别适LTS版本的，几年不用担心出现问题。 前面的一些设置忘掉了，现在开始记录 安装的软件 wine gnome3*   shell chrome xbm">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2013/08/14/Ubuntu_12.04_粗略设置/"/>
+
+
+
+
+
+  <title> Ubuntu 12.04 粗略设置 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/08/14/Ubuntu_12.04_粗略设置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Ubuntu 12.04 粗略设置
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-08-14T13:08:25+08:00">
+                2013-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>经过一段时间的使用，最终还是回到了ubuntu 上面来。<br> 其实我更喜欢的还是arch，但arch有个问题，就是得经常的去滚它，如果你<br> 跟我一样，有可能一段时间不去滚。那么，当你想滚的时候，会发现，实在太痛苦了<br> 所以，还是回到了ubuntu的怀抱，特别适LTS版本的，几年不用担心出现问题。<br> 前面的一些设置忘掉了，现在开始记录</p>
+<h2 id="安装的软件"><a href="#安装的软件" class="headerlink" title="安装的软件"></a>安装的软件</h2><ul>
+<li><a href="#wine" title="跳转到wine">wine</a></li>
+<li><a href="#gnome3" title="跳转到gnome3">gnome3</a>*   <a href="#shell">shell</a></li>
+<li>chrome</li>
+<li><a href="#xbmc" title="跳转到xbmc">xbmc</a></li>
+</ul>
+<h2 id="wine-设置"><a href="#wine-设置" class="headerlink" title="wine 设置"></a><a name="wine"></a>wine 设置</h2><p>首先换ppa源，可以换到最新的ppa源里面ppa:ubuntu-wine/ppa</p>
+<pre><code>sudo add-apt-repository ppa:ubuntu-wine/ppa`
+`&lt;/pre&gt;
+
+然后更新安装
+
+&lt;pre&gt;`sudo apt-get update 
+sudo apt-get install wine
+`&lt;/pre&gt;
+
+### 安装qq2012
+
+&lt;pre&gt;`虽然我很讨厌qq，但在这环境中你就不得不用这玩意。要不还真没办法和大部分的人交流。
+`&lt;/pre&gt;
+
+谁叫qq在中国占绝对的统治地位呢。闲话少说，使用qq有两种方法：1、 使用pidgin-lwqq
+   地址：https://github.com/xiehuc/pidgin-lwqq
+   使用的webqq协议，很好很强大，能传文件这些。 但有个小问题：延迟。 有时候会有延迟和丢消息的现象。不知道是哪里出现了问题。
+
+第二种就是使用wineqq
+wineqq当然你可以自己尝试着来安装。但我这里使用的是http://www.longene.org/forum/viewtopic.php?t=4700
+
+使用的是QQ2012版，真的很不错的版本。比较完美。
+
+### 安装下载软件 迅雷精简版
+
+在linux下面下载软件，说真的，很多不是很如意。 我比较喜欢的是qq旋风和迅雷精简版。
+  在qq旋风安装后，添加新任务时会崩溃，又折腾不好，所以淘汰了。
+  下载了迅雷精简版来安装，一次性成功，非常不错
+
+好像让人留恋windows的也主要就是这两个软件
+
+### &lt;a name = &quot;wps&quot;&gt;&lt;/a&gt; 办公软件--WPS
+
+就目前的情况来说，在linux上最好用的是wps。在windows平台上，wps跟MS office 竞争了这么多年，虽然永远的老二，但在linux平台上来讲，现在它适独一无二的老大
+
+## &lt;a name = &quot;gnome3&quot; &gt;&lt;/a&gt; Gnome3 设置
+
+安装几个插件
+* taskbar
+
+## &lt;a name = &quot;shell&quot; &gt;&lt;/a&gt; Shell 选择
+
+就目前来说，Shell里面应该zsh是首选。
+当然，要是觉得麻烦，系统自带的bash就足够使用了。
+但bash对我来讲，就是补全不能满足我得要求，我希望的是能自动补全，而且最好能在apt这些时也能很好的补全。 所以选中了zsh
+安装：
+
+&lt;pre&gt;` apt-get install zsh
+ wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+ cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+ chsh -s /bin/zsh
+`&lt;/pre&gt;
+
+重启系统生效
+
+## &lt;a id = &quot;xbmc&quot;&gt;&lt;/a&gt; XBMC 影音套装
+
+用电脑的很大一个原因就是影音，在线/不在线的。不在线的我们可以用mplayer来播放，
+音乐视屏都没有问题。但在线视屏就比较难了，不可能每个视屏都去找到地址让mplayer来播放。
+那么，[xbmc](http://xbmc.org/ &quot;官网&quot;) 就隆重登场了。
+安装方法戳[这里](http://wiki.xbmc.org/index.php?title=Installing &quot;Installing&quot;),英文的
+UBUNTU下安装：
+
+&lt;pre&gt;`sudo apt-get install python-software-properties pkg-config
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:team-xbmc/ppa
+sudo apt-get update
+sudo apt-get install xbmc
+</code></pre><p>xbmc是跨平台的播放中心。能通过添加插件来让其的功能近乎无穷的扩展<br>跟linux下的软件差不多，能通过插件库增加功能，这里主要介绍三个插件库：</p>
+<ul>
+<li><p>官方插件库  这个没什么好说的，自带的。</p>
+</li>
+<li><p><a href="https://code.google.com/p/xbmc-addons-chinese/downloads/list" target="_blank" rel="external">中文插件库</a></p>
+<blockquote>
+<p>是下载名字为： repository.googlecode.xbmc-addons-chinese-XX.zip 的包<br>  这个插件库有点小问题，反正在我的电脑上得手动打开   ~/.xbmc/addons/repository.googlecode.xbmc-addons-chinese/addon.xml<br> 将里面所有的<a href="http://都换成https才能正常的下载使用" target="_blank" rel="external">http://都换成https才能正常的下载使用</a><br>  安装了这玩意后，打开xbmc进入到系统设置-扩展功能里面就能从相关库里面安装像 pps影音， pptv ， ku6 等等等在线影视,享受在线影视噢</p>
+</blockquote>
+</li>
+<li><p><a href="https://code.google.com/p/xbmc-adult/downloads/list" target="_blank" rel="external">18插件库</a></p>
+<blockquote>
+<p>这个大家都懂的</p>
+</blockquote>
+</li>
+<li><p><a href="http://xbmc.hdpfans.com/repository.hdpfans.xbmc-addons.zip" target="_blank" rel="external">HDPFANS的插件库</a></p>
+<blockquote>
+<p>有一些高清的视屏</p>
+</blockquote>
+</li>
+</ul>
+<p>PS: 默认安装的只能显示英文界面，需要安装字体</p>
+<ol>
+<li>第一次进入xbmc是英文版的，需要做如下操作进入中文界面，进入system-&gt;appearance</li>
+<li>选择skin，把fonts设置为arial based，这步很关键，不改fonts的话会导致中文字符无法显示。</li>
+<li>到international里面设置lanuage为Chinese(simple)</li>
+<li>系统语言设置好后，接下来就是安装插件了，进入 系统设置 -&gt; 扩展功能</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/Windows/" rel="tag"># Windows</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/06/22/在Total_Commander中使用mintty的方法/" rel="next" title="在Total Commander中使用mintty的方法">
+                <i class="fa fa-chevron-left"></i> 在Total Commander中使用mintty的方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/08/14/wordpress换新装/" rel="prev" title="wordpress换新装">
+                wordpress换新装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装的软件"><span class="nav-number">1.</span> <span class="nav-text">安装的软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wine-设置"><span class="nav-number">2.</span> <span class="nav-text">wine 设置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

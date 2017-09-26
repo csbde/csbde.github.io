@@ -1,0 +1,730 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="QEMU," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="QEMU刚刚发布的Accelerator带来了QEMU革命，它不再是一个性能低等的模拟器使用Accelerator的QEMU速度一下提升了5倍之多。OSNews报道:This means you could theoretically run Windows (or another OS) on a Linux machine at near native speeds without buyin">
+<meta name="keywords" content="QEMU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QEMU+Accelerator">
+<meta property="og:url" content="http://yoursite.com/2007/05/23/QEMU+Accelerator/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="QEMU刚刚发布的Accelerator带来了QEMU革命，它不再是一个性能低等的模拟器使用Accelerator的QEMU速度一下提升了5倍之多。OSNews报道:This means you could theoretically run Windows (or another OS) on a Linux machine at near native speeds without buyin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="QEMU+Accelerator">
+<meta name="twitter:description" content="QEMU刚刚发布的Accelerator带来了QEMU革命，它不再是一个性能低等的模拟器使用Accelerator的QEMU速度一下提升了5倍之多。OSNews报道:This means you could theoretically run Windows (or another OS) on a Linux machine at near native speeds without buyin">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2007/05/23/QEMU+Accelerator/"/>
+
+
+
+
+
+  <title> QEMU+Accelerator | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/05/23/QEMU+Accelerator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                QEMU+Accelerator
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2007-05-23T02:32:00+08:00">
+                2007-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>QEMU刚刚发布的Accelerator带来了QEMU革命，它不再是一个性能低等的模拟器<br>使用Accelerator的QEMU速度一下提升了5倍之多。OSNews报道:<br><strong><font size="+0">This means you could theoretically run Windows (or another OS) on </font></strong><br><strong><font size="+0">a Linux machine at near native speeds without buying a commercial emulator.</font></strong><br>今天赶紧升了级，果然不同反响，安装了RHEL4,Win2k,速度很好，也没有以前版本分出大于2G空间<a id="more"></a><br>造成硬盘检查出错的问题了，在模拟的linux中进行危险试验爽多啦。 :)<br>QEMU安装也比win4lin/vmware简单，最主要QEMU是开源的，后两者都还需要序列号 :(<br>虽然Accelerator是专利产品，不过也是免费使用的，只是在分发上有一些限制.<br>总之是不错的东东喽，快试试吧！<br>不会装？不会用？看看我的安装,使用心得吧 ^_^<br><strong>注意：该方法仅适用于2.6.x内核，2.4内核请查看QEMU安装文档。 </strong><br><span style="font-weight: bold">QEMU有两种模拟方式：</span><br><span style="font-weight: bold"></span><br><span style="font-weight: bold"></span>1.<span style="color: #f90d2a">完整的系统模拟：</span>这种模式下，QEMU模拟一个完整的系统（比如说，整个PC），包括CPU和周边的计算机设备。你可以不必重启就可以同时运行不同的系统来调试系统代码。</p>
+<p>2.<span style="color: #f90d2a">User mode模拟</span>（只能在Linux宿主机下使用）：这种模式下，QEMU能够在Linux下运行从一个CPU到另一个CPU的编译过程。这通常可以被用来运行Wine模拟器或者是交错式的编译和调试。</p>
+<p>这里只说模拟整个PC :)</p>
+<p><span style="font-weight: bold; color: #fc0a18">首先先下载，编译，安装：</span><br>目前只有CVS版本的QEMU才可以使用Accelerator(加速器)，所以需要编译。而其他版本的QEMU，可以直接下载binary的，在/下解压缩即可使用，十分方便。不象win4lin,vmware这些模拟器还需要给内核打补丁。而且还不是开源的，安装比较麻烦。(至少我没成功安装过它们两个)<br>不过目前binary还不能使用加速器，所以速度会慢很多。相信很快binary版本就会加入这个加速器啦。<br>毕竟加速器刚出来没几天，值得期待。。。。 ^_^<br><span style="font-weight: bold; color: #fc0a18">OK，言归正传，开始来编译，安装CVS版本的QEMU，并且加入Accelerator支持:</span><br>首先从 <a href="http://www.dad-answers.com/qemu/" target="_blank" rel="external">http://www.dad-answers.com/qemu/ </a>下载当前CVS版本的qemu<br>我的版本是：<a href="http://www.dad-answers.com/qemu/qemu-snapshot-2005-02-22_23.tar.bz2" target="_blank" rel="external">qemu-snapshot-2005-02-22_23.tar.bz2</a><br>再从 <a href="http://fabrice.bellard.free.fr/qemu/kqemu-0.6.2-1.tar.gz" target="_blank" rel="external">http://fabrice.bellard.free.fr/qemu/kqemu-0.6.2-1.tar.gz</a> 下载回来加速器<br><span style="color: #fc0a18">注意：编译kqemu需要内核源码包，将与当前内核版本完全相符的源码包解压在/usr/src下</span><br><span style="color: #fc0a18"></span><span style="color: #ff0b21">并且确保/lib/modules/<code>uname -r</code>/build是正确指向内核源码目录的</span>，如下所示：<br>[root@LFS ~]#<span style="color: #6c14eb">ls -l /lib/modules/2.6.10-lvm/build </span><br>lrwxrwxrwx 1 root root 21 Feb 22 12:50 /lib/modules/2.6.10-lvm/build -&gt; /usr/src/linux- 2.6.10/<br>如果没有正确指向内核源码目录，使用ln -s 命令建立链接：<br>[root@LFS ~]#<span style="color: #6c14eb">ln -s /usr/src/linux-2.6.10 /lib/modules/2.6.10-lvm/build </span><br><span style="color: #6c14eb"></span>生成kqemu需要的内核源文件：<br>[root@LFS ~]#<span style="color: #2b0afb">cd /usr/src/linux-2.6.10</span><br>/root ————&gt; /usr/src/linux-2.6.10<br>[root@LFS linux-2.6.10]#<span style="color: #2b0afb">make mrproper </span><br>确保内核源码纯净，保证kqemu编译出来可用。<br>[root@LFS linux-2.6.10]#<span style="color: #2b0afb">cp /boot/config-2.6.10 .config </span><br>将当前内核配置文件复制过来<br>[root@LFS linux-2.6.10]#<span style="color: #2b0afb">make scripts/</span><br>生成kqemu需要的东东，没有这步，编译就会出错。</p>
+<p>做好后就可以开始编译QEMU了，使用如下命令编译，安装：<br>[root@LFS ~]#<span style="color: #2b0afb">tar jxvf qemu-snapshot-2005-02-22_23.tar.bz2</span><br><span style="color: #020006">[root@LFS ~]#<span style="color: #2b0afb"> tar zxvf kqemu-0.6.2-1.tar.gz -C qemu-snapshot-2005-02-22_23/</span></span><br><span style="color: #020006">使用-C </span><span style="color: #020006">qemu-snapshot-2005-02-22_23/ <span style="color: #fc0810">将kqemu解压到qemu的目录中，让qemu支持kqemu </span></span><br><span style="color: #020006">[root@LFS ~]#<span style="color: #5400fd">cd qemu-snapshot-2005-02-22_23</span></span><br><span style="color: #020006">/root ————&gt; /root/qemu-snapshot-2005-02-22_23 </span><br><span style="color: #020006"></span>[root@LFS qemu-snapshot-2005-02-22_23]#<span style="color: #5400fd">./configure </span><br>………..略<br>KQEMU module configuration: ———&gt;表示加入kqemu支持<br>kernel sources /lib/modules/2.6.10-lvm/build<br>kbuild type 2.6<br>[root@LFS qemu-snapshot-2005-02-22_23]#<span style="color: #5400fd">make </span><br>[root@LFS qemu-snapshot-2005-02-22_23]#<span style="color: #5400fd">make install </span><br>这样，qemu就安装到了/usr/local下，所有可执行文件在/usr/local/bin下，如果想安装到/usr:<br>[root@LFS qemu-snapshot-2005-02-22_23]#<span style="color: #fd0c13">./configure –&gt;./configure –prefix=/usr </span></p>
+<p>安装好后，kqemu模块安装在: /lib/modules/2.6.10-lvm/misc/kqemu.ko<br>并且安装脚本会自动在/dev/下创建一个kqemu设备：<br>[root@LFS linux-2.6.10]#<span style="color: #2e0cfd">ls -l /dev/kqemu</span><br>crw-rw-rw- 1 root root 250, 0 Feb 24 2005 /dev/kqemu<br>[root@LFS linux-2.6.10]#<br><span style="font-weight: bold">加载kqemu模块：</span><br>[root@LFS linux-2.6.10]#<span style="color: #2e0cfd">modprobe kqemu</span><br>[root@LFS linux-2.6.10]#<br><span style="font-weight: bold">使用lsmod命令检查：</span><br>[root@LFS linux-2.6.10]#<span style="color: #2e0cfd"> lsmod |grep kqemu</span><br>kqemu 41864 0<br>[root@LFS linux-2.6.10]#</p>
+<p><span style="color: #f80e2a">如果你发现重启后/dev/kqemu消失了，需要重新创建它：</span><br>[root@LFS linux-2.6.10]#<span style="color: #4a0df8">mknod /dev/kqemu c 250 0 </span><br>[root@LFS linux-2.6.10]#<span style="color: #4a0df8">chmod 666 /dev/kqemu</span><br>你可以将上面两行命令加入到系统的启动脚本中，例如/etc/rc.d/rc.local<br>还有上面那个<span style="color: #4a0df8">modprobe kqemu</span>也一并加进去吧(如果你想每次系统启动自动加载kqemu模块)<br>注意的是，加到/etc/rc.d/rc.local时，命令最好写绝对路径，例如<span style="color: #4a0df8">/sbin/modprobe</span></p>
+<p>OK,现在QEMU,Accelerator都已经安装完成，可以开始安装OS啦。<br>这里我以安装RHEL4为例说一下qemu的基本用法，非常简单！</p>
+<p><span style="font-weight: bold">首先创建磁盘镜像文件:</span><br>[root@LFS distro]#<span style="color: #4a0df8">qemu-img create redhat.img 6G</span><br>Formating ‘redhat.img’, fmt=raw, size=6291456 kB<br>[root@LFS distro]#<br>这样就创建好了一个名为redhat.img的6G磁盘镜像 。<br><span style="color: #fc0d23">注意：创建的磁盘镜像文件大小最好小于你实际分区剩余空间。</span></p>
+<p><span style="font-weight: bold">开始安装RHEL4:</span><br>[root@LFS ~]#<span style="color: #8a08fd">qemu -boot d -cdrom /rhel4/EL_disc1.iso -hda redhat.img –enable-audio </span><br>-boot d ：从光驱引导 a(软盘引导) c(硬盘引导) d(光驱引导)<br>-cdrom : ISO文件,也可以直接使用光驱设备(/dev/cdrom)…别忘了插入光盘 :)<br>-hda : 就是虚拟机里的硬盘啦，也就是刚才qemu-img创建出的东东。<br>-enable-audio : 声卡支持</p>
+<p><span style="font-weight: bold">安装过程中，要求换盘：</span><br>在qemu中按<span style="color: #8a08fd">ctrl+alt+2</span>切换到qemu monitor模式 输入<span style="color: #8a08fd">?</span>或<span style="color: #8a08fd">help</span>可以查看可用命令及使用说明。<br>(在其他版本的qemu中，运行qemu加载OS后，这个shell就会自动变成qemu monitor模式)<br><span style="color: #f9072b">change device filename – change a removable media</span><br>看来它就是用来换盘的了 : <span style="color: #1d25fc">change cdrom /rhel4/EL_disc2.iso </span></p>
+<p><span style="font-weight: bold">monitor下还有几个常用的命令： </span><br>savevm filename 将整个虚拟机当前状态保存起来<br>loadvm filename 恢复 (最初我没用change换盘时,就是先savevm-&gt;重新运行qemu-&gt;loadvm :( )<br>sendkey keys 向VM中发送按键，例如你想在虚拟机里切换到另一个终端，按下了ctrl-alt-F2<br>不幸的是，切换的却是你的主系统，所以就需要用 sendkey了 <span style="color: #1d25fc">sendkey ctrl-alt-f2 </span><br>还有其他几个命令，自己看看啦。</p>
+<p>经过N久终于装好了，现在可以启动试试：<br>[root@LFS distro]#<span style="color: #1d25fc">qemu redhat.img -enable-audio -user-net -m 64 </span><br>-user-net 相当于VMware的nat，主系统可以上，虚拟机就可以<br>-m 64 使用64M内存，缺省下使用128M</p>
+<p>ctrl-alt-f 全屏<br>ctrl-alt 主机/虚拟机鼠标切换<br>qemu还有一些其他参数，输入qemu可以查看其相关说明。</p>
+<p>Good Luck ! ^_^</p>
+<p>相关资源：<br><a href="http://fabrice.bellard.free.fr/qemu/" target="_blank" rel="external">http://fabrice.bellard.free.fr/qemu/</a><br>qemu 主页 download,doc,faq….etc<br><a href="http://www.dad-answers.com/qemu/" target="_blank" rel="external">http://www.dad-answers.com/qemu/</a><br>QEMU CVS Snapshot版本和一些有用的QEMU外围支持工具<br><a href="http://www.dad-answers.com/qemu-forum/" target="_blank" rel="external">http://www.dad-answers.com/qemu-forum/</a><br>qemu论坛</p>
+<h2 id="QEMU网络配置"><a href="#QEMU网络配置" class="headerlink" title="QEMU网络配置"></a><a href="http://huqingyu.cnblogs.com/archive/2005/04/03/131102.html" target="_blank" rel="external">QEMU网络配置</a></h2><p><span style="font-weight: bold; color: #f90319">qemu两种上网方式： </span><span style="font-weight: bold; color: #f90319"><span style="font-weight: bold">user mode network :</span><br>这种方式实现虚拟机上网很简单，类似vmware里的nat，qemu启动时加入<span style="color: #5d08f9">-user-net</span>参数，虚拟机里使用dhcp方式，即可与互联网通信，但是这种方式虚拟机与主机的通信不方便。</span><span style="font-weight: bold; color: #f90319"><span style="font-weight: bold">tap/tun network : </span><br>这种方式要比user mode复杂一些，但是设置好后 虚拟机&lt;–&gt;互联网 虚拟机&lt;–&gt;主机 通信都很容易<br>这种方式设置上类似vmware的host-only,qemu使用tun/tap设备在主机上增加一块虚拟网络设备(tun0),然后就可以象真实网卡一样配置它.</span><span style="font-weight: bold; color: #f90319"><span style="color: #fd0220">首先内核中支持tap/tuns设备： </span><br>Device Drivers  —&gt;<br>     Networking support  —&gt;<br>        [M] Universal TUN/TAP device driver support<br><span style="font-weight: bold">如果当前内核没有支持，可以重新只编译相应模块加入，方法很简单：</span></span></p>
+<p>将当前内核配置文件cp到内核源码目录下:<br>[root@LFS ~]#<span style="color: #3d0cff">cp /boot/config-[kernel-version] /usr/src/linux </span><br>[root@LFS ~]#<span style="color: #3d0cff">cd /usr/src/linux</span><br>配置内核，将TUN/TAP选择模块(M)，如上所示:<br>[root@LFS ~]#<span style="color: #3d0cff">make menuconfig </span><br>重新只编译模块(M),不编译核心(*)支持的东东:<br>[root@LFS ~]#<span style="color: #3d0cff">make modules<br></span>编译好后在/usr/src/linux/drivers/net下可以找到tun.ko:<br>[root@LFS net]#<span style="color: #3d0cff">ls -l /usr/src/linux/drivers/net/tun.ko</span><br>-rw-r–r–  1 root root 11116 Mar 23 20:29 /usr/src/linux/drivers/net/tun.ko<br>[root@LFS net]#<br>将它cp到当前内核的模块目录的相应位置：<br>[root@LFS net]#<span style="color: #3d0cff">cp /usr/src/linux/drivers/net/tun.ko /lib/modules/<code>uname -r</code>/kernel/drivers/net</span><br>重新建立模块依赖关系：<br>[root@LFS net]#<span style="color: #3d0cff">depmod</span><br>现在就可以加载它了 :<br>[root@LFS net]#<span style="color: #3d0cff">modprobe tun</span><br>检查一下：<br>[root@LFS net]#<span style="color: #3d0cff">lsmod |grep tun</span><br>tun                     8704  0<br>[root@LFS net]#<br><span style="font-weight: bold; color: #f30a26">OK. 成功不重新编译整个内核加入特殊模块支持 </span><span style="font-weight: bold; color: #f30a26"><span style="color: #f30a26">如果你的xx卡不被内核支持，又可以编译成模块，自己怕重新编译内核后出问题就可以用这个办法只编译自己需要的模块，然后手动安装到相应位置，再加载它。 </span><br>这样编译速度要也比编译整个内核快，不会对系统有任何损害，就可以使用上XX卡喽。^_^</span><span style="font-weight: bold; color: #f30a26"><span style="font-weight: bold">要注意三点：</span><br><span style="color: #620af2">1.内核源码必须与当前内核版本完全一致，否则编译出的模块是不能用的。 </span><br><span style="color: #f90959">2.注意只make modules(编译模块),没有make modules_install(自动安装模块到/lib/modules下)</span><br>3.加载新编译的模块前必须先运行 <span style="color: #6d0cf9">depmod</span>，否则<span style="color: #6d0cf9">modprobe</span>找不到它</span><span style="font-weight: bold; color: #f30a26">其实使用当前内核配置文件(/boot/config-[kernel-version]),只加入自己需要的模块，不做任何其他改，make modules_install应该也不会有问题的。<br>不过最稳妥的办法还是手动安装它,控制权在自己手里更踏实嘛 :-)</span></p>
+<p>OK,转回qemu上网问题 :)</p>
+<p>如果使用udev管理设备(通常2.6.x内核的发行版都已经使用udev),当<span style="color: #6d0cf9">modprobe tun</span>后就会自动建立/dev/net目录，并创建出tun设备，做好相关链接：<br>[root@LFS net]#<span style="color: #6d0cf9">ls -l /dev/net/tun </span><br>lrwxrwxrwx  1 root root 6 Mar 25 15:35 /dev/net/tun -&gt; ../tun<br>[root@LFS net]#</p>
+<p>如果很不幸，你没看到它，就需要自己手动做这些工作了 :(<br>[root@LFS ~]#<span style="color: #6d0cf9">mkdir /dev/net</span><br>[root@LFS ~]# <span style="color: #6d0cf9">mknod /dev/net/tun c 10 200</span><br>OK,相关设备已经准备好了，还需要一个tun/tap的初始化脚本 :<br><span style="color: #f4022e">/etc/qemu-ifup :</span></p>
+<p>#!/bin/sh<br>/sbin/ifconfig $1 <a href="http://172.20.0.1" target="_blank" rel="external">172.20.0.1</a><br>再给予qemu-ifup x执行权限放在/etc下就可以了。<br>这个脚本只能root用户执行，如果需要普通用户使用qemu，就需要改成<span style="color: #4708f9">sudo /sbin/ifconfig …..</span>再设置sudo相关权限。<br>启动qemu后，它会在主机上增加一块虚拟网络设备(tun0):<br>[root@LFS ~]#<span style="color: #4708f9"> ifconfig tun0</span><br>tun0      Link encap:Ethernet  HWaddr 0A:D3:8A:5D:97:CD<br>          inet addr:<span style="color: #f4093b"><a href="http://172.20.0.1" target="_blank" rel="external">172.20.0.1</a> </span> Bcast:<span style="color: #f4093b"> <a href="http://172.20.255.255" target="_blank" rel="external">172.20.255.255</a></span>  Mask:<span style="color: #f4093b"><a href="http://255.255.0.0" target="_blank" rel="external">255.255.0.0</a></span><br>          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>          RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br>          collisions:0 txqueuelen:500<br>          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)<br>[root@LFS ~]#<br>现在就可以启动qemu配置虚拟机网络参数了，和vmware host-only一样:<br><span style="color: #4304f4">ip与tun0相同网段,gateway为tun0 ip 其余参数与tun0相同,dns与主机相同：</span><br>tun0 : <span style="color: #f30c2e">ip :<a href="http://172.20.0.1" target="_blank" rel="external">172.20.0.1</a></span> broadcast:<a href="http://172.20.255.255" target="_blank" rel="external"> 172.20.255.255</a> netmask :<a href="http://255.255.0.0" target="_blank" rel="external">255.255.0.0</a><br>qemu : <span style="color: #4304f4">ip :<a href="http://172.20.0.100" target="_blank" rel="external">172.20.0.100</a> </span>broadcast:<a href="http://172.20.255.255" target="_blank" rel="external">172.20.255.255 </a>netmask :<a href="http://255.255.0.0" target="_blank" rel="external">255.255.0.0</a> <span style="color: #4304f4">gateway:<a href="http://172.20.0.1" target="_blank" rel="external">172.20.0.1</a></span></p>
+<p>与host-only一样，这样只实现了虚拟机&lt;—-&gt;主机间通信,还需要设置router,nat才可以连上互联网<br>[root@LFS ~]#<span style="color: #6408fb">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br>[root@LFS ~]#<span style="color: #6408fb">iptables -t nat -A POSTROUTING -o eth0 -s <a href="http://172.20.0.0/24" target="_blank" rel="external">172.20.0.0/24</a> -j MASQUERADE</span><br>[root@LFS ~]#　</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/QEMU/" rel="tag"># QEMU</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2007/05/13/linux硬件时间的调整/" rel="next" title="linux硬件时间的调整">
+                <i class="fa fa-chevron-left"></i> linux硬件时间的调整
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2007/05/29/vi常用操作/" rel="prev" title="vi常用操作">
+                vi常用操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#QEMU网络配置"><span class="nav-number">1.</span> <span class="nav-text">QEMU网络配置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

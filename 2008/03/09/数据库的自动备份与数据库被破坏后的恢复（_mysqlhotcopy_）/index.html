@@ -1,0 +1,836 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Shell,MySQL," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="当数据库服务器建立好以后，我们首先要做的不是考虑要在这个支持数据库的服务器运行哪些受MySQL提携的程序，而是当数据库遭到破坏后，怎样安然恢复到最后一次正常的状态，使得数据的损失达到最小。 　　或者说，仅仅是数据库服务器的建立，只能说明它能做些什么，并不代表它能稳定的做些什么。灾难恢复的效率及全面性，也是系统的稳定性的一个准因素，尤其对于一个服务器系统。 　　这一节，介绍数据库自动备份以及数据库被">
+<meta name="keywords" content="Shell,MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库的自动备份与数据库被破坏后的恢复（ mysqlhotcopy ）">
+<meta property="og:url" content="http://yoursite.com/2008/03/09/数据库的自动备份与数据库被破坏后的恢复（_mysqlhotcopy_）/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="当数据库服务器建立好以后，我们首先要做的不是考虑要在这个支持数据库的服务器运行哪些受MySQL提携的程序，而是当数据库遭到破坏后，怎样安然恢复到最后一次正常的状态，使得数据的损失达到最小。 　　或者说，仅仅是数据库服务器的建立，只能说明它能做些什么，并不代表它能稳定的做些什么。灾难恢复的效率及全面性，也是系统的稳定性的一个准因素，尤其对于一个服务器系统。 　　这一节，介绍数据库自动备份以及数据库被">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库的自动备份与数据库被破坏后的恢复（ mysqlhotcopy ）">
+<meta name="twitter:description" content="当数据库服务器建立好以后，我们首先要做的不是考虑要在这个支持数据库的服务器运行哪些受MySQL提携的程序，而是当数据库遭到破坏后，怎样安然恢复到最后一次正常的状态，使得数据的损失达到最小。 　　或者说，仅仅是数据库服务器的建立，只能说明它能做些什么，并不代表它能稳定的做些什么。灾难恢复的效率及全面性，也是系统的稳定性的一个准因素，尤其对于一个服务器系统。 　　这一节，介绍数据库自动备份以及数据库被">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/03/09/数据库的自动备份与数据库被破坏后的恢复（_mysqlhotcopy_）/"/>
+
+
+
+
+
+  <title> 数据库的自动备份与数据库被破坏后的恢复（ mysqlhotcopy ） | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/09/数据库的自动备份与数据库被破坏后的恢复（_mysqlhotcopy_）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据库的自动备份与数据库被破坏后的恢复（ mysqlhotcopy ）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-03-09T16:58:13+08:00">
+                2008-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index">
+                    <span itemprop="name">Other</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>当数据库服务器建立好以后，我们首先要做的不是考虑要在这个支持数据库的服务器运行哪些受MySQL提携的程序，而是当数据库遭到破坏后，怎样安然恢复到最后一次正常的状态，使得数据的损失达到最小。</p>
+<p>　　或者说，仅仅是数据库服务器的建立，只能说明它能做些什么，并不代表它能稳定的做些什么。灾难恢复的效率及全面性，也是系统的稳定性的一个准因素，尤其对于一个服务器系统。</p>
+<p>　　这一节，介绍数据库自动备份以及数据库被破坏后的恢复的方法。在这里，我们使用mysqlhotcopy，并且定义一段Shell脚本来实现数据库的自动备份，并且，让整个数据自动备份与数据恢复过程都基于Shell</p>
+<p><table border="0" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#4665a6"></td></p>
+<p><table border="0"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#333333" class="table-title">建立数据库备份所需条件</td><br><br><br><br><br><br>[1] 建立自动备份脚本</p>
+<p>　　在这里，为了使数据库备份和恢复的符合我们的实际要求，用一段符合要求的Shell脚本来实现整个备份过程的自动化。<a name="entrymore"></a></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000"><span style="color: #6600cc"><span class="message">[root@sample ~]#</span> <span class="command">vi mysql-backup.sh</span>　 <span class="intro">← 建立数据库自动备份脚本，如下：</span></span></td></p>
+<p></p>
+<p><span style="color: #6600cc">#!/bin/bash</span></p>
+<p><span style="color: #6600cc">PATH=/usr/local/sbin:/usr/bin:/bin</span></p>
+<p><span style="color: #6600cc"># The Directory of Backup<br>BACKDIR=/backup/mysql</span></p>
+<p></p><p class="conffile"><span style="color: #6600cc"># The Password of MySQL<br>ROOTPASS=<span class="att1"><strong><em>**</em></strong></span>　 <span class="intro">← 将星号替换成MySQL的root密码</span></span></p>
+<p></p><p class="conffile"><span style="color: #6600cc"># Remake the Directory of Backup<br>rm -rf $BACKDIR<br>mkdir -p $BACKDIR</span></p>
+<p></p><p class="conffile"><span style="color: #6600cc"># Get the Name of Database<br>DBLIST=<code>ls -p /var/lib/mysql | grep / | tr -d /</code></span></p>
+<p><span class="message"><span style="color: #6600cc"># Backup with Database<br>for dbname in $DBLIST<br>do<br>mysqlhotcopy $dbname -u root -p $ROOTPASS $BACKDIR | logger -t mysqlhotcopy<br>done</span></span><br><br><br><span style="color: #6600cc">[2] 运行数据库自动备份脚本</span></p>
+<p></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000" class="message"><span style="color: #6600cc">[root@sample ~]# <span class="command">chmod 700 mysql-backup.sh</span>　 <span class="intro">← 改变脚本属性，让其只能让root用户执行</span></span></td></p>
+<p>[root@sample ~]# <span class="command">./mysql-backup.sh</span> 　 <span class="intro">← 运行脚本</span></p>
+<p>[root@sample ~]# <span class="command">ls -l /backup/mysql/</span> 　 <span class="intro">← 确认一下是否备份成功</span></p>
+<p>total 8<br>drwxr-x— 2 mysql mysql 4096 Sep 1 16:54 <span class="att1">mysql</span> 　 <span class="intro">← 已成功备份到/backup/mysql目录中</span><br><br><br><span style="color: #6600cc">[3] 让数据库备份脚本每天自动运行</span></p>
+<p></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000"><span style="color: #6600cc"><span class="message">[root@sample ~]#</span> <span class="command">crontab -e</span>　 </span><span style="color: #6600cc"><span class="intro">← 编辑自动运行规则（然后会出现编辑窗口，操作同vi）<br></span><br><span class="after">00 03 <em> </em> * /root/mysql-backup.sh</span> 　 <span class="intro">← 添加这一行到文件中，让数据库备份每天凌晨3点进行</span></span></td><br><br></p>
+<p><table border="0" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#4665a6"></td></p>
+<p><table border="0"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#333333" class="table-title"><span style="color: #6600cc">测试自动备份正常运转与否（备份恢复的方法）</span></td><br><br><br><br><br><br><span style="color: #6600cc">　　这里，以通过实际操作的过程来介绍问题出现后的恢复方法。</span></p>
+<p>[1] 当数据库被删除后的恢复方法</p>
+<p>　　首先建立一个测试用的数据库。</p>
+<p></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000"><span style="color: #6600cc"><span class="message">[root@sample ~]#</span> <span class="command">mysql -u root -p</span> 　 <span class="intro">← 用root登录到MySQL服务器</span><br><span class="message">Enter password:</span>　 <span class="intro">← 输入MySQL的root用户密码</span><br></span><span class="message"><br><span style="color: #6600cc">Welcome to the MySQL monitor. Commands end with ; or g.<br>Your MySQL connection id is 8 to server version: 4.1.20 </span></span></td></p>
+<p></p><p class="message"><span style="color: #6600cc">Type ‘help;’ or ‘h’ for help. Type ‘c’ to clear the buffer.</span></p>
+<p><span style="color: #6600cc">mysql&gt; <span class="command">create database test;</span>　 <span class="intro">← 建立一个测试用的数据库test</span><br>Query OK, 1 row affected (0.00 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">use test</span>　 <span class="intro">← 连接到这个数据库 </span><br>Database changed</span></p>
+<p>mysql&gt; <span class="command">create table test(num int, name varchar(50));</span>　 <span class="intro">← 在数据库中建立一个表</span><br>Query OK, 0 rows affected (0.07 sec)</p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">insert into test values(1,’Hello,BSD’);</span>　 <span class="intro">← 插入一个值到这个表（这里以“Hello,BSD”为例）</span><br>Query OK, 1 row affected (0.02 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">select * from test;</span>　 <span class="intro">← 查看数据库中的内容</span><br>+——+————-+<br>| num | name 　　 |<br>+——+————-+<br>|1　　 | <span class="att1">Hello,BSD</span> |　 <span class="intro">← 确认刚刚插入到表中的值的存在</span><br>+——+————-+<br>1 row in set (0.01 sec)</span></p>
+<p><span style="color: #6600cc"><span class="message">mysql&gt;</span> <span class="command">exit</span>　 <span class="intro">← 退出MySQL服务器</span><br><span class="message">Bye</span></span><br><br><br><span style="color: #6600cc">　　然后，运行刚才建立的数据库备份脚本，备份刚刚建立的测试用的数据库。</span></p>
+<p></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000"><span style="color: #6600cc"><span class="message">[root@sample ~]#</span> <span class="command">cd</span>　<span class="intro">← 回到脚本所在的root用户的根目录</span></span></td></p>
+<p><span class="message">[root@sample ~]#</span> <span class="command">./mysql-backup.sh</span>　 <span class="intro">← 运行脚本进行数据库备份</span><br><br><br><br><span style="color: #6600cc">　　接下来，我们再次登录到MySQL服务器中，删除刚刚建立的测试用的数据库test，以便于测试数据恢复能否成功。</span></p>
+<p></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000"></td></p>
+<p></p><p class="message"><span style="color: #6600cc">[root@sample ~]# <span class="command">mysql -u root -p</span>　 <span class="intro">← 用root登录到MySQL服务器</span><br>Enter password:　<span class="intro"> ← 输入MySQL的root用户密码</span></span></p>
+<p>Welcome to the MySQL monitor. Commands end with ; or g.<br>Your MySQL connection id is 13 to server version: 4.1.20</p>
+<p></p><p class="message"><span style="color: #6600cc">Type ‘help;’ or ‘h’ for help. Type ‘c’ to clear the buffer.</span></p>
+<p><span style="color: #6600cc">mysql&gt; <span class="command">use test</span>　 <span class="intro">← 连接到测试用的test数据库</span><br>Reading table information for completion of table and column names<br>You can turn off this feature to get a quicker startup with -A</span></p>
+<p></p><p class="message"><span style="color: #6600cc">Database changed<br>mysql&gt; <span class="command">drop table test;</span>　 <span class="intro">← 删除数据中的表</span><br>Query OK, 0 rows affected (0.04 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">drop database test;</span>　 <span class="intro">← 删除测试用数据库test</span><br>Query OK, 0 rows affected (0.01 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">show databases;</span><br>+————-+<br>| Database |<br>+————-+<br>| mysql　　 |　 <span class="intro">← 确认测试用的test数据库已不存在、已被删除</span><br>+————-+<br>1 row in set (0.01 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">exit</span>　 <span class="intro">← 退出MySQL服务器</span><br>Bye </span><br><br><br><span style="color: #6600cc">　　以上，我们就等于模拟了数据库被破坏的过程。接下来，是数据库被“破坏”后，用备份进行恢复的方法。</span></p>
+<p></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000" class="message"><span style="color: #6600cc">[root@sample ~]# <span class="command">/bin/cp -Rf /backup/mysql/test/ /var/lib/mysql/</span>　 <span class="intro">← 复制备份的数据库test到相应目录</span></span></td></p>
+<p>[root@sample ~]# <span class="command">chown -R mysql:mysql /var/lib/mysql/test/</span>　<span class="intro"> ← 改变数据库test的归属为mysql</span></p>
+<p>[root@sample ~]# <span class="command">chmod 700 /var/lib/mysql/test/</span>　 <span class="intro">← 改变数据库目录属性为700</span></p>
+<p>[root@sample ~]# <span class="command">chmod 660 /var/lib/mysql/test/*</span>　 <span class="intro">← 改变数据库中数据的属性为660</span><br><br><br><span style="color: #6600cc">　　然后，再次登录到MySQL服务器上，看是否已经成功恢复了数据库。</span></p>
+<p></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000"></td></p>
+<p></p><p class="message"><span style="color: #6600cc">[root@sample ~]# <span class="command">mysql -u root -p</span>　 <span class="intro">← 用root登录到MySQL服务器</span><br>Enter password:　 <span class="intro">← 输入MySQL的root用户密码</span></span></p>
+<p>Welcome to the MySQL monitor. Commands end with ; or g.<br>Your MySQL connection id is 14 to server version: 4.1.20</p>
+<p></p><p class="message"><span style="color: #6600cc">Type ‘help;’ or ‘h’ for help. Type ‘c’ to clear the buffer.</span></p>
+<p><span style="color: #6600cc">mysql&gt; <span class="command">show databases;</span>　 <span class="intro">← 查看当前存在的数据库</span><br>+————-+<br>| Database |<br>+————-+<br>| mysql　　 |<br>| <span class="att1">test</span>　　　 |　 <span class="intro">← 确认刚刚被删除的test数据库已经成功被恢复回来！</span><br>+————+<br>2 rows in set (0.00 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">use test</span>　 <span class="intro">← 连接到test数据库</span><br>Reading table information for completion of table and column names<br>You can turn off this feature to get a quicker startup with -A</span></p>
+<p></p><p class="message"><span style="color: #6600cc">Database changed<br>mysql&gt; <span class="command">show tables;</span>　<span class="intro"> ← 查看test数据库中存在的表</span><br>+——————-+<br>| Tables_in_test |<br>+——————-+<br>| test 　　　　　|<br>+——————-+<br>1 row in set (0.00 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">select * from test;</span>　 <span class="intro">← 查看数据库中的内容</span><br>+——+————–+<br>| num | name　　　 |<br>+——+————–+<br>| 1 　　| <span class="att1">Hello,BSD</span> |　 <span class="intro">← 确认数据表中的内容与删除前定义的“Hello,BSD”一样！</span><br>+——+————–+<br>1 row in set (0.01 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">exit</span>　 <span class="intro">← 退出MySQL服务器</span><br>Bye </span><br><br><br><span style="color: #6600cc">　　以上结果表示，数据库被删除后，用备份后的数据库成功的将数据恢复到了删除前的状态。</span></p>
+<p>[2] 当数据库被修改后的恢复方法</p>
+<p>　　数据库被修改，可能存在着多方面的原因，被入侵、以及相应程序存在Bug等等，这里不作详细介绍。这里将只介绍在数据库被修改后，如果恢复到被修改前状态的方法。</p>
+<p>　　具体和上面所述的“数据库被删除后的恢复方法”相类似。这里，测试用数据库接着使用刚刚在前面用过的test。这里为了使刚刚接触数据库的朋友不至于理解混乱，我们再次登录到MySQL服务器上确认一下刚刚建立的测试用的数据库test的相关信息。</p>
+<p></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000"></td></p>
+<p></p><p class="message"><span style="color: #6600cc">[root@sample ~]# <span class="command">mysql -u root -p</span>　 <span class="intro">← 用root登录到MySQL服务器</span><br>Enter password:　 ← 输入MySQL的root用户密码</span></p>
+<p>Welcome to the MySQL monitor. Commands end with ; or g.<br>Your MySQL connection id is 14 to server version: 4.1.20</p>
+<p></p><p class="message"><span style="color: #6600cc">Type ‘help;’ or ‘h’ for help. Type ‘c’ to clear the buffer.</span></p>
+<p><span style="color: #6600cc">mysql&gt; <span class="command">show databases;</span>　 <span class="intro">← 查看当前存在的数据库</span><br>+————-+<br>| Database |<br>+————-+<br>| mysql　　 |<br>| test　　　 |<br>+————+<br>2 rows in set (0.00 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">use test</span>　 <span class="intro">← 连接到test数据库</span><br>Reading table information for completion of table and column names<br>You can turn off this feature to get a quicker startup with -A</span></p>
+<p></p><p class="message"><span style="color: #6600cc">Database changed<br>mysql&gt; <span class="command">show tables;</span>　 <span class="intro">← 查看test数据库中存在的表</span><br>+——————-+<br>| Tables_in_test |<br>+——————-+<br>| test 　　　　　|<br>+——————-+<br>1 row in set (0.00 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">select * from test;</span>　<span class="intro"> ← 查看数据库中的内容</span><br>+——+————–+<br>| num | name　　　 |<br>+——+————–+<br>| 1 　　| Hello,BSD |<br>+——+————–+<br>1 row in set (0.01 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">exit</span>　 <span class="intro">← 退出MySQL服务器</span><br>Bye </span><br><br><br><span style="color: #6600cc">　　然后，我们再次运行数据库备份脚本，将当前状态的数据库，再做一次备份。</span></p>
+<p></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000" class="message"><span style="color: #6600cc">[root@sample ~]# <span class="command">cd</span> 　<span class="intro">← 回到脚本所在的root用户的根目录</span></span></td></p>
+<p>[root@sample ~]# <span class="command">./mysql-backup.sh</span>　 <span class="intro">← 运行脚本进行数据库备份</span><br><br><br><span style="color: #6600cc">　　接下来，我们再次登录到MySQL服务器中，对测试用的数据库test进行一些修改，以便于测试数据恢复能否成功。</span></p>
+<p></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000"></td></p>
+<p></p><p class="message"><span style="color: #6600cc">[root@sample ~]# <span class="command">mysql -u root -p</span>　 <span class="intro">← 用root登录到MySQL服务器</span><br>Enter password:　 <span class="intro">← 输入MySQL的root用户密码</span></span></p>
+<p>Welcome to the MySQL monitor. Commands end with ; or g.<br>Your MySQL connection id is 15 to server version: 4.1.20</p>
+<p></p><p class="message"><span style="color: #6600cc">Type ‘help;’ or ‘h’ for help. Type ‘c’ to clear the buffer.</span></p>
+<p><span style="color: #6600cc">mysql&gt; <span class="command">use test</span>　 <span class="intro">← 连接到test数据库</span><br>Reading table information for completion of table and column names<br>You can turn off this feature to get a quicker startup with -A</span></p>
+<p></p><p class="message"><span style="color: #6600cc">Database changed<br>mysql&gt; <span class="command">update test set name=’Shit,Windows’;</span>　 <span class="intro">← 然后将test中表的值重新定义为“Shit,Windows”（原来为“Hello,BSD”）</span><br>Query OK, 1 row affected (0.07 sec)<br>Rows matched: 1 Changed: 1 Warnings: 0</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">select * from test;</span>　 <span class="intro">← 确认test中的表被定义的值</span><br>+——+——————–+<br>| num | name 　　　　　|<br>+——+——————-+<br>| 1　　 | <span class="att1">Shit,Windows</span> |　 <span class="intro">← 确认已经将原test数据库表中的值修改为新的值“Shit,Windows”</span><br>+——+——————-+<br>1 row in set (0.00 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">exit</span>　 <span class="intro">← 退出MySQL服务器</span><br>Bye</span><br><br><br><span style="color: #6600cc">　　以上，我们就等于模拟了数据库被篡改的过程。接下来，是数据库被“篡改”后，用备份进行恢复的方法。</span></p>
+<p></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000" class="message"><span style="color: #6600cc">[root@sample ~]# <span class="command">/bin/cp -Rf /backup/mysql/test/ /var/lib/mysql/</span>　 <span class="intro">← 复制备份的数据库test到相应目录</span></span></td><br><br><br><span style="color: #6600cc">　　然后，再次登录到MySQL服务器上，看数据库是否被恢复到了被“篡改”之前的状态。</span></p>
+<p></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000"></td></p>
+<p></p><p class="message"><span style="color: #6600cc">[root@sample ~]# <span class="command">mysql -u root -p</span>　 <span class="intro">← 用root登录到MySQL服务器</span><br>Enter password:　 </span><span style="color: #6600cc"><span class="intro">← 输入MySQL的root用户密码<br></span><br>Welcome to the MySQL monitor. Commands end with ; or g.<br>Your MySQL connection id is 16 to server version: 4.1.20</span></p>
+<p></p><p class="message"><span style="color: #6600cc">Type ‘help;’ or ‘h’ for help. Type ‘c’ to clear the buffer.</span></p>
+<p><span style="color: #6600cc">mysql&gt; <span class="command">use test</span>　 <span class="intro">← 连接到test数据库</span><br>Reading table information for completion of table and column names<br>You can turn off this feature to get a quicker startup with -A</span></p>
+<p></p><p class="message"><span style="color: #6600cc">Database changed<br>mysql&gt; <span class="command">select * from test;</span>　 <span class="intro">← 查看数据库中的内容</span><br>+——+—————-+<br>| num | name　　　 |<br>+——+—————-+<br>| 1　　| <span class="att1">Hello,BSD </span>　|　<span class="intro">← 确认数据表中的内容与被修改前定义的“Hello,BSD”一样！</span><br>+——+—————-+<br>1 row in set (0.01 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">exit</span>　 <span class="intro">← 退出MySQL服务器</span><br>Bye</span><br><br><br><span style="color: #6600cc">　　以上结果表示，数据库被修改后，用备份后的数据库成功的将数据恢复到了被“篡改”前的状态。</span></p>
+<p></p>
+<p><table border="0" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#4665a6"></td></p>
+<p><table border="0"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#333333" class="table-title"><span style="color: #6600cc">测试后…</span></td><br><br><br><br><br><br><span style="color: #6600cc">　　测试完成后，将测试用过的遗留信息删除。</span></p>
+<p></p>
+<p><table border="2" width="100%"></table></p>
+<p><tr></tr></p>
+<p><td bgcolor="#000000"></td></p>
+<p></p><p class="message"><span style="color: #6600cc">[root@sample ~]# <span class="command">mysql -u root -p</span>　 <span class="intro">← 用root登录到MySQL服务器</span><br>Enter password:　 <span class="intro">← 输入MySQL的root用户密码</span></span></p>
+<p>Welcome to the MySQL monitor. Commands end with ; or g.<br>Your MySQL connection id is 19 to server version: 4.1.20</p>
+<p></p><p class="message"><span style="color: #6600cc">Type ‘help;’ or ‘h’ for help. Type ‘c’ to clear the buffer.</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">use test</span>　 <span class="intro">← 连接到test数据库</span><br>Reading table information for completion of table and column names<br>You can turn off this feature to get a quicker startup with -A</span></p>
+<p></p><p class="message"><span style="color: #6600cc">Database changed<br>mysql&gt; <span class="command">drop table test;</span>　 <span class="intro">← 删除test数据库中的表</span><br>Query OK, 0 rows affected (0.01 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">drop database test;</span>　 <span class="intro">← 删除测试用数据库test</span><br>Query OK, 0 rows affected (0.00 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; <span class="command">show databases;</span>　 <span class="intro">← 查看当前存在的数据库</span><br>+————-+<br>| Database |<br>+————-+<br>| mysql 　　|　 <span class="intro">← 确认测试用数据库test不存在、已被删除</span><br>+————-+<br>1 row in set (0.00 sec)</span></p>
+<p></p><p class="message"><span style="color: #6600cc">mysql&gt; exit　 <span class="intro">← 退出MySQL服务器</span><br>Bye</span><br><br><br><span style="color: #6600cc">——–<br>　　以上介绍了用我们自己建立的一段Shell脚本，通过mysqlhotcopy来备份数据库的方法。</span></p>
+<p>　　对于许多个人爱好者来说，组建服务器可能不是很考虑数据被破坏以及数据被破坏后的恢复工作。但不能不说，对于服务器来说，数据破坏后的恢复效率也是区 别业余和专业的因素之一。所以笔者建议，在您配置好了Web服务器以及MySQL服务器等等的时候，千万不要急于应用它，而要想办法在有限的（硬件、软 件）条件下使它“坚不可摧”之后，再考虑应用的问题。</p>
+<p>　　而且，以上介绍的方法中提到的数据库自动备份脚本虽然被设置为每天定时运行，但当您运行某些与MySQL相关联的程序（论坛、社区等等）时，做一些可 能危及数据安全的操作的时候，运行数据库备份脚本即时备份当前状态数据库，也是非常有帮助的，至少可以在出现问题后保证数据库方面的可恢复性。<br><!-- Added by RelatedTopic, plugin for Bo-Blog 2.0.0 --></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Shell/" rel="tag"># Shell</a>
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/03/09/多功能Mysql数据库自动备份shell脚本/" rel="next" title="多功能Mysql数据库自动备份shell脚本">
+                <i class="fa fa-chevron-left"></i> 多功能Mysql数据库自动备份shell脚本
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/03/10/在_Linux_上进行自动备份/" rel="prev" title="在 Linux 上进行自动备份">
+                在 Linux 上进行自动备份 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

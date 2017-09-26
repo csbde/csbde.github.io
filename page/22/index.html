@@ -261,7 +261,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/01/09/htaccess-e8-a7-84-e5-88-99-e8-af-a6-e7-bb-86-e4-bb-8b-e7-bb-8d/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/01/08/在WordPress首页和目录页显示摘要的方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -283,340 +283,7 @@
             
               
                 
-                <a class="post-title-link" href="/2008/01/09/htaccess-e8-a7-84-e5-88-99-e8-af-a6-e7-bb-86-e4-bb-8b-e7-bb-8d/" itemprop="url">
-                  .htaccess规则详细介绍
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-01-09T09:27:01+08:00">
-                2008-01-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Server/" itemprop="url" rel="index">
-                    <span itemprop="name">Server</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="工作原理和使用方法"><a href="#工作原理和使用方法" class="headerlink" title="工作原理和使用方法"></a><a name="what" title="what" id="what"></a>工作原理和使用方法</h2><p><code>&lt;font face=&quot;Courier New&quot;&gt;.htaccess&lt;/font&gt;</code>文件(或者”分布式配置文件”)提供了针对每个目录改变配置的方法，即在一个特定的目录中放置一个包含指令的文件，其中的指令作用于此目录及其所有子目录。</p>
-<p> 通常，<code>&lt;font face=&quot;Courier New&quot;&gt;.htaccess&lt;/font&gt;</code>文件使用的配置语法和主配置文件一样。<code>&lt;font face=&quot;Courier New&quot;&gt;AllowOverride&lt;/font&gt;</code>指令按类别决定了<code>&lt;font face=&quot;Courier New&quot;&gt;.htaccess&lt;/font&gt;</code>文件中哪些指令才是有效的。如果一个指令允许在<code>&lt;font face=&quot;Courier New&quot;&gt;.htaccess&lt;/font&gt;</code>中使用，那么在本手册的说明中，此指令会有一个覆盖项段，其中说明了为使此指令生效而必须在<code>&lt;font face=&quot;Courier New&quot;&gt;AllowOverride&lt;/font&gt;</code>指令中设置的值。</p>
-<h2 id="指令的生效"><a href="#指令的生效" class="headerlink" title="指令的生效"></a><a name="how" title="how" id="how"></a>指令的生效</h2><p><code>&lt;font face=&quot;Courier New&quot;&gt;.htaccess&lt;/font&gt;</code>文件中的配置指令作用于<code>&lt;font face=&quot;Courier New&quot;&gt;.htaccess&lt;/font&gt;</code>文件所在的目录及其所有子目录，但是很重要的、需要注意的是，其上级目录也可能会有<code>&lt;font face=&quot;Courier New&quot;&gt;.htaccess&lt;/font&gt;</code>文件，而指令是按查找顺序依次生效的，所以一个特定目录下的<code>&lt;font face=&quot;Courier New&quot;&gt;.htaccess&lt;/font&gt;</code>文件中的指令可能会覆盖其上级目录中的<code>&lt;font face=&quot;Courier New&quot;&gt;.htaccess&lt;/font&gt;</code>文件中的指令，即子目录中的指令会覆盖父目录或者主配置文件中的指令。</p>
-<p>例子：</p>
-<p><code>&lt;font face=&quot;Courier New&quot;&gt;/www/htdocs/example1&lt;/font&gt;</code>目录中的<code>&lt;font face=&quot;Courier New&quot;&gt;.htaccess&lt;/font&gt;</code>文件有如下内容：</p>
-<p><code>&lt;font face=&quot;Courier New&quot;&gt;Options +ExecCGI &lt;/font&gt;</code></p>
-<p>(注意：必须设置”<code>&lt;font face=&quot;Courier New&quot;&gt;AllowOverride Options&lt;/font&gt;</code>“以允许在<code>&lt;font face=&quot;Courier New&quot;&gt;.htaccess&lt;/font&gt;</code>中使用”<code>&lt;font face=&quot;Courier New&quot;&gt;Options&lt;/font&gt;</code>“指令)</p>
-<p><code>&lt;font face=&quot;Courier New&quot;&gt;/www/htdocs/example1/example2&lt;/font&gt;</code>目录中的<code>&lt;font face=&quot;Courier New&quot;&gt;.htaccess&lt;/font&gt;</code>文件有如下内容：</p>
-<p><code>&lt;font face=&quot;Courier New&quot;&gt;Options Includes &lt;/font&gt;</code></p>
-<p>由于第二个<code>&lt;font face=&quot;Courier New&quot;&gt;.htaccess&lt;/font&gt;</code>文件的存在，<code>&lt;font face=&quot;Courier New&quot;&gt;/www/htdocs/example1/example2&lt;/font&gt;</code>中的CGI执行是不允许的，而只允许 <code>&lt;font face=&quot;Courier New&quot;&gt;Options Includes&lt;/font&gt;</code> ，它完全覆盖了之前的设置。</p>
-<p>htaccess可以做大量范围的事情，包括：文件夹密码保护、用户自动重新指向、自定义错误页面、变更你的文件扩展名、屏蔽特定的用户IP地址、只允许特定的IP地址、停止目录表以及使用其他文件作为index文件，等等……</p>
-<p>1. Introduction 介绍<br>文件名 .htaccess 属性 644 (RW-R–R–)<br>htaccess会影响它所在目录下的所有子目录<br>注意大多数内容都要求保持在一行之内，不要换行，否则会引起错误</p>
-<p>2. Error Documents 错误文档<br>Official document: ErrorDocument Directive<br>ErrorDocument code document<br>例子<br>ErrorDocument 400 /errors/badrequest.html<br>ErrorDocument 404 <a href="http://yoursite/errors/notfound.html" target="_blank" rel="external">http://yoursite/errors/notfound.html</a><br>ErrorDocument 401 “Authorization Required”</p>
-<p>more..<br>less.. (注意之后内容如果出现的双引号需要转义为 ”)<br>常见HTTP状态码<br>Successful Client Requests<br>200 OK<br>201 Created<br>202 Accepted<br>203 Non-Authorative Information<br>204 No Content<br>205 Reset Content<br>206 Partial Content<br>Client Request Redirected<br>300 Multiple Choices<br>301 Moved Permanently<br>302 Moved Temporarily<br>303 See Other<br>304 Not Modified<br>305 Use Proxy<br>Client Request Errors<br>400 Bad Request<br>401 Authorization Required<br>402 Payment Required (not used yet)<br>403 Forbidden<br>404 Not Found<br>405 Method Not Allowed<br>406 Not Acceptable (encoding)<br>407 Proxy Authentication Required<br>408 Request Timed Out<br>409 Conflicting Request<br>410 Gone<br>411 Content Length Required<br>412 Precondition Failed<br>413 Request Entity Too Long<br>414 Request URI Too Long<br>415 Unsupported Media Type<br>Server Errors<br>500 Internal Server Error<br>501 Not Implemented<br>502 Bad Gateway<br>503 Service Unavailable<br>504 Gateway Timeout<br>505 HTTP Version Not Supported</p>
-<p>3. Password Protection 密码保护<br>Official document: Authentication, Authorization and Access Control<br>假设密码文件为.htpasswd<br>AuthUserFile /usr/local/safedir/.htpasswd (这里必须使用全路径名)<br>AuthName EnterPassword<br>AuthType Basic<br>两种常见验证方式:<br>Require user windix<br>(仅允许用户windix登陆)<br>Require valid-user<br>(所有合法用户都可登陆)<br>Tip: 如何生成密码文件<br>使用htpasswd命令(apache自带)<br>第一次生成需要创建密码文件<br>htpasswd -c .htpasswd user1<br>之后增加新用户<br>htpasswd .htpasswd user2</p>
-<p>4. Enabling SSI Via htaccess 通过htaccess允许SSI(Server Side Including)功能<br>AddType text/html .shtml<br>AddHandler server-parsed .shtml<br>Options Indexes FollowSymLinks Includes<br>DirectoryIndex index.shtml index.html</p>
-<p>5. Blocking users by IP 根据IP阻止用户访问<br>order allow,deny<br>deny from 123.45.6.7<br>deny from 12.34.5. (整个C类地址)<br>allow from all</p>
-<p>6. Blocking users/sites by referrer 根据referrer阻止用户/站点访问<br>需要mod_rewrite模块<br>例1. 阻止单一referrer: badsite.com<br>RewriteEngine on</p>
-<h1 id="Options-FollowSymlinks"><a href="#Options-FollowSymlinks" class="headerlink" title="Options +FollowSymlinks"></a>Options +FollowSymlinks</h1><p>RewriteCond %{HTTP_REFERER} badsite.com [NC]<br>RewriteRule .* - [F]<br>例2. 阻止多个referrer: badsite1.com, badsite2.com<br>RewriteEngine on</p>
-<h1 id="Options-FollowSymlinks-1"><a href="#Options-FollowSymlinks-1" class="headerlink" title="Options +FollowSymlinks"></a>Options +FollowSymlinks</h1><p>RewriteCond %{HTTP_REFERER} badsite1.com [NC,OR]<br>RewriteCond %{HTTP_REFERER} badsite2.com<br>RewriteRule .* - [F]<br>[NC] - 大小写不敏感(Case-insensite)<br>[F] - 403 Forbidden<br>注意以上代码注释掉了”Options +FollowSymlinks”这个语句。如果服务器未在 httpd.conf 的 段落设置 FollowSymLinks, 则需要加上这句，否则会得到”500 Internal Server error”错误。</p>
-<p>7. Blocking bad bots and site rippers (aka offline browsers) 阻止坏爬虫和离线浏览器<br>需要mod_rewrite模块<br>坏爬虫? 比如一些抓垃圾email地址的爬虫和不遵守robots.txt的爬虫(如baidu?)<br>可以根据 HTTP_USER_AGENT 来判断它们<br>(但是还有更无耻的如”中搜 zhongsou.com”之流把自己的agent设置为 “Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)” 太流氓了，就无能为力了)<br>RewriteEngine On<br>RewriteCond %{HTTP_USER_AGENT} ^BlackWidow [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Bot <a href="mailto:craftbot@yahoo.com" target="_blank" rel="external">mailto:craftbot@yahoo.com</a> [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^ChinaClaw [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Custo [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^DISCo [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Download Demon [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^eCatch [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^EirGrabber [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^EmailSiphon [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^EmailWolf [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Express WebPictures [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^ExtractorPro [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^EyeNetIE [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^FlashGet [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^GetRight [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^GetWeb! [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Go!Zilla [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Go-Ahead-Got-It [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^GrabNet [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Grafula [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^HMView [OR]<br>RewriteCond %{HTTP_USER_AGENT} HTTrack [NC,OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Image Stripper [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Image Sucker [OR]<br>RewriteCond %{HTTP_USER_AGENT} Indy Library [NC,OR]<br>RewriteCond %{HTTP_USER_AGENT} ^InterGET [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Internet Ninja [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^JetCar [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^JOC Web Spider [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^larbin [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^LeechFTP [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Mass Downloader [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^MIDown tool [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Mister PiX [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Navroad [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^NearSite [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^NetAnts [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^NetSpider [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Net Vampire [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^NetZIP [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Octopus [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Offline Explorer [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Offline Navigator [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^PageGrabber [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Papa Foto [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^pavuk [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^pcBrowser [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^RealDownload [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^ReGet [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^SiteSnagger [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^SmartDownload [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^SuperBot [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^SuperHTTP [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Surfbot [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^tAkeOut [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Teleport Pro [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^VoidEYE [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Web Image Collector [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Web Sucker [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^WebAuto [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^WebCopier [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^WebFetch [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^WebGo IS [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^WebLeacher [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^WebReaper [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^WebSauger [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Website eXtractor [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Website Quester [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^WebStripper [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^WebWhacker [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^WebZIP [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Wget [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Widow [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^WWWOFFLE [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Xaldon WebSpider [OR]<br>RewriteCond %{HTTP_USER_AGENT} ^Zeus<br>RewriteRule ^.* - [F,L]<br>[F] - 403 Forbidden<br>[L] - ?</p>
-<p>8. Change your default directory page 改变缺省目录页面<br>DirectoryIndex index.html index.php index.cgi index.pl</p>
-<p>9. Redirects 转向<br>单个文件<br>Redirect /old_dir/old_file.html <a href="http://yoursite.com/new_dir/new_file.html">http://yoursite.com/new_dir/new_file.html</a><br>整个目录<br>Redirect /old_dir <a href="http://yoursite.com/new_dir">http://yoursite.com/new_dir</a><br>效果: 如同将目录移动位置一样<br><a href="http://yoursite.com/old_dir">http://yoursite.com/old_dir</a> -&gt; <a href="http://yoursite.com/new_dir">http://yoursite.com/new_dir</a><br><a href="http://yoursite.com/old_dir/dir1/test.html">http://yoursite.com/old_dir/dir1/test.html</a> -&gt; <a href="http://yoursite.com/new_dir/dir1/test.html">http://yoursite.com/new_dir/dir1/test.html</a><br>Tip: 使用用户目录时Redirect不能转向的解决方法<br>当你使用Apache默认的用户目录，如 <a href="http://mysite.com/~windix" target="_blank" rel="external">http://mysite.com/~windix</a>，当你想转向 <a href="http://mysite.com/~windix/jump" target="_blank" rel="external">http://mysite.com/~windix/jump</a>时，你会发现下面这个Redirect不工作:<br>Redirect /jump <a href="http://www.google.com/" target="_blank" rel="external">http://www.google.com</a><br>正确的方法是改成<br>Redirect /~windix/jump <a href="http://www.google.com/" target="_blank" rel="external">http://www.google.com</a><br>(source: .htaccess Redirect in “Sites” not redirecting: why?<br>)</p>
-<p>10. Prevent viewing of .htaccess file 防止.htaccess文件被查看<br>order allow,deny<br>deny from all</p>
-<p>11. Adding MIME Types 添加 MIME 类型<br>AddType application/x-shockwave-flash swf<br>Tips: 设置类型为 application/octet-stream 将提示下载</p>
-<p>12. Preventing hot linking of images and other file types 防盗链<br>需要mod_rewrite模块<br>RewriteEngine on<br>RewriteCond %{HTTP_REFERER} !^$<br>RewriteCond %{HTTP_REFERER} !^<a href="http://(www/.)?mydomain.com/.*$" target="_blank" rel="external">http://(www/.)?mydomain.com/.*$</a> [NC]<br>RewriteRule .(gif|jpg|js|css)$ - [F]<br>解析:<br>若 HTTP_REFERER 非空 (来源为其他站点，非直接连接) 并且<br>若 HTTP_REFERER 非(<a href="http://www." target="_blank" rel="external">www.)mydomain.com</a>mydomain.com/)开头(忽略大小写[NC]) (来源非本站)<br>对于所有含有 .gif/.jpg/.js/.css 结尾的文件给出 403 Forbidden 错误[F]<br>也可指定响应，如下例显示替换图片<br>RewriteRule .(gif|jpg)$<br>[R,L]<br>[R] - 转向(Redirect)<br>[L] - 连接(Link)</p>
-<p>13. Preventing Directory Listing 防止目录列表时显示<br>IndexIgnore <em><br>IndexIgnore </em>.jpg *.gif<br>Tips:<br>允许目录列表显示: Options +Indexes<br>禁止目录列表显示: Options -Indexes<br>显示提示信息: 页首 文件HEADER, 页尾 文件README</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/01/08/user-names-as-subdomains-howto/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="九王爷">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九王爷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2008/01/08/user-names-as-subdomains-howto/" itemprop="url">
-                  user names as subdomains - HOWTO
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-01-08T17:42:50+08:00">
-                2008-01-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Server/" itemprop="url" rel="index">
-                    <span itemprop="name">Server</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>user names as subdomains - HOWTO</strong></p>
-<p>I think this can interrest someone:</p>
-<p>It used to drive me crazy have user names in format<br><a href="http://www.domain.tld/users/webXX_user" target="_blank" rel="external"><font color="#22229c">http://www.domain.tld/users/webXX_user</font></a><br>wanted them as <a href="http://user.domain.tld/" target="_blank" rel="external"><font color="#22229c">http://user.domain.tld</font></a> (third level domain)</p>
-<p>so here is how to do it</p>
-<p>1. in Ispconfig go to Management-&gt;System Config-&gt;Settings-&gt;ISP manager<br>change User Prefix to [DOMAIN]_<br>then user dirs will lok like <a href="http://www.domain.tld/users/domain.tld_user" target="_blank" rel="external"><font color="#22229c">http://www.domain.tld/users/domain.tld_user</font></a></p>
-<p>2. Create file /etc/httpd/user_rewrite.conf which includes</p>
-<p>RewriteCond %{SERVER_NAME} !^www.<br>RewriteCond %{SERVER_NAME} !^mail. ( not neccessary see bellow)<br>RewriteCond %{SERVER<em>NAME} ^([^.]<em>).(.</em>..<em>)$<br>RewriteRule ^/(.</em>)$ /var/www/www.%2/user/%2</em>%1/web/$1 [L]</p>
-<p>You can create as many lines like “RewriteCond %{SERVER_NAME} !^www.” as you want<br>^www. here means that <a href="http://www.domain.tld/" target="_blank" rel="external"><font color="#22229c">www.domain.tld</font></a> will not rewrite (will not be looking for directory <a href="http://www.domain.tld/users/domain.tld_www" target="_blank" rel="external"><font color="#22229c">http://www.domain.tld/users/domain.tld_www</font></a>, but show <a href="http://www.domain.tld/" target="_blank" rel="external"><font color="#22229c">www.domain.tld</font></a>) In my case i’m using also rewrite to show webmail as mail.domain.tld for each domain so i also have<br>RewriteCond %{SERVER_NAME} !^mail.</p>
-<p>3. In ISP manager-&gt;sites click on your site, then go to “Co-domains” and add<br>yourIP * domain.tld</p>
-<p>6 In ISPmanger-&gt;sites-&gt; <a href="http://www.domain.tld/" target="_blank" rel="external"><font color="#22229c">www.domain.tld</font></a> -&gt;Basic put “Include user_rewrite.conf” into Apache Directives (Optional):</p>
-<p>If you have more domains and don’t want to forget do this for each domain, change:<br>Management-&gt;Form Designer-&gt;Edit Form-&gt;isp - ISP Web:-&gt;edit-&gt;web_httpd_include-&gt;Edit and put Include user_rewrite.conf into Default: window</p>
-<p>5. In DNS manager -&gt;domain.tld-&gt; records you must create<br>CNAME * domain.tld</p>
-<p>6. probably not necessary, but you can restart apache “apachectl restart”</p>
-<p>and you are done</p>
-<p>=============<br>If you want to have mail.domain.tld for each domain showing your default webmail<br>must have in DNS for your site<br>CNAME mail yourwebmail.yourdomain.tld<br>and your /etc/httpd/user_rewrite.conf should look like this</p>
-<p>RewriteEngine on<br>RewriteCond %{SERVER_NAME} ^mail.<em>.</em>$<br>RewriteRule .<em> /var/www/path_to_your_webmail_site/web$0 [L]<br>RewriteCond %{SERVER_NAME} !^www.<br>RewriteCond %{SERVER_NAME} !^www2.<br>RewriteCond %{SERVER_NAME} !^mysql2.<br>RewriteCond %{SERVER_NAME} ^([^.]</em>).(.<em>..</em>)$<br>RewriteRule ^/(.*)$ /var/www/www.%2/user/%2_%1/web/$1 [L]</p>
-<p>It works for me, i have configured webmail outside ISPconfig apache, if you use some webmail inside ispconfig in /home/admispconfig/ispconfig/web/yourwebmail it may not work (haven’t tried)</p>
-<p>Just have 2 questions for Falco or some other developer here .)</p>
-<p>1. is there more ellegant way how to include user_rewrite.conf for all domains?<br>It didnt work for me to include in httpd.conf for all domains at once, its working just when included for each Virtual Host separatelly</p>
-<p>2. Can i change default DNS entry for domains without editing code?<br>In my case i like to have DNS for all domains by default like this:</p>
-<p>A Record<br>empty (domain.tld is already included in zone file but not showed in DNS manager)</p>
-<p>CNAME<br>Hostname Target</p>
-<ul>
-<li>mydomain.tld<br>mail mail.myhosting.tld</li>
-</ul>
-<p>MX<br>Mailserver Hostname<br>mail.myhosting.tld<br>mailbackup.myhosting.tld</p>
-<p>(by default it shows MX admin.myhosting.tld which is wrong for me i have admin on different ip adress then users webs)</p>
-<p>from(<a href="http://www.howtoforge.com/forums/showthread.php?t=12383" target="_blank" rel="external">http://www.howtoforge.com/forums/showthread.php?t=12383</a>)<!-- / message --><!-- edit note --></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/01/08/e5-9c-a8wordpress-e9-a6-96-e9-a1-b5-e5-92-8c-e7-9b-ae-e5-bd-95-e9-a1-b5-e6-98-be-e7-a4-ba-e6-91-98-e8-a6-81-e7-9a-84-e6-96-b9-e6-b3-95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="九王爷">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九王爷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2008/01/08/e5-9c-a8wordpress-e9-a6-96-e9-a1-b5-e5-92-8c-e7-9b-ae-e5-bd-95-e9-a1-b5-e6-98-be-e7-a4-ba-e6-91-98-e8-a6-81-e7-9a-84-e6-96-b9-e6-b3-95/" itemprop="url">
+                <a class="post-title-link" href="/2008/01/08/在WordPress首页和目录页显示摘要的方法/" itemprop="url">
                   在WordPress首页和目录页显示摘要的方法
                 </a>
               
@@ -734,7 +401,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/12/11/vhcs-install-centos-42/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/12/11/VHCS_install_@_CentOS_4.2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -756,7 +423,7 @@
             
               
                 
-                <a class="post-title-link" href="/2007/12/11/vhcs-install-centos-42/" itemprop="url">
+                <a class="post-title-link" href="/2007/12/11/VHCS_install_@_CentOS_4.2/" itemprop="url">
                   VHCS install @ CentOS 4.2
                 </a>
               
@@ -1158,7 +825,7 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/11/16/pw60-e4-b8-ad-e5-a2-9e-e5-8a-a0-e8-af-84-e5-88-86-e5-ad-97-e6-95-b00/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/11/16/PW6.0中增加评分字数0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1180,7 +847,7 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
             
               
                 
-                <a class="post-title-link" href="/2007/11/16/pw60-e4-b8-ad-e5-a2-9e-e5-8a-a0-e8-af-84-e5-88-86-e5-ad-97-e6-95-b00/" itemprop="url">
+                <a class="post-title-link" href="/2007/11/16/PW6.0中增加评分字数0/" itemprop="url">
                   PW6.0中增加评分字数0
                 </a>
               
@@ -1298,7 +965,7 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/11/16/e9-a6-96-e9-a1-b5-e5-b9-bb-e7-81-af-e5-9b-be-e4-b8-bb-e9-a2-98-e6-8e-92-e8-a1-8c-e4-bc-9a-e5-91-98-e6-8e-92-e8-a1-8c-e7-be-8e-e8-a7-82-e7-ae-80-e5-8c-96-e7-89-88-for-pw60/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/11/16/首页幻灯图+主题排行+会员排行_美观简化版_for_pw6.0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1320,7 +987,7 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
             
               
                 
-                <a class="post-title-link" href="/2007/11/16/e9-a6-96-e9-a1-b5-e5-b9-bb-e7-81-af-e5-9b-be-e4-b8-bb-e9-a2-98-e6-8e-92-e8-a1-8c-e4-bc-9a-e5-91-98-e6-8e-92-e8-a1-8c-e7-be-8e-e8-a7-82-e7-ae-80-e5-8c-96-e7-89-88-for-pw60/" itemprop="url">
+                <a class="post-title-link" href="/2007/11/16/首页幻灯图+主题排行+会员排行_美观简化版_for_pw6.0/" itemprop="url">
                   首页幻灯图+主题排行+会员排行 美观简化版 for pw6.0
                 </a>
               
@@ -1479,7 +1146,7 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/11/15/tar-e6-8e-92-e9-99-a4-e6-8c-87-e5-ae-9a-e7-9b-ae-e5-bd-95/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/11/15/Linux下tar排除指定目录/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1501,7 +1168,7 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
             
               
                 
-                <a class="post-title-link" href="/2007/11/15/tar-e6-8e-92-e9-99-a4-e6-8c-87-e5-ae-9a-e7-9b-ae-e5-bd-95/" itemprop="url">
+                <a class="post-title-link" href="/2007/11/15/Linux下tar排除指定目录/" itemprop="url">
                   Linux下tar排除指定目录
                 </a>
               
@@ -1624,7 +1291,7 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/11/15/cygwin-e7-9a-84-e4-b8-80-e4-ba-9b-e9-85-8d-e7-bd-ae/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/11/15/Cygwin_的一些配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1646,7 +1313,7 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
             
               
                 
-                <a class="post-title-link" href="/2007/11/15/cygwin-e7-9a-84-e4-b8-80-e4-ba-9b-e9-85-8d-e7-bd-ae/" itemprop="url">
+                <a class="post-title-link" href="/2007/11/15/Cygwin_的一些配置/" itemprop="url">
                   Cygwin 的一些配置
                 </a>
               
@@ -1764,7 +1431,7 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/29/e8-af-84-e5-88-86-e5-ad-97-e6-95-b0-e8-bf-87-e5-b0-91-e9-97-ae-e9-a2-98/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/29/评分字数过少问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1786,7 +1453,7 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
             
               
                 
-                <a class="post-title-link" href="/2007/10/29/e8-af-84-e5-88-86-e5-ad-97-e6-95-b0-e8-bf-87-e5-b0-91-e9-97-ae-e9-a2-98/" itemprop="url">
+                <a class="post-title-link" href="/2007/10/29/评分字数过少问题/" itemprop="url">
                   评分字数过少问题
                 </a>
               
@@ -1904,7 +1571,7 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/29/e8-b0-83-e6-95-b4-e8-af-84-e5-88-86-e6-97-b6-e3-80-8c-e5-a8-81-e6-9c-9b-ef-bc-8c-e8-b4-a2-e5-af-8c-e3-80-8d-e7-9a-84-e9-bb-98-e8-ae-a4-e9-80-89-e9-a1-b9-e4-b8-ba-e8-b4-a2-e5-af-8c-for-pw530-60/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/29/调整评分时「威望，财富==」的默认选项为财富_for_PW5.30_-6.0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="九王爷">
@@ -1926,7 +1593,7 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
             
               
                 
-                <a class="post-title-link" href="/2007/10/29/e8-b0-83-e6-95-b4-e8-af-84-e5-88-86-e6-97-b6-e3-80-8c-e5-a8-81-e6-9c-9b-ef-bc-8c-e8-b4-a2-e5-af-8c-e3-80-8d-e7-9a-84-e9-bb-98-e8-ae-a4-e9-80-89-e9-a1-b9-e4-b8-ba-e8-b4-a2-e5-af-8c-for-pw530-60/" itemprop="url">
+                <a class="post-title-link" href="/2007/10/29/调整评分时「威望，财富==」的默认选项为财富_for_PW5.30_-6.0/" itemprop="url">
                   调整评分时「威望，财富==」的默认选项为财富 for PW5.30 /6.0
                 </a>
               
@@ -2039,6 +1706,513 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/25/常用MySQL的命令集锦/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2007/10/25/常用MySQL的命令集锦/" itemprop="url">
+                  常用MySQL的命令集锦
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2007-10-25T20:25:25+08:00">
+                2007-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>一、连接MySQL        格式： mysql -h主机地址 -u用户名 －p用户密码</p>
+<pre><code>1、例1：连接到本机上的MYSQL。
+
+首先在打开DOS窗口，然后进入目录 mysqlbin，再键入命令mysql -uroot -p，回车后提示你输密码，如果刚安装好MYSQL，超级用户root是没有密码的，故直接回车即可进入到MYSQL中了，MYSQL的提示符是：mysql&amp;gt;。
+
+2、例2：连接到远程主机上的MYSQL。假设远程主机的IP为：110.110.110.110，用户名为root,密码为abcd123。则键入以下命令：
+
+mysql -h110.110.110.110 -uroot -pabcd123
+
+（注:u与root可以不用加空格，其它也一样）
+
+3、退出MYSQL命令： exit （回车）。
+
+二、修改密码
+
+格式：mysqladmin -u用户名 -p旧密码 password 新密码
+
+1、例1：给root加个密码ab12。首先在DOS下进入目录mysqlbin，然后键入以下命令：
+
+mysqladmin -uroot -password ab12
+
+注：因为开始时root没有密码，所以-p旧密码一项就可以省略了。
+
+2、例2：再将root的密码改为djg345。
+
+mysqladmin -uroot -pab12 password djg345
+
+三、增加新用户。（注意：和上面不同，下面的因为是MySQL环境中的命令，所以后面都带一个分号作为命令结束符）
+
+格式：grant select on 数据库.* to 用户名@登录主机 identified by \&quot;密码\&quot;
+
+例1、增加一个用户test1密码为abc，让他可以在任何主机上登录，并对所有数据库有查询、插入、修改、删除的权限。首先用以root用户连入MySQL，然后键入以下命令：
+
+grant select,insert,update,
+delete on *.* to test1@\&quot;%\&quot; Identified by \&quot;abc\&quot;;
+
+但例1增加的用户是十分危险的，你想如某个人知道test1的密码，那么他就可以在internet上的任何一台电脑上登录你的MySQL数据库并对你的数据可以为所欲为了，解决办法见例2。
+
+例2、增加一个用户test2密码为abc,让他只可以在localhost上登录，并可以对数据库mydb进行查询、插入、修改、删除的操作 （localhost指本地主机，即MySQL数据库所在的那台主机），这样用户即使用知道test2的密码，他也无法从internet上直接访问数据 库，只能通过MySQL主机上的web页来访问。
+
+grant select,insert,update,
+delete on mydb.* to test2@localhost identified by \&quot;abc\&quot;;
+
+如果你不想test2有密码，可以再打一个命令将密码消掉。
+
+grant select,insert,update,delete on mydb
+.* to test2@localhost identified by \&quot;\&quot;;
+
+在上面讲了登录、增加用户、密码更改等问题。下面我们来看看MySQL中有关数据库方面的操作。注意：你必须首先登录到MySQL中，以下操作都是在MySQL的提示符下进行的，而且每个命令以分号结束。
+</code></pre><p>一、操作技巧</p>
+<pre><code>1、如果你打命令时，回车后发现忘记加分号，你无须重打一遍命令，只要打个分号回车就可以了。也就是说你可以把一个完整的命令分成几行来打，完后用分号作结束标志就完成。
+
+2、你可以使用光标上下键调出以前的命令。但以前我用过的一个MySQL旧版本不支持。我现在用的是mysql-3.23.27-beta-win。
+
+二、显示命令
+
+1、显示数据库列表：
+
+show databases;
+
+刚开始时才两个数据库：mysql和test。MySQL库很重要它里面有MYSQL的系统信息，我们改密码和新增用户，实际上就是用这个库进行操作。
+
+2、显示库中的数据表：
+
+use mysql； ／／打开库，学过FOXBASE的一定不会陌生吧
+
+show tables;
+
+3、显示数据表的结构：
+
+describe 表名;
+
+4、建库：
+
+create database 库名;
+
+5、建表：
+
+use 库名；
+
+create table 表名 (字段设定列表)；
+
+6、删库和删表:
+
+drop database 库名;
+
+drop table 表名；
+
+7、将表中记录清空：
+
+delete from 表名;
+
+8、显示表中的记录：
+
+select * from 表名;
+
+三、一个建库和建表以及插入数据的实例
+
+drop database if exists school; //如果存在SCHOOL则删除
+
+create database school; //建立库SCHOOL
+
+use school; //打开库SCHOOL
+
+create table teacher //建立表TEACHER
+
+(
+
+id int(3) auto_increment not null primary key,
+
+name char(10) not null,
+
+address varchar(50) default ’深圳’,
+
+year date
+
+); //建表结束
+
+//以下为插入字段
+
+insert into teacher values(’’,’glchengang’,’深圳一中’,’1976-10-10’);
+
+insert into teacher values(’’,’jack’,’深圳一中’,’1975-12-23’);
+
+注：在建表中（1）将ID设为长度为3的数字字段:int(3)并让它每个记录自动加一:auto_increment并不能为空:not null而且让他成为主字段primary key（2）将NAME设为长度为10的字符字段（3）将ADDRESS设为长度50的字符字段，而且缺省值为深圳。varchar和char有什么区别 呢，只有等以后的文章再说了。（4）将YEAR设为日期字段。
+
+如果你在MySQL提示符键入上面的命令也可以，但不方便调试。你可以将以上命令原样写入一个文本文件中假设为school.sql，然后复制到c:\\下，并在DOS状态进入目录\\mysql\\bin，然后键入以下命令：
+
+mysql -uroot -p密码 &amp;lt; c:\\school.sql
+
+如果成功，空出一行无任何显示；如有错误，会有提示。（以上命令已经调试，你只要将//的注释去掉即可使用）。
+</code></pre><p>四、将文本数据转到数据库中</p>
+<pre><code>   1、文本数据应符合的格式：字段数据之间用tab键隔开，null值用\\n来代替。
+
+   例：
+
+   3 rose 深圳二中 1976-10-10
+
+   4 mike 深圳一中 1975-12-23
+
+   2、数据传入命令 load data local infile \&quot;文件名\&quot; into table 表名。
+
+   注意：你最好将文件复制到\\mysql\\bin目录下，并且要先用use命令打表所在的库。
+
+   五、备份数据库：
+
+   1、mysqldump --opt school&amp;gt;school.bbb
+
+   mysqldump --opt school&amp;gt;school.bbb
+   （命令在DOS的\\mysql\\bin目录下执行）
+
+   注释:将数据库school备份到school.bbb文件，school.bbb是一个文本文件，文件名任取，打开看看你会有新发现。
+
+   后记：其实MySQL的对数据库的操作与其它的SQL类数据库大同小异，您最好找本将SQL的书看看。我在这里只介绍一些基本的，其实我也就只懂这些了， 呵呵。最好的MYSQL教程还是“晏子“译的“MYSQL中文参考手册“不仅免费每个相关网站都有下载，而且它是最权威的。可惜不是象\&quot;PHP4中文手 册\&quot;那样是chm的格式，在查找函数命令的时候不太方便。
+
+   2、修改登录密码
+
+   1) mysqladmin -u用户名 -p旧密码 password 新密码:
+
+   例：mysqladmin -u root password 21century
+
+   注：因为开始时root没有密码，所以-p旧密码一项就可以省略了。
+
+   2)直接修改user表的root用户口令：
+
+   mysql&amp;gt; user mysql;
+   mysql&amp;gt; update user set pasword=password(&apos;21century&apos;) where user=&apos;root&apos;;
+   mysql&amp;gt; flush privileges;
+
+   注：flush privileges的意思是强制刷新内存授权表，否则用的还是缓冲中的口令。
+
+   3、测试密码是否修改成功:
+
+   1）不用密码登录:
+
+   [root@test1 local]# mysql
+   ERROR 1045: Access denied for user: &apos;root@localhost&apos; (Using password: NO)
+
+   显示错误，说明密码已经修改。
+
+   2）用修改后的密码登录:
+
+   [root@test1 local]# mysql -u root -p
+   Enter password: (输入修改后的密码21century)
+   Welcome to the MySQL monitor. Commands end with ; or \g.
+   Your MySQL connection id is 177 to server version: 3.23.48
+   Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the buffer.
+   mysql&amp;gt;
+
+   成功！
+
+   这是通过mysqladmin命令修改口令，也可通过修改库来更改口令。
+
+4、启动和停止:
+
+   启动：Mysql从3.23.15版本开始作了改动，默认安装后服务要用MySQL用户来启动，不允许root用户启动。
+
+   如果非要用root用户来启动，必须加上--user=root参数(./safe_mysqld --user=root &amp;amp;)停止：mysqladmin -u root -p shutdown。
+
+   5、导出meeting数据库：
+
+   mysqldump -uroot -p21century meeting &amp;gt; db_meeting.sql
+
+   导人dbname数据库:
+
+   mysqldump -uroot -p21century dbname &amp;lt; xxx.sql
+
+   导入数据库还可用类似于oracle中@my_script.sql的方式一次执行大量sql语句，这在使用mysqldump不起作用时非常有用。
+
+   例：#./mysql -uroot -p &amp;lt; /home/xuys/db_meeting_2003.sql
+
+   (注：create database、use databasename、create table和insert into语句都可写在上面的脚步文件中)
+
+   6、给表改名:
+
+   RENAME TABLE ztemp TO ztemp4;
+
+   7、修改字段属性：
+
+   ALTER TABLE bbabase CHANGE news_id id VARCHAR(5) NOT NULL;
+
+   8、在表中的content后增加一字段：
+
+   ALTER TABLE bbabase ADD leave_time DATETIME NOT NULL AFTER
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/10/25/Linux_Mysql基本命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2007/10/25/Linux_Mysql基本命令/" itemprop="url">
+                  Linux Mysql基本命令
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2007-10-25T20:20:32+08:00">
+                2007-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>启动MySQL守护进程<br>/etc/rc.d/init.d/mysql start<br>关闭MySQL守护进程<br>/etc/rc.d/init.d/mysql stop<br>检查MySQL服务器运行情况<br>1、检查MySQL的属性<br>/usr/bin/mysqladmin variables<br>2、检查MySQL的版本信息/usr/bin/mysqladmin version<br>3、检查MySQL运行状态/usr/bin/mysqladmin status<br>4、检查MySQL服务器此时正运行的线程信息 /usr/bin/mysqladmin processlist<br>5、检查MySQL的状态 mysqladmin ping<br>6、刷新所有的表并重写日志文件 Flush all tables and close and open logfiles<br>mysqladmin refresh<br>连接和断开服务器<br>1、连接服务器 mysql -h host -u user -p</p>
+<p>#如果此服务运行在与MySQL相同的机器上，这个选项一般可以省略。</p>
+<p>#要求输入口令<br>2、断开服务器quit</p>
+<p>#进入MySQL之后可以敲help来获取帮助信息</p>
+<p>#还可以键入［Ctrl+D］来退出</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -2088,7 +2262,7 @@ Genaral -&gt; Muiltlanguage -&gt; Chinese, Save
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">269</span>
+                <span class="site-state-item-count">267</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -1,0 +1,747 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Proftpd," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="proftpd + mysql 安装流水笔记&amp;lt;div id=&amp;quot;postmessage_626939&amp;quot; class=&amp;quot;t_msgfont&amp;quot;&amp;gt;一。准备工做 1。你的机器上已调试好了apache+php+mysql环境2。下载PROFTPD wget ftp://ftp.proftpd.org/distrib/source/proftpd-1.2.10">
+<meta name="keywords" content="Proftpd">
+<meta property="og:type" content="article">
+<meta property="og:title" content="proftpd + mysql 安装参考资料">
+<meta property="og:url" content="http://yoursite.com/2008/03/14/proftpd_+_mysql_安装参考资料/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="proftpd + mysql 安装流水笔记&amp;lt;div id=&amp;quot;postmessage_626939&amp;quot; class=&amp;quot;t_msgfont&amp;quot;&amp;gt;一。准备工做 1。你的机器上已调试好了apache+php+mysql环境2。下载PROFTPD wget ftp://ftp.proftpd.org/distrib/source/proftpd-1.2.10">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="proftpd + mysql 安装参考资料">
+<meta name="twitter:description" content="proftpd + mysql 安装流水笔记&amp;lt;div id=&amp;quot;postmessage_626939&amp;quot; class=&amp;quot;t_msgfont&amp;quot;&amp;gt;一。准备工做 1。你的机器上已调试好了apache+php+mysql环境2。下载PROFTPD wget ftp://ftp.proftpd.org/distrib/source/proftpd-1.2.10">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/03/14/proftpd_+_mysql_安装参考资料/"/>
+
+
+
+
+
+  <title> proftpd + mysql 安装参考资料 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/14/proftpd_+_mysql_安装参考资料/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                proftpd + mysql 安装参考资料
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-03-14T10:29:51+08:00">
+                2008-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Server/" itemprop="url" rel="index">
+                    <span itemprop="name">Server</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="proftpd-mysql-安装流水笔记"><a href="#proftpd-mysql-安装流水笔记" class="headerlink" title="proftpd + mysql 安装流水笔记"></a>proftpd + mysql 安装流水笔记</h2><pre><code>&lt;div id=&quot;postmessage_626939&quot; class=&quot;t_msgfont&quot;&gt;一。准备工做
+</code></pre><p>1。你的机器上已调试好了apache+php+mysql环境<br>2。下载PROFTPD<br> wget <a href="ftp://ftp.proftpd.org/distrib/source/proftpd-1.2.10rc3.tar.bz2" target="_blank" rel="external">ftp://ftp.proftpd.org/distrib/source/proftpd-1.2.10rc3.tar.bz2</a><br>因为发现1.2.10直接支持sql和quota<br>二。安装<br>tar -jxvf proftpd-1.2.10rc3.tar.bz2<br>cd proftpd*<div class="quote">&gt; ./configure –prefix=/usr/local/proftpd \</div></p>
+<blockquote>
+<p>–with-modules=mod_sql:mod_sql_mysql:mod_quotatab:mod_quotatab_sql \<br>–with-includes=/usr/local/mysql/include/mysql \<br>–with-libraries=/usr/local/mysql/lib/mysql<br>make<br>make install<br>修改proftpd配置<br>vim /usr/local/proftpd/etc/proftpd.conf<br>内容改为：<br>ServerName “mail2004.3322.org”<br>ServerType standalone<br>DefaultServer on</p>
+<h1 id="用户登陆时不显示ftp服务器版本信息"><a href="#用户登陆时不显示ftp服务器版本信息" class="headerlink" title="用户登陆时不显示ftp服务器版本信息"></a>用户登陆时不显示ftp服务器版本信息</h1><p> ServerIdent off</p>
+<h1 id="Port-21-is-the-standard-FTP-port"><a href="#Port-21-is-the-standard-FTP-port" class="headerlink" title="Port 21 is the standard FTP port."></a>Port 21 is the standard FTP port.</h1><p> Port 21</p>
+<h1 id="Umask-022-is-a-good-standard-umask-to-prevent-new-dirs-and-files"><a href="#Umask-022-is-a-good-standard-umask-to-prevent-new-dirs-and-files" class="headerlink" title="Umask 022 is a good standard umask to prevent new dirs and files"></a>Umask 022 is a good standard umask to prevent new dirs and files</h1><h1 id="from-being-group-and-world-writable"><a href="#from-being-group-and-world-writable" class="headerlink" title="from being group and world writable."></a>from being group and world writable.</h1><p> Umask 022<br>MaxLoginAttempts 3<br> TimeoutLogin 120<br> TimeoutIdle 600<br> TimeoutNoTransfer 900<br> TimeoutStalled 3600<br> MaxClients 100</p>
+<h1 id="设置每台主机最多并发连接数"><a href="#设置每台主机最多并发连接数" class="headerlink" title="设置每台主机最多并发连接数"></a>设置每台主机最多并发连接数</h1><p> MaxClientsPerHost 3<br> AllowOverwrite no<br> AllowStoreRestart on<br> UseReverseDNS off</p>
+<h1 id="设置如果shell为空时允许用户登录"><a href="#设置如果shell为空时允许用户登录" class="headerlink" title="设置如果shell为空时允许用户登录"></a>设置如果shell为空时允许用户登录</h1><p> RequireValidShell off</p>
+<h1 id="将用户限制在自己的主目录下"><a href="#将用户限制在自己的主目录下" class="headerlink" title="将用户限制在自己的主目录下"></a>将用户限制在自己的主目录下</h1><p> DefaultRoot ~</p>
+<h1 id="To-prevent-DoS-attacks-set-the-maximum-number-of-child-processes"><a href="#To-prevent-DoS-attacks-set-the-maximum-number-of-child-processes" class="headerlink" title="To prevent DoS attacks, set the maximum number of child processes"></a>To prevent DoS attacks, set the maximum number of child processes</h1><h1 id="to-30-If-you-need-to-allow-more-than-30-concurrent-connections"><a href="#to-30-If-you-need-to-allow-more-than-30-concurrent-connections" class="headerlink" title="to 30. If you need to allow more than 30 concurrent connections"></a>to 30. If you need to allow more than 30 concurrent connections</h1><h1 id="at-once-simply-increase-this-value-Note-that-this-ONLY-works"><a href="#at-once-simply-increase-this-value-Note-that-this-ONLY-works" class="headerlink" title="at once, simply increase this value. Note that this ONLY works"></a>at once, simply increase this value. Note that this ONLY works</h1><h1 id="in-standalone-mode-in-inetd-mode-you-should-use-an-inetd-server"><a href="#in-standalone-mode-in-inetd-mode-you-should-use-an-inetd-server" class="headerlink" title="in standalone mode, in inetd mode you should use an inetd server"></a>in standalone mode, in inetd mode you should use an inetd server</h1><h1 id="that-allows-you-to-limit-maximum-number-of-processes-per-service"><a href="#that-allows-you-to-limit-maximum-number-of-processes-per-service" class="headerlink" title="that allows you to limit maximum number of processes per service"></a>that allows you to limit maximum number of processes per service</h1><h1 id="such-as-xinetd"><a href="#such-as-xinetd" class="headerlink" title="(such as xinetd)."></a>(such as xinetd).</h1><p> MaxInstances 30</p>
+<h1 id="Set-the-user-and-group-under-which-the-server-will-run"><a href="#Set-the-user-and-group-under-which-the-server-will-run" class="headerlink" title="Set the user and group under which the server will run."></a>Set the user and group under which the server will run.</h1><p> User nobody<br> Group nobody</p>
+<h1 id="Normally-we-want-files-to-be-overwriteable"><a href="#Normally-we-want-files-to-be-overwriteable" class="headerlink" title="Normally, we want files to be overwriteable."></a>Normally, we want files to be overwriteable.</h1><p> &lt;Directory /&gt;<br> AllowOverwrite on<br> &lt;/Directory&gt;</p>
+<h1 id="A-basic-anonymous-configuration-no-upload-directories"><a href="#A-basic-anonymous-configuration-no-upload-directories" class="headerlink" title="A basic anonymous configuration, no upload directories."></a>A basic anonymous configuration, no upload directories.</h1><h1 id="匿名登录设置。匿名用户目录为-ftp"><a href="#匿名登录设置。匿名用户目录为-ftp" class="headerlink" title="匿名登录设置。匿名用户目录为/ftp"></a>匿名登录设置。匿名用户目录为/ftp</h1><p> &lt;Anonymous /ftp&gt;<br> User ftp<br> Group ftp</p>
+<h1 id="We-want-clients-to-be-able-to-login-with-“anonymous”-as-well-as-“ftp”"><a href="#We-want-clients-to-be-able-to-login-with-“anonymous”-as-well-as-“ftp”" class="headerlink" title="We want clients to be able to login with “anonymous” as well as “ftp”"></a>We want clients to be able to login with “anonymous” as well as “ftp”</h1><h1 id="UserAlias-anonymous-ftp-nbsp-nbsp-停了它"><a href="#UserAlias-anonymous-ftp-nbsp-nbsp-停了它" class="headerlink" title="UserAlias anonymous ftp&nbsp; &nbsp; 停了它"></a>UserAlias anonymous ftp&nbsp; &nbsp; 停了它</h1><h1 id="Limit-the-maximum-number-of-anonymous-logins"><a href="#Limit-the-maximum-number-of-anonymous-logins" class="headerlink" title="Limit the maximum number of anonymous logins"></a>Limit the maximum number of anonymous logins</h1><p> MaxClients 10</p>
+<h1 id="We-want-‘welcome-msg’-displayed-at-login-and-‘-message’-displayed"><a href="#We-want-‘welcome-msg’-displayed-at-login-and-‘-message’-displayed" class="headerlink" title="We want ‘welcome.msg’ displayed at login, and ‘.message’ displayed"></a>We want ‘welcome.msg’ displayed at login, and ‘.message’ displayed</h1><h1 id="in-each-newly-chdired-directory"><a href="#in-each-newly-chdired-directory" class="headerlink" title="in each newly chdired directory."></a>in each newly chdired directory.</h1><p> DisplayLogin welcome.msg<br> DisplayFirstChdir .message</p>
+<h1 id="Limit-WRITE-everywhere-in-the-anonymous-chroot"><a href="#Limit-WRITE-everywhere-in-the-anonymous-chroot" class="headerlink" title="Limit WRITE everywhere in the anonymous chroot"></a>Limit WRITE everywhere in the anonymous chroot</h1><p> #&lt;Limit WRITE&gt;</p>
+<h1 id="DenyAll"><a href="#DenyAll" class="headerlink" title="DenyAll"></a>DenyAll</h1><p> #&lt;/Limit&gt;<br>&lt;/Anonymous&gt;<br>以上是PROFTPD.conf</p>
+<p>下面加入sql和quota</p>
+<h1 id="数据库联接的信息，proftpdb是数据库名，localhost是主机名，proftpd是连接数据库的用户名，"><a href="#数据库联接的信息，proftpdb是数据库名，localhost是主机名，proftpd是连接数据库的用户名，" class="headerlink" title="数据库联接的信息，proftpdb是数据库名，localhost是主机名，proftpd是连接数据库的用户名，"></a>数据库联接的信息，proftpdb是数据库名，localhost是主机名，proftpd是连接数据库的用户名，</h1><p>#proftpdb是密码</p>
+<p>#（如果没有密码留空）<br>SQLConnectInfo proftpdb@localhost proftp proftpdb&nbsp;&nbsp;</p>
+<h1 id="数据库认证的类型"><a href="#数据库认证的类型" class="headerlink" title="数据库认证的类型"></a>数据库认证的类型</h1><p>SQLAuthTypes Backend Plaintext</p>
+<h1 id="数据库的鉴别"><a href="#数据库的鉴别" class="headerlink" title="数据库的鉴别"></a>数据库的鉴别</h1><p>SQLAuthenticate users<em> groups</em></p>
+<h1 id="指定用来做用户认证的表的有关信息。"><a href="#指定用来做用户认证的表的有关信息。" class="headerlink" title="指定用来做用户认证的表的有关信息。"></a>指定用来做用户认证的表的有关信息。</h1><p>SQLUserInfo ftpuser userid passwd uid gid homedir shell<br>SQLGroupInfo ftpgroup groupname gid members</p>
+<h1 id="如果home目录不存在，则系统会根据它的home项新建一个目录"><a href="#如果home目录不存在，则系统会根据它的home项新建一个目录" class="headerlink" title="如果home目录不存在，则系统会根据它的home项新建一个目录"></a>如果home目录不存在，则系统会根据它的home项新建一个目录</h1><p> SQLHomedirOnDemand on<br>这是目录所有者，我觉得这个很重要。所以我用nobody来做，在此我的nobody为99.<br>SQLDefaultGID&nbsp; &nbsp; &nbsp; &nbsp; 99<br>SQLDefaultUID&nbsp; &nbsp; &nbsp; &nbsp; 99</p>
+<p>SQLLog PASS updatecount<br>SQLNamedQuery updatecount UPDATE “count=count+1,accessed=now() WHERE userid=’%u’” ftpuser</p>
+<h1 id="Update-modified-everytime-user-uploads-or-deletes-a-file"><a href="#Update-modified-everytime-user-uploads-or-deletes-a-file" class="headerlink" title="Update modified everytime user uploads or deletes a file"></a>Update modified everytime user uploads or deletes a file</h1><p>SQLLog STOR,DELE modified<br>SQLNamedQuery modified UPDATE “modified=now() WHERE userid=’%u’” ftpuser</p>
+<h1 id="启用磁盘限额"><a href="#启用磁盘限额" class="headerlink" title="启用磁盘限额"></a>启用磁盘限额</h1><p> QuotaDirectoryTally on</p>
+<h1 id="磁盘限额单位-b”-”Kb”-”Mb”-”Gb”"><a href="#磁盘限额单位-b”-”Kb”-”Mb”-”Gb”" class="headerlink" title="磁盘限额单位 b”|”Kb”|”Mb”|”Gb”"></a>磁盘限额单位 b”|”Kb”|”Mb”|”Gb”</h1><p>QuotaDisplayUnits “Kb”<br>QuotaEngine on</p>
+<h1 id="磁盘限额日志记录"><a href="#磁盘限额日志记录" class="headerlink" title="磁盘限额日志记录"></a>磁盘限额日志记录</h1><p> QuotaLog “/var/log/quota.log”</p>
+<h1 id="打开磁盘限额信息，当登陆FTP帐户后，使用命令-“quote-SITE-QUOTA”-后可显示当前用-户的磁盘限额"><a href="#打开磁盘限额信息，当登陆FTP帐户后，使用命令-“quote-SITE-QUOTA”-后可显示当前用-户的磁盘限额" class="headerlink" title="打开磁盘限额信息，当登陆FTP帐户后，使用命令 “quote SITE QUOTA” 后可显示当前用#户的磁盘限额"></a>打开磁盘限额信息，当登陆FTP帐户后，使用命令 “quote SITE QUOTA” 后可显示当前用#户的磁盘限额</h1><p>QuotaShowQuotas on<br>以下为sql语句：<br>SQLNamedQuery get-quota-limit SELECT “name, quota_type, per_session, limit_type, bytes_in_avail,bytes_out_ava<br>il, bytes_xfer_avail, files_in_avail, files_out_avail, files_xfer_avail FROM ftpquotalimits WHERE name = ‘%{0<br>}’AND quota_type = ‘%{1}’”</p>
+<p>SQLNamedQuery get-quota-tally SELECT “name, quota_type, bytes_in_used, bytes_out_used, bytes_xfer_used, files<br>_in_used, files_out_used, files_xfer_used FROM ftpquotatallies WHERE name = ‘%{0}’ AND quota_type = ‘%{1}’”<br>SQLNamedQuery update-quota-tally UPDATE “bytes_in_used = bytes_in_used + %{0}, bytes_out_used = bytes_out_used + %{1}, bytes_xfer_used = bytes_xfer_used + %{2}, files_in_used = files_in_used + %{3}, files_out_used = files_out_used + %{4}, files_xfer_used = files_xfer_used + %{5} WHERE name = ‘%{6}’ AND quota_type = ‘%{7}’” ftpquotatallies</p>
+<p>SQLNamedQuery insert-quota-tally INSERT “%{0}, %{1}, %{2}, %{3}, %{4}, %{5}, %{6}, %{7}” ftpquotatallies</p>
+<p>QuotaLimitTable sql:/get-quota-limit<br>QuotaTallyTable sql:/get-quota-tally/update-quota-tally/insert-quota-tally</p>
+<p>下面可以用phpmyadmin在mysql里加入，我的sql为以下<br>CREATE TABLE <code>ftpgroup</code> (<br> <code>groupname</code> varchar(16) NOT NULL default ‘’,<br> <code>gid</code> smallint(6) NOT NULL default ‘99’,<br> <code>members</code> varchar(16) NOT NULL default ‘’,<br> KEY <code>groupname</code> (<code>groupname</code>)<br> ) TYPE=MyISAM COMMENT=’ProFTP group table’;</p>
+<p>INSERT INTO <code>ftpgroup</code> VALUES (‘nobody’, 99, ‘nobody’);</p>
+<p>CREATE TABLE <code>ftpquotalimits</code> (<br> <code>name</code> varchar(30) default NULL,<br> <code>quota_type</code> enum(‘user’,’group’,’class’,’all’) NOT NULL default ‘user’,<br> <code>per_session</code> enum(‘false’,’true’) NOT NULL default ‘false’,<br> <code>limit_type</code> enum(‘soft’,’hard’) NOT NULL default ‘soft’,<br> <code>bytes_in_avail</code> float NOT NULL default ‘0’,<br> <code>bytes_out_avail</code> float NOT NULL default ‘0’,<br> <code>bytes_xfer_avail</code> float NOT NULL default ‘0’,<br> <code>files_in_avail</code> int(10) unsigned NOT NULL default ‘0’,<br> <code>files_out_avail</code> int(10) unsigned NOT NULL default ‘0’,<br> <code>files_xfer_avail</code> int(10) unsigned NOT NULL default ‘0’<br> ) TYPE=MyISAM;</p>
+<p>CREATE TABLE <code>ftpquotatallies</code> (<br> <code>name</code> varchar(30) NOT NULL default ‘’,<br> <code>quota_type</code> enum(‘user’,’group’,’class’,’all’) NOT NULL default ‘user’,<br> <code>bytes_in_used</code> float NOT NULL default ‘0’,<br> <code>bytes_out_used</code> float NOT NULL default ‘0’,<br> <code>bytes_xfer_used</code> float NOT NULL default ‘0’,<br> <code>files_in_used</code> int(10) unsigned NOT NULL default ‘0’,<br> <code>files_out_used</code> int(10) unsigned NOT NULL default ‘0’,<br> <code>files_xfer_used</code> int(10) unsigned NOT NULL default ‘0’<br> ) TYPE=MyISAM;</p>
+<p>CREATE TABLE <code>ftpuser</code> (<br> <code>id</code> int(10) unsigned NOT NULL auto_increment,<br> <code>userid</code> varchar(32) NOT NULL default ‘’,<br> <code>passwd</code> varchar(32) NOT NULL default ‘’,<br> <code>uid</code> smallint(6) NOT NULL default ‘99’,<br> <code>gid</code> smallint(6) NOT NULL default ‘99’,<br> <code>homedir</code> varchar(255) NOT NULL default ‘’,<br> <code>shell</code> varchar(16) NOT NULL default ‘/sbin/nologin’,<br> <code>count</code> int(11) NOT NULL default ‘0’,<br> <code>accessed</code> datetime NOT NULL default ‘0000-00-00 00:00:00’,<br> <code>modified</code> datetime NOT NULL default ‘0000-00-00 00:00:00’,<br> PRIMARY KEY (<code>id</code>)<br> ) TYPE=MyISAM COMMENT=’ProFTP user table’ ；启动proftpd<br>/usr/local/proftpd/sbin/proftpd start<br>在数据数中的ftpuser中加入用户，密码他路径就可以了。<br>以上只是一个流水笔记   <div class="flockcredit" style="text-align: right; color: #CCC; font-size: x-small;">Blogged with the <a href="http://www.flock.com/blogged-with-flock" title="Flock Browser" target="_blank" rel="external">Flock Browser</a></div></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Proftpd/" rel="tag"># Proftpd</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/03/13/bitdefenderV10最新注册码/" rel="next" title="bitdefenderV10最新注册码">
+                <i class="fa fa-chevron-left"></i> bitdefenderV10最新注册码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/03/14/proftpd+mysql用户认证+quota磁盘限额/" rel="prev" title="proftpd+mysql用户认证+quota磁盘限额">
+                proftpd+mysql用户认证+quota磁盘限额 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#proftpd-mysql-安装流水笔记"><span class="nav-number">1.</span> <span class="nav-text">proftpd + mysql 安装流水笔记</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户登陆时不显示ftp服务器版本信息"><span class="nav-number"></span> <span class="nav-text">用户登陆时不显示ftp服务器版本信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Port-21-is-the-standard-FTP-port"><span class="nav-number"></span> <span class="nav-text">Port 21 is the standard FTP port.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Umask-022-is-a-good-standard-umask-to-prevent-new-dirs-and-files"><span class="nav-number"></span> <span class="nav-text">Umask 022 is a good standard umask to prevent new dirs and files</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#from-being-group-and-world-writable"><span class="nav-number"></span> <span class="nav-text">from being group and world writable.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置每台主机最多并发连接数"><span class="nav-number"></span> <span class="nav-text">设置每台主机最多并发连接数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置如果shell为空时允许用户登录"><span class="nav-number"></span> <span class="nav-text">设置如果shell为空时允许用户登录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将用户限制在自己的主目录下"><span class="nav-number"></span> <span class="nav-text">将用户限制在自己的主目录下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#To-prevent-DoS-attacks-set-the-maximum-number-of-child-processes"><span class="nav-number"></span> <span class="nav-text">To prevent DoS attacks, set the maximum number of child processes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#to-30-If-you-need-to-allow-more-than-30-concurrent-connections"><span class="nav-number"></span> <span class="nav-text">to 30. If you need to allow more than 30 concurrent connections</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#at-once-simply-increase-this-value-Note-that-this-ONLY-works"><span class="nav-number"></span> <span class="nav-text">at once, simply increase this value. Note that this ONLY works</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#in-standalone-mode-in-inetd-mode-you-should-use-an-inetd-server"><span class="nav-number"></span> <span class="nav-text">in standalone mode, in inetd mode you should use an inetd server</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#that-allows-you-to-limit-maximum-number-of-processes-per-service"><span class="nav-number"></span> <span class="nav-text">that allows you to limit maximum number of processes per service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#such-as-xinetd"><span class="nav-number"></span> <span class="nav-text">(such as xinetd).</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Set-the-user-and-group-under-which-the-server-will-run"><span class="nav-number"></span> <span class="nav-text">Set the user and group under which the server will run.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Normally-we-want-files-to-be-overwriteable"><span class="nav-number"></span> <span class="nav-text">Normally, we want files to be overwriteable.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A-basic-anonymous-configuration-no-upload-directories"><span class="nav-number"></span> <span class="nav-text">A basic anonymous configuration, no upload directories.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#匿名登录设置。匿名用户目录为-ftp"><span class="nav-number"></span> <span class="nav-text">匿名登录设置。匿名用户目录为/ftp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#We-want-clients-to-be-able-to-login-with-“anonymous”-as-well-as-“ftp”"><span class="nav-number"></span> <span class="nav-text">We want clients to be able to login with “anonymous” as well as “ftp”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UserAlias-anonymous-ftp-nbsp-nbsp-停了它"><span class="nav-number"></span> <span class="nav-text">UserAlias anonymous ftp    停了它</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Limit-the-maximum-number-of-anonymous-logins"><span class="nav-number"></span> <span class="nav-text">Limit the maximum number of anonymous logins</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#We-want-‘welcome-msg’-displayed-at-login-and-‘-message’-displayed"><span class="nav-number"></span> <span class="nav-text">We want ‘welcome.msg’ displayed at login, and ‘.message’ displayed</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#in-each-newly-chdired-directory"><span class="nav-number"></span> <span class="nav-text">in each newly chdired directory.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Limit-WRITE-everywhere-in-the-anonymous-chroot"><span class="nav-number"></span> <span class="nav-text">Limit WRITE everywhere in the anonymous chroot</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DenyAll"><span class="nav-number"></span> <span class="nav-text">DenyAll</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库联接的信息，proftpdb是数据库名，localhost是主机名，proftpd是连接数据库的用户名，"><span class="nav-number"></span> <span class="nav-text">数据库联接的信息，proftpdb是数据库名，localhost是主机名，proftpd是连接数据库的用户名，</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库认证的类型"><span class="nav-number"></span> <span class="nav-text">数据库认证的类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库的鉴别"><span class="nav-number"></span> <span class="nav-text">数据库的鉴别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#指定用来做用户认证的表的有关信息。"><span class="nav-number"></span> <span class="nav-text">指定用来做用户认证的表的有关信息。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如果home目录不存在，则系统会根据它的home项新建一个目录"><span class="nav-number"></span> <span class="nav-text">如果home目录不存在，则系统会根据它的home项新建一个目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Update-modified-everytime-user-uploads-or-deletes-a-file"><span class="nav-number"></span> <span class="nav-text">Update modified everytime user uploads or deletes a file</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启用磁盘限额"><span class="nav-number"></span> <span class="nav-text">启用磁盘限额</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#磁盘限额单位-b”-”Kb”-”Mb”-”Gb”"><span class="nav-number"></span> <span class="nav-text">磁盘限额单位 b”|”Kb”|”Mb”|”Gb”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#磁盘限额日志记录"><span class="nav-number"></span> <span class="nav-text">磁盘限额日志记录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打开磁盘限额信息，当登陆FTP帐户后，使用命令-“quote-SITE-QUOTA”-后可显示当前用-户的磁盘限额"><span class="nav-number"></span> <span class="nav-text">打开磁盘限额信息，当登陆FTP帐户后，使用命令 “quote SITE QUOTA” 后可显示当前用#户的磁盘限额</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,720 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Firefox,Google,WordPress,Font,PHP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Wordpress默认的编辑器是TinyMCE，是一个轻量级的基于Javascript的WYSIWYG编辑器。但是用惯了高级的RTE后，用TinyMCE感觉还是不爽，而且它的html编辑模式还会将换行自动转换成&amp;lt;br /&amp;gt;，这点几乎不可忍受（不知道能不能disable掉）。最终还是决定用chenpress了。chenpress是一个基于FCKeditor的 wordpress插件，FC">
+<meta name="keywords" content="Firefox,Google,WordPress,Font,PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用chenpress代替wordpress默认编辑器">
+<meta property="og:url" content="http://yoursite.com/2008/03/24/使用chenpress代替wordpress默认编辑器/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="Wordpress默认的编辑器是TinyMCE，是一个轻量级的基于Javascript的WYSIWYG编辑器。但是用惯了高级的RTE后，用TinyMCE感觉还是不爽，而且它的html编辑模式还会将换行自动转换成&amp;lt;br /&amp;gt;，这点几乎不可忍受（不知道能不能disable掉）。最终还是决定用chenpress了。chenpress是一个基于FCKeditor的 wordpress插件，FC">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用chenpress代替wordpress默认编辑器">
+<meta name="twitter:description" content="Wordpress默认的编辑器是TinyMCE，是一个轻量级的基于Javascript的WYSIWYG编辑器。但是用惯了高级的RTE后，用TinyMCE感觉还是不爽，而且它的html编辑模式还会将换行自动转换成&amp;lt;br /&amp;gt;，这点几乎不可忍受（不知道能不能disable掉）。最终还是决定用chenpress了。chenpress是一个基于FCKeditor的 wordpress插件，FC">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/03/24/使用chenpress代替wordpress默认编辑器/"/>
+
+
+
+
+
+  <title> 使用chenpress代替wordpress默认编辑器 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/24/使用chenpress代替wordpress默认编辑器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用chenpress代替wordpress默认编辑器
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-03-24T09:20:13+08:00">
+                2008-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index">
+                    <span itemprop="name">Other</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Wordpress默认的编辑器是<a href="http://tinymce.moxiecode.com/" title="TinyMCE" target="_blank" rel="external">TinyMCE</a>，是一个轻量级的基于Javascript的WYSIWYG编辑器。但是用惯了高级的RTE后，用TinyMCE感觉还是不爽，而且它的html编辑模式还会将换行自动转换成&lt;br /&gt;，这点几乎不可忍受（不知道能不能disable掉）。最终还是决定用<a href="http://groups-beta.google.com/group/ChenPress" title="chenpress" target="_blank" rel="external">chenpress</a>了。chenpress是一个基于<a href="http://www.fckeditor.net/" title="FCKeditor" target="_blank" rel="external">FCKeditor</a>的 wordpress插件，FCKeditor可是大名鼎鼎啊。我找了好久，都没有找到一个理想的下载连接，通过google找到了这里：<a href="http://www.pixelficker.com/chenpress-wysiwyg-for-wordpress/，速度比较慢。为了方便，决定在自己这里host一份。" target="_blank" rel="external">http://www.pixelficker.com/chenpress-wysiwyg-for-wordpress/，速度比较慢。为了方便，决定在自己这里host一份。</a></p>
+<p>另外，因为最新的chenpress是3.1.1版本，内置的是FCKeditor2.1.1，对于firefox的支持还不是很完善，我又将内置的FCKeditor升级到最新的FCKeditor2.3.2。应该已经完全支持firefox了。</p>
+<p>安装和升级chenpress的步骤如下:</p>
+<p>1. 下载chenpress（下载连接见下）。（从哪里下都可以~但是我只用3.1.1的版本测试过~） </p>
+<p>2. 将chenpress解压到wordpress的plugin目录中（一般是：wp-contentplugins）。将生成一个chenpress目录。 </p>
+<p>3. 在wordpress的plugin设置页将chenpress plugin激活（activate）。 </p>
+<p>4. 在users设置页，将Use the visual rich editor when writing勾掉（否则TinyMCE还会出来）。到这步，chenpress已经安装成功了，可以使用了。接下来，升级FCKeditor。 </p>
+<p>5. 下载<a href="http://www.fckeditor.net/download" title="donwload FCKeditor" target="_blank" rel="external">FCKeditor2.3.2</a>。 </p>
+<p><span id="more-157"></span></p>
+<p>6. 解压缩FCKeditor2.3.2.zip，覆盖chenpressFCKeditor目录下所有文件。 </p>
+<p>7. 修改chenpressFCKeditorfckconfig.js文件，加入这样一段代码： </p>
+<div class="code-div"><code>FCKConfig.ToolbarSets[&amp;quot;WordPressTool&amp;quot;] = [
+[&amp;rsquo;Source&amp;rsquo;,&#39;-&amp;rsquo;,&#39;NewPage&amp;rsquo;,&#39;Templates&amp;rsquo;,&#39;Preview&amp;rsquo;,&#39;Print&amp;rsquo;],
+[&amp;rsquo;Cut&amp;rsquo;,&#39;Copy&amp;rsquo;,&#39;Paste&amp;rsquo;,&#39;PasteText&amp;rsquo;,&#39;PasteWord&amp;rsquo;],
+[&amp;rsquo;Undo&amp;rsquo;,&#39;Redo&amp;rsquo;,&#39;-&amp;rsquo;,&#39;Find&amp;rsquo;,&#39;Replace&amp;rsquo;,&#39;SpellCheck&amp;rsquo;],
+[&amp;rsquo;Form&amp;rsquo;,&#39;Checkbox&amp;rsquo;,&#39;Radio&amp;rsquo;,&#39;TextField&amp;rsquo;,&#39;Textarea&amp;rsquo;,&#39;Select&amp;rsquo;,&#39;Button&amp;rsquo;,&#39;ImageButton&amp;rsquo;,&#39;HiddenField&amp;rsquo;],
+[&amp;rsquo;Link&amp;rsquo;,&#39;Unlink&amp;rsquo;,&#39;Anchor&amp;rsquo;],
+[&amp;rsquo;Image&amp;rsquo;,&#39;Flash&amp;rsquo;,&#39;Table&amp;rsquo;,&#39;Rule&amp;rsquo;,&#39;Smiley&amp;rsquo;,&#39;SpecialChar&amp;rsquo;,&#39;PageBreak&amp;rsquo;,&#39;UniversalKey&amp;rsquo;],
+[&amp;rsquo;OrderedList&amp;rsquo;,&#39;UnorderedList&amp;rsquo;,&#39;Outdent&amp;rsquo;,&#39;Indent&amp;rsquo;,&#39;JustifyLeft&amp;rsquo;,&#39;JustifyCenter&amp;rsquo;,&#39;JustifyRight&amp;rsquo;,&#39;JustifyFull&amp;rsquo;],
+[&amp;rsquo;Bold&amp;rsquo;,&#39;Italic&amp;rsquo;,&#39;Underline&amp;rsquo;,&#39;StrikeThrough&amp;rsquo;,&#39;Subscript&amp;rsquo;,&#39;Superscript&amp;rsquo;,&#39;RemoveFormat&amp;rsquo;],
+&amp;lsquo;/&amp;rsquo;,
+[&amp;rsquo;Style&amp;rsquo;,&#39;FontFormat&amp;rsquo;,&#39;FontName&amp;rsquo;,&#39;FontSize&amp;rsquo;],
+[&amp;rsquo;TextColor&amp;rsquo;,&#39;BGColor&amp;rsquo;],
+[&amp;rsquo;About&amp;rsquo;] ] ;</code></div>
+
+<p>8. 在chenpress.php中，找到window.onload这个javascript的function，加入这段代码： </p>
+<div class="code-div"><code>if (!document.getElementById(&#39;content&#39;)) { return; }</code></div>
+
+<p>9. Goal! </p>
+<p>下载连接:</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Firefox/" rel="tag"># Firefox</a>
+          
+            <a href="/tags/Google/" rel="tag"># Google</a>
+          
+            <a href="/tags/WordPress/" rel="tag"># WordPress</a>
+          
+            <a href="/tags/Font/" rel="tag"># Font</a>
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/03/24/Best_of_Vim_Tips_中文版/" rel="next" title="Best of Vim Tips 中文版">
+                <i class="fa fa-chevron-left"></i> Best of Vim Tips 中文版
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/03/24/linux命令行下载工具/" rel="prev" title="linux命令行下载工具">
+                linux命令行下载工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

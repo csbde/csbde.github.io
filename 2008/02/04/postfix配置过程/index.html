@@ -1,0 +1,766 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Postfix," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="`一、配置postfix1、建立配置文件 #postconf -n &amp;gt; /etc/postfix/main2.cf #mv /etc/postfix/main.cf /etc/postfix/main.cf.old #mv /etc/postfix/main2.cf /etc/postfix/main.cf2、再编辑main.cf：#vim /etc/postfix/main.cf添加以下">
+<meta name="keywords" content="Postfix">
+<meta property="og:type" content="article">
+<meta property="og:title" content="postfix配置过程">
+<meta property="og:url" content="http://yoursite.com/2008/02/04/postfix配置过程/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="`一、配置postfix1、建立配置文件 #postconf -n &amp;gt; /etc/postfix/main2.cf #mv /etc/postfix/main.cf /etc/postfix/main.cf.old #mv /etc/postfix/main2.cf /etc/postfix/main.cf2、再编辑main.cf：#vim /etc/postfix/main.cf添加以下">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="postfix配置过程">
+<meta name="twitter:description" content="`一、配置postfix1、建立配置文件 #postconf -n &amp;gt; /etc/postfix/main2.cf #mv /etc/postfix/main.cf /etc/postfix/main.cf.old #mv /etc/postfix/main2.cf /etc/postfix/main.cf2、再编辑main.cf：#vim /etc/postfix/main.cf添加以下">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/02/04/postfix配置过程/"/>
+
+
+
+
+
+  <title> postfix配置过程 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/02/04/postfix配置过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                postfix配置过程
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-02-04T18:01:13+08:00">
+                2008-02-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/mail-server/" itemprop="url" rel="index">
+                    <span itemprop="name">mail server</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>`<br>一、配置postfix<br>1、建立配置文件</p>
+<p>#postconf -n &gt; /etc/postfix/main2.cf</p>
+<p>#mv /etc/postfix/main.cf /etc/postfix/main.cf.old</p>
+<p>#mv /etc/postfix/main2.cf /etc/postfix/main.cf2、再编辑main.cf：#vim /etc/postfix/main.cf添加以下内容</p>
+<p>########################################</p>
+<h1 id="hostname"><a href="#hostname" class="headerlink" title="hostname"></a>hostname</h1><p>#mynetworks = 127.0.0.1<br>myhostname = mail.kkio.com<br>mydestination = $mynetworks $myhostname# banner<br>mail_name = Postfix - by KKIO.COM<br>smtpd_banner = $myhostname ESMTP $mail_name# response immediately<br>smtpd_error_sleep_time = 0s<br>unknown_local_recipient_reject_code = 450# extmail config here<br>virtual_alias_maps = mysql:/etc/postfix/mysql_virtual_alias_maps.cf<br>virtual_mailbox_domains = mysql:/etc/postfix/mysql_virtual_domains_maps.cf<br>virtual_mailbox_maps = mysql:/etc/postfix/mysql_virtual_mailbox_maps.cf<br>virtual_transport = maildrop:</p>
+<p>######################################################`</p>
+<p>3、编辑mysql_virtual_alias_maps.cf</p>
+<p>#vim /etc/postfix/mysql_virtual_alias_maps.cf</p>
+<p>添加以下内容</p>
+<p>###########################<br>user = extmail<br>password = extmail<br>hosts = localhost<br>dbname = extmail<br>table = alias<br>select_field = goto<br>where_field = address</p>
+<p>#############################</p>
+<p>4、编辑mysql_virtual_domains_maps.cf</p>
+<p>#vim /etc/postfix/mysql_virtual_domains_maps.cf</p>
+<p>内容如下：</p>
+<p>user = extmail<br>password = extmail<br>hosts = localhost<br>dbname = extmail<br>table = domain<br>select_field = description<br>where_field = domain</p>
+<p>#additional_conditions = and backupmx =’0’ and active =’1’</p>
+<p>5、编辑mysql_virtual_mailbox_maps.cf</p>
+<p>#vim /etc/postfix/mysql_virtual_mailbox_maps.cf</p>
+<p>内容如下：</p>
+<p>user = extmail<br>password = extmail<br>hosts = localhost<br>dbname = extmail<br>table = mailbox<br>select_field = maildir<br>where_field = username</p>
+<p>#additional_conditions = and active = ‘1’</p>
+<p>二、配置Courier-Authlib<br>安装Courier-Authlib</p>
+<p>1、运行如下命令安装相关软件包</p>
+<p>#rpm -ivh RPMS/libtool-libs-1.5.6-4.EL4.1.c4.3.i386.rpm<br>//返回错误信息<br>//warning: RPMS/libtool-libs-1.5.6-4.EL4.1.c4.3.i386.rpm: Header V3 DSA signature: NOKEY, key ID 443e1821<br>//Preparing… ########################################### [100%]<br>// file /usr/lib/libltdl.so.3 from install of libtool-libs-1.5.6-4.EL4.1.c4.3 conflicts with file from package libtool-ltdl-1.5.22-6.1</p>
+<p>#rpm -ivh RPMS/courier-authlib-0.57-1hzq.i386.rpm</p>
+<p>#rpm -ivh RPMS/courier-authlib-devel-0.57-1hzq.i386.rpm</p>
+<p>#rpm -ivh RPMS/courier-authlib-mysql-0.57-1hzq.i386.rpm</p>
+<p>2、编辑/etc/authlib/authmysqlrc文件，并将其内容清空，然后增加如下内容：</p>
+<p>MYSQL_SERVER localhost<br>MYSQL_USERNAME extmail<br>MYSQL_PASSWORD extmail<br>MYSQL_SOCKET /var/lib/mysql/mysql.sock<br>MYSQL_PORT 3306<br>MYSQL_OPT 0<br>MYSQL_DATABASE extmail<br>MYSQL_USER_TABLE mailbox<br>MYSQL_CRYPT_PWFIELD password<br>MYSQL_UID_FIELD uidnumber<br>MYSQL_GID_FIELD gidnumber<br>MYSQL_LOGIN_FIELD username<br>MYSQL_HOME_FIELD homedir<br>MYSQL_NAME_FIELD name<br>MYSQL_MAILDIR_FIELD maildir<br>MYSQL_QUOTA_FIELD quota<br>MYSQL_SELECT_CLAUSE SELECT username,password,””,uidnumber,gidnumber,\<br>CONCAT(‘/home/domains/‘,homedir), \<br>CONCAT(‘/home/domains/‘,maildir), \<br>quota, \<br>name \<br>FROM mailbox \<br>WHERE username = ‘$(local_part)@$(domain)’</p>
+<p>3、存盘退出后启动courier-authlib：</p>
+<p>#/etc/init.d/courier-authlib start</p>
+<p>如一切正常，命令行将返回如下信息：<br>Starting Courier authentication services: authdaemond</p>
+<p>4、修改authdaemon socket目录权限</p>
+<p>如果该目录权限不正确修改，maildrop及postfix等将无法正确获取用户的信息及密码认证：<br>chmod 755 /var/spool/authdaemon/</p>
+<p>5、配置使用maildrop</p>
+<p>编辑main.cf，增加：<br>virtual_transport = maildrop:<br>maildrop_destination_recipient_limit = 1</p>
+<p>其次编辑master.cf，找到定义maildrop的那行，原来默认的内容：<br>maildrop unix - n n - - pipe<br>flags=DRhu user=vmail argv=/usr/local/bin/maildrop -d ${recipient}</p>
+<p>改为：<br>maildrop unix - n n - - pipe<br>flags=DRhu user=vuser argv=maildrop -w 90 -d ${recipient}</p>
+<p>增加投递用户</p>
+<p>很多邮件系统文档都使用postfix这个用户（一般是uid=125）作为邮件存储，在使用<br>系统的virtual等投递时不存在问题，如果是改为maildrop则postfix会报错。不允许<br>通过pipe来以user=postfix来投递。</p>
+<p>因此从长远角度考虑（参见1），专门开一个帐户来保存邮件比较好。这里：</p>
+<p>groupadd -r -g 1000 vgroup<br>useradd -u 1000 -d /home/domains -s /bin/true -g vgroup vuser</p>
+<p>这样就增加了一个uid=1000, gid=1000的用户vuser，组属于vgroup的。</p>
+<p>以后如果要使用suexec也不会因为uid太低而造成问题了！</p>
+<p>保存好所有修改，重新启动postfix</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Postfix/" rel="tag"># Postfix</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/02/04/关于suexec的FAQ/" rel="next" title="关于suexec的FAQ">
+                <i class="fa fa-chevron-left"></i> 关于suexec的FAQ
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/02/05/extmail安装错误小结/" rel="prev" title="extmail安装错误小结">
+                extmail安装错误小结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#hostname"><span class="nav-number">1.</span> <span class="nav-text">hostname</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

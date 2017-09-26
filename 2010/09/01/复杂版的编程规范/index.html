@@ -1,0 +1,683 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="都是网上找的，但很不错，所以就借用了 第一部分 命名1、包（Package）包的名字应该能够说明包的用途，通常应是名词或名词短语。包的名字应该全部由小写字母构成，例如“container”；如果包的用途必须由两个或多个单 词才能描述清楚，可以直接将这些单词连接作为包名，例如“webcontainer”；如果连接后的包名太长，可以使用单词的缩写（缩写必须不会引起歧 义）或取每个单词的首字母，例如“w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="复杂版的编程规范">
+<meta property="og:url" content="http://yoursite.com/2010/09/01/复杂版的编程规范/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="都是网上找的，但很不错，所以就借用了 第一部分 命名1、包（Package）包的名字应该能够说明包的用途，通常应是名词或名词短语。包的名字应该全部由小写字母构成，例如“container”；如果包的用途必须由两个或多个单 词才能描述清楚，可以直接将这些单词连接作为包名，例如“webcontainer”；如果连接后的包名太长，可以使用单词的缩写（缩写必须不会引起歧 义）或取每个单词的首字母，例如“w">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="复杂版的编程规范">
+<meta name="twitter:description" content="都是网上找的，但很不错，所以就借用了 第一部分 命名1、包（Package）包的名字应该能够说明包的用途，通常应是名词或名词短语。包的名字应该全部由小写字母构成，例如“container”；如果包的用途必须由两个或多个单 词才能描述清楚，可以直接将这些单词连接作为包名，例如“webcontainer”；如果连接后的包名太长，可以使用单词的缩写（缩写必须不会引起歧 义）或取每个单词的首字母，例如“w">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2010/09/01/复杂版的编程规范/"/>
+
+
+
+
+
+  <title> 复杂版的编程规范 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/01/复杂版的编程规范/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                复杂版的编程规范
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2010-09-01T11:41:16+08:00">
+                2010-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Uncategorized/" itemprop="url" rel="index">
+                    <span itemprop="name">Uncategorized</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>都是网上找的，但很不错，所以就借用了</p>
+<p>第一部分 命名<br>1、包（Package）<br>包的名字应该能够说明包的用途，通常应是名词或名词短语。包的名字应该全部由小写字母构成，例如“container”；如果包的用途必须由两个或多个单 词才能描述清楚，可以直接将这些单词连接作为包名，例如“webcontainer”；如果连接后的包名太长，可以使用单词的缩写（缩写必须不会引起歧 义）或取每个单词的首字母，例如“websvr”或“ws”。<br>2、类（Class）<br>类的名字应该能够说明类的用途，通常应是名词或名词短语。类的名字由若干单词连接而成，每个单词的首字母应大写，其他字母小写。例如“Server”、 “WebServer”。如果某个词是一个缩写形式，则这个词应全部大写，例如“HTTPServer”、“URLBuilder”。<br>3、字段（field）<br>字段的名字应该能够说明该字段的用途，通常取名词或名词短语，也可能是形容词。字段的名字由若干单词连接构成，第一个单词应全部小写，其余单词的首字母大写，例如“color”、“backgroundColor”或“enabled”。<br>4、静态终态字段（static final field）<br>静态终态字段的名字应该能够说明该字段的用途，通常取名词或名词短语，也可能是限定性的形容词或副词。静态终态字段的名字如果只有一个单词，则该单词应全 部大写，例如“NAME”、“HORIZONTAL”；静态终态字段如果由若干单词描述，则其名字应由这些单词以下划线（_）连接构成，每个单词均大写， 例如“USER_NAME”、“SCROLLBARS_NEVER”。<br>5、局部变量（local variable）<br>对于作用域较大（变量的有效范围超过5行代码）的局部变量，其命名应遵循上述“字段”的命名规则；对于作用域较小（变量的有效范围不超过5行代码）的局部 变量，在不至于引起混淆并且不会降低代码可读性的前提下，可以取简单的名字，例如，可以使用“i”作为小循环的循环变量名。<br>6、参数（parameter）<br>参数是指方法参数列表中的形参。参数的命名应遵循上述“字段”的命名规则。如果参数的意义与类中字段的意义相同，应尽可能使二者名字相同，例如：<br>public void setSize(int size) {<br>this.size = size<br>}<br>7、方法（method）<br>所有的方法（构造函数除外）名都应能说明方法的用途，通常取动词或动词短语，也可能是名词或名词短语。方法名由若干单词连接而成，第一个单词应全部小写， 其余单词的首字母大写。例如“connect”、“paintBorder”、“hashCode”。对于以名词或名词短语命名的方法，建议改成动词或动 词短语形式，例如，尽量不要使用“color”这样的方法名，而是使用“getColor”。如果方法是用动词或动词短语来描述的，并且该方法是用来做判 断或比较，返回一个boolean型的返回值，那么方法名中的动词应取单数第三人称形式，例如“equals”、“hasNext”。<br>8、集合（Collection）<br>对于集合或数组类型的变量，其名称应尽量取复数形式，相应的存取方法中也应使用复数形式，例如：<br>List children;<br>Collection getAttributes();<br>另外，除了特殊情况所有命名最好不要使用中英文混合。<br>第二部分 代码风格<br>1、文件注释<br>每个Java源程序文件的开头都应加入该文件的javadoc注释，包含文件的作者、用途、时间、版本等信息，例如：<br>/**</p>
+<ul>
+<li>Name: SomeClass.java</li>
+<li>Created: 2006-10-15</li>
+<li>Author: SomeBody<br>*/<br>2、包和导入声明<br>文件注释之后，应留一个空行，在空行后加入包声明；包声明之后加入一个空行，空行后加入导入声明。例如：<br>package com.somecompany.somesystem;</li>
+</ul>
+<p>import java.util.Collection;<br>import javax.swing.JFrame;<br>import com.somecompany.othersystem.<em>;<br>导入的书写次序不会影响程序的执行，但是为了提高源代码的可读性，建议将“java”开头的类首先导入，其次导入“javax”开头的类，然后倒入第三方工具包中的类，例如“org.apache.xml.</em>”，最后导入自己开发的其他类。<br>如果要导入同一包中的若干个类，在数目不超过5个的情况下，应分若干行分别导入这些类；如果数目超过5个，则应用“*”代替，只写一行导入。<br>3、换行和缩进<br>源代码中一行的长度不要超过80个字符。超出则应拆分或适当换行。<br>代码的缩进量应为4个字符，可以使用4个空格代替，也可以使用宽度为4个字符的制表符代替。为了使源代码在不同的环境下缩进量不会失真，建议不要使用制表符，而是使用空格进行缩进。<br>4、代码块<br>代码块是指用“{”和“}”包围的一段代码。代码块用于类的定义、方法的定义、循环的定义、条件分支的定义等情况。代码块中的“{”应置于上一行代码的行 末，并且与之前的代码之间用一个空格分隔；代码块中的内容则应在换行并缩进之后书写；代码块最后的“}”应单独占一行，并与代码块开始的“{”所处的行缩 进位置相同。例如：<br>for (…..) {<br>doSomeThing();<br>}<br>5、类和接口<br>每个类和接口的声明之前应加入类的javadoc注释。<br>类或接口的声明（包括“class”、“interface”、“extends”、“implements”等关键字）应尽量在一行中完成，如果超出一行需要换行，则应在“extends”或“implements”等关键字之前换行，换行后应缩进。<br>类或接口的定义应符合上述“代码块”的规则。<br>6、字段<br>每个public的字段声明之前必须加入javadoc注释；其他字段可以不要javadoc注释。<br>每个字段的声明应单独占一行，不建议用一行定义多个字段。例如，应写成：<br>int firstField;<br>int secondField;<br>int thirdField;<br>而不要写成：<br>int firstField, secondField, thirdField;<br>7、方法<br>方法的声明之前应加入javadoc注释。<br>对于方法的声明部分，方法名与其之后的“(”之间不应有空格分隔；“(”或“)”与参数列表中的形参声明之间不应有空格分隔；每个形参声明与其之后的“,”之间也不应有空格分隔；参数列表中的“，”与下一个形参声明之间应用一个空格分隔。<br>方法的定义部分则应遵循上述“代码块”的规则。<br>例如：<br>public void someMethod(int param1, int param2, int param3) {<br>……<br>}<br>方法调用时，方法名与其后的“(”之间不应有空格；实参列表的规则与方法声明时的形参列表规则类似，例如：<br>callSomeMethod(value1, value2, value3);<br>8、判断、循环、异常处理语句<br>判断、循环、异常处理语句是指if（else）、switch、for、while（do）、try（catch）等语句。<br>这些语句中会用到括号（“()”），与方法参数列表中的括号不同，这些语句中的括号是跟随在某个Java关键字之后的。关键字与其之后的“(”之间应由一 个空个分隔；“(”  或“)”与其中的内容之间不应有空格分隔；对于for语句而言，括号中的每个分号（“;”）前面不应有空格，后面则应有一个空格。例如：<br>if (a &gt; b)<br>for (int i = 0; i &lt; 10; i ++)<br>catch (Exception e)<br>这些语句后面如果跟简单语句，必须换行并缩进，例如：<br>if (a &gt; b)<br>doSomeThing();<br>否则，后面跟随的内容应符合“代码块”的规则，例如：<br>while (a &gt; b) {<br>a –;<br>b ++;<br>}<br>try（catch）语句的例子如下：<br>try {<br>doSomeThing();<br>}<br>catch (Exception e) {<br>handleException(e);<br>}<br>9、运算符<br>每个运算符与操作数之间都应有空格分隔，例如：<br>b = true<br>a &gt; b &amp;&amp; a &lt; c<br>不能写成：<br>b=true<br>a&gt;b&amp;&amp;a<br>10、数组<br>数组的定义应写成：<br>int[] indices;<br>而不要写成：<br>int indices[];<br>11、字体<br>编辑Java源代码的文本编辑器字体应该设定为等宽字体，例如“Curier”，不应使用非等宽字体，例如“Times New Roman”，因为使用非等宽字体不利于控制代码的缩进与对齐。<br>第三部分 程序编写<br>1、exit方法<br>System.exit()方法应该只在main方法中被调用，而不出现在程序的其他任何地方。最好的做法是在main方法中也不调用System.exit()方法，因为main方法结束，主线程自动退出。<br>2、异常处理<br>如果代码执行的过程中，捕获了一个异常，绝对不能简单地将这个异常“吃”掉或是打印一些类似于“1111111”的信息，而是应该谨慎对待——因为异常包含了程序执行过程中的原始错误信息，良好的异常处理策略可以为后期的调试、维护等工作带来极大的便利。<br>从功能的角度来看，代码中捕获的异常通常分为两种情况：可以预见的和不可预见的。不可预见的异常是指在代码编写期间没有考虑到或无法考虑到的异常情况，例 如进行数据库访问时连接突然中断。可以预见的异常是指代码编写期间就可以考虑到的“合理”异常，例如将字符串解析为数字时引发的 NumberFormatException。<br>异常的处理应该以方法为单位，也就是说，某个方法内部捕获到一个异常时，应该由该方法决定如何处理此异常。<br>对于可以预见的异常，可以采取两种处理策略：处理异常或抛出异常。处理异常是指该异常在当前方法的处理能力之内，该方法可以自行处理此异常。例如，用户输 入某个字符串后，要求程序自行解析，如果为数字，则视为用户的身份号码；如果不为数字，则视为用户的姓名。假定解析用户输入字符串的方法名为 parseInput，那么在parseInput方法执行的过程中，可能会引发NumberFormatException。这个异常对于 parseInput而言是可以预见的，并且是它可以自行处理的，那么它应该自己捕获此异常，而不必将其另行抛出。<br>假如在上面的例子中，用户姓名的合法性本身还有一套校验规则，那么在parseInput方法中处理了NumberFormatException之后， 执行用户姓名校验时还有可能引发异常。这个异常虽然也是可以预见的，但是已经超出了parseInput方法的职责范围，它应该将此异常继续抛出。抛出的 异常会被更外围的方法捕获，由它们最终决定如何处理该异常，例如提示用户或中止程序。<br>对于不可预见的异常，只有一种策略可以采用：继续抛出。<br>对于每个方法而言，处理异常的原则就是：在自己职责范围之内的异常，一定要自己处理，而不能抛出；在自己职责范围之外的异常，则一定要抛出，绝对不能自行处理（例如把它“吃掉”）。<br>应该选择“处理异常”还是“抛出异常”并没有严格的标准，往往要依靠经验并从实际的需求出发。但是通常而言，选择“处理异常”策略的方法都属于程序“较外 围”（即在调用堆栈中处于比较底层）的业务控制方法，因为只有它们知道业务需求，只有它们才能决定发生某个异常时应该通知用户、记入日志还是中止程序。对 于大多数工具方法或通用方法而言，它们并不了解实际的业务需求，在异常发生时，它们最好的选择就是“抛出异常”策略——将异常原封不动地抛给外围的业务控 制方法，由它们作出决定。<br>3、状态判断<br>在可能的情况下，应该尽量使用异常而不是返回值来表示某个方法的执行状态。某个方法可以在任何需要的时候抛出异常，而不仅仅是在发生错误的时候。例如，一个校验用户身份的方法如下：<br>boolean authenticate(String user, String password);<br>使用该方法校验用户身份只能返回“true”或“false”，表示用户校验通过与否，对于校验不通过的情况，该方法无法返回更多的信息。如果将该方法设计成如下的样子：<br>void authenticate(String user, String password) throws Exception;<br>调用该方法时，如果没有引发异常，表示用户校验通过；如果发生异常，则表示校验未通过。根据抛出的异常，还可以进一步得到校验未通过的原因，并且可以将异常的详细信息反馈给用户或记入日志。这样的设计不但可以带来更好的用户体验，而且极大地方便了以后程序的调试和维护。<br>一个异常包含的信息远远比一个简单的返回值丰富的多。<br>4、垃圾回收<br>不要迷信垃圾回收。<br>由于finalize方法的调用不是可靠的，并且调用的时间是不可预知的，因此不要依赖垃圾回收机制使用finalize方法来做清理工作。<br>例如，如果使用了java.sql.Connection对象，即使不调用它的close方法，系统也会在垃圾回收时清理它所使用的资源。但是这种方法并 不可取，尤其是对频繁使用数据库连接的程序而言——因为很有可能在系统执行垃圾回收之前，已经堆积了大量无用的Connection对象，占用了大量的系 统资源，影响系统的执行效率。最好的方法还是在一个Connection对象使用完毕后马上调用它的close方法显式释放资源。<br>除此之外，除非你编写的是非常基础的服务程序，否则不要轻易调用System.gc()或Runtime.gc()方法，因为垃圾回收的过程本身会占用系统资源，垃圾回收的过程调用不当的话，非但不会提高系统效率，反倒会影响系统的运行。<br>5、终态类（final class）<br>不要为了提高系统的性能而设计任何终态类（当然，有特殊需求的情况除外）。很可能在未来的某个时候被设计为终态的类需要被派生。<br>6、工具类<br>工具类用来提供一组通用的公共方法。<br>工具类应该设计成为拥有一组静态的工具方法，因而不需要实例化就可以使用；<br>工具类可以有一组静态终态（static final）字段表示通用常量，但是不应有任何非静态字段；<br>工具类应该声明一个私有的缺省构造函数，以防止被继承或被实例化。<br>7、System.out和System.err<br>不要滥用System.out和System.err。<br>在编写程序、单元测试和后期调试的时候，很多人喜欢直接或间接地使用System.out和System.err打印调试信息 （Throwable.printStackTrace也间接使用了System.err）。当程序最终发布的时候，如果忘了删除这些调试信息，会造成很 多“垃圾”输出，严重的时候，这些“垃圾”输出会导致日志文件迅速挤满硬盘。<br>建议使用java.util.logging或其他一些第三方的工具包来打印调试信息，而不要直接使用System.out或System.err。当 然，也可以自行编写一个简单的Debug工具类实现调试信息的输出。这样，当程序发布时，只需要进行简单的修改或配置，就可以除去所有的调试信息。<br>8、静态方法<br>静态方法一定要静态调用，而不要使用实例。例如，要挂起当前线程，应该调用“Thread.sleep(1000);”而不是“Thread.currentThread().sleep(1000);”。<br>9、StringBuffer<br>在对字符串进行较多的拼接、拆分工作时，应尽量使用StringBuffer对象，而不是直接对String对象操作。<br>10、代码复用<br>千万不要使用过多的“复制、粘贴”实现代码的复用。如果一段代码被复制、粘贴了超过3次，就应该考虑将这段代码重新封装到一个方法中。如果出现第4个地方需要使用这段代码，并且需要对代码作稍许改动，则应该考虑将刚才封装的方法进行改造而不是重新定义一个方法。<br>不要认为使用复制、粘贴会比重新封装一个方法节省时间。因为在将来项目进行到某一阶段的时候，这段代码可能被复制了200份，并且改动了300处，这个时 候如果这段代码的逻辑发生变化——哪怕是微小的变化，无论是重新找到并修改这200处地方，还是回头重新将他们封装为一个方法，工作量都将是惊人的。</p>
+<!-- this is included by main table or right table!!!--> <!--whole table is included-->
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2010/09/01/简单编程规范/" rel="next" title="简单编程规范">
+                <i class="fa fa-chevron-left"></i> 简单编程规范
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2010/09/11/端口列表及功能详解/" rel="prev" title="端口列表及功能详解">
+                端口列表及功能详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

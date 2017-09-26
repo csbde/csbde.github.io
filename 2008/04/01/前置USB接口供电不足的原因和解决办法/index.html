@@ -1,0 +1,692 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="USB," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="以下文章是我以前看过的一个文章，我是根据这个帖子自己动手修改了前置USB口的供电，希望大家能都自己动手解决这个问题！ 现在计算机主板上都提供了几个USB接口，P3的主板上有两个后置的USB接口，另外还提供了两个扩展的USB接口，P4主板上提供的USB接口有的比 P3主板还要多。一般来说，主板上不会少于两个扩展的USB接口。我们可以将主板上的扩展USB接口连接到机箱前面板上，使其成为前置的USB接口">
+<meta name="keywords" content="USB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前置USB接口供电不足的原因和解决办法">
+<meta property="og:url" content="http://yoursite.com/2008/04/01/前置USB接口供电不足的原因和解决办法/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="以下文章是我以前看过的一个文章，我是根据这个帖子自己动手修改了前置USB口的供电，希望大家能都自己动手解决这个问题！ 现在计算机主板上都提供了几个USB接口，P3的主板上有两个后置的USB接口，另外还提供了两个扩展的USB接口，P4主板上提供的USB接口有的比 P3主板还要多。一般来说，主板上不会少于两个扩展的USB接口。我们可以将主板上的扩展USB接口连接到机箱前面板上，使其成为前置的USB接口">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前置USB接口供电不足的原因和解决办法">
+<meta name="twitter:description" content="以下文章是我以前看过的一个文章，我是根据这个帖子自己动手修改了前置USB口的供电，希望大家能都自己动手解决这个问题！ 现在计算机主板上都提供了几个USB接口，P3的主板上有两个后置的USB接口，另外还提供了两个扩展的USB接口，P4主板上提供的USB接口有的比 P3主板还要多。一般来说，主板上不会少于两个扩展的USB接口。我们可以将主板上的扩展USB接口连接到机箱前面板上，使其成为前置的USB接口">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/04/01/前置USB接口供电不足的原因和解决办法/"/>
+
+
+
+
+
+  <title> 前置USB接口供电不足的原因和解决办法 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/04/01/前置USB接口供电不足的原因和解决办法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                前置USB接口供电不足的原因和解决办法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-04-01T14:04:50+08:00">
+                2008-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HardWare/" itemprop="url" rel="index">
+                    <span itemprop="name">HardWare</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>以下文章是我以前看过的一个文章，我是根据这个帖子自己动手修改了前置USB口的供电，希望大家能都自己动手解决这个问题！</p>
+<pre><code>现在计算机主板上都提供了几个USB接口，P3的主板上有两个后置的USB接口，另外还提供了两个扩展的USB接口，P4主板上提供的USB接口有的比 P3主板还要多。一般来说，主板上不会少于两个扩展的USB接口。我们可以将主板上的扩展USB接口连接到机箱前面板上，使其成为前置的USB接口，这样使用起来就方便多了。
+
+在使用中，人们经常发现，当使用小功率USB设备，如闪存盘，前后USB接口没有太大的区别，可是当你在前置的USB的接口上使用功率稍大的设备时，比如 USB外接硬盘，就会发现找不到设备或设备不能正常运行。如果你把USB硬盘接到后置的USB接口上，就能够正常使用了，这是为什么呢？ USB接口有四个触点，分别是电源+5V、数据－、数据+、电源地，USB设备与计算机通过“数据+”和“数据－”通道进行数据传输，“+5V”、“电源地”具有为外部设备供电的能力。根据目前通行的USB1.1规范，USB接口可以提供5V±5%的电压为外部设备供电，每个端口最大输出电流为&lt;!--more--&gt;500mA，因此其输出功率不能超过 2.25W，超过了这个功率的外部设备就需要配备外置电源。另外，USB规范对外设电源电路的某些相关参数亦有具体规定，例如，为了防止外设接入USB口时的浪涌电流造成主机电源的“毛刺”，外设在接通瞬间从主机抽取的电量不得超过50mA，其电源输入端的旁路电容器容量应在10μF以下。又如，外设电源刚接通时，主机将外设一律作为低功耗装置看待，此时USB口的输出电流上限仅为100mA；须待外设向主机发出请求并经主机确认外设为高功耗装置之后，输出电流上限才会提升至其最大值500mA。再如，USB规范允许外设处于“待机”状态并支持“远程唤醒”功能，不过此时外设的静态电流必须小于 0.5mA(低功耗装置)或2.5mA(高功耗装置)。当USB外设功率较大时，主板的USB接口不能提供足够的功率，特别是前置的USB接口，其实际上的供电功率小于后置的USB接口。
+
+解决USB接口供电不足有多种办法，有的USB外设多提供了一个PS/2插头或USB插头连线，用双插头取电，如移动硬盘，以增加供给外设的电源功率。如果功率还嫌小，最好的办法是使用外接的USB外设电源。这种外接的USB外设电源，就是在符合USB规范的前提下，根据不同外部设备的要求设计出来的。还有一种另类的办法，就是直接取用计算机机箱电源的办法。这种办法需要自己动手，因此需要有点电子、电气方面的知识和动手焊接的能力，适合DIY一族。这种方法既不需要使用另外一个插头去连接PS/2口或USB口，也不需要外接USB电源，一般情况下，足可以应付诸如移动硬盘、USB打印机、扫描仪及其它使用USB接口供电的数码设备的需要。
+
+  1.直接使用机箱电源给USB设备供电的可行性标准的ATX电源盒可以输出+12V、－12V、+5V、－5V、+3.3V、+5VSB几组电压，从电路结构上看，是采用“共地”的接法，把“电路地” 作为参考点。也就是说，凡是输出的正电压组，都把电路中的“地”作为负极，凡是输出负电压组，都把电路中的“地”作为正极。不管是正电压组还是负电压组，都是以电路中的“地”作为参考电位，所以叫“共地”。既然供电电源是“共地”接法，那么主板上电路的设计也应该是按照“共地”的接法设计的，否则电路就不能正常运行。那么连接在主板上的设备当然也要按照“共地”的接法来连接了。这一点对直接引用主机电源盒中的电源供USB接口使用是很重要的。我们可以按照 “共地”的接法将主机电源盒中的+5V主电源的地线与前置USB接口的“电源地”线相连，电源盒的+5V主电源的正端可直接连接到前置的USB接口上，而把主板上USB扩展插针的+5V电源端断开，就可以正常使用USB设备了。
+
+2.一种改造电路为了解决前置USB接口的供电功率问题，不少DIY高手们都在发挥自己的智慧，进行有限的改造。如前所述，有使用双USB接口以增加供电功率的，有使用一个USB接口加上一个PS/2（鼠标或键盘口）增加USB供电功率的，当然也有人想到了使用主机电源盒电源来提高USB接口的电源功率的。这个电路是把机箱电源直接并联在前置USB接口的正负电源线上来增加前置USB接口的电源功率。为了避免机箱电源对主板电路电源产生不正常的影响，在通往主板的正电源线的中间串了一个二极管，将主机箱的电源与主板电源电路进行隔离。这个想法是很好的，二极管使用得很巧妙，如果不是出现了下面的情况，确实是一个很好的方案。笔者曾根据这个电路进行了试验，几乎已经成功了。我说“几乎”成功了，是因为我改造后曾使用过，当时是正常的。但当我再次启动电脑时，电脑却不能启动了。我打开机箱，看到主板上的指示灯在亮，有电，可就是启动不了。我用万用表测量了USB的接线，在没有启动计算机时，电源盒的+5V主电源应该是没有电压的，但现在却有接近5V的电压，此电压是哪来的？断开电源盒的+5V电源，测量电源盒的+5V主电源无电压，再测量主板上USB连线上却有+5V电压。看来主板待机时USB扩展头上有+5V待机电压，该电压通过串联的二极管传到了主电源的+5V线路上，然后又传到了硬盘、光驱、软驱等设备上，至于是哪个设备有了+5V电源，是功率不足，还是其它什么原因造成主机不能启动，我不得而知。但当我断开了主板上的USB扩展插针+5V电源后，再将电源盒上的+5V 主电源连接到前置USB接口上，主机就能正常启动了。
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/USB/" rel="tag"># USB</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/04/01/Linux_用户（user）和用户组（group）管理概述/" rel="next" title="Linux 用户（user）和用户组（group）管理概述">
+                <i class="fa fa-chevron-left"></i> Linux 用户（user）和用户组（group）管理概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/04/01/'Fedora_（Redhat,_RHEL,CENTOS）中使用sudo'/" rel="prev" title="Fedora （Redhat, RHEL,CENTOS）中使用sudo">
+                Fedora （Redhat, RHEL,CENTOS）中使用sudo <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
