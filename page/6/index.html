@@ -261,6 +261,148 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/11/PHP_Curl_多线程实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2010/09/11/PHP_Curl_多线程实现/" itemprop="url">
+                  PHP Curl 多线程实现
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2010-09-11T11:59:49+08:00">
+                2010-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Uncategorized/" itemprop="url" rel="index">
+                    <span itemprop="name">Uncategorized</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <div>$urls = array(“<a href="http://baidu.com" target="_blank" rel="external">http://baidu.com</a>“, “<a href="http://21andy.com" target="_blank" rel="external">http://21andy.com</a>“, “<a href="http://google.com" target="_blank" rel="external">http://google.com</a>“);<br>$mp = new MultiHttpRequest($urls);<br>$mp-&gt;start();</div><br><div>class_curl_multi.php<br>&lt;?php<br>/<em>
+</em> Curl 多线程类<br><em> 使用方法：
+</em> ========================<br>$urls = array(“<a href="http://baidu.com" target="_blank" rel="external">http://baidu.com</a>“, “<a href="http://dzone.com" target="_blank" rel="external">http://dzone.com</a>“, “<a href="http://google.com" target="_blank" rel="external">http://google.com</a>“);<br>$mp = new MultiHttpRequest($urls);<br>$mp-&gt;start();<br><em> ===============<a name="\&quot;entrymore\&quot;"></a>=========
+</em>/<br>class MultiHttpRequest {<br>public $urls = array();<br>public $curlopt_header = 1;<br>public $method = “GET”;<br><br>function __construct($urls = false) {<br>$this-&gt;urls = $urls;<br>}<br><br>function set_urls($urls) {<br>$this-&gt;urls = $urls;<br>return $this;<br>}<br><br>function is_return_header($b) {<br>$this-&gt;curlopt_header = $b;<br>return $this;<br>}<br><br>function set_method($m) {<br>$this-&gt;medthod = strtoupper($m);<br>return $this;<br>}<br><br>function start() {<br>if(!is_array($this-&gt;urls) or count($this-&gt;urls) == 0){<br>return false;<br>}<br>$curl = $text = array();<br>$handle = curl_multi_init();<br>foreach($this-&gt;urls as $k=&gt;$v){<br>$curl[$k] = $this-&gt;add_handle($handle, $v);<br>}<br><br>$this-&gt;exec_handle($handle);<br>foreach($this-&gt;urls as $k=&gt;$v){<br>curl_multi_getcontent($curl[$k]);<br>echo $curl[$k].”\n”;<br>//$text[$k] =  curl_multi_getcontent($curl[$k]);<br>//echo $text[$k], “\n\n”;<br>curl_multi_remove_handle($handle, $curl[$k]);<br>}<br>curl_multi_close($handle);<br>}<br><br>private function add_handle($handle, $url) {<br>$curl = curl_init();<br>curl_setopt($curl, CURLOPT_URL, $url);<br>curl_setopt($curl, CURLOPT_HEADER, $this-&gt;curlopt_header);<br>curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);<br>curl_multi_add_handle($handle, $curl);<br>return $curl;<br>}<br><br>private function exec_handle($handle) {<br>$flag = null;<br>do {<br>curl_multi_exec($handle, $flag);<br>} while ($flag &gt; 0);<br>}<br>}</div>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/11/在Linux下查看、修改Windows分区的卷标/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1573,150 +1715,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/08/02/'[转]实用jquery插件'/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="九王爷">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九王爷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2010/08/02/'[转]实用jquery插件'/" itemprop="url">
-                  [转]实用jquery插件
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2010-08-02T13:16:59+08:00">
-                2010-08-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Site/" itemprop="url" rel="index">
-                    <span itemprop="name">Site</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Query 是继 prototype 之后又一个优秀的 Javascript 框架。其宗旨是—写更少的代码,做更多的事情。它是轻量级的 js 库(压缩后只有21k) ，这是其它的 js 库所不<a href="http://www.cnblogs.com/images/cnblogs_com/Terrylee/WindowsLiveWriter/240jQuery_128F5/jquery_2.gif" target="_blank" rel="external"><img src="http://www.cnblogs.com/images/cnblogs_com/Terrylee/WindowsLiveWriter/240jQuery_128F5/jquery_thumb.gif" alt=""></a>及的，它兼容 CSS3， 还兼容各种浏览器（IE 6.0+, FF 1.5+, Safari 2.0+, Opera 9.0+）。 jQuery 是一个快速的，简洁的  javaScript 库，使用户能更方便地处理 HTML documents、events、实现动画效果，并且方便地为网站提供 AJAX 交互。 jQuery 还有一个比较大的优势是，它的文档说明很全，而且各种应用也说得很详细，同时还有许多成熟的插件可供选择。 jQuery 能够使用户的 html 页保持代码和 html 内容分离，也就是说，不用再在 html 里面插入一堆js来调用命令了，只需定义 id 即可。特推荐如下。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2010/08/02/'[转]实用jquery插件'/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1766,7 +1764,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">267</span>
+                <span class="site-state-item-count">268</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1784,7 +1782,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
