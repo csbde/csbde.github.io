@@ -2843,161 +2843,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/e5-a6-82-e4-bd-95-e5-9c-a8linux-e4-b8-8b-e8-b0-83-e6-95-b4-e7-bd-91-e5-8d-a1-e7-9a-84-e5-b7-a5-e4-bd-9c-e6-a8-a1-e5-bc-8f/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="九王爷">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九王爷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2006/11/23/e5-a6-82-e4-bd-95-e5-9c-a8linux-e4-b8-8b-e8-b0-83-e6-95-b4-e7-bd-91-e5-8d-a1-e7-9a-84-e5-b7-a5-e4-bd-9c-e6-a8-a1-e5-bc-8f/" itemprop="url">
-                  如何在Linux下调整网卡的工作模式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2006-11-23T06:45:00+08:00">
-                2006-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1. 查看网卡的工作模式，输入命令：</p>
-<p>#mii-tool -v</p>
-<p>eth0: negotiated 100baseTx-FD,link ok</p>
-<p>product info:Vendor 00:05:be,model 8 rev 0</p>
-<p>basic status: autonegotiation complete,link ok</p>
-<p>basic mode:autonegotiation enabled.</p>
-<p>Capabilities: …………..</p>
-<p>从以上信息中可以看出，这块网卡工作在100M全双工自适应模式下，“100BaseTx-FD”意为100M Full Duplex。</p>
-<p>2. 更改网卡的工作模式，输入命令：</p>
-<p>#mii-tool -F media [interface]</p>
-<p>media可选的模式有100baseTx-FD、100baseTx-HD、10baseT-FD、10baseT-HD等。 Interface代表所选择的网卡，如eth0、eth1等，默认为eth0。</p>
-<p>例如，设置网卡工作在10M半双工模式下，输入命令：</p>
-<p>#mii-tool -F 10baseT-HD eth0</p>
-<p>3. 恢复网卡的自适应工作模式，输入命令：</p>
-<p>#mii-tool -r eth0</p>
-<p>更详细的使用方法可以用mii-tool -h来获得。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/nmap-e4-bd-bf-e7-94-a8-e6-89-8b-e5-86-8c/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3127,6 +2972,161 @@
 <p>nmap -sX -p 22,53,110,143,4564 128.210.*.1-127<br>对B类IP地址128.210中255个可能的8位子网的前半部分发起圣诞树扫描。确定这些系统是否打开了sshd、DNS、pop3d、imapd和4564端口。注意圣诞树扫描对Micro$oft的系统无效，因为其协议栈的TCP层有缺陷。</p>
 <p>nmap -v –randomize_hosts -p 80 <em>.</em>.2.3-5<br>只 扫描指定的IP范围，有时用于对这个Internet进行取样分析。nmap将寻找Internet上所有后两个字节是.2.3、.2.4、.2.5的 IP地址上的WEB服务器。如果你想发现更多有意思的主机，你可以使用127-222，因为在这个范围内有意思的主机密度更大。</p>
 <p>host -l company.com | cut -d -f 4 | ./nmap -v -iL -<br>列出company.com网络的所有主机，让nmap进行扫描。注意：这项命令在GNU/Linux下使用。如果在其它平台，你可能要使用 其它的命令/选项。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/e5-a6-82-e4-bd-95-e5-9c-a8linux-e4-b8-8b-e8-b0-83-e6-95-b4-e7-bd-91-e5-8d-a1-e7-9a-84-e5-b7-a5-e4-bd-9c-e6-a8-a1-e5-bc-8f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2006/11/23/e5-a6-82-e4-bd-95-e5-9c-a8linux-e4-b8-8b-e8-b0-83-e6-95-b4-e7-bd-91-e5-8d-a1-e7-9a-84-e5-b7-a5-e4-bd-9c-e6-a8-a1-e5-bc-8f/" itemprop="url">
+                  如何在Linux下调整网卡的工作模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2006-11-23T06:45:00+08:00">
+                2006-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1. 查看网卡的工作模式，输入命令：</p>
+<p>#mii-tool -v</p>
+<p>eth0: negotiated 100baseTx-FD,link ok</p>
+<p>product info:Vendor 00:05:be,model 8 rev 0</p>
+<p>basic status: autonegotiation complete,link ok</p>
+<p>basic mode:autonegotiation enabled.</p>
+<p>Capabilities: …………..</p>
+<p>从以上信息中可以看出，这块网卡工作在100M全双工自适应模式下，“100BaseTx-FD”意为100M Full Duplex。</p>
+<p>2. 更改网卡的工作模式，输入命令：</p>
+<p>#mii-tool -F media [interface]</p>
+<p>media可选的模式有100baseTx-FD、100baseTx-HD、10baseT-FD、10baseT-HD等。 Interface代表所选择的网卡，如eth0、eth1等，默认为eth0。</p>
+<p>例如，设置网卡工作在10M半双工模式下，输入命令：</p>
+<p>#mii-tool -F 10baseT-HD eth0</p>
+<p>3. 恢复网卡的自适应工作模式，输入命令：</p>
+<p>#mii-tool -r eth0</p>
+<p>更详细的使用方法可以用mii-tool -h来获得。</p>
 
           
         
