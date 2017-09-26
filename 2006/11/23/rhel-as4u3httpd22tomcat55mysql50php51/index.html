@@ -1,0 +1,952 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="&amp;lt;![CDATA[一、 所用软件及版本1、 操作系统：RHEL as4u32、 Apache：httpd-2.2.2.tar.gzapr-util-1.2.7.tar.gzapr-1.2.7.tar.gz3、 Tomcat：apache-tomcat-5.5.15.tar.gz4、 Mysql：mysql-5.0.22.tar.gz5、 Jdk：jdk-1_5_0_07-linux-i586">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RHEL AS4U3+httpd2.2+tomcat5.5+mysql5.0+php5.1">
+<meta property="og:url" content="http://yoursite.com/2006/11/23/rhel-as4u3httpd22tomcat55mysql50php51/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="&amp;lt;![CDATA[一、 所用软件及版本1、 操作系统：RHEL as4u32、 Apache：httpd-2.2.2.tar.gzapr-util-1.2.7.tar.gzapr-1.2.7.tar.gz3、 Tomcat：apache-tomcat-5.5.15.tar.gz4、 Mysql：mysql-5.0.22.tar.gz5、 Jdk：jdk-1_5_0_07-linux-i586">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RHEL AS4U3+httpd2.2+tomcat5.5+mysql5.0+php5.1">
+<meta name="twitter:description" content="&amp;lt;![CDATA[一、 所用软件及版本1、 操作系统：RHEL as4u32、 Apache：httpd-2.2.2.tar.gzapr-util-1.2.7.tar.gzapr-1.2.7.tar.gz3、 Tomcat：apache-tomcat-5.5.15.tar.gz4、 Mysql：mysql-5.0.22.tar.gz5、 Jdk：jdk-1_5_0_07-linux-i586">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2006/11/23/rhel-as4u3httpd22tomcat55mysql50php51/"/>
+
+
+
+
+
+  <title> RHEL AS4U3+httpd2.2+tomcat5.5+mysql5.0+php5.1 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/23/rhel-as4u3httpd22tomcat55mysql50php51/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                RHEL AS4U3+httpd2.2+tomcat5.5+mysql5.0+php5.1
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2006-11-23T00:50:00+08:00">
+                2006-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&lt;![CDATA[一、 所用软件及版本<br>1、 操作系统：RHEL as4u3<br>2、 Apache：httpd-2.2.2.tar.gz<br>apr-util-1.2.7.tar.gz<br>apr-1.2.7.tar.gz<br>3、 Tomcat：apache-tomcat-5.5.15.tar.gz<br>4、 Mysql：mysql-5.0.22.tar.gz<br>5、 Jdk：jdk-1_5_0_07-linux-i586.bin<br>6、 Apache和Tomcat连接：tomcat-connectors-1.2.18-src.tar.gz<br>7、 Php: php-5.1.4.tar.gz<br>二、 安装步骤：<br>1、 安装操作系统：这里就不介绍了，主要将相关的开发包装上。我将所有开发包都安装了。<br>2、 Apache安装：将以上所需要的所有软件上传到/usr/local下。<br>先解压：<pre>tar xvfz httpd-2.2.2.tar.gz</pre></p>
+<p> cd httpd-2.2.2<br>首先可以看看里面的安装说明INSTALL和README。<br>在安装apache之前先安装apr-util-1.2.7.tar.gz和apr-1.2.7.tar.gz<br>首先安装apr。</p>
+<pre>tar xvfz apr-1.2.7.tar.gz
+
+cd apr-1.2.7
+
+./configure --prefix=/usr/local/apr-httpd
+
+make
+
+make install
+
+cd ..</pre>
+再安装apr-util-1.2.7.tar.gz
+<pre>tar xvfz apr-util-1.2.7.tar.gz
+
+cd apr-util-1.2.7
+
+./configure --prefix=/usr/local/apr-util-httpd --with-apr=/usr/local/apr-httpd
+
+make
+
+make install</pre>
+3、 接下来继续安装apache
+<pre>cd ../httpd-2.2.2
+
+./configure --prefix=/usr/local/apache --enable-mods-shared=all --enable-module=most --with-apr=/usr/local/apr-httpd --with-apr-util=/usr/local/apr-util-httpd --enable-so
+
+make
+
+make install</pre>
+如果没有报错，apache基本安装完毕。
+4、 安装JDK
+回到local目录下：
+<pre>cd ..
+
+./jdk-1_5_0_07-linux-i586.bin
+
+ln –s jdk1.5.0_07 jdk</pre>
+设置JDK环境变量
+<pre>vi /etc/profile</pre>
+再文件尾部增加以下几句：
+<pre>JAVA_HOME=/usr/local/jdk
+
+JRE=$JAVA_HOME/jre
+
+LC_ALL=zh_CN.GBK
+
+PATH=$JAVA_HOME/bin:$JRE/bin:$PATH
+
+CLASSPATH=.:$JAVA_HOME/bin/tools.jar:$JAVA_HOME/lib/dt.jar
+
+export JAVA_HOME JRE LC_ALL CLASSPATH PATH </pre>
+
+<p>5、 安装MYSQL</p>
+<pre>tar xvfz mysql-5.0.22.tar.gz
+
+cd mysql-5.0.22
+
+./configure --prefix=/usr/local/mysql/ --with-unix-socket-path=/usr/local/mysql/tmp/mysql.sock --with-client-ldflags=-all-static --with-mysqld-ldflags=-all-static --enable-assembler
+
+make
+
+make install
+
+groupadd mysql
+
+useradd -g mysql mysql
+
+cp support-files/my-medium.cnf /etc/my.cnf
+
+cd /usr/local/mysql
+
+bin/mysql_install_db --user=mysql
+
+chown -R root  .
+
+chown -R mysql var
+
+chgrp -R mysql .
+
+bin/mysqld_safe --user=mysql &amp;
+
+mysqladmin –uroot password new-password</pre>
+6、 安装php
+<pre>tar xvfz php-5.1.4.tar.gz
+
+cd php-5.1.4
+
+./configure --prefix=/usr/local/php --with-mysql=/usr/local/mysql --with-apxs2=/usr/local/apache/bin/apxs
+
+make &amp;&amp; make install
+
+cp php.ini-dist /usr/local/lib/php.ini</pre>
+7、 安装tomcat
+<pre>tar xvfz apache-tomcat-5.5.15.tar.gz
+
+mv apache-tomcat-5.5.15 tomcat</pre>
+8、 安装Apache和Tomcat连接
+<pre>tar zxvf tomcat-connectors-1.2.18-src.tar.gz
+
+cd tomcat-connectors-1.2.18-src/ native/
+
+./configure --with-apxs=/usr/local/apache/bin/apxs
+
+make &amp;&amp; make install</pre>
+三、 配置httpd.conf
+<pre>cd /usr/local/conf/
+
+vi httpd.conf</pre>
+1、 注释掉一下几行
+<pre>#ServerAdmin you@example.com
+
+#ServerName www.example.com:80
+
+#DocumentRoot "/usr/local/apache/htdocs"</pre>
+2、 修改里面相关内容
+A、<pre>
+
+    Options FollowSymLinks
+
+#    AllowOverride None
+
+     AllowOverride all
+
+     Order deny,allow
+
+#    Deny from all
+
+     Allow from all
+
+</pre>
+B、<pre>#
+
+    #
+
+    # Possible values for the Options directive are "None", "All",
+
+    # or any combination of:
+
+    #   Indexes Includes FollowSymLinks SymLinksifOwnerMatch ExecCGI MultiViews
+
+    #
+
+    # Note that "MultiViews" must be named *explicitly* --- "Options All"
+
+    # doesn't give it to you.
+
+    #
+
+    # The Options directive is both complicated and important.  Please see
+
+    # http://httpd.apache.org/docs/2.2/mod/core.html#options
+
+    # for more information.
+
+    #
+
+#    Options Indexes FollowSymLinks
+
+    #
+
+    # AllowOverride controls what directives may be placed in .htaccess files.
+
+    # It can be "All", "None", or any combination of the keywords:
+
+    #   Options FileInfo AuthConfig Limit
+
+    #
+
+    AllowOverride None
+
+    #
+
+    # Controls who can get stuff from this server.
+
+    #
+
+    Order allow,deny
+
+    Allow from all
+
+</pre>
+因为我这里将网站放在/usr/local/tomcat/webapps下
+
+C、将<pre>#Include conf/extra/httpd-vhosts.conf</pre>这行#除掉
+
+3、 增加以下内容：
+A、在AddType application/x-gzip .gz .tgz下增加以下两行
+ <pre>AddType application/x-httpd-php .php .phtml
+
+   AddType application/x-httpd-php-source .phps</pre>
+B、结尾增加
+<pre>#add mod_jk module
+
+LoadModule jk_module modules/mod_jk.so
+
+# Update this path to match your modules location
+
+# Where to find workers.properties
+
+# Update this path to match your conf directory location (put workers.properties next to #httpd.conf)
+
+  JkWorkersFile /usr/local/apache/conf/workers.properties
+
+# Where to put jk logs
+
+# Update this path to match your logs directory location (put mod_jk.log next to access_log)
+
+  JkLogFile     /usr/local/apache/logs/mod_jk.log
+
+# Set the jk log level [debug/error/info]
+
+  JkLogLevel    info
+
+# Select the log format
+
+  JkLogStampFormat "[%a %b %d %H:%M:%S %Y] "
+
+# JkOptions indicate to send SSL KEY SIZE,
+
+  JkOptions     +ForwardKeySize +ForwardURICompat -ForwardDirectories
+
+# JkRequestLogFormat set the request format
+
+  JkRequestLogFormat     "%w %V %T"
+
+# Send everything for context /examples to worker named worker1 (ajp13)
+
+  JkMount  /*.jsp worker1</pre>
+
+<p>C、在/usr/local/apache/conf下增加一个workers.properties文件，内容如下：</p>
+<p><pre># Define 1 real worker using ajp13</pre></p>
+<p>  worker.list=worker1</p>
+<h1 id="Set-properties-for-worker1-ajp13"><a href="#Set-properties-for-worker1-ajp13" class="headerlink" title="Set properties for worker1 (ajp13)"></a>Set properties for worker1 (ajp13)</h1><p>  worker.worker1.type=ajp13</p>
+<p>  worker.worker1.host=localhost</p>
+<p>  worker.worker1.port=8009</p>
+<p>  worker.worker1.lbfactor=50</p>
+<p>  worker.worker1.cachesize=10</p>
+<p>  worker.worker1.cache_timeout=600</p>
+<p>  worker.worker1.socket_keepalive=1</p>
+<p>  worker.worker1.reclycle_timeout=300<br>D、再编辑/usr/local/apache/conf/extra/下httpd-vhosts.conf文件</p>
+<p><pre>vi httpd-vhosts.conf</pre><br>将里面例子修改一下</p>
+<pre>
+
+<p>DirectoryIndex index.htm index.html index.jsp index.php</p>
+<pre><code>ServerAdmin xxx@126.com
+
+DocumentRoot /usr/local/tomcat/webapps/ROOT
+
+ServerName 192.168.0.170
+
+ErrorLog logs/170-error_log
+
+CustomLog logs/170-access_log common
+</code></pre><p></p></pre><br>因为没有做域名解析，我这里在ServerName下直接用的是IP地址。<br>四、 测试<br>先启动tomcat，再启动apache。启动apache之前可以到apache/bin下测试一下虚拟域是否配置正确。./httpd –S 如果配置有错误会提示你。<br>没 有问题后，在IE地址栏输入<a href="http://192.168.0.170" target="_blank" rel="external">http://192.168.0.170</a> 此时将显示的是<br>tomcat的]]<br>&gt;<p></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2006/11/23/linux-e8-bf-90-e8-a1-8c-e7-8e-af-e5-a2-83-e5-ae-89-e8-a3-85-e5-85-a8-e8-a7-a3/" rel="prev" title="Linux运行环境安装全解">
+                Linux运行环境安装全解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Set-properties-for-worker1-ajp13"><span class="nav-number">1.</span> <span class="nav-text">Set properties for worker1 (ajp13)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

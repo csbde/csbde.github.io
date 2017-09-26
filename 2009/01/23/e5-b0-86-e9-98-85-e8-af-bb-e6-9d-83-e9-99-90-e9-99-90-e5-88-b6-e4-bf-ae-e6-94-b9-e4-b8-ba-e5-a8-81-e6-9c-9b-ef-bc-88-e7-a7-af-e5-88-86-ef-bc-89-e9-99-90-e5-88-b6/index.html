@@ -1,0 +1,742 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Discuz,PHP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="将阅读权限限制修改为威望（积分）限制  1、修改数据库(可以不修改)  登录数据库，表 x__threads （x表示表前缀）中 readperm 字段 结构修改  A．将 类型  tinyint  修改为 smallint B．将 长度 3 修改为6 C．属性  UNSIGNED （不修改） D．NULL 选择 not null （不修改） E. 默认值选择 0 （不修改）  2\. 打开 in">
+<meta name="keywords" content="Discuz,PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="将阅读权限限制修改为威望（积分）限制">
+<meta property="og:url" content="http://yoursite.com/2009/01/23/e5-b0-86-e9-98-85-e8-af-bb-e6-9d-83-e9-99-90-e9-99-90-e5-88-b6-e4-bf-ae-e6-94-b9-e4-b8-ba-e5-a8-81-e6-9c-9b-ef-bc-88-e7-a7-af-e5-88-86-ef-bc-89-e9-99-90-e5-88-b6/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="将阅读权限限制修改为威望（积分）限制  1、修改数据库(可以不修改)  登录数据库，表 x__threads （x表示表前缀）中 readperm 字段 结构修改  A．将 类型  tinyint  修改为 smallint B．将 长度 3 修改为6 C．属性  UNSIGNED （不修改） D．NULL 选择 not null （不修改） E. 默认值选择 0 （不修改）  2\. 打开 in">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="将阅读权限限制修改为威望（积分）限制">
+<meta name="twitter:description" content="将阅读权限限制修改为威望（积分）限制  1、修改数据库(可以不修改)  登录数据库，表 x__threads （x表示表前缀）中 readperm 字段 结构修改  A．将 类型  tinyint  修改为 smallint B．将 长度 3 修改为6 C．属性  UNSIGNED （不修改） D．NULL 选择 not null （不修改） E. 默认值选择 0 （不修改）  2\. 打开 in">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2009/01/23/e5-b0-86-e9-98-85-e8-af-bb-e6-9d-83-e9-99-90-e9-99-90-e5-88-b6-e4-bf-ae-e6-94-b9-e4-b8-ba-e5-a8-81-e6-9c-9b-ef-bc-88-e7-a7-af-e5-88-86-ef-bc-89-e9-99-90-e5-88-b6/"/>
+
+
+
+
+
+  <title> 将阅读权限限制修改为威望（积分）限制 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2009/01/23/e5-b0-86-e9-98-85-e8-af-bb-e6-9d-83-e9-99-90-e9-99-90-e5-88-b6-e4-bf-ae-e6-94-b9-e4-b8-ba-e5-a8-81-e6-9c-9b-ef-bc-88-e7-a7-af-e5-88-86-ef-bc-89-e9-99-90-e5-88-b6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                将阅读权限限制修改为威望（积分）限制
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2009-01-23T18:02:38+08:00">
+                2009-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SoftWare/" itemprop="url" rel="index">
+                    <span itemprop="name">SoftWare</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre lang="php">将阅读权限限制修改为威望（积分）限制
+
+1、修改数据库(可以不修改)
+
+登录数据库，表 x__threads （x表示表前缀）中 readperm 字段 结构修改
+
+A．将 类型  tinyint  修改为 smallint
+B．将 长度 3 修改为6
+C．属性  UNSIGNED （不修改）
+D．NULL 选择 not null （不修改）
+E. 默认值选择 0 （不修改）
+
+2\. 打开 include/common.inc.php
+
+到第 157 行
+if($thread['readperm'] && $thread['readperm'] > $readaccess && !$forum['ismoderator'] && $thread['authorid'] != $discuz_uid) {
+    showmessage('thread_nopermission', NULL, 'NOPERM');
+}
+修改为
+if($thread['readperm'] && $thread['readperm'] > $extcredits1  && !$forum['ismoderator'] && $thread['authorid'] != $discuz_uid) {
+    showmessage('thread_nopermission', NULL, 'NOPERM');
+}
+//其中$extcredits1 可以更改为$extcredits 积分; 如extcredits1 积分1(威望); extcredits2 积分2(金钱); extcredits3; extcredits4;extcredits5 ;extcredits6 ;extcredits7; extcredits8,可以自行选择一个，或者自行设置加减。
+3\. 修改模板文件，将 “阅读权限”替换为 “威望”或“积分”
+
+3.1 找到 templates\default\templates.lang.php （一共有3行，修改前两行）
+
+第 416 行
+'readperm' =&gt; '阅读权限',
+修改为
+'readperm' =&gt; '威望',
+
+417行
+'readperm_thread' =&gt; '所需阅读权限',
+修改为
+'readperm_thread' =&gt; '所需威望',
+
+3.2 找到templates\default\messages.lang.php （一共有2行，全部替换）
+
+第 47 行
+'thread_nopermission' =&gt; '对不起，本帖要求阅读权限高于 $thread[readperm] 才可浏览，请返回。',
+修改为
+'thread_nopermission' =&gt; '对不起，本帖要求威望高于 $thread[readperm] 才可浏览，请返回。',
+
+第90行
+'attachment_nopermission' =&gt; '对不起，本附件要求阅读权限高于 $attach[readperm] 才可下载，请返回。',
+修改为
+'attachment_nopermission' =&gt; '对不起，本附件要求威望高于 $attach[readperm] 才可下载，请返回。',
+
+3.3找到templates\default\messages.lang.php
+第51行
+'attach_readperm' =&gt; '阅读权限',
+修改为
+'attach_readperm' =&gt; '威望',
+
+3.3找到\forumdata\cache\目录下 （可替换，也可不替换）
+cache_viewpro.php 和 cache_viewthread.php
+
+将 阅读权限 替换为 威望</pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Discuz/" rel="tag"># Discuz</a>
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2009/01/21/e8-bd-bb-e6-9d-be-e6-90-9e-e5-ae-9apidgin-e9-87-8c-e5-b0-91-e9-87-8fmsn-e6-b6-88-e6-81-af-e4-b8-ba-e6-96-b9-e5-9d-97-e7-9a-84bug/" rel="next" title="轻松搞定pidgin里少量MSN消息为方块的BUG">
+                <i class="fa fa-chevron-left"></i> 轻松搞定pidgin里少量MSN消息为方块的BUG
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2009/01/25/50-e5-85-83-e4-bb-a5-e5-86-85-e7-9a-84-e5-85-b1-e4-ba-ab-e4-b8-8a-e7-bd-91-e6-96-b9-e6-b3-95-e5-8d-95-e7-bd-91-e5-8d-a1adslhub-e9-9b-86-e7-ba-bf-e5-99-a8/" rel="prev" title="50元以内的共享上网方法(单网卡,ADSL+HUB集线器)">
+                50元以内的共享上网方法(单网卡,ADSL+HUB集线器) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,728 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="常用C-x C-f :打开/新建文件 C-x S :保存所有缓冲区文件 C-x C-v:在当前缓冲区打开文件 C-x  k   :关闭当前缓冲区 C-x   i   : 在当前光标位置插入文件 M-x replace-string: 一次性替换字符串 M-x % : 循环替换。 C-s  C-r :查询 C-@ :设置标记，然后选取 C-w   ：相当于剪切。 M-w    :相当于复制 C-y">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Emacs’ command help">
+<meta property="og:url" content="http://yoursite.com/2008/12/07/emacs-e2-80-99-command-help/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="常用C-x C-f :打开/新建文件 C-x S :保存所有缓冲区文件 C-x C-v:在当前缓冲区打开文件 C-x  k   :关闭当前缓冲区 C-x   i   : 在当前光标位置插入文件 M-x replace-string: 一次性替换字符串 M-x % : 循环替换。 C-s  C-r :查询 C-@ :设置标记，然后选取 C-w   ：相当于剪切。 M-w    :相当于复制 C-y">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Emacs’ command help">
+<meta name="twitter:description" content="常用C-x C-f :打开/新建文件 C-x S :保存所有缓冲区文件 C-x C-v:在当前缓冲区打开文件 C-x  k   :关闭当前缓冲区 C-x   i   : 在当前光标位置插入文件 M-x replace-string: 一次性替换字符串 M-x % : 循环替换。 C-s  C-r :查询 C-@ :设置标记，然后选取 C-w   ：相当于剪切。 M-w    :相当于复制 C-y">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/12/07/emacs-e2-80-99-command-help/"/>
+
+
+
+
+
+  <title> Emacs’ command help | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/12/07/emacs-e2-80-99-command-help/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Emacs’ command help
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-12-07T01:42:38+08:00">
+                2008-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SoftWare/" itemprop="url" rel="index">
+                    <span itemprop="name">SoftWare</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>常用<br>C-x C-f :打开/新建文件</p>
+<p>C-x S :保存所有缓冲区文件</p>
+<p>C-x C-v:在当前缓冲区打开文件</p>
+<p>C-x  k   :关闭当前缓冲区</p>
+<p>C-x   i   : 在当前光标位置插入文件</p>
+<p>M-x replace-string: 一次性替换字符串</p>
+<p>M-x % : 循环替换。</p>
+<p>C-s </p>
+<p>C-r :查询</p>
+<p>C-@ :设置标记，然后选取</p>
+<p>C-w   ：相当于剪切。</p>
+<p>M-w    :相当于复制</p>
+<p>C-y      :粘贴</p>
+<p>M-y  : 循环粘贴。</p>
+<p>C-o:开新行</p>
+<p>C-f， C-b, C-p, C-n, M-f, M-b, C-v , M-v , C-l, M-&gt;, M-&lt;移动。</p>
+<p>C - !, 一次性执行shell, M-x shell, 启动shell外壳。</p>
+<p>M-x compile:编译程序。</p>
+<p>Emacs提供快捷键<kbd>（C-M-）</kbd>缩进当前选中的region。比如说，我们发现一段代码实际上应该只在某个条件下才需要<br>执行，那么就用一条if语句将这段代码包围起来，然后需要做的就是改变其缩进。如果只有三行，那么按照Windows方式一行行地做缩进也还凑合，如果是<br>十行、三十行呢？Emacs的操作序列是这样的：</p>
+<ol>
+<li>在输入完if语句的右大括号之后，按<kbd>C-space</kbd>建立一个mark；</li>
+<li>按<kbd>C-M-p</kbd>将光标移动到对应的左大括号处，相应地，这一对大括号所包围的区域就成了当前的region；</li>
+<li>按<kbd>C-M-</kbd>缩进选中的region。</li>
+</ol>
+<p>程序<br>C-x C-z 挂起程序<br>C-c C-x 退出程序<br>C-c k 关闭buffer<br>C-l 重画屏幕<br>C-g 结束命令，或者假死中恢复，也可以按3次ESC</p>
+<p>文件<br>C-x C-s 保存<br>C-x C-w 另存为<br>C-x C-f 打开文件<br>C-x C-r 只读方式打开<br>C-x C-v 读入另外一个文件代替当前buffer的文件<br>C-x s 保存所有<br>C-x i 将文件的内容插入<br>M-x revert-buffer 恢复到原始状态</p>
+<p>跳转<br>前/后 单位<br>C-f/b 字<br>M-f/b 词<br>C-a/e 行内<br>M-a/e 句<br>M- 文档<br>C-p/n 行间<br>M-{/} 段落<br>C-x ]/[ 页<br>C-x C-x 文件内，mark之间</p>
+<p>M-g g 跳到指定行<br>M-x goto-char 跳到指定字符</p>
+<p>编辑<br>M-u 后面单词变为大写<br>M-l 后面单词变为小写<br>M-c 后面单词的首字母变大写<br>M-/ 补全<br>C-j 从当前位置分成两行,相当于RET + tab<br>M-( 插入()<br>C-q tab 插入tab<br>C-q C-m 插入^M<br>M-; 插入注释<br>C-o 回车</p>
+<p>删除<br>M-d 后一词<br>C-d 后一字<br>M-del 前一词<br>M-k 到句尾<br>M- 前面的所有空白<br>M-z 删到指定字母处<br>C-k 删除到行尾</p>
+<p>文本换位<br>C-t 字符<br>M-t 单词<br>C-x C-t 行<br>M-x transpose-* 其他命令</p>
+<p>撤销<br>C-/<br>C-x u<br>C-_<br>C-z</p>
+<p>重做<br>C-g M-x undo<br>C-g C-/<br>C-g C-z<br>C-g C-_</p>
+<p>粘贴<br>C-y<br>C-v</p>
+<p>tab/空格转换<br>M-x tabify<br>M-x untabify</p>
+<p>让选择的区块自动对齐<br>M-x indent-region</p>
+<p>其他命令<br>C-u &lt;数字&gt; &lt;命令&gt; 重复命令n次<br>M-&lt;数字&gt; &lt;命令&gt; 同上<br>M-! 运行shell命令<br>C-u M-! 执行一条外部命令，并输出到光标位置<br>M-x cd 改变工作目录<br>M-x pwd 当前工作目录</p>
+<p>C- 启动输入法<br>M-` 菜单<br>F10 菜单<br>M-x eval-buffer 在.emacs的buffer中运行，重新加载emacs配置</p>
+<p>查找替换<br>———————————————————————-<br>C-r 向上查找<br>C-s 向下查找<br>C-s C-w 向下查找，光标位置的单词作为查找字符串<br>C-s C-y 向下查找，光标位置到行尾作为查找字符串<br>C-s RET &lt;查找字符串&gt; RET 非递增查找<br>C-s RET C-w 不受换行、空格、标点影响<br>C-M-s 正则式向下查找<br>用向上查找命令就将上面命令的s替换为r</p>
+<p>M-% 替换<br>C-M-% 正则式替换<br>y 替换当前的字符串并移动到下一个字符串<br>n 不替换当前字符串，直接移动到下一个字符串<br>! 进行全局替换，并要求不再显示<br>. 替换当前字符串，然后退出查找替换操作<br>q 退出查找替换操作，光标定位到操作开始时的位置</p>
+<p>其他命令<br>M-x replace-<em><br>M-x search-</em></p>
+<p>窗口<br>C-x 0 关掉当前窗口<br>C-x 1 关掉其他窗口<br>C-x o 切换窗口<br>C-x 2 水平两分窗口<br>C-x 3 垂直两分窗口<br>C-x 5 2 新frame</p>
+<p>buffer<br>C-x C-b 查看<br>C-x b 切换<br>C-x C-q 设为只读<br>C-x k 删除<br>C-x left/right 切换</p>
+<p>翻页<br>C-v 下一页<br>M-v 上一页</p>
+<p>选择<br>M-h 选择段落<br>C-x h 全部选择</p>
+<p>普通区块<br>C-SPC M-x set-mark-command 单个位置set mark<br>C-@ 同上<br>M-@ 对word进行set Mark<br>M-w 先set Mark，移到光标，M-w就可以复制<br>C-w 剪切</p>
+<p>矩形区块<br>用这些快捷键要先关闭cua-mode<br>C-x r t 用串填充矩形区域<br>C-x r o 插入空白的矩形区域<br>C-x r y 插入之前删除的矩形区域, 粘贴时，矩形左上角对齐光标<br>C-x r k 删除矩形区域<br>C-x r c 将当前矩形区域清空</p>
+<p>寄存器<br>———————————————————————-<br>光标位置和窗口状态<br>C-x r SPC &lt;寄存器名&gt; 存贮光标位置<br>C-x r w &lt;寄存器名&gt; 保存当前窗口状态<br>C-x r f &lt;寄存器名&gt; 保存所有窗口状态<br>C-x r j &lt;寄存器名&gt; 光标跳转</p>
+<p>文本和数字<br>C-x r s &lt;寄存器名&gt; 将连续区块拷贝到寄存器中<br>C-x r r &lt;寄存器名&gt; 将矩形区块拷贝到寄存器中<br>C-u &lt;数字&gt; C-x r n &lt;寄存器名&gt; 将数字拷贝到寄存器中<br>C-x r i &lt;寄存器名&gt; 在缓冲区中插入寄存器内容<br>M-x view-register 查看寄存器内容<br>M-x list-registers 查看寄存器列表</p>
+<p>宏模式<br>C-x ( 开始一个宏的定义<br>C-x ) 结束一个宏的定义<br>C-x e 执行宏<br>M-x name-last-kbd-macro 给最后一个宏命名<br>M-x insert-kbd-macro 在当前文件中插入一个已定义并命名过的宏</p>
+<p>书签<br>C-x r m 设置书签<br>C-x r b 跳转到书签<br>C-x r l 书签列表<br>M-x bookmark-delete 删除书签<br>M-x bookmark-load 读取存储书签文件<br>M-x bookmark-save 保存到文件</p>
+<p>目录模式<br>———————————————————————-<br>C-x d M-x dired 启动目录模式<br>C-x C-d 简单目录<br>h 帮助<br>? 简单帮助<br>请参考<a href="http://www.emacs.cn/Doc/Dired" target="_blank" rel="external">http://www.emacs.cn/Doc/Dired</a></p>
+<p>帮助<br>C-h k 显示你将按下的键执行的function.<br>C-h f 列出function的功能说明。<br>C-h b 列出目前所有的快捷键。<br>C-h m 列出目前的mode的特殊说明.<br>C-c C-h 列出以C-c 开头的所有快捷键.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/12/06/simon-e7-9a-84emacs-e9-85-8d-e7-bd-ae-2/" rel="next" title="Simon的emacs 配置">
+                <i class="fa fa-chevron-left"></i> Simon的emacs 配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/12/07/windows-e4-b8-8b-e9-bc-a0-e6-a0-87-e5-8f-b3-e9-94-ae-e6-b7-bb-e5-8a-a0-emacs-e7-bc-96-e8-be-91-e9-a1-b9/" rel="prev" title="windows 下鼠标右键添加 Emacs 编辑项">
+                windows 下鼠标右键添加 Emacs 编辑项 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,687 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Google,Firefox," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="昨天做好的网站居然在IE下面是一片空白…….,但在Google chrome和firefox下面都是十分正常的,在IE下面用鼠标右键打开源代码也能看见确实是完整的输出了源代码的,但就是不能显示,在IE下用鼠标右键选择编码方式为UTF8以后能正常显示.问题应该就出在页面的字符编码上面.Google了一下,得到了原因:IE浏览器无法自动侦测（即没有设定“自动选择”编码格式时）该页面所用的编码。即使网页">
+<meta name="keywords" content="Google,Firefox">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IE打开网站出现空白,但查看源代码发现已经全部输出">
+<meta property="og:url" content="http://yoursite.com/2008/12/23/ie-e6-89-93-e5-bc-80-e7-bd-91-e7-ab-99-e5-87-ba-e7-8e-b0-e7-a9-ba-e7-99-bd-e4-bd-86-e6-9f-a5-e7-9c-8b-e6-ba-90-e4-bb-a3-e7-a0-81-e5-8f-91-e7-8e-b0-e5-b7-b2-e7-bb-8f-e5-85-a8-e9-83-a8-e8-be-93/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="昨天做好的网站居然在IE下面是一片空白…….,但在Google chrome和firefox下面都是十分正常的,在IE下面用鼠标右键打开源代码也能看见确实是完整的输出了源代码的,但就是不能显示,在IE下用鼠标右键选择编码方式为UTF8以后能正常显示.问题应该就出在页面的字符编码上面.Google了一下,得到了原因:IE浏览器无法自动侦测（即没有设定“自动选择”编码格式时）该页面所用的编码。即使网页">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IE打开网站出现空白,但查看源代码发现已经全部输出">
+<meta name="twitter:description" content="昨天做好的网站居然在IE下面是一片空白…….,但在Google chrome和firefox下面都是十分正常的,在IE下面用鼠标右键打开源代码也能看见确实是完整的输出了源代码的,但就是不能显示,在IE下用鼠标右键选择编码方式为UTF8以后能正常显示.问题应该就出在页面的字符编码上面.Google了一下,得到了原因:IE浏览器无法自动侦测（即没有设定“自动选择”编码格式时）该页面所用的编码。即使网页">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/12/23/ie-e6-89-93-e5-bc-80-e7-bd-91-e7-ab-99-e5-87-ba-e7-8e-b0-e7-a9-ba-e7-99-bd-e4-bd-86-e6-9f-a5-e7-9c-8b-e6-ba-90-e4-bb-a3-e7-a0-81-e5-8f-91-e7-8e-b0-e5-b7-b2-e7-bb-8f-e5-85-a8-e9-83-a8-e8-be-93/"/>
+
+
+
+
+
+  <title> IE打开网站出现空白,但查看源代码发现已经全部输出 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/12/23/ie-e6-89-93-e5-bc-80-e7-bd-91-e7-ab-99-e5-87-ba-e7-8e-b0-e7-a9-ba-e7-99-bd-e4-bd-86-e6-9f-a5-e7-9c-8b-e6-ba-90-e4-bb-a3-e7-a0-81-e5-8f-91-e7-8e-b0-e5-b7-b2-e7-bb-8f-e5-85-a8-e9-83-a8-e8-be-93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                IE打开网站出现空白,但查看源代码发现已经全部输出
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-12-23T15:46:44+08:00">
+                2008-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Site/" itemprop="url" rel="index">
+                    <span itemprop="name">Site</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>昨天做好的网站居然在IE下面是一片空白…….,但在Google chrome和<br>firefox下面都是十分正常的,在IE下面用鼠标右键打开源代码也能看见确实是完整<br>的输出了源代码的,但就是不能显示,在IE下用鼠标右键选择编码方式为UTF8以后能<br>正常显示.问题应该就出在页面的字符编码上面.Google了一下,得到了原因:<br>IE浏览器无法自动侦测（即没有设定“自动选择”编码格式时）该页面所用<br>的编码。即使网页已经声明过编码格式为UTF-8也不行，由此造成某些含有中文<br>UTF-8编码的页面产生空白输出。如果使用的是firefox、Mozilla 浏览器、Sarafi<br>的浏览器这不会造成这个问题。这是由于IE解析网页编码时以HTML内的标签优先，<br>而后才是HTTP header内的讯息；而mozilla系列的浏览器则刚刚相反。</p>
+<p>解决方法:在&lt;meta http-equiv=”Content-Type” content=”text/html;<br>charset=utf-8” /&gt;这句话的前面不中文,也就是说,将这句话放到TITLE等前面去<br>(HTML标签后面),就可以了</p>
+<p>再次感叹下:IE啥时候才能支持W3C标准啊</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Google/" rel="tag"># Google</a>
+          
+            <a href="/tags/Firefox/" rel="tag"># Firefox</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/12/20/e4-ba-ba-e8-80-81-e4-ba-86-e7-9c-8b-e4-b8-aa-e7-be-8e-e5-9b-bd-e8-8b-b1-e9-9b-84-e7-89-87-e9-83-bd-e8-83-bd-e8-a2-ab-e6-84-9f-e5-8a-a8-e5-a5-bd-e5-87-a0-e6-ac-a1/" rel="next" title="人老了,看个美国英雄片都能被感动好几次">
+                <i class="fa fa-chevron-left"></i> 人老了,看个美国英雄片都能被感动好几次
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/12/25/windows-live-messenger-90-e5-8f-91-e5-b8-83-e9-9b-86-e6-88-9025g-e7-bd-91-e7-bb-9c-e7-a1-ac-e7-9b-98-e6-9c-8d-e5-8a-a1/" rel="prev" title="windows live messenger 9.0 发布,集成25G网络硬盘服务">
+                windows live messenger 9.0 发布,集成25G网络硬盘服务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,779 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="我这里的环境和下面转载的文章中的环境有所不一样：  我的host主机是centos6，原本计划也是安装的ubuntu服务器版的。结果弄了近一天，查了无数资料，不得不面对一个显示，钠就是ubuntu11.04 server版的对RAID5的支持太差了，或者说基本不支持。只好又老老实实的装成了centos6 64bit guest准备弄2003  最近远程管理着一台HP DL系列的服务器，硬件支持虚拟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KVM以及virsh比较详细的说明·［转］">
+<meta property="og:url" content="http://yoursite.com/2011/09/08/kvm-e4-bb-a5-e5-8f-8avirsh-e6-af-94-e8-be-83-e8-af-a6-e7-bb-86-e7-9a-84-e8-af-b4-e6-98-8e-c2-b7-ef-bc-bb-e8-bd-ac-ef-bc-bd/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="我这里的环境和下面转载的文章中的环境有所不一样：  我的host主机是centos6，原本计划也是安装的ubuntu服务器版的。结果弄了近一天，查了无数资料，不得不面对一个显示，钠就是ubuntu11.04 server版的对RAID5的支持太差了，或者说基本不支持。只好又老老实实的装成了centos6 64bit guest准备弄2003  最近远程管理着一台HP DL系列的服务器，硬件支持虚拟">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="KVM以及virsh比较详细的说明·［转］">
+<meta name="twitter:description" content="我这里的环境和下面转载的文章中的环境有所不一样：  我的host主机是centos6，原本计划也是安装的ubuntu服务器版的。结果弄了近一天，查了无数资料，不得不面对一个显示，钠就是ubuntu11.04 server版的对RAID5的支持太差了，或者说基本不支持。只好又老老实实的装成了centos6 64bit guest准备弄2003  最近远程管理着一台HP DL系列的服务器，硬件支持虚拟">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2011/09/08/kvm-e4-bb-a5-e5-8f-8avirsh-e6-af-94-e8-be-83-e8-af-a6-e7-bb-86-e7-9a-84-e8-af-b4-e6-98-8e-c2-b7-ef-bc-bb-e8-bd-ac-ef-bc-bd/"/>
+
+
+
+
+
+  <title> KVM以及virsh比较详细的说明·［转］ | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2011/09/08/kvm-e4-bb-a5-e5-8f-8avirsh-e6-af-94-e8-be-83-e8-af-a6-e7-bb-86-e7-9a-84-e8-af-b4-e6-98-8e-c2-b7-ef-bc-bb-e8-bd-ac-ef-bc-bd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                KVM以及virsh比较详细的说明·［转］
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2011-09-08T16:02:40+08:00">
+                2011-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Uncategorized/" itemprop="url" rel="index">
+                    <span itemprop="name">Uncategorized</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><span style="color: #ff0000;">我这里的环境和下面转载的文章中的环境有所不一样：</span></p>
+<p><span style="color: #ff0000;"> 我的host主机是centos6，原本计划也是安装的ubuntu服务器版的。结果弄了近一天，查了无数资料，不得不面对一个显示，钠就是ubuntu11.04 server版的对RAID5的支持太差了，或者说基本不支持。只好又老老实实的装成了centos6 64bit</span></p>
+<p><span style="color: #ff0000;">guest准备弄2003</span></p>
+<p><span style="color: #ff0000;"><br></span></p>
+<p>最近远程管理着一台HP DL系列的服务器，硬件支持虚拟化，所以准备用kvm将其榨干，虚拟出多台服务器。<br>HOST操作系统：ubuntu server 10.04.2 64bit<br>客户机操作系统：1.win2003 sp2 32bit<br>2.debian 6.0.1a 32bit<br>预期：<br>1.职能划分 HOST操作系统专职伺候GUEST操作系统，具体的应用放在GUEST操作系统中。<br>2.网络预期 HOST操作系统和各个GUEST操作系统采用桥接方式，静态分配IP，处在同一网段。为了方便叙述，假定HOST的IP为10.3.1.35，两个GUEST的IP分别为10.3.1.36和10.3.1.37.<br>3.数据共享 实现HOST和GUEST之间的数据共享。<br>4.管理 方便管理，最好有远程管理工具。<br>步骤：<br>1.前期准备条件：<br>最小化安装ubuntu server 10.04.2 64bit（已经自带部分KVM），软件安装请参考本站置顶贴(<a href="http://forum.ubuntu.org.cn/viewtopic.php?f=65&amp;t=154792" target="_blank" rel="external">http://forum.ubuntu.org.cn/viewtopic.php?f=65&amp;t=154792</a>)，由于整个过程是不断摸索，所以有些软件安装的具体过程没有留下记录。<br>但必须安装kvm,qemu-kvm,libvirt-bin</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>sudo apt-get install kvm libvirt-bin python-virtinst bridge-utils</div><br>安装完了后，要将自己的用户名加入到libvirtd组中</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>sudo adduser $USER libvirtd</div><br>$USER是你自己的用户名<br>为了方便管理guest，ubuntu server最好装一下acpid</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>sudo aptitude install acpid</div><br>-.-!为什么没用apt-get 呢。。。<br>2.配置桥接<br>这一部分最迷惑人，最开始参考的是置顶贴，但其中的一句话理解错误“根据你的情况加入以下内容：”导致第一次配网络与服务器失去连接，到机房重启才继续进行，注意，这里的“加入”应该为“更改为”，可参考此贴<a href="http://hi.baidu.com/huakaiweizhi/blog/item/b53b16ced4ead72cb700c844.html" target="_blank" rel="external">http://hi.baidu.com/huakaiweizhi/blog/item/b53b16ced4ead72cb700c844.html</a><br>具体步骤：<br>a.修改interfaces</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>sudo vim /etc/network/interfaces</div><br>本人原始配置</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>auto eth0<br>iface eth0 inet static<br>address 10.3.1.35<br>netmask 255.255.255.192<br>network 10.3.1.68<br>broadcast 10.3.1.127<br>gateway 10.3.1.129</div></p>
+<h1 id="dns-options-are-implemented-by-the-resolvconf-package-if-installed"><a href="#dns-options-are-implemented-by-the-resolvconf-package-if-installed" class="headerlink" title="dns-* options are implemented by the resolvconf package, if installed"></a>dns-* options are implemented by the resolvconf package, if installed</h1><p>dns-nameservers 10.1.0.40<br>dns-search ubuntu<br>修改之后的配置</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>auto lo<br>iface lo inet loopback</div></p>
+<h1 id="The-primary-network-interface"><a href="#The-primary-network-interface" class="headerlink" title="The primary network interface"></a>The primary network interface</h1><p>auto eth0<br>iface eth0 inet manual</p>
+<p>auto br0<br>iface br0 inet static<br>address 10.3.1.35<br>netmask 255.255.255.192<br>network 10.3.1.68<br>broadcast 10.3.1.127<br>gateway 10.3.1.129</p>
+<h1 id="dns-options-are-implemented-by-the-resolvconf-package-if-installed-1"><a href="#dns-options-are-implemented-by-the-resolvconf-package-if-installed-1" class="headerlink" title="dns-* options are implemented by the resolvconf package, if installed"></a>dns-* options are implemented by the resolvconf package, if installed</h1><p>dns-nameservers 10.1.0.40<br>dns-search ubuntu</p>
+<p>bridge_ports eth0<br>bridge_stp off<br>bridge_maxwait 5<br>bridge_fd 0</p>
+<p><br>b.重启网络，使配置生效</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>sudo /etc/init.d/networking restart</div><br>注意：对于远程操作者而言，这一步一定要谨慎操作，避免与服务器失去联系。<br>c.重启后，用ifconfig检查</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>ifconfig</div><br>正常的话，eth0应该不再有IP，虚拟的桥接网卡br0应该接管了eth0的配置，并将数据转到eth0<br>我的显示：</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>br0       Link encap:以太网  硬件地址 00:1b:78:9b:c1:5e<br>inet 地址:10.3.1.35  广播:10.3.1.127  掩码:255.255.255.192<br>inet6 地址: fe80::21b:78ff:fe9b:c15e/64 Scope:Link<br>UP BROADCAST RUNNING MULTICAST  MTU:1500  跃点数:1<br>接收数据包:9989322 错误:0 丢弃:0 过载:0 帧数:0<br>发送数据包:11703348 错误:0 丢弃:0 过载:0 载波:0<br>碰撞:0 发送队列长度:0<br>接收字节:5763086071 (5.7 GB)  发送字节:7809744229 (7.8 GB)</div></p>
+<p>eth0      Link encap:以太网  硬件地址 00:1b:78:9b:c1:5e<br>inet6 地址: fe80::21b:78ff:fe9b:c15e/64 Scope:Link<br>UP BROADCAST RUNNING MULTICAST  MTU:1500  跃点数:1<br>接收数据包:12338743 错误:0 丢弃:0 过载:0 帧数:0<br>发送数据包:11084473 错误:0 丢弃:0 过载:0 载波:0<br>碰撞:0 发送队列长度:1000<br>接收字节:8041899891 (8.0 GB)  发送字节:5870981468 (5.8 GB)<br>中断:16 Memory:f8000000-f8012800</p>
+<p>lo        Link encap:本地环回<br>inet 地址:127.0.0.1  掩码:255.0.0.0<br>inet6 地址: ::1/128 Scope:Host<br>UP LOOPBACK RUNNING  MTU:16436  跃点数:1<br>接收数据包:194873 错误:0 丢弃:0 过载:0 帧数:0<br>发送数据包:194873 错误:0 丢弃:0 过载:0 载波:0<br>碰撞:0 发送队列长度:0<br>接收字节:123538384 (123.5 MB)  发送字节:123538384 (123.5 MB)</p>
+<p><br>至此，桥接网络成功</p>
+<p>3.安装GUEST（以win2003为例）<br>准备工作：将win2003的安装镜像放到服务器目录中，假定放在/home/darkofday/win2003.iso；假定安装好的虚拟磁盘位于/home/kvm/win2003/win2003.img<br>a.服务器端操作启动安装<br>远程到服务器，用virt-install启动安装：</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>sudo virt-install –connect qemu:///system -n win2003 -r 1024 –vcpus=2 –disk path=/home/kvm/win2003/win2003.img,cache=writeback,size=90 -c /home/darkofday/win2003.iso –vnc –noautoconsole –os-type windows –accelerate –network=bridge:br0,model=rtl8139 –hvm –os-variant=win2k3</div><br>这一步（如果用kvm命令，也有可能出现）如果出现如下错误提示：</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>pci_add_option_rom: failed to find romfile “pxe-rtl8139.bin”<br>inet_parse: ipv4 parse error (100)</div><br>执行如下命令可修复</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>sudo apt-get install kvm-pxe</div><br>说明：</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>–connect qemu:///system</div><br>是将画面连接到qemu:///system服务，以便在远程计算机上用virt-viewer控制安装过程。</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>-n win2003</div><br>这个是给GUEST取一个名字，很有用，以便virt-viewer连接，同时方便用virsh管理</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>–disk path=/home/kvm/win2003/win2003.img,cache=writeback,size=90</div><br>指定将安装好的虚拟磁盘置于/home/kvm/win2003/win2003.img，大小90G；这个地方不需要事先创建虚拟磁盘，与qemu-kvm不同，如果没有事先创建，该命令会自动创建。</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>–network=bridge:br0,model=rtl8139</div><br>将guest的网络桥接到br0，网卡选rtl8139，当然也可以选择其它型号的虚拟网卡，具体可参考man virt-install<br>b.在自己的电脑(desktop)上远程控制安装过程<br>执行上述命令后，服务器端就已经启动安装过程了，此时，你需要一台电脑（linux操作系统，带桌面的，可以用自己的笔记本）来控制安装过程。您需要先在desktop上安装virt-viewer：</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>sudo apt-get install virt-viewer</div><br>然后，启用root窗口</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>su</div><br>远程连接到服务器安装过程</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>virt-viewer –connect qemu+ssh://root@10.3.1.35/system win2003</div><br>在这个过程中，需要输入两次服务器端的root密码，如果服务器端没有设置root密码，可以用如下命令设置</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>sudo passwd root</div><br>安装好win2003后，就可以设置网络了，设置好网络后，guest就可以与外界自由联通了，这时也可以不通过virt-viewer，而直接通过远程桌面连接管理win2003了。（本人在此处走了弯路，由于用了一个有问题的win2003安装镜像，装好后，不管如何设置，找了N多资料，网络死活不通，想死的心都有了，一两天后才意识到可能是镜像的问题，换了个镜像文件，立马好了，尼玛啊～～～）<br>本段参考资料：<a href="http://www.howtoforge.com/installing-kvm-guests-with-virt-install-on-ubuntu-8.10-server" target="_blank" rel="external">http://www.howtoforge.com/installing-kvm-guests-with-virt-install-on-ubuntu-8.10-server</a></p>
+<p>4.服务器端管理guest<br>服务器端用virsh管理guest，有人可能想要一个和vmware-server类似的web管理界面，其实有的，甚至有基于kvm，做的和vmware-esx类似的虚拟机操作系统，还有分布式管理的，但管理一台服务器的话，还是virsh省心，可以参考：<a href="http://www.linux-kvm.org/page/Management_Tools" target="_blank" rel="external">http://www.linux-kvm.org/page/Management_Tools</a><br>执行以下命令，就可以进入virsh</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>virsh</div><br>virsh的具体命令可以参考其帮助，也可以参考网上的，不过最常用的也就这么几个：</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>help</div><br>简易帮助文档</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>list</div><br>列出通过virt-install 安装的，正在运行的guest。</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>list –all</div><br>列出所有guest</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>start win2003</div><br>启动一个guest，比如win2003</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>shutdown win2003</div><br>关闭一个guest，比如win2003</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>destroy win2003</div><br>彻底关闭一个guest，包括释放其占用的资源，不影响虚拟磁盘本身，还可以通过start命令启动guest。</p>
+<p>5.服务器host和guest之间共享数据<br>如果guest是linux，可以通过设置NFS来实现；如果guest是windows，也可以安装NFS服务来实现，不过要麻烦的多。我现在主要是guest中需要获取host中存放的软件，是通过virsh附加device实现将数据单向传送到win2003中的，觉得通过virsh也可以实现双向，但还没有摸透。先说说单向的吧。<br>首先，我实现的是把服务器上的镜像文件（iso或其它可以mount的文件），通过给win2003附加cdrom的方式单向共享。如果文件不是iso格式，可以通过mkisofs来制作，很简单。先安装mkisofs</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>sudo apt-get install mkisofs</div><br>然后将/home/darkofday/share/sql2005x86.rar（也可以是文件夹）文件制作成/home/darkofday/sql2005.iso</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>mkisofs -r -o /home/darkofday/sql2005.iso /home/darkofday/share/sql2005x86.rar</div><br>ISO文件制作好了。然后进入virsh</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>virsh</div><br>给win2003附加cdrom(注意，win2003必须是开机状态才能附加，不然会报错)</p>
+<p><div><strong>代码:</strong></div></p>
+<p><div>attach-disk win2003 /home/darkofday/sql2005.iso hdc –mode readonly –driver file –type cdrom</div><br>附加成功。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2011/08/26/kvm-e7-9a-84-e4-b8-80-e4-ba-9b-e7-ae-80-e5-8d-95-e4-bb-8b-e7-bb-8d-e8-bd-ac/" rel="next" title="kvm 的一些简单介绍[转]">
+                <i class="fa fa-chevron-left"></i> kvm 的一些简单介绍[转]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2011/09/22/e7-89-88-e6-9c-ac-e6-8e-a7-e5-88-b6-e5-99-a8-e7-9a-84-e9-80-89-e6-8b-a9hg-e5-92-8cgit/" rel="prev" title="版本控制器的选择hg和git">
+                版本控制器的选择hg和git <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#dns-options-are-implemented-by-the-resolvconf-package-if-installed"><span class="nav-number">1.</span> <span class="nav-text">dns-* options are implemented by the resolvconf package, if installed</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-primary-network-interface"><span class="nav-number">2.</span> <span class="nav-text">The primary network interface</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dns-options-are-implemented-by-the-resolvconf-package-if-installed-1"><span class="nav-number">3.</span> <span class="nav-text">dns-* options are implemented by the resolvconf package, if installed</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

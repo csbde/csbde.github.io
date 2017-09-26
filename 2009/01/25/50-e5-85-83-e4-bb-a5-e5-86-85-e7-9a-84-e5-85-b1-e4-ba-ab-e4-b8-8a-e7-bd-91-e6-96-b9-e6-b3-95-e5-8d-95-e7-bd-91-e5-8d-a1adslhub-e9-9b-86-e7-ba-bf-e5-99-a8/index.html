@@ -1,0 +1,683 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="DNS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="网络共享是网络应用的很重要的方面,特别是现在很多家庭里都2台以上的电脑.总不能再拉根网线吧,我们还是工薪阶级。举一个简单例子，家里装了ADSL宽带，但是家里有几台电脑，在只有一个Ip地址条件下怎么实现上网。一个简单实用的方案就是单网卡共享ADSL方案。从字面上理解很多人以为单网卡共享ADSL方案就是只有一个网卡，其实是连接的每台电脑都需要网卡，我们所说的单网卡是指服务器的那台机器只有一个网卡。网上">
+<meta name="keywords" content="DNS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="50元以内的共享上网方法(单网卡,ADSL+HUB集线器)">
+<meta property="og:url" content="http://yoursite.com/2009/01/25/50-e5-85-83-e4-bb-a5-e5-86-85-e7-9a-84-e5-85-b1-e4-ba-ab-e4-b8-8a-e7-bd-91-e6-96-b9-e6-b3-95-e5-8d-95-e7-bd-91-e5-8d-a1adslhub-e9-9b-86-e7-ba-bf-e5-99-a8/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="网络共享是网络应用的很重要的方面,特别是现在很多家庭里都2台以上的电脑.总不能再拉根网线吧,我们还是工薪阶级。举一个简单例子，家里装了ADSL宽带，但是家里有几台电脑，在只有一个Ip地址条件下怎么实现上网。一个简单实用的方案就是单网卡共享ADSL方案。从字面上理解很多人以为单网卡共享ADSL方案就是只有一个网卡，其实是连接的每台电脑都需要网卡，我们所说的单网卡是指服务器的那台机器只有一个网卡。网上">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="50元以内的共享上网方法(单网卡,ADSL+HUB集线器)">
+<meta name="twitter:description" content="网络共享是网络应用的很重要的方面,特别是现在很多家庭里都2台以上的电脑.总不能再拉根网线吧,我们还是工薪阶级。举一个简单例子，家里装了ADSL宽带，但是家里有几台电脑，在只有一个Ip地址条件下怎么实现上网。一个简单实用的方案就是单网卡共享ADSL方案。从字面上理解很多人以为单网卡共享ADSL方案就是只有一个网卡，其实是连接的每台电脑都需要网卡，我们所说的单网卡是指服务器的那台机器只有一个网卡。网上">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2009/01/25/50-e5-85-83-e4-bb-a5-e5-86-85-e7-9a-84-e5-85-b1-e4-ba-ab-e4-b8-8a-e7-bd-91-e6-96-b9-e6-b3-95-e5-8d-95-e7-bd-91-e5-8d-a1adslhub-e9-9b-86-e7-ba-bf-e5-99-a8/"/>
+
+
+
+
+
+  <title> 50元以内的共享上网方法(单网卡,ADSL+HUB集线器) | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2009/01/25/50-e5-85-83-e4-bb-a5-e5-86-85-e7-9a-84-e5-85-b1-e4-ba-ab-e4-b8-8a-e7-bd-91-e6-96-b9-e6-b3-95-e5-8d-95-e7-bd-91-e5-8d-a1adslhub-e9-9b-86-e7-ba-bf-e5-99-a8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                50元以内的共享上网方法(单网卡,ADSL+HUB集线器)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2009-01-25T15:41:51+08:00">
+                2009-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index">
+                    <span itemprop="name">Other</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>网络共享是网络应用的很重要的方面,特别是现在很多家庭里都2台以上的电脑.总不能再拉根网线吧,我们还是工薪阶级。举一个简单例子，家里装了ADSL宽带，但是家里有几台电脑，在只有一个Ip地址条件下怎么实现上网。一个简单实用的方案就是单网卡共享ADSL方案。从字面上理解很多人以为单网卡共享ADSL方案就是只有一个网卡，其实是连接的每台电脑都需要网卡，我们所说的单网卡是指服务器的那台机器只有一个网卡。网上有很多文章都介绍这种方案，但是按照这些文章所说的方面很多难实现共享上网，而且很多具体的步骤说的不清楚。我今天详细介绍单网卡共享组网,只需要一个HUB集线器就搞定,连ADSL都不要有路由功能,像我家的ADSL拨号的就是电信送的,没有路由管理功能。<br>一、组网方案原理<br>二、硬件连接（只需一张网卡）<br>网卡：服务器与客户机均使用一张带有RJ45接口的10M或100M网卡。<br>集线器(HUB)：只需要一个集线器<br>网线: 需要准备两种，一种是ADSL MODEM与集线器连接的交叉线一条；第二种是每台机器与集线器的直连线，有多少台机器就买多少条，长度按照每台机器的具体距离来买。当然网线需要带水晶头。<br>三、操作过程<br>按照上面的图连接好各个硬件。连线应该不存在任何的困难，有一点要注意的，交叉线和直连线不要连错了。<br>服务器设置：<br>由于采用了其中一台机做服务器，所以我们先要对这台机器进行设置。<br>1、在网上邻居&#8212;&gt;属性页面，可以见到两个连接，一个是本地连接，另一个是ADSL连接。如图所示：<br>2、保证本机ADSL能拨号成功的前提下，打开ADSL连接的属性页，在&#8220;高级&#8221;页中选中&#8220;允许其他网络用户通过此计算机的internet连接来连接&#8221;和&#8220;在我的网络上的计算机尝试访问internet时建立一个拨号连接&#8221;<br>3、打开本地连接&#8212;&gt;属性。设置如下：192.168.0.1<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 255.255.255.0<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 192.168.0.1<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; DNS:&#160;&#160;&#160; 202.96.128.86(68)<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; 202.96.128.110<br>4、此时计算机会提示，如果启用此连接的internet连接共享，会自动将本地连接的IP地址置为：192.168.0.1，与internet的连接可能会失效。不用管它的警告，点&#8220;是&#8221;就行。<br>5、如果计算机提示这个IP地址与网上的其他IP地址冲突，不要紧，是因为其他的局域网服务器用了这个（192.168.0.1）作网关。我们拨掉网线，再按确定好了。<br>6、然后，重新启动机器，将网卡的IP地地重新设置为ISP指定的IP地址即可。此时，在我们建立的ADSL拨号连接上出现了一个共享的标记：一只手托着这个连接，说明共享已经打开。然后，一切OK。<br>客户机设置：<br>打开本地连接&#8212;&gt;属性。设置如下：A:192.168.0.2&#160;&#160;&#160; B:192.168.0.3<br>设置好后，在DOS 窗口下用 Ping 192.168.0.1 或 2、3分别测试各机器中间的通讯是否正常。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DNS/" rel="tag"># DNS</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2009/01/23/e5-b0-86-e9-98-85-e8-af-bb-e6-9d-83-e9-99-90-e9-99-90-e5-88-b6-e4-bf-ae-e6-94-b9-e4-b8-ba-e5-a8-81-e6-9c-9b-ef-bc-88-e7-a7-af-e5-88-86-ef-bc-89-e9-99-90-e5-88-b6/" rel="next" title="将阅读权限限制修改为威望（积分）限制">
+                <i class="fa fa-chevron-left"></i> 将阅读权限限制修改为威望（积分）限制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2009/02/13/linux-e6-96-87-e4-bb-b6-e5-90-8d-e7-bc-96-e7-a0-81-e8-bd-ac-e6-8d-a2/" rel="prev" title="Linux文件名编码转换">
+                Linux文件名编码转换 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

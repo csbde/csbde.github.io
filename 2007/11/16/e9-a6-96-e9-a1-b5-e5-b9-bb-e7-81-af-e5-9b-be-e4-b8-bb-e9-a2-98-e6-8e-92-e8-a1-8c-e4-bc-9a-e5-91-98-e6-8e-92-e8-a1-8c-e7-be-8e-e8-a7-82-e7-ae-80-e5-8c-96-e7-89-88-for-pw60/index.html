@@ -1,0 +1,749 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHPwind," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="要打开插件里的文字广告功能… 打开你的风格模板的index.htm文件（默认：论坛根目录\template\wind\index.htm）在第一行找到&amp;lt;!–&amp;lt;?php print &amp;lt;&amp;lt;&amp;lt;EOT–&amp;gt;替换为下面的代码 Quote: &amp;lt;!–&amp;lt;?php//首页调用开始//默认只显示开放板块，不显示正规、隐藏、投票、认证板块 //幻灯图开始$cachepics">
+<meta name="keywords" content="PHPwind">
+<meta property="og:type" content="article">
+<meta property="og:title" content="首页幻灯图+主题排行+会员排行 美观简化版 for pw6.0">
+<meta property="og:url" content="http://yoursite.com/2007/11/16/e9-a6-96-e9-a1-b5-e5-b9-bb-e7-81-af-e5-9b-be-e4-b8-bb-e9-a2-98-e6-8e-92-e8-a1-8c-e4-bc-9a-e5-91-98-e6-8e-92-e8-a1-8c-e7-be-8e-e8-a7-82-e7-ae-80-e5-8c-96-e7-89-88-for-pw60/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="要打开插件里的文字广告功能… 打开你的风格模板的index.htm文件（默认：论坛根目录\template\wind\index.htm）在第一行找到&amp;lt;!–&amp;lt;?php print &amp;lt;&amp;lt;&amp;lt;EOT–&amp;gt;替换为下面的代码 Quote: &amp;lt;!–&amp;lt;?php//首页调用开始//默认只显示开放板块，不显示正规、隐藏、投票、认证板块 //幻灯图开始$cachepics">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="首页幻灯图+主题排行+会员排行 美观简化版 for pw6.0">
+<meta name="twitter:description" content="要打开插件里的文字广告功能… 打开你的风格模板的index.htm文件（默认：论坛根目录\template\wind\index.htm）在第一行找到&amp;lt;!–&amp;lt;?php print &amp;lt;&amp;lt;&amp;lt;EOT–&amp;gt;替换为下面的代码 Quote: &amp;lt;!–&amp;lt;?php//首页调用开始//默认只显示开放板块，不显示正规、隐藏、投票、认证板块 //幻灯图开始$cachepics">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2007/11/16/e9-a6-96-e9-a1-b5-e5-b9-bb-e7-81-af-e5-9b-be-e4-b8-bb-e9-a2-98-e6-8e-92-e8-a1-8c-e4-bc-9a-e5-91-98-e6-8e-92-e8-a1-8c-e7-be-8e-e8-a7-82-e7-ae-80-e5-8c-96-e7-89-88-for-pw60/"/>
+
+
+
+
+
+  <title> 首页幻灯图+主题排行+会员排行 美观简化版 for pw6.0 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/11/16/e9-a6-96-e9-a1-b5-e5-b9-bb-e7-81-af-e5-9b-be-e4-b8-bb-e9-a2-98-e6-8e-92-e8-a1-8c-e4-bc-9a-e5-91-98-e6-8e-92-e8-a1-8c-e7-be-8e-e8-a7-82-e7-ae-80-e5-8c-96-e7-89-88-for-pw60/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                首页幻灯图+主题排行+会员排行 美观简化版 for pw6.0
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2007-11-16T09:00:45+08:00">
+                2007-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Site/" itemprop="url" rel="index">
+                    <span itemprop="name">Site</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>要打开插件里的文字广告功能…</p>
+<p>打开你的<span onclick="sendmsg('pw_ajax.php','action=relatetag&tagname=风格',this.id)" style="cursor: pointer; border-bottom: #fa891b 1px solid" id="rlt_2">风格</span><span onclick="sendmsg('pw_ajax.php','action=relatetag&tagname=模板',this.id)" style="cursor: pointer; border-bottom: #fa891b 1px solid" id="rlt_8">模板</span>的index.htm文件（默认：<span onclick="sendmsg('pw_ajax.php','action=relatetag&tagname=论坛',this.id)" style="cursor: pointer; border-bottom: #fa891b 1px solid" id="rlt_1">论坛</span>根目录\template\wind\index.htm）<br>在第一行找到<br>&lt;!–&lt;?php print &lt;&lt;&lt;EOT<br>–&gt;<br>替换为下面的<span onclick="sendmsg('pw_ajax.php','action=relatetag&tagname=代码',this.id)" style="cursor: pointer; border-bottom: #fa891b 1px solid" id="rlt_4">代码</span></p>
+<h6 id="Quote"><a href="#Quote" class="headerlink" title="Quote:"></a>Quote:</h6><blockquote>
+<p>&lt;!–&lt;?php<br>//首页调用开始<br>//默认只显示开放板块，不显示正规、隐藏、投票、认证板块</p>
+<p>//幻灯图开始<br>$cachepics=R_P.”data/bbscache/index_toppics.php”;//幻灯图片缓存文件<br>$cachepicstime=60;//幻灯图片缓存自动更新时间，单位秒<br>//下一句设置要显示的板块类型，forum开放板块，former正规板块，hidden隐藏板块<br>$showforum=”(pf.f_type = ‘forum’ or pf.f_type = ‘former’)”;<br>if (($timestamp-@filemtime($cachepics)&gt;=$cachepicstime)){<br>$query=$db-&gt;query(“SELECT pt.tid,pt.fid,pt.subject,pa.attachurl FROM pw_threads pt<br>,pw_attachs pa,pw_forums pf where pt.tid = pa.tid and pt.fid = pf.fid and pa.type=’img’ and pt.ifcheck=’1’ and “.$showforum.” and pf.password = ‘’<br>ORDER BY pt.postdate DESC<br>LIMIT 60<br>“); //可以根据需要调整，我这里是估算每个<span onclick="sendmsg('pw_ajax.php','action=relatetag&tagname=主题',this.id)" style="cursor: pointer; border-bottom: #fa891b 1px solid" id="rlt_6">主题</span>有10张图片的情况下。</p>
+<p>$imgcontent=”&lt;?php\n”;<br>$pics=$links=$texts=””;<br>$rs_i=0;<br>while ($imginfo = $db-&gt;fetch_array($query) and $rs_i&lt;6) {//只调用6个主题的图片<br>  if(($rs_tid!=$imginfo[tid])&amp;&amp;(eregi(“.(jpg)$”,$imginfo[attachurl]))){<br>    $pics.=$db_bbsurl.”/“.$attachpath.”/“.$imginfo[attachurl].”|”;<br>    $links.=$db_bbsurl.”/read.php?tid=”.$imginfo[tid].”|”;<br>    $texts.=$imginfo[subject].”|”;<br>    $rs_i++;//同一主题的只要最后上传的那张图片<br>  }<br>  $rs_tid=$imginfo[tid];<br>}</p>
+<p>$pics=substr($pics,0,-1);<br>$links=substr($links,0,-1);<br>$texts=substr($texts,0,-1);</p>
+<p>$pics=’$pics=”‘.$pics.’”;’;<br>$links=’$links=”‘.$links.’”;’;<br>$texts=’$texts=”‘.$texts.’”;’;</p>
+<p>$imgcontent = $imgcontent.$pics.”\n”.$links.”\n”.$texts.”\n?&gt;”;<br>writeover($cachepics,$imgcontent);<br>}<br>@require_once($cachepics);<br>//幻灯图结束</p>
+<p>//会员排行+主题排行开始<br>$cachelist=R_P.”data/bbscache/index_toplist.php”;//主题排行缓存文件<br>$cachelisttime=60;//主题排行自动更新时间，单位秒<br>//下一句设置要显示的板块类型，forum开放板块，former正规板块，hidden隐藏板块<br>$showforum=”(pf.f_type = ‘forum’ or pf.f_type = ‘former’)”;<br>if(($timestamp-@filemtime($cachelist)&gt;=$cachelisttime)){<br>$listnum=10;//主题显示个数<br>$listlength=26;//主题<span onclick="sendmsg('pw_ajax.php','action=relatetag&tagname=标题',this.id)" style="cursor: pointer; border-bottom: #fa891b 1px solid" id="rlt_5">标题</span>长度<br>$listnum1=6;//会员<span onclick="sendmsg('pw_ajax.php','action=relatetag&tagname=在线',this.id)" style="cursor: pointer; border-bottom: #fa891b 1px solid" id="rlt_9">在线</span>时间排行显示个数<br>$memberonline=$memberposttoday=$newthreads=$digestthreads=$replythreads=””;</p>
+<p>//会员在线时间排行开始<br>$query = $db-&gt;query(“SELECT m.uid,m.username,md.onlinetime FROM pw_members m LEFT JOIN pw_memberdata md USING(uid) WHERE md.onlinetime order by md.onlinetime desc limit 0,$listnum1”);<br>$c_i=1;//初始化图片序号<br>while($members=$db-&gt;fetch<em>array($query)){<br>$members[onlinetime]=(int)($members[onlinetime]/3600);<br>$i=0;<br>while((5<em>$i</em>$i+15<em>$i)&lt;=$members[onlinetime]){<br>  $i++;<br>  $C=5</em>$i<em>$i+15</em>$i;<br>  $N=$i;<br>}<br>$more=$C-$members[onlinetime];<br>$lv=$N;<br>if($lv &gt; 48) $lv = 48;<br>$memberonline.=”&lt;img src=’$imgpath/top/c</em>“.$c_i.”.gif’ align=’absmiddle’ width=’11’ height=’11’&gt; &lt;a href=’profile.php?action=show&amp;uid=$members[uid]’ title=’在线等级:{$lv} 级\n在线时长:{$members[onlinetime]} 小时\n升级剩余:{$more} 小时’&gt;$members[username]&lt;/a&gt; &lt;img src=’$imgpath/top/{$lv}.gif’&gt;&lt;br /&gt;”;<br>$c_i++;<br>}<br>unset($members);<br>unset($c_i);<br>//会员在线时间排行结束</p>
+<p>//会员当日<span onclick="sendmsg('pw_ajax.php','action=relatetag&tagname=发帖',this.id)" style="cursor: pointer; border-bottom: #fa891b 1px solid" id="rlt_7">发帖</span>排行开始<br>$query=$db-&gt;query(“SELECT m.uid,m.username,md.todaypost FROM pw_members m LEFT JOIN pw_memberdata md USING(uid) WHERE md.lastpost&gt;’$tdtime’ ORDER BY md.todaypost DESC limit 0,$listnum”);<br>$c_i=1;//初始化图片序号<br>while($members=$db-&gt;fetch<em>array($query)){<br>$memberposttoday.=”&lt;img src=’$imgpath/top/c</em>“.$c_i.”.gif’ align=’absmiddle’ width=’11’ height=’11’&gt; &lt;a href=’profile.php?action=show&amp;uid=$members[uid]’&gt;$members[username]&lt;/a&gt;  $members[todaypost]&lt;br /&gt;”;<br>$c_i++;<br>}<br>unset($members);<br>unset($c_i);<br>//会员当日发帖排行结束</p>
+<p>//最新发表主题开始<br>$query = $db-&gt;query(“SELECT pt.tid,pt.author,pt.subject,pt.postdate,pt.hits FROM pw_threads pt LEFT JOIN pw_forums pf USING(fid) where pt.ifcheck=’1’ and “.$showforum.” and pf.password = ‘’ order by pt.postdate desc limit 0,$listnum”);<br>$c_i=1;//初始化图片序号<br>while($threads=$db-&gt;fetch_array($query)){<br>$threads[postdate]=get<em>date($threads[postdate]);<br>$subject=substrs($threads[subject],$listlength);<br>$newthreads.=”&lt;img src=’$imgpath/top/c</em>“.$c_i.”.gif’ align=’absmiddle’ width=’11’ height=’11’&gt; &lt;a href=’read.php?tid=$threads[tid]’ title=’主题:$threads[subject]\n作者:$threads[author]\n时间:$threads[postdate]\n浏览:$threads[hits] 次’&gt;$subject&lt;/a&gt;&lt;br /&gt;”;<br>$c_i++;<br>}<br>unset($threads);<br>unset($c_i);<br>//最新发表主题结束</p>
+<p>//社区精华主题开始<br>$query = $db-&gt;query(“SELECT pt.tid,pt.author,pt.subject,pt.postdate,pt.lastpost,pt.lastposter,pt.hits,pt.replies FROM pw_threads pt LEFT JOIN pw_forums pf USING(fid) where pt.ifcheck=’1’ and pt.digest &gt; 0 and “.$showforum.” and pf.password = ‘’ order by pt.postdate desc limit 0,$listnum”);<br>$c_i=1;//初始化图片序号<br>while($threads=$db-&gt;fetch_array($query)){<br>$threads[postdate]=get_date($threads[postdate]);<br>$threads[lastpost]=get<em>date($threads[lastpost]);<br>$subject=substrs($threads[subject],$listlength);<br>$digestthreads.=”&lt;img src=’$imgpath/top/c</em>“.$c_i.”.gif’ align=’absmiddle’ width=’11’ height=’11’&gt; &lt;a href=’read.php?tid=$threads[tid]’ title=’主题标题:$threads[subject]\n主题作者:$threads[author]\n发表时间:$threads[postdate]\n浏览次数:$threads[hits] 次\n最新回复:$threads[lastposter]\n回复时间:$threads[lastpost]\n回复次数:$threads[replies] 次’&gt;$subject&lt;/a&gt;&lt;br /&gt;”;<br>$c_i++;<br>}<br>unset($threads);<br>unset($c_i);<br>//社区精华主题结束</p>
+<p>//最新回复主题开始<br>$query = $db-&gt;query(“SELECT pt.tid,pt.author,pt.subject,pt.postdate,pt.lastpost,pt.lastposter,pt.hits,pt.replies FROM pw_threads pt LEFT JOIN pw_forums pf USING(fid) where pt.ifcheck = ‘1’ and pt.replies &gt; 0 and “.$showforum.” and pf.password = ‘’ order by lastpost desc limit 0,$listnum”);<br>$c_i=1;//初始化图片序号<br>while($threads=$db-&gt;fetch_array($query)){<br>$threads[postdate]=get_date($threads[postdate]);<br>$threads[lastpost]=get<em>date($threads[lastpost]);<br>$subject=substrs($threads[subject],$listlength);<br>$replythreads.=”&lt;img src=’$imgpath/top/c</em>“.$c_i.”.gif’ align=’absmiddle’ width=’11’ height=’11’&gt; &lt;a href=’read.php?tid=$threads[tid]’ title=’主题标题:$threads[subject]\n主题作者:$threads[author]\n发表时间:$threads[postdate]\n浏览次数:$threads[hits] 次\n最新回复:$threads[lastposter]\n回复时间:$threads[lastpost]\n回复次数:$threads[replies] 次’&gt;$subject&lt;/a&gt;&lt;br /&gt;”;<br>$c_i++;<br>}<br>unset($threads);<br>unset($c_i);<br>//最新回复主题结束</p>
+<p>@writeover($cachelist,”&lt;?php\n\$memberonline=\”$memberonline\”;\n\$memberposttoday=\”$memberposttoday\”;\n\$newthreads=\”$newthreads\”;\n\$digestthreads=\”$digestthreads\”;\n\$replythreads=\”$replythreads\”;\n?&gt;”);<br>}<br>@require_once($cachelist);<br>//会员排行+主题排行结束</p>
+<p>//首页调用结束</p>
+<p>print &lt;&lt;&lt;EOT</p>
+<h2 id="–-gt"><a href="#–-gt" class="headerlink" title="–&gt;"></a>–&gt;</h2></blockquote>
+<p>再找到如下的代码 ：</p>
+<p>Copy code<br>&lt;!–<br>EOT;<br>}}<br>if($advertdb[text] &amp;&amp; $id &amp;&amp; $id&lt;4){<br>for($i=$id;$i&lt;4;$i++){print &lt;&lt;&lt;EOT<br>–&gt;<br>    &lt;td class=”f_one” width=”25%”&gt;&lt;br /&gt;&lt;/td&gt;<br>&lt;!–<br>EOT;<br>}print &lt;&lt;&lt;EOT<br>–&gt;<br>    &lt;/tr&gt;<br>&lt;!–<br>EOT;<br>}print &lt;&lt;&lt;EOT<br>–&gt;<br>&lt;/table&gt;&lt;/div&gt;</p>
+<p>下面加：</p>
+<h6 id="Quote-1"><a href="#Quote-1" class="headerlink" title="Quote:"></a>Quote:</h6><blockquote>
+<p>&lt;!– 主题排行开始 –&gt;<br>&lt;div class=”t”&gt;<br>&lt;table cellspacing=”0” cellpadding=”0” width=”100%”&gt;<br>  &lt;tr class=”tr3 tac”&gt;<br>    &lt;td width=”18%”&gt;&lt;span class=”b” style=”color:#FF6699”&gt;社区最新图片&lt;/span&gt;&lt;/td&gt;<br>    &lt;td width=”22%”&gt;&lt;span class=”b” style=”color:#669900”&gt;最新发表主题&lt;/span&gt;&lt;/td&gt;<br>    &lt;td width=”22%”&gt;&lt;span class=”b” style=”color:#0066FF”&gt;最新回复主题&lt;/span&gt;&lt;/td&gt;<br>    &lt;td width=”22%”&gt;&lt;span class=”b” style=”color:#FF9933”&gt;社区精华主题&lt;/span&gt;&lt;/td&gt;<br>    &lt;td width=”16%”&gt;&lt;span class=”b” style=”color:#FF3300”&gt;今日发贴排行&lt;/span&gt;&lt;/td&gt;<br>  &lt;/tr&gt;<br>  &lt;tr class=”tr3”&gt;<br>    &lt;td align=”center”&gt;<br>    &lt;script type=”text/javascript”&gt;<br>    &lt;!–<br>      var focus_width=165<br>      var focus_height=140<br>      var swf_width = focus_width<br>      var swf_height = focus_height</p>
+<pre><code>  var pics=&quot;$pics&quot;
+  var links=&quot;$links&quot;
+
+  document.write(&apos;&amp;lt;object classid=&quot;clsid:d27cdb6e-ae6d-11cf-96b8-444553540000&quot; codebase=&quot;http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0&quot; width=&quot;&apos;+ swf_width +&apos;&quot; height=&quot;&apos;+ swf_height +&apos;&quot;&amp;gt;&apos;);
+  document.write(&apos;&amp;lt;param name=&quot;allowScriptAccess&quot; value=&quot;sameDomain&quot;&amp;gt;&amp;lt;param name=&quot;movie&quot; value=&quot;{$imgpath}/pixviewer.swf&quot;&amp;gt;&amp;lt;param name=&quot;quality&quot; value=&quot;high&quot;&amp;gt;&amp;lt;param name=&quot;bgcolor&quot; value=&quot;#F4FBFF&quot;&amp;gt;&apos;);
+  document.write(&apos;&amp;lt;param name=&quot;menu&quot; value=&quot;false&quot;&amp;gt;&amp;lt;param name=wmode value=&quot;opaque&quot;&amp;gt;&apos;);
+  document.write(&apos;&amp;lt;param name=&quot;FlashVars&quot; value=&quot;pics=&apos;+pics+&apos;&amp;amp;links=&apos;+links+&apos;&amp;amp;borderwidth=&apos;+focus_width+&apos;&amp;amp;borderheight=&apos;+focus_height+&apos;&quot;&amp;gt;&apos;);
+  document.write(&apos;&amp;lt;embed src=&quot;{$imgpath}/pixviewer.swf&quot; mce_src=&quot;{$imgpath}/pixviewer.swf&quot; wmode=&quot;opaque&quot; FlashVars=&quot;pics=&apos;+pics+&apos;&amp;amp;links=&apos;+links+&apos;&amp;amp;borderwidth=&apos;+focus_width+&apos;&amp;amp;borderheight=&apos;+focus_height+&apos;&quot; menu=&quot;false&quot; bgcolor=&quot;#F4FBFF&quot; quality=&quot;high&quot; width=&quot;&apos;+ swf_width +&apos;&quot; height=&quot;&apos;+ swf_height +&apos;&quot; allowScriptAccess=&quot;sameDomain&quot; type=&quot;application/x-shockwave-flash&quot; pluginspage=&quot;http://www.macromedia.com/go/getflashplayer&quot; /&amp;gt;&apos;);
+  document.write(&apos;&amp;lt;/object&amp;gt;&apos;);
+//--&amp;gt;
+&amp;lt;/script&amp;gt;
+&amp;lt;/td&amp;gt;
+&amp;lt;td class=&quot;f_two&quot; style=&quot;vertical-align:top;&quot;&amp;gt;$newthreads&amp;lt;/td&amp;gt;
+&amp;lt;td style=&quot;vertical-align:top;&quot;&amp;gt;$replythreads&amp;lt;/td&amp;gt;
+&amp;lt;td class=&quot;f_two&quot; style=&quot;vertical-align:top;&quot;&amp;gt;$digestthreads&amp;lt;/td&amp;gt;
+&amp;lt;td style=&quot;vertical-align:top;&quot;&amp;gt;$memberposttoday&amp;lt;/td&amp;gt;
+</code></pre><p>  &lt;/tr&gt;<br>&lt;/table&gt;<br>&lt;/div&gt;<br>&lt;!– 主题排行结束 –&gt;</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHPwind/" rel="tag"># PHPwind</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2007/11/15/tar-e6-8e-92-e9-99-a4-e6-8c-87-e5-ae-9a-e7-9b-ae-e5-bd-95/" rel="next" title="Linux下tar排除指定目录">
+                <i class="fa fa-chevron-left"></i> Linux下tar排除指定目录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2007/11/16/pw60-e4-b8-ad-e5-a2-9e-e5-8a-a0-e8-af-84-e5-88-86-e5-ad-97-e6-95-b00/" rel="prev" title="PW6.0中增加评分字数0">
+                PW6.0中增加评分字数0 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#Quote"><span class="nav-number">1.</span> <span class="nav-text">Quote:</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#–-gt"><span class="nav-number"></span> <span class="nav-text">–></span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Quote-1"><span class="nav-number">1.</span> <span class="nav-text">Quote:</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,753 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="DNS,PHP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Hi all .. I translated ispconfig to czech language .. and here is small guide how you can translate ispconfig to your language too .. sorry for my english .. I hope it somebody helps .. I wanted use u">
+<meta name="keywords" content="DNS,PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ispconfig Translation HowTo">
+<meta property="og:url" content="http://yoursite.com/2008/03/08/ispconfig-translation-howto/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="Hi all .. I translated ispconfig to czech language .. and here is small guide how you can translate ispconfig to your language too .. sorry for my english .. I hope it somebody helps .. I wanted use u">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ispconfig Translation HowTo">
+<meta name="twitter:description" content="Hi all .. I translated ispconfig to czech language .. and here is small guide how you can translate ispconfig to your language too .. sorry for my english .. I hope it somebody helps .. I wanted use u">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/03/08/ispconfig-translation-howto/"/>
+
+
+
+
+
+  <title> ispconfig Translation HowTo | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/08/ispconfig-translation-howto/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ispconfig Translation HowTo
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-03-08T16:46:14+08:00">
+                2008-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index">
+                    <span itemprop="name">Other</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Hi all ..</p>
+<p>I translated ispconfig to czech language .. and here is small guide how you can translate ispconfig to your language too .. sorry for my english ..</p>
+<p>I hope it somebody helps ..</p>
+<p>I wanted use utf-8 but it was not work properly .. so I used my national charset encoding .. I translated to czech language so I used cz as my lang and iso-8859-2 charset encoding.</p>
+<p>1. copy english language files</p>
+<p>you can use this to locate <em>.lng and </em>.hlp english files:</p>
+<p>Code:</p>
+<h1 id="locate-en-lng"><a href="#locate-en-lng" class="headerlink" title="locate en.lng"></a>locate en.lng</h1><p>if you want translate help files too ..</p>
+<p>Code:</p>
+<h1 id="locate-hlp-grep-en"><a href="#locate-hlp-grep-en" class="headerlink" title="locate *.hlp |grep en"></a>locate *.hlp |grep en</h1><p>You can copy /root/ispconfig/isp/standard_index.html_en too if you want have localize standard index</p>
+<p>copy these files to new one .. in my case I copied its to cz.lng, cz*.hlp and standard_index.html_cz</p>
+<p>2. change setting in config.inc.php<br>edit /home/admispconfig/ispconfig/lib/config.inc.php from</p>
+<p>Code:</p>
+<p>$go_info[“server”][“lang”] = “en”; $go_info[“theme”][“charset”] = “iso-8859-1”;</p>
+<p>to your language setting .. in my case to</p>
+<p>Code:</p>
+<p>$go_info[“server”][“lang”] = “cz”; $go_info[“theme”][“charset”] = “iso-8859-2”;</p>
+<p>3. first testing if everything is ok ..<br>reload your ispconfig .. if you don’t see any changes all is ok</p>
+<p>4. Now translate text in new created files to your language ..<br>remember that you have to use right charset encoding .. same as you will use on ispconfig pages. It will be a lot of work .. you will translate a lot of sentenses more than once .. so be patient .. sometimes check your work by reloading ispconfig .. it should be partialy translated ..</p>
+<p>Done? Now you have to change charset encoding in some files.</p>
+<p>5. changing and adding meta tags</p>
+<p>For properly working encoding you have to change or insert meta tags to some files .. here is list of its ..</p>
+<p>change from</p>
+<p>Code:</p>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<p>to (change to your needs)</p>
+<p>Code:</p>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2">
+
+<p>or simply insert new line with (change to your needs)</p>
+<p>Code:</p>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2">
+
+<p>in</p>
+<p>/home/admispconfig/ispconfig/web/index.html (you can change title to your needs too ..)</p>
+<p>menu files (put meta tag after <title></title> tag):<br>/home/admispconfig/ispconfig/web/admin/inhalt_tree.php<br>/home/admispconfig/ispconfig/web/help/inhalt_tree.php<br>/home/admispconfig/ispconfig/web/isp_dns/inhalt_tree.php<br>/home/admispconfig/ispconfig/web/isp_fakt/inhalt_tree.php<br>/home/admispconfig/ispconfig/web/isp_file/inhalt_tree.php<br>/home/admispconfig/ispconfig/web/isp_kunde/inhalt_tree.php<br>/home/admispconfig/ispconfig/web/isp_manager/inhalt_tree.php<br>/home/admispconfig/ispconfig/web/multidoc/inhalt_tree.php<br>/home/admispconfig/ispconfig/web/tools/inhalt_tree.php</p>
+<p>“loading folders” files (put meta tag after <title></title> tag):<br>– in these files change english text to your language too if you don’t like “loading folders”</p>
+<p>/home/admispconfig/ispconfig/web/admin/vorladen.php<br>/home/admispconfig/ispconfig/web/help/vorladen.php<br>/home/admispconfig/ispconfig/web/isp_dns/vorladen.php<br>/home/admispconfig/ispconfig/web/isp_fakt/vorladen.php<br>/home/admispconfig/ispconfig/web/isp_file/vorladen.php<br>/home/admispconfig/ispconfig/web/isp_kunde/vorladen.php<br>/home/admispconfig/ispconfig/web/isp_manager/vorladen.php<br>/home/admispconfig/ispconfig/web/multidoc/vorladen.php<br>/home/admispconfig/ispconfig/web/tools/options/vorladen.php<br>/home/admispconfig/ispconfig/web/tools/vorladen.php</p>
+<p>6. Translating of error pages</p>
+<p>Go to /root/ispconfig/isp/ and copy error_en to error_XX (in my case error_cz) and edit *.html files in created directory.</p>
+<p>And it is all .. that was quite easy .. wasn’t that?</p>
+<p>Little suggestion for Falco and Till .. if it is possible it would be nice to have meta tags in files listed here with charset encoding variable from config.inc.php file .. translation will be more easy ..</p>
+<p>SupuS</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DNS/" rel="tag"># DNS</a>
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/03/08/ispconfig2221-bug/" rel="next" title="ispconfig2.2.21 BUG">
+                <i class="fa fa-chevron-left"></i> ispconfig2.2.21 BUG
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/03/09/e5-a4-9a-e5-8a-9f-e8-83-bdmysql-e6-95-b0-e6-8d-ae-e5-ba-93-e8-87-aa-e5-8a-a8-e5-a4-87-e4-bb-bdshell-e8-84-9a-e6-9c-ac/" rel="prev" title="多功能Mysql数据库自动备份shell脚本">
+                多功能Mysql数据库自动备份shell脚本 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#locate-en-lng"><span class="nav-number">1.</span> <span class="nav-text">locate en.lng</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#locate-hlp-grep-en"><span class="nav-number">2.</span> <span class="nav-text">locate *.hlp |grep en</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,717 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Shell," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="1．sed命令简介sed是流线型、非交互式编辑器。它允许你执行与vi和ex编辑器里一样的编辑任务。Sed 程序不是与编辑器交互式工作的，而是让你在命令行里敲入编辑的命令，给文件命名，然后在屏幕上查看命令输出结果。2．sed工作原理sed编辑器按一次处理一行的方式来处理文件，并把输出送到屏幕上。3．sed 可以用寻址的方式来决定想要编辑哪一行。4．sed 命令和选项命令 功能a  在当前行上添加一个">
+<meta name="keywords" content="Shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Unix Shell 实例精解》学习笔记之sed篇">
+<meta property="og:url" content="http://yoursite.com/2008/03/21/e3-80-8aunix-shell-e5-ae-9e-e4-be-8b-e7-b2-be-e8-a7-a3-e3-80-8b-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-e4-b9-8bsed-e7-af-87/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="1．sed命令简介sed是流线型、非交互式编辑器。它允许你执行与vi和ex编辑器里一样的编辑任务。Sed 程序不是与编辑器交互式工作的，而是让你在命令行里敲入编辑的命令，给文件命名，然后在屏幕上查看命令输出结果。2．sed工作原理sed编辑器按一次处理一行的方式来处理文件，并把输出送到屏幕上。3．sed 可以用寻址的方式来决定想要编辑哪一行。4．sed 命令和选项命令 功能a  在当前行上添加一个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Unix Shell 实例精解》学习笔记之sed篇">
+<meta name="twitter:description" content="1．sed命令简介sed是流线型、非交互式编辑器。它允许你执行与vi和ex编辑器里一样的编辑任务。Sed 程序不是与编辑器交互式工作的，而是让你在命令行里敲入编辑的命令，给文件命名，然后在屏幕上查看命令输出结果。2．sed工作原理sed编辑器按一次处理一行的方式来处理文件，并把输出送到屏幕上。3．sed 可以用寻址的方式来决定想要编辑哪一行。4．sed 命令和选项命令 功能a  在当前行上添加一个">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/03/21/e3-80-8aunix-shell-e5-ae-9e-e4-be-8b-e7-b2-be-e8-a7-a3-e3-80-8b-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-e4-b9-8bsed-e7-af-87/"/>
+
+
+
+
+
+  <title> 《Unix Shell 实例精解》学习笔记之sed篇 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/21/e3-80-8aunix-shell-e5-ae-9e-e4-be-8b-e7-b2-be-e8-a7-a3-e3-80-8b-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-e4-b9-8bsed-e7-af-87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                《Unix Shell 实例精解》学习笔记之sed篇
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-03-21T17:35:40+08:00">
+                2008-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1．sed命令简介<br>sed是流线型、非交互式编辑器。它允许你执行与vi和ex编辑器里一样的编辑任务。Sed 程序不是与编辑器交互式工作的，而是让你在命令行里敲入编辑的命令，给文件命名，然后在屏幕上查看命令输出结果。<br>2．sed工作原理<br>sed编辑器按一次处理一行的方式来处理文件，并把输出送到屏幕上。<br>3．sed 可以用寻址的方式来决定想要编辑哪一行。<br>4．sed 命令和选项<br>命令 功能<br>a  在当前行上添加一个文本行或者多个文本行<br>c  用新闻本改变（取代）当前行里的文本<br>d  删除行<br>i  在当前行之前插入文本<br>h  把模式空间内容复制到一个固定缓存<br>H  把模式空间内容添加到一个固定缓存<br>g  得到固定缓存里所有的禀复制到模式缓存，重写其内容<br>G  得到固定缓存的内容并复制到模式缓存，添加到里面<br>I  列出不打印的字符<br>p  打印行<br>n  读下一输入行，并开始用下一个命令处理换行符，而不是用第一个命令<br>q  结束或退出sed<br>r  从一个文件读如行<br>!  把命令应用到除了选出的行以外的其他所有行<br>s  把一个字串替换成另一个<br>替换标志<br>g  在一行上进行全局替换<br>p  打印行<br>w  把行写到一个文件中<br>x  用模式空间的内容交换固定缓存的内容<br>y  把一个字符转换成另一个(不能和整则表达式元字符一起使用)<br>5．sed元字符<br>    基本上，grep和vi使用的元字符都可以用在sed中。下表列出了一些特别的sed元字符：<br>元字符 &amp;amp;<br>功能 保存搜索串以便可以记在替换串里<br>例子    s/love/<strong>&amp;amp;</strong>/<br>解释    &amp;amp;号代表搜索串。串love将被星号包围的自身所替代；即love变成<strong>love</strong><br>6． sed 的实例(使用datafile)<br>datafile内容如下：<br>northwest NW Charles Main      3.0 .98 3 34<br>western  WE Sharon Gray      5.3 .97 5 23<br>southwest SW Lewis Dalsass      2.7 .8 2 18<br>southern SO Suan Chin      5.1  .95 4 15<br>southeast SE      Patricia Hemenway    4.0  .7  4  17<br>eastern  EA  TB Savage       4.4  .84  5  20<br>northeast  NE  AM Main Jr.       5.1  .94  3  13<br>north   NO  Margot Weber       4.5  .89 5   9<br>central  CT  Ann Stephens         5.7  .94   5  13<br>1&gt; 打印：p命令<br>sed ‘/north/p’ datafile<br>默认输出所有行，找到north的行重复打印<br>sed –n ‘/north/p’ datafile<br>禁止默认输出，只打印找到north的行<br>2&gt; 删除：d命令<br>sed ‘3d’ datafile<br>删除第三行，其余行输出到屏幕<br>sed ‘3,$d’ datafile<br>从第3行到最后一行都删除，将剩余部分输出到屏幕<br>sed ‘/north/d’ datafile<br>将含有north的行删除，其余输出到屏幕<br>3&gt; 替换：s命令<br>sed ‘s/west/north/g’ datafile<br>解释：找到datafile中的所有west并替换成north，将替换后的内容输出到屏幕。<br>sed ‘s/[0-9][0-9]$/&amp;amp;.5/‘ datafile<br>解释：在替代串里的&amp;amp;字符代表在搜索串中真正找到的。每个以两个数字结尾的行都被它自己取代，且要在后面加上.5<br>sed -n ‘s/Hemenway/Jones/gp’ datafile<br>解释：所有的Hemenway所在的位置都用Jones来取代，而且只有改变的行被打印。-n与p命令选项相结合来禁止默认输出。g代表全局替换<br>sed -n ‘s/(Mar)got/1ianne/p’ datafile<br>解释：模式Mar被封装在括弧里且在一个专用寄存器里存为标记1。在替换串里它将被引用做1。然后用Marianne替代Margot。<br>sed ‘s#3#88#g’ datafile<br>解释：s命令后面的字符是搜索串和替换串之间的分界符。默认的分界符是一个正斜杠，但也可以改变（只有使用s命令时）。无论s命令后面跟什么字符，它都是新的串分界符。当搜索包含一个正斜杠的模式，如路径或生日时，这种技巧可能有用的 ^V^<br>4&gt; 被选中的行的范围：逗号<br>sed -n ‘/west/,/east/p’ datafile<br>解释：打印在west和east之间的模式范围内所有行。如果west出现在east之后，则打印从west到下一个east或者到文件末尾的行，无论哪种情况先出现都可以。<br>sed ‘/west/,/east/s/$/<strong>VACA</strong>/‘ datafile<br>解释：对于在模式west到east范围内的行，行末尾将用<strong>VACA</strong>来取代。<br>5&gt; 多次编辑 -e 选项<br>sed -e ‘1,3d’ -e ‘s/Hemenway/Jones/‘ datafile<br>-e选项允许多次编辑。不同的编辑顺序可能导致不同的结果。<br>例如，如果两个命令都执行了替换，第一次替换可能影响第二次替换。<br>6&gt; 从文件中读取：r命令<br>sed ‘/Suan/r newfile’ datafile<br>解释：r命令从newfile中读取内容，将内容输出到Suan的后面。如果datafile中Suan出现的次数不只一次，则分别放到Suan的后面。<br>7&gt; 写入文件：w命令<br>sed -n ‘/north/w newfile’ datafile<br>解释：w命令把指定的行写入到一个文件。本例中所有的包含north的行写入到newfile中。<br>等同于 sed -n ‘/north/p’ datafile &gt; newfile<br>8&gt; 添加：a命令<br>$ sed ‘/north/a</p>
+<blockquote>
+<p>—-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–’ datafile<br> northwest NW Charles Main      3.0 .98 3 34<br>  —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> western WE Sharon Gray      5.3 .97 5 23<br> southwest SW Lewis Dalsass      2.7 .8 2 18<br> southern SO Suan Chin      5.1  .95 4 15<br> southeast SE      Patricia Hemenway    4.0  .7  4  17<br> eastern  EA  TB Savage       4.4  .84  5  20<br> northeast  NE  AM Main Jr.       5.1  .94  3  13<br> —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> north   NO  Margot Weber       4.5  .89 5  9<br> —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> central  CT  Ann Stephens         5.7  .94   5  13<br>    解释：红颜色的内容是要输入的内容。a命令后面跟要添加的内容。奇怪的是a后面必须另起一行，在输入要添加的内容，否则会提示命令错乱，真是搞不懂。<br>9&gt; 插入：i命令<br>$ sed ‘/north/i<br>—-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–’ datafile<br>  —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> northwest NW Charles Main      3.0 .98 3 34<br>  —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> western WE Sharon Gray      5.3 .97 5 23<br> southwest SW Lewis Dalsass      2.7 .8 2 18<br> southern SO Suan Chin      5.1  .95 4 15<br> southeast SE      Patricia Hemenway    4.0  .7  4  17<br> eastern  EA  TB Savage       4.4  .84  5  20<br> —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> northeast  NE  AM Main Jr.       5.1  .94  3  13<br> —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> north   NO  Margot Weber       4.5  .89 5  9<br> central  CT  Ann Stephens         5.7  .94   5  13<br>10&gt;下一个：n命令<br>$ sed ‘/eastern/{n;s/AM/Archie/;}’ datafile<br>  northwest NW Charles Main      3.0 .98 3 34<br>  western WE Sharon Gray      5.3 .97 5 23<br>  southwest SW Lewis Dalsass      2.7 .8 2 18<br>  southern SO Suan Chin      5.1  .95 4 15<br>  southeast SE      Patricia Hemenway    4.0  .7  4  17<br>  eastern  EA  TB Savage       4.4  .84  5  20<br>  northeast  NE  AM Main Jr.       5.1  .94  3  13<br>  ……<br>解释：如果在某一行里模式eastern被匹配，n命令使sed区的下一行，用该行带换模式空间，用Archie替换AM，打印并继续。<br>11&gt;变换：y 命令<br>% sed ‘1,3y/abcdefghijklmnopqrst/ABCDEFGHIJKLMNOPQRST/‘ datafile<br>解释:将对应字母进行转换。<br>12&gt;退出：q命令<br>% sed ‘5q’ datafile<br>解释：在打印了5行之后，用q命令退出sed程序。<br>13&gt;保存和取得：h和G命令<br>$ sed -e ‘/southeast/h’ -e ‘$G’ datafile<br> northwest NW Charles Main      3.0 .98 3 34<br> western  WE Sharon Gray      5.3 .97 5 23<br> southwest SW Lewis Dalsass      2.7 .8 2 18<br> southern SO Suan Chin      5.1  .95 4 15<br> southeast SE      Patricia Hemenway    4.0  .7  4  17<br> eastern  EA  TB Savage       4.4  .84  5  20<br> northeast  NE  AM Main Jr.       5.1  .94  3  13<br> north   NO  Margot Weber       4.5  .89 5   9<br> central  CT  Ann Stephens         5.7  .94   5  13<br> southeast SE      Patricia Hemenway    4.0  .7  4  17<br>解释：当sed处理文件时，每行都存在模式空间(pattern space)的临时缓存中。除非行被禁止打印或删除,否则行将在处理完后被打印到屏幕，然后请模式空间并把下一输入行保存在那里等待处理。在这个例子中，在找到模式之后，把它放在模式空间里，而且h命令复制它并把它存到另一个叫做保存缓存(holding buffer)中。<br>第二个sed指令里，当读入最后一行($)时,G命令告诉sed从包存缓存中取得该行并放回模式空间缓存，添加到当前存在那里的行中。本例子就是最后一行。<br>$ sed -e ‘/WE/{h;d;}’ -e ‘/CT/G’ datafile<br> northwest NW Charles Main      3.0 .98 3 34<br> southwest SW Lewis Dalsass      2.7 .8 2 18<br> southern SO Suan Chin      5.1  .95 4 15<br> southeast SE      Patricia Hemenway    4.0  .7  4  17<br> eastern  EA  TB Savage       4.4  .84  5  20<br> northeast  NE  AM Main Jr.       5.1  .94  3  13<br> north   NO  Margot Weber       4.5  .89 5   9<br> central  CT  Ann Stephens         5.7  .94   5  13<br> western WE Sharon Gray      5.3 .97 5 23<br>解释：第一个命令h将找到了WE的行放到保存缓存中，然后删除该行；第二个命令/CT/G就是在找到了CT的行的后面加入保存缓存的内容。<br>14&gt;G和g的区别<br>    G命令在符合的条件行后面添加保存缓存中的内容；g命令用保存缓存中的内容覆盖符合条件的行。<br>15&gt;sed 命令的花括号{}的作用<br>   花括号{}中可以放入多个命令，每个命令后面要用分号;。<br>16&gt;保存和交换：h 和 x命令。<br>$ sed -e ‘/Patricia/h’ -e ‘/Margot/x’ datafile<br>northwest  NW  Charles Main   3.0  .98  3  34<br>western  WE  Sharon Gray   5.3  .97  5  23<br>southwest  SW  Lewis Dalsass  2.7  .8  2  18<br>southern  SO  Suan Chin          5.1  .95  4  15<br>southeast  SE  Patricia Hemenway  4.0  .7  4  17<br>eastern  EA  TB Savage          4.4  .84  5  20<br>northeast  NE  AM Main Jr.          5.1  .94  3  13<br>southeast  SE  Patricia Hemenway  4.0  .7  4  17<br>central  CT  Ann Stephens          5.7  .94  5  13<br>解释：x命令将找到的行用保存缓存中的内容替换。<br>7． 用sed来编写命令表<br>     sed 命令表(script)是文件里的一个sed命令列表。用-f选项来引用一个命令表文件。编辑sed命令表有特殊要求：命令末尾不能有任何为岁的空白符或者文本。如果命令不是自成一行，就必须用分号结束。在源代码chap4目录下有两个编辑好的命令表文件(sedding1和sedding2)可以参考。<br>   下面是使用sed命令表的例子。<br>$ sed -f sedding1 datafile</p>
+<h2 id="EMPLOYEE-DATABASE"><a href="#EMPLOYEE-DATABASE" class="headerlink" title="  EMPLOYEE DATABASE"></a>  EMPLOYEE DATABASE</h2><p>  northwest NW Charles Main 3.0 .98 3 34<br>  western WE Sharon Gray 5.3 .97 5 23<br>  southwest SW Lewis Dalsass 2.7 .8 2 18<br> Lewis is the TOP Salesperson for April!!<br> Lewis is moving to the southern district next month.<br> CONGRATULATIONS!<br>  southern SO Suan Chin 5.1 .95 4 15<br>  southeast SE Patricia Hemenway 4.0 .7 4 17<br>  eastern EA TB Savage 4.4 .84 5 20<br>  northeast NE AM Main Jr. 5.1 .94 3 13</p>
+<hr>
+<pre><code>MARGOT HAS RETIRED
+</code></pre><hr>
+<p>8． Sed练习参考答案<br>    练习内容参考databook文件<br> 1〉 把Jon改成Jonathan<br>sed ‘s/Jon/Jonathan/‘ datebook<br>2〉 删除头3行<br>sed ‘1,3d’ datebook<br>3〉 打印5—10行<br>sed -n ‘5,10p’ datebook<br>4〉 删除包含Lane的行<br>sed ‘/Lane/d’ datebook<br>5〉 打印所有生日是在Noverber到December之间的行<br>sed -n ‘/:1[12]//p’ datebook<br>6〉 把三个星添加到以Fred开头的行尾<br>sed ‘/^Fred/s/$/<em>**/‘ datebook<br>7〉 用JOSE HAS RETIRED取代包含Jose的行<br>sed ‘s/^Jose[0-9]</em>[a-z]<em>[A-Z]</em> <em>.</em>$/JOSE HAS LEFT/‘ datebook<br>8〉 把Popeye的生日改成11/14/46<br>sed ‘/Popeye/s/:[0-9]<em>[0-9]</em>/[0-9]<em>[0-9]</em>/[0-9]<em>[0-9]</em>/:11/14/46/‘ datebook<br>9〉 删除所有空白行 sed ‘/^$/d’ datebook 10〉 写一个sed命令表，将:<br>a. 在第1行之前插入标题PERSONNEL FILE<br>b. 删除以500结尾的工资<br>c. 打印文件内容，把姓和名颠倒<br>d. 在文件末尾添加THE END<br>答案放在chap04/a10文件中，内容如下：</p>
+<h1 id="My-first-sed-script-by-Wangzhh"><a href="#My-first-sed-script-by-Wangzhh" class="headerlink" title="My first sed script by Wangzhh."></a>My first sed script by Wangzhh.</h1><p>1i<br> PERSONNEL FILE<br>/500/d<br>s/([A-Z][a-z]<em>) ([A-Z][a-z]</em>):/2 1:/<br>$a<br> THE END</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Shell/" rel="tag"># Shell</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/03/20/e8-87-aa-e5-b7-b1-e4-bd-bf-e7-94-a8-e7-9a-84vim-e9-85-8d-e7-bd-ae-e6-96-87-e4-bb-b6-e5-92-8c-e6-8f-92-e4-bb-b6/" rel="next" title="自己使用的VIM配置文件和插件">
+                <i class="fa fa-chevron-left"></i> 自己使用的VIM配置文件和插件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/03/21/e3-80-8aunix-shell-e5-ae-9e-e4-be-8b-e7-b2-be-e8-a7-a3-e3-80-8b-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-e4-b9-8bgrep-e7-af-87/" rel="prev" title="《Unix Shell 实例精解》学习笔记之grep篇">
+                《Unix Shell 实例精解》学习笔记之grep篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#EMPLOYEE-DATABASE"><span class="nav-number">1.</span> <span class="nav-text">  EMPLOYEE DATABASE</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#My-first-sed-script-by-Wangzhh"><span class="nav-number"></span> <span class="nav-text">My first sed script by Wangzhh.</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

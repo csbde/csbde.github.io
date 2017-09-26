@@ -1,0 +1,928 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="DNS,Font,Proftpd,Shell," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="看到这篇还写得不错，拿过来欣赏下，我最喜欢拿来主义了：-） 另外今天被网上的以篇文章给误导了一上午，差点发飙，居然是因为COPY得太流畅了，连小错误都没发现。就是那篇网上流传得很广的proftp配置文章，里面有个建立新用户的过程，不自主的就发扬了COPY精神，弄了过来改个名字就用上了，结果里面有笔误？或者是作者系统比较特别将false 写成了fales，哈哈，估计不只我一个中招，记录下来，万一有">
+<meta name="keywords" content="DNS,Font,Proftpd,Shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ProFTPD服务器配置过程">
+<meta property="og:url" content="http://yoursite.com/2008/01/11/proftpd-e6-9c-8d-e5-8a-a1-e5-99-a8-e9-85-8d-e7-bd-ae-e8-bf-87-e7-a8-8b/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="看到这篇还写得不错，拿过来欣赏下，我最喜欢拿来主义了：-） 另外今天被网上的以篇文章给误导了一上午，差点发飙，居然是因为COPY得太流畅了，连小错误都没发现。就是那篇网上流传得很广的proftp配置文章，里面有个建立新用户的过程，不自主的就发扬了COPY精神，弄了过来改个名字就用上了，结果里面有笔误？或者是作者系统比较特别将false 写成了fales，哈哈，估计不只我一个中招，记录下来，万一有">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ProFTPD服务器配置过程">
+<meta name="twitter:description" content="看到这篇还写得不错，拿过来欣赏下，我最喜欢拿来主义了：-） 另外今天被网上的以篇文章给误导了一上午，差点发飙，居然是因为COPY得太流畅了，连小错误都没发现。就是那篇网上流传得很广的proftp配置文章，里面有个建立新用户的过程，不自主的就发扬了COPY精神，弄了过来改个名字就用上了，结果里面有笔误？或者是作者系统比较特别将false 写成了fales，哈哈，估计不只我一个中招，记录下来，万一有">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/01/11/proftpd-e6-9c-8d-e5-8a-a1-e5-99-a8-e9-85-8d-e7-bd-ae-e8-bf-87-e7-a8-8b/"/>
+
+
+
+
+
+  <title> ProFTPD服务器配置过程 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/01/11/proftpd-e6-9c-8d-e5-8a-a1-e5-99-a8-e9-85-8d-e7-bd-ae-e8-bf-87-e7-a8-8b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ProFTPD服务器配置过程
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-01-11T17:16:08+08:00">
+                2008-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/FTPserver/" itemprop="url" rel="index">
+                    <span itemprop="name">FTPserver</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><span style="font-family: 宋体"> 看到这篇还写得不错，拿过来欣赏下，我最喜欢拿来主义了：-）</span></p>
+<p><span style="font-family: 宋体">另外今天被网上的以篇文章给误导了一上午，差点发飙，居然是因为COPY得太流畅了，连小错误都没发现。就是那篇网上流传得很广的proftp配置文章，里面有个建立新用户的过程，不自主的就发扬了COPY精神，弄了过来改个名字就用上了，结果里面有笔误？或者是作者系统比较特别将false 写成了fales，哈哈，估计不只我一个中招，记录下来，万一有朋友找到这里来还能知道是啥原因<a id="more"></a></span></p>
+<p><span style="font-family: 宋体">一、安装</span><span lang="EN-US"><font face="Times New Roman">ProFTPD</font></span></p>
+<p><span lang="EN-US"></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">1</font></span><span style="font-family: 宋体">、准备工作</span></p>
+<p><span style="font-family: 宋体">一般系统自带的</span><span lang="EN-US"><font face="Times New Roman">RPM</font></span><span style="font-family: 宋体">包的版本太老，有些</span><span lang="EN-US"><font face="Times New Roman">Bug</font></span><span style="font-family: 宋体">并且有些功能不全，下载较新的</span><span lang="EN-US"><font face="Times New Roman">ProFTPD</font></span><span style="font-family: 宋体">服务器进行安装。如果是自己练习或者内部使用，可以使用新版的，如果做服务器，提供正式的服务，一定使用稳的版本，这是一个良好的习惯。</span><span lang="EN-US"></span></p>
+<p><span style="font-family: 宋体">下载地址：</span><font face="Times New Roman"><br>    <span lang="EN-US"><a href="http://www.proftpd.org/download.html" target="_blank" rel="external">http://www.proftpd.org/download.html</a></span></font></p>
+<p></p><p style="margin: 0cm 0cm 0pt" class="MsoNormal"><span style="font-family: 宋体">安装</span><span lang="EN-US"><font face="Times New Roman">gcc</font></span></p>
+<p><span style="font-family: 宋体">如果系统没安装</span><span lang="EN-US"><font face="Times New Roman">GCC</font></span><span style="font-family: 宋体">请安装</span><span lang="EN-US"><font face="Times New Roman">GCC</font></span><span style="font-family: 宋体">程序。在</span><span lang="EN-US"><font face="Times New Roman">FC4</font></span><span style="font-family: 宋体">的</span><span lang="EN-US"><font face="Times New Roman">CD2</font></span><span style="font-family: 宋体">中，</span><span lang="EN-US"><font face="Times New Roman">RedHat</font></span><span style="font-family: 宋体">这点比较讨厌，在</span><span lang="EN-US"><font face="Times New Roman">Debian</font></span><span style="font-family: 宋体">系统中就简单了。</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">#rpm -ivh libstdc++-devel-4.0.0-8.i386.rpm</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">#rpm -ivh gcc-c++-4.0.0-8.i386.rpm</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">2 </font></span><span style="font-family: 宋体">、编译安装</span><span lang="EN-US"><font face="Times New Roman">ProFTPD</font></span></p>
+<p><span style="font-family: 宋体">我们这里使用手工编译安装，配置文件放到</span><span lang="EN-US"><font face="Times New Roman">/etc/proftpd/</font></span><span style="font-family: 宋体">目录下，其他文件使用默认的安装目录，</span><span lang="EN-US"><font face="Times New Roman">bin</font></span><span style="font-family: 宋体">文件为</span><span lang="EN-US"><font face="Times New Roman">/usr/local/sbin/proftpd</font></span><span style="font-family: 宋体">。</span><span lang="EN-US"></span></p>
+<p><table border="1" cellpadding="0" cellspacing="0" style="margin: auto auto auto 14.4pt; border-collapse: collapse; border: medium none" class="MsoTableGrid"></table></p>
+<p><tr style="height: 77.5pt"></tr></p>
+<p><td width="549" valign="top" style="padding-right: 5.4pt; padding-left: 5.4pt; padding-bottom: 0cm; width: 411.7pt; padding-top: 0cm; height: 77.5pt; background-color: transparent; border: windowtext 1pt solid"><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">#tar -zxvf proftpd-1.3.0rc3.tar.gz<span>                  </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">解压源文件</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"> </span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">#cd proftpd-1.3.0rc3<span>                            </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">进入目录</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"> </span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">#mkdir /etc/proftpd<span>                             </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">建立配置文件目录</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"> </span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">#./configure –sysconfdir=/etc/proftpd<span>              </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">生产</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">config</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">文件</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"> </span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">#make<span>                     </span><span>                  </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">编译文件</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"> </span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">#make install<span>                                  </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">安装</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"> </span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># which proftpd<span>                                </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">查看系统文件位置</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"> </span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span></td></p>
+<p><span lang="EN-US"><font face="Times New Roman">/usr/local/sbin/proftpd<span>                           </span></font></span></p>
+<p><br><br><br><span style="font-family: 宋体">注意：为规范服务器的管理，配置文件放到</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">/etc/proftpd</font></span><span style="font-family: 宋体">目录下。</span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">3</font></span><span style="font-family: 宋体">、手工启动</span><span lang="EN-US"><font face="Times New Roman">ProFTPD</font></span><span lang="EN-US"></span></p>
+<p><table border="1" cellpadding="0" cellspacing="0" style="margin: auto auto auto 14.4pt; border-collapse: collapse; border: medium none" class="MsoTableGrid"></table></p>
+<p><tr style="height: 13.25pt"></tr></p>
+<p><td width="549" valign="top" style="padding-right: 5.4pt; padding-left: 5.4pt; padding-bottom: 0cm; width: 411.7pt; padding-top: 0cm; height: 13.25pt; background-color: transparent; border: windowtext 1pt solid"><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># /usr/local/sbin/proftpd </font></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span></td><br><br><br><span style="font-family: 宋体">注：查看</span><span lang="EN-US"><font face="Times New Roman">ProFTPD</font></span><span style="font-family: 宋体">是否启动可以使用</span><span lang="EN-US"><font face="Times New Roman">ps –aux |grep proftpd</font></span><span style="font-family: 宋体">查看进程中是否有</span><span lang="EN-US"><font face="Times New Roman">proftpd</font></span><span style="font-family: 宋体">。</span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">4</font></span><span style="font-family: 宋体">、配置启动脚本，让</span><span lang="EN-US"><font face="Times New Roman">ProFTPD</font></span><span style="font-family: 宋体">跟随服务器自己启动，我们把启动文件放到</span><span lang="EN-US"><font face="Times New Roman">/etc/rc.local</font></span><span style="font-family: 宋体">文件中。这种配置仅限于</span><span lang="EN-US"><font face="Times New Roman">RedHat</font></span><span style="font-family: 宋体">系列的服务器。</span><span lang="EN-US"></span></p>
+<p><table border="1" cellpadding="0" cellspacing="0" style="margin: auto auto auto 14.4pt; border-collapse: collapse; border: medium none" class="MsoTableGrid"></table></p>
+<p><tr style="height: 38.45pt"></tr></p>
+<p><td width="549" valign="top" style="padding-right: 5.4pt; padding-left: 5.4pt; padding-bottom: 0cm; width: 411.7pt; padding-top: 0cm; height: 38.45pt; background-color: transparent; border: windowtext 1pt solid"><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">#cp contrib/dist/rpm/proftpd.init.d /etc/init.d/proftpd<span>   </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">将系统脚本拷贝到启动目录</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"> </span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># echo “/etc/init.d/proftpd start” &gt;&gt;/etc/rc.local <span> </span><span>  </span><span>   </span><span> </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">将启动脚本加到自启动文件中</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"> </span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span></td><br><br><br><span style="font-family: 宋体">二、配置</span><span lang="EN-US"><font face="Times New Roman">proftpd</font></span><span style="font-family: 宋体">服务器</span><span lang="EN-US"></span></p>
+<p><span style="font-family: 宋体">【目的】</span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">1</font></span><span style="font-family: 宋体">、匿名用户能够登陆系统，并且能够向</span><span lang="EN-US"><font face="Times New Roman">incoming</font></span><span style="font-family: 宋体">目录上传文件、建立目录，不能下载、删除、文件和目录，不能对目录和文件进行改名；</span><span lang="EN-US"><font face="Times New Roman">pub</font></span><span style="font-family: 宋体">目录里面的文件只能下载，不能进行上传文件、删除，不能建立目录和删除目录。</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">2</font></span><span style="font-family: 宋体">、</span><span lang="EN-US"><font face="Times New Roman">ftpadmin</font></span><span style="font-family: 宋体">用户可以对整个</span><span lang="EN-US"><font face="Times New Roman">ftp</font></span><span style="font-family: 宋体">的进行管理，可以对文件进行上传、下载、删除、移动、改名等全部操作，对目录进行建立、删除、移动、改名等全部操作。</span><span lang="EN-US"></span></p>
+<p><span style="font-family: 宋体">【配置过程】</span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">1</font></span><span style="font-family: 宋体">、准备工作</span></p>
+<p><span style="font-family: 宋体">（</span><span lang="EN-US"><font face="Times New Roman">1</font></span><span style="font-family: 宋体">）、添加匿名的</span><span lang="EN-US"><font face="Times New Roman">ftp</font></span><span style="font-family: 宋体">和</span><span lang="EN-US"><font face="Times New Roman">ftpadmin</font></span><span style="font-family: 宋体">用户</span></p>
+<p><span style="font-family: 宋体">默认的使用</span><span lang="EN-US"><font face="Times New Roman">ftp</font></span><span style="font-family: 宋体">用户，一般系统安装后都会天加该用户，使用</span><span lang="EN-US"><font face="Times New Roman">finger ftp</font></span><span style="font-family: 宋体">命令进行查询，看是否有</span><span lang="EN-US"><font face="Times New Roman">ftp</font></span><span style="font-family: 宋体">用户。如果系统有该用户，使用</span><span lang="EN-US"><font face="Times New Roman">vipw</font></span><span style="font-family: 宋体">命令修改</span><span lang="EN-US"><font face="Times New Roman">ftp</font></span><span style="font-family: 宋体">用户的根为</span><span lang="EN-US"><font face="Times New Roman">/dev/null</font></span><span style="font-family: 宋体">（这个目录可以随便定义，根据你的需要进行选择，这理为了实验，随便找个目录）。如果没有该用户，我们自己添加该用户。</span><span lang="EN-US"></span></p>
+<p><table border="1" cellpadding="0" cellspacing="0" style="margin: auto auto auto 14.4pt; border-collapse: collapse; border: medium none" class="MsoTableGrid"></table></p>
+<p><tr style="height: 38.45pt"></tr></p>
+<p><td width="549" valign="top" style="padding-right: 5.4pt; padding-left: 5.4pt; padding-bottom: 0cm; width: 411.7pt; padding-top: 0cm; height: 38.45pt; background-color: transparent; border: windowtext 1pt solid"><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># useradd -s /bin/false -d /dev/null ftp </font></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># finger ftp </font></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># useradd -s /bin/false -d /var/ftp ftpadmin </font></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># finger ftpadmin </font></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span></td></p>
+<p><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">#passwd ftpadmin</font></span></p>
+<p><br><br><br><span lang="EN-US"></span><span lang="EN-US"><span style="font-family: 宋体">（</span><span lang="EN-US"><font face="Times New Roman">2</font></span><span style="font-family: 宋体">）、如果没有</span><span lang="EN-US"><font face="Times New Roman">/var/ftp</font></span><span style="font-family: 宋体">目录，建立</span><span lang="EN-US"><font face="Times New Roman">/var/ftp</font></span><span style="font-family: 宋体">根目录：</span><span lang="EN-US"></span></span><span lang="EN-US"><span style="font-family: 宋体">（</span><span lang="EN-US"><font face="Times New Roman">2</font></span><span style="font-family: 宋体">）、如果没有</span><span lang="EN-US"><font face="Times New Roman">/var/ftp</font></span><span style="font-family: 宋体">目录，建立</span><span lang="EN-US"><font face="Times New Roman">/var/ftp</font></span><span style="font-family: 宋体">根目录：</span><span lang="EN-US"></span></span></p>
+<p><table border="1" cellpadding="0" cellspacing="0" style="margin: auto auto auto 14.4pt; border-collapse: collapse; border: medium none" class="MsoTableGrid"></table></p>
+<p><tr style="height: 38.45pt"></tr></p>
+<p><td width="607" valign="top" style="padding-right: 5.4pt; padding-left: 5.4pt; padding-bottom: 0cm; width: 455.4pt; padding-top: 0cm; height: 38.45pt; background-color: transparent; border: windowtext 1pt solid"><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># mkdir /var/ftp </font></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># mkdir /var/ftp/incoming<span>         </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">匿名用户可以写，不可以下载、删除、执行</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"> </span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># mkdir /var/ftp/pub<span>              </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">匿名用户不能写、下载、删除、执行</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"> </span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># chgrp ftp /var/ftp/incoming<span>       </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">将</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">incoming</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">目录的所属组改为</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">ftp </font></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># chgrp ftp /var/ftp/pub<span>            </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">将</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">pub</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">目录的所属组改为</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">ftp </font></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># chown ftpadmin /var/ftp/pub<span>      </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">将</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">/var/ftp/pub</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">的目录属主该为</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">ftpadmin </font></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># chown ftp /var/ftp/incoming/<span>      </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">将</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">/var/ftp/incoming</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">的目录属主该为</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">ftp </font></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># chmod –R 775 /var/ftp/incoming/ <span> </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">改变</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">incoming</font></span>&lt;span style=”background: #d</td></p>
+<p>9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial”&gt;目录为属主和同组为全部权限，其他可读权限<span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"> </span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># chmod –R 755 /var/ftp/pub<span>      </span><span> </span>//</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">改变</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman">pub</font></span><span style="background: #d9d9d9 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial">目录权限为属主全部权限，同组和其他为可读权限</span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"> </span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><br><br><br><span style="font-family: 宋体">可以使用下面命令进行确认：</span><span lang="EN-US"></span></p>
+<p><table border="1" cellpadding="0" cellspacing="0" style="margin: auto auto auto 14.4pt; border-collapse: collapse; border: medium none" class="MsoTableGrid"></table></p>
+<p><tr style="height: 38.45pt"></tr></p>
+<p><td width="549" valign="top" style="padding-right: 5.4pt; padding-left: 5.4pt; padding-bottom: 0cm; width: 411.7pt; padding-top: 0cm; height: 38.45pt; background-color: transparent; border: windowtext 1pt solid"><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># ls –l /var/ftp </font></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span></td></p>
+<p><span lang="EN-US"><font face="Times New Roman">total 16</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">drwxrwxr-x <span> </span>2 ftp<span>      </span>ftp 4096 Mar 19 <time wst="on" minute="49" hour="0"></time>00:49<time></time> incoming</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">drwxr-xr-x<span>  </span><span> </span>2 ftpadmin <span> </span>ftp 4096 Mar 19 <time wst="on" minute="1" hour="0"></time>00:01<time></time> pub</font></span></p>
+<p><br><br><br><span lang="EN-US"></span><span lang="EN-US"><font face="Times New Roman"> </font><span style="font-family: 宋体">（</span><span lang="EN-US"><font face="Times New Roman">3</font></span><span style="font-family: 宋体">）建立</span><span lang="EN-US"><font face="Times New Roman">log</font></span><span style="font-family: 宋体">文件</span></span><span lang="EN-US"><font face="Times New Roman"> </font><span style="font-family: 宋体">（</span><span lang="EN-US"><font face="Times New Roman">3</font></span><span style="font-family: 宋体">）建立</span><span lang="EN-US"><font face="Times New Roman">log</font></span><span style="font-family: 宋体">文件</span></span></p>
+<p><table border="1" cellpadding="0" cellspacing="0" style="margin: auto auto auto 14.4pt; border-collapse: collapse; border: medium none" class="MsoTableGrid"></table></p>
+<p><tr style="height: 29.7pt"></tr></p>
+<p><td width="549" valign="top" style="padding-right: 5.4pt; padding-left: 5.4pt; padding-bottom: 0cm; width: 411.7pt; padding-top: 0cm; height: 29.7pt; background-color: transparent; border: windowtext 1pt solid"><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># mkdir /var/log/proftpd </font></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"><font face="Times New Roman"># touch /var/log/proftpd/proftpd.log </font></span><span style="background: #d9d9d9 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US"></span></td><br><br><br><span lang="EN-US"><font face="Times New Roman">2</font></span><span style="font-family: 宋体">、修改配置文件</span></p>
+<p><span style="font-family: 宋体"></span><span style="font-family: 宋体"></span><span style="font-family: 宋体"></span><span style="font-family: 宋体"></span><span style="font-family: 宋体"></span></p>
+<p><span style="font-family: 宋体">修改</span><span lang="EN-US"><font face="Times New Roman">/etc/prftpd/proftp.conf</font></span></p>
+<p><span style="font-family: 宋体" lang="EN-US"># </span><span style="font-family: 宋体" lang="EN-US"></span><strong><span style="background: #ffff66 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">ServerName</span></strong><span style="font-family: 宋体" lang="EN-US"><span>               </span>“FTP Server “<span>  </span>#</span><span style="font-family: 宋体">服务器的名字<span lang="EN-US"><br>       </span></span><span style="font-family: 宋体"><span lang="EN-US"></span></span><strong><span style="background: #ffff66 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">ServerType</span></strong><span style="font-family: 宋体" lang="EN-US"><span>               </span>standalone<span>   </span><span>  </span>#proftpd</span><span style="font-family: 宋体">运行的方式<span lang="EN-US">,</span>有<span lang="EN-US">standalone</span>和<span lang="EN-US">inetd </span></span><span style="font-family: 宋体"><span lang="EN-US"></span></span><strong><span style="background: #ffff66 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">DeferWelcome</span></strong><span style="font-family: 宋体" lang="EN-US"><span>            </span>off<span>     </span><span>  </span><span> </span>#</span><span style="font-family: 宋体">只有在认证用户之后才显示欢迎信息<span lang="EN-US"> </span></span><span style="font-family: 宋体"><span lang="EN-US"></span></span><strong><span style="background: #ffff66 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">ServerIdent</span></strong><span style="font-family: 宋体" lang="EN-US"><span>              </span>off<span>   </span><span>  </span><span> </span>#</span><span style="font-family: 宋体">登陆的时候不显示<span lang="EN-US">ftp</span>服务器的相关信息，增加安全性<span lang="EN-US"> </span></span><span style="font-family: 宋体"><span lang="EN-US"></span></span><span style="color: black; font-family: 宋体" lang="EN-US"># </span><span style="color: black; font-family: 宋体" lang="EN-US"></span></p>
+<pre><font face="宋体"><font size="2">**<span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">User</span>**<span style="font-size: 10.5pt; color: black" lang="EN-US"><span>                      </span>nobody<span>    </span>#</span><span style="font-size: 10.5pt; color: black">以<span lang="EN-US">nobody,nogroup</span>的身份运行程序<span lang="EN-US"> 
+
+</span></span></font></font></pre>
+<pre><font face="宋体"><font size="2">**<span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">Group</span>**<span style="font-size: 10.5pt; color: black" lang="EN-US"><span>                     </span>nogroup 
+
+</span></font></font></pre>
+<span style="font-family: 宋体" lang="EN-US"># </span><span style="font-family: 宋体" lang="EN-US"></span>**<span style="background: #ffff66 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">Port</span>**<span style="font-family: 宋体" lang="EN-US"><span>                      </span>21<span>        </span><span> </span><span> </span>#</span><span style="font-family: 宋体">指定<span lang="EN-US">FTP</span>的端口，默认是<span lang="EN-US">21</span>端口<span lang="EN-US"> </span></span><span style="font-family: 宋体"><span lang="EN-US"></span></span><span style="font-family: 宋体" lang="EN-US"># </span><span style="font-family: 宋体" lang="EN-US"></span>**<span style="background: #ffff66 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">Umask</span>**<span style="font-family: 宋体" lang="EN-US"><span>                  </span><span>  </span>002<span>       </span><span>  </span><span> </span>#</span><span style="font-family: 宋体">新文件的权限掩码</span><span lang="EN-US"> </span><span lang="EN-US"></span>
+<pre><font face="宋体"><font size="2">**<span style="font-size: 10.5pt; background: #ffff66 0% 50%; color: black; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">ShowSymlinks</span>**<span style="font-size: 10.5pt; color: red" lang="EN-US"><span>            </span></span><span style="font-size: 10.5pt" lang="EN-US">off<span>       </span><span>  </span><span> </span>#</span><span style="font-size: 10.5pt">不显示链接文件的目标文件<span lang="EN-US"> 
+
+</span></span></font></font></pre>
+<pre><font face="宋体"><font size="2">**<span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">DefaultRoot</span>**<span style="font-size: 10.5pt" lang="EN-US"><span>    </span><span>      </span><span>    </span>~<span>  </span>!username # ~</span><span style="font-size: 10.5pt">用户只能访问自己的目录，<span lang="EN-US">!usernmae</span>用户除外<span lang="EN-US"> 
+
+</span></span></font></font></pre>
+<pre><font face="宋体"><font size="2">**<span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">RequireValidShell<span>      </span></span>**<span style="font-size: 10.5pt" lang="EN-US"><span>         </span>off<span> </span><span> </span>#</span><span style="font-size: 10.5pt">用户是否拥有<span lang="EN-US">shell,</span>关闭安全<span lang="EN-US"> 
+
+</span></span></font></font></pre>
+<span style="font-family: 宋体" lang="EN-US"># </span><span style="font-family: 宋体" lang="EN-US"></span>
+
+**<span style="background: #ffff66 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">UseReverseDNS</span>**<span lang="EN-US"><font face="Times New Roman"><span>             </span>off<span>          </span>#</font></span><span style="font-family: 宋体">关闭</span><span lang="EN-US"><font face="Times New Roman">DNS</font></span><span style="font-family: 宋体">反向查询</span><span lang="EN-US"><font face="Times New Roman">,</font></span><span style="font-family: 宋体">节省连接时间</span>
+
+**<span style="background: #ffff66 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">IdentLookups</span>****<span style="font-family: 宋体" lang="EN-US"><span>  </span></span>**<span lang="EN-US"><font face="Times New Roman"><span>            </span>off</font></span>
+
+<span style="font-family: 宋体" lang="EN-US"># </span><span style="font-family: 宋体" lang="EN-US"></span>
+<pre><font face="宋体"><font size="2">**<span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">TimeoutLogin</span>**<span style="font-size: 10.5pt" lang="EN-US"><span>         </span><span>   </span>60<span>      </span><span> </span><span> </span>#</span><span style="font-size: 10.5pt">登陆时等待输入密码的时间<span lang="EN-US"> 
+
+</span></span></font></font></pre>
+<pre><font face="宋体"><font size="2">**<span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">TimeoutIdle</span>**<span style="font-size: 10.5pt" lang="EN-US"><span>        </span><span>  </span><span>    </span>300<span>       </span>#</span><span style="font-size: 10.5pt">登陆后允许<span lang="EN-US">IDLE</span>的时间<span lang="EN-US"> 
+
+</span></span></font></font></pre>
+<pre><font face="宋体"><font size="2">**<span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">TimeoutNoTransfer</span>**<span style="font-size: 10.5pt" lang="EN-US"><span>               </span>600<span>  </span>#</span><span style="font-size: 10.5pt">没有数据传输时允许<span lang="EN-US">IDLE</span>的时间<span lang="EN-US"> 
+
+</span></span></font></font></pre>
+
+<p><span style="font-family: 宋体" lang="EN-US">#</span></p>
+<p><span style="font-family: 宋体" lang="EN-US"></span><font face="宋体"><font size="2"><strong><span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">AllowStoreRestart</span></strong><span style="font-size: 10.5pt" lang="EN-US"><span>       </span><span>        </span>on<span>       </span>#</span><span style="font-size: 10.5pt">允许断点续上传</span></font></font><font face="宋体"><font size="2"><strong><span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">AllowRetrieveRestart</span></strong><span style="font-size: 10.5pt" lang="EN-US"><span>    </span><span>        </span>on<span>       </span>#</span><span style="font-size: 10.5pt">允许断点续下载<span lang="EN-US"> </span></span></font></font><font face="宋体"><font size="2"><span style="font-size: 10.5pt"><span lang="EN-US"></span></span></font></font></p>
+<p><strong><span style="background: #ffff66 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">AllowForeignAddress</span></strong><font face="Times New Roman"><span style="color: red" lang="EN-US"><span>                               </span></span><span lang="EN-US">on<span>              </span>#</span></font><span style="font-family: 宋体">要允许</span><span lang="EN-US"><font face="Times New Roman"> FXP </font></span><span style="font-family: 宋体">写成</span><span lang="EN-US"><font face="Times New Roman"> on</font></span></p>
+<p><span style="font-family: 宋体" lang="EN-US">#</span></p>
+<p><span style="font-family: 宋体" lang="EN-US"></span><font face="宋体"><font size="2"><strong><span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">PassivePorts</span></strong><span style="font-size: 10.5pt" lang="EN-US"><span>             </span>50000 65534<span>        </span>#</span><span style="font-size: 10.5pt">指定被动模式端口的范围<span lang="EN-US"> </span></span></font></font><font face="宋体"><font size="2"><span style="font-size: 10.5pt"><span lang="EN-US"></span></span></font></font></p>
+<p><span style="font-family: 宋体" lang="EN-US">#</span></p>
+<p><span style="font-family: 宋体" lang="EN-US"></span><font face="宋体"><font size="2"><strong><span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">MultilineRFC2228</span></strong><span style="font-size: 10.5pt" lang="EN-US"><span>                 </span>on<span>         </span>#FTP</span><span style="font-size: 10.5pt">安全扩展<span lang="EN-US"> </span></span></font></font><font face="宋体"><font size="2"><span style="font-size: 10.5pt"><span lang="EN-US"></span></span></font></font><span style="font-family: 宋体" lang="EN-US"># </span><span style="font-family: 宋体" lang="EN-US"></span></p>
+<p><pre><font face="宋体"><font size="2"><strong><span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">MaxClients</span>**</strong><span style="font-size: 10.5pt" lang="EN-US"><br>       </span><strong><span style="font-size: 10.5pt" lang="EN-US"><span>               </span>100 “Sorry, the m</span><span lang="EN-US">aximum n</span><span style="font-size: 10.5pt" lang="EN-US">umber of allowed users are already connected (%m)”<span>  </span><span>         </span></span></strong></font></font><font face="宋体"><font size="2"><span style="font-size: 10.5pt" lang="EN-US"># </span><span style="font-size: 10.5pt">最大链接数限制</span></font></font><font face="宋体"><font size="2"><span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">MaxInstances</span>**<span style="font-size: 10.5pt" lang="EN-US"><span>              </span>100<span>    </span><span>  </span><span> </span>#</span><span style="font-size: 10.5pt">最大实例数为<span lang="EN-US">30,</span></span></font></font></pre></p>
+<p><pre><font face="宋体"><font size="2"><span style="font-size: 10.5pt"><span lang="EN-US"></span></span></font></font><font face="宋体"><font size="2"><strong><span style="font-size: 10.5pt; background: #ffff66 0% 50%; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">MaxClientsPerHost</span></strong><span style="font-size: 10.5pt; color: black" lang="EN-US"><span>   </span>2<span> </span></span><span style="font-size: 10.5pt" lang="EN-US">“</span><span style="font-size: 10.5pt">每个<span lang="EN-US">IP</span>只允许<span lang="EN-US">2</span>个连接<span lang="EN-US">“<span style="color: black"><span>  </span>#</span></span><span style="color: black">每个<span lang="EN-US">IP</span>只能有两个连接</span></span></font></font><strong><span style="background: #ffff66 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">ServerLog</span></strong><span style="color: black; font-family: 宋体" lang="EN-US"><span>               </span>/var/log/proftpd/</span></pre></p>
+<p><pre><span style="color: black; font-family: 宋体" lang="EN-US"></span><span style="color: black; font-family: 宋体" lang="EN-US">#SystemLog<span>               </span>/var/log/proftpd/system_log</span></pre></p>
+<p><pre><span style="color: black; font-family: 宋体" lang="EN-US"></span><span style="color: black; font-family: 宋体" lang="EN-US"></span><strong><span style="background: #ffff66 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">ExtendedLog</span></strong><span style="color: black; font-family: 宋体" lang="EN-US"><span>             </span>/var/log/proftpd/proftpd.log ALL </span></pre></p>
+<p><br><span style="color: black; font-family: 宋体" lang="EN-US"># </span><span style="color: black; font-family: 宋体" lang="EN-US"></span><strong><span style="background: #ffff66 0% 50%; font-family: 宋体; moz-background-clip: -moz-initial; moz-background-origin: -moz-initial; moz-background-inline-policy: -moz-initial" lang="EN-US">AllowOverwrite</span></strong><span style="color: black; font-family: 宋体" lang="EN-US"><span>          </span><span> </span>on </span><span style="color: black; font-family: 宋体" lang="EN-US"></span><span style="color: black; font-family: 宋体" lang="EN-US"># </span><span style="color: black; font-family: 宋体" lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">&lt;Limit SITE_CHMOD&gt;</font></span></p>
+<p><span lang="EN-US"><span><font face="Times New Roman">  </font></span></span><strong><span style="font-family: 宋体" lang="EN-US">DenyAll</span></strong></p>
+<p><span lang="EN-US"><font face="Times New Roman">&lt;/Limit&gt;</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">&lt;Anonymous /home/ftp&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>User<span>                          </span>ftp</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>Group<span>                         </span>ftp</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>AnonRequirePassword<span>           </span>off</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>MaxClients<span>                    </span>50</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>MaxClientsPerHost<span>             </span>3 “Sorry, you may not connect more than five times.”</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>Umask<span>  </span><span>                       </span>002<span>     </span>002</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span># We want clients to be able to login with “anonymous” as well as “ftp”</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>UserAlias<span>                     </span>anonymous ftp</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span># We want ‘welcome.msg’ displayed at login, and ‘.message’ displayed</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span># in each newly chdired directory.</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>DisplayLogin<span>                  </span>welcome.msg</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>DisplayFirstChdir<span>             </span>.message</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>TransferRate RETR 2000</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>TransferRate STOR 2000</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>&lt;Limit LOGIN&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>      </span>Allow<span>                       </span>from all</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>&lt;/Limit&gt;</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span># Limit WRITE everywhere in the anonymous chroot</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>&lt;Limit WRITE&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>     </span>DenyAll</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>&lt;/Limit&gt;</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>&lt;Directory /home/ftp/incoming/*&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>AllowOverwrite on</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>&lt;Limit WRITE STOR CWD MKD&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>      </span>Order Deny, Allow</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>      </span>Allow from all</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>&lt;/Limit&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>&lt;Limit READ RMD DELE RNFR RNTO SITE_CHMOD&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>      </span>DenyAll</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>&lt;/Limit&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>&lt;/Directory&gt;</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>&lt;Directory /home/ftp/pub/*&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>AllowOverwrite off</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>&lt;Limit STOR CWD READ&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>      </span>Order Deny, Allow</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>      </span>Allow from all</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>&lt;/Limit&gt;</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>&lt;Limit WRITE&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>      </span>DenyAll</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>&lt;/Limit&gt;</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>&lt;Limit RMD DELE RNFR RNTO SITE_CHMOD&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>      </span>DenyAll</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>&lt;/Limit&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>  </span>&lt;/Directory&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">&lt;/Anonymous&gt;</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">&lt;Anonymous ~&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span> </span>User<span>                           </span>ftpadmin</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span> </span>Group<span>                          </span>ftp</font></span></p>
+<p><span lang="EN-US"><span></span></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span> </span># Limit the maximum number of anonymous logins</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span> </span>MaxClients<span>                     </span>10</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span> </span># We want ‘welcome.msg’ displayed at login, and ‘.message’ displayed</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span> </span># in each newly chdired directory.</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span> </span>DisplayLogin<span>                   </span>welcome.msg</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span> </span>DisplayFirstChdir<span>              </span>.message</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span> </span>Umask<span>                          </span>002 002</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span> </span># Limit WRITE everywhere in the anonymous chroot</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>   </span>&lt;Limit LOGIN&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>Order<span>                       </span>Allow,Deny</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>Allow<span>                       </span>from 172.22.0.0/24</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>Allow<span>                       </span>from 172.16.22.0/24</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>Deny<span>                        </span>from all</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>   </span>&lt;/Limit&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>   </span>&lt;Directory /*&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>AllowOverWrite<span>              </span>on</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>   </span>&lt;Limit SITE_CHMOD&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>DenyAll</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>   </span>&lt;/Limit&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>   </span>&lt;Limit WRITE STOR CWD MKD READ RMD DELE RNFR RNTO SITE_CHMOD&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>    </span>AllowAll</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>   </span>&lt;/Limit&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>   </span>&lt;/Directory&gt;</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">&lt;/Anonymous&gt;</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"></span></p>
+<p></p>
+<p><span style="font-family: 宋体">使用的命令：</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">1</font></span><span style="font-family: 宋体">、查看端口：</span><span lang="EN-US"><font face="Times New Roman">ftp</font></span><span style="font-family: 宋体">使用</span><span lang="EN-US"><font face="Times New Roman">21</font></span><span style="font-family: 宋体">端口</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">netstat –anl</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">2</font></span><span style="font-family: 宋体">、查看进程</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">ps –axu |grep proftpd</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">3</font></span><span style="font-family: 宋体">、重启</span><span lang="EN-US"><font face="Times New Roman">ftp</font></span><span style="font-family: 宋体">服务</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">/etc/init.d/proftpd stop</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">/etc/init.d/proftpd start</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">4</font></span><span style="font-family: 宋体">、修改网卡地址</span></p>
+<p><span style="font-family: 宋体">（</span><span lang="EN-US"><font face="Times New Roman">1</font></span><span style="font-family: 宋体">）修改网络配置文件</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">vi /etc/network/interfaces</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">auto eth0</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">iface eth0 inet static</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>        </span>address <span style="color: red">172.xx.xx.6<span>  </span>#</span></font></span><span style="color: red; font-family: 宋体">将</span><span style="color: red" lang="EN-US"><font face="Times New Roman">172.xx.xx.6</font></span><span style="color: red; font-family: 宋体">改成你要改的</span><span style="color: red" lang="EN-US"><font face="Times New Roman">ip</font></span><span style="color: red; font-family: 宋体">地址，保存推出</span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>        </span>netmask 255.255.255.0</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>        </span>network 172.xx.xx.0</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>        </span>broadcast 172.xx.xx.255</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>        </span>gateway 172.xx.xx.254</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>        </span># dns-* options are implemented by the resolvconf package, if installed</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman"><span>        </span>dns-nameservers 172.xx.xx.11</font></span></p>
+<p><span style="font-family: 宋体">（</span><span lang="EN-US"><font face="Times New Roman">2</font></span><span style="font-family: 宋体">）重新启动网络</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">/etc/init.d/networking restart</font></span></p>
+<p><span style="font-size: 10.5pt; font-family: 'times new roman'" lang="EN-US"><br></span><strong><span style="font-family: 宋体">附录</span><span lang="EN-US"><font face="Times New Roman">1 </font></span>**</strong><span lang="EN-US"></span>**</p>
+<p><span lang="EN-US"><font face="Times New Roman">1</font></span><span style="font-family: 宋体">、</span><span lang="EN-US"><font face="Times New Roman">Porftpd.conf</font></span><span style="font-family: 宋体">配置格式</span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">#</font></span><span style="font-family: 宋体">全局设置</span></p>
+<p><span style="font-family: 宋体">设置项目</span><span lang="EN-US"><font face="Times New Roman">1 </font></span><span style="font-family: 宋体">参数</span><span lang="EN-US"><font face="Times New Roman">1</font></span></p>
+<p><span style="font-family: 宋体">设置项目</span><span lang="EN-US"><font face="Times New Roman">2 </font></span><span style="font-family: 宋体">参数</span><span lang="EN-US"><font face="Times New Roman">2</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">#</font></span><span style="font-family: 宋体">某个目录的设置</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">&lt;Directory “</font></span><span style="font-family: 宋体">路径名</span><span lang="EN-US"><font face="Times New Roman">“&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">…</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">…</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">&lt;/Directory&gt;</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">#</font></span><span style="font-family: 宋体">关于匿名用户的设置</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">&lt;Anonymous “</font></span><span style="font-family: 宋体">匿名登陆的目录</span><span lang="EN-US"><font face="Times New Roman">“&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">…</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">…</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">&lt;Limit </font></span><span style="font-family: 宋体">限制动作</span><span lang="EN-US"><font face="Times New Roman">&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">…</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">…</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">&lt;/Limit&gt;</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">&lt;/Anonymous&gt;</font></span><span lang="EN-US"></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">2</font></span><span style="font-family: 宋体">、参数说明</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">CWD</font></span><span style="font-family: 宋体">：</span><span lang="EN-US"><font face="Times New Roman">Change Working Directory </font></span><span style="font-family: 宋体">改变目录</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">MKD</font></span><span style="font-family: 宋体">：</span><span lang="EN-US"><font face="Times New Roman">MaKe Directory </font></span><span style="font-family: 宋体">建立目录的权限</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">RNFR</font></span><span style="font-family: 宋体">：</span><span lang="EN-US"><font face="Times New Roman"> ReName FRom </font></span><span style="font-family: 宋体">更改目录名的权限</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">DELE</font></span><span style="font-family: 宋体">：</span><span lang="EN-US"><font face="Times New Roman">DELEte </font></span><span style="font-family: 宋体">删除文件的权限</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">RMD</font></span><span style="font-family: 宋体">：</span><span lang="EN-US"><font face="Times New Roman">ReMove Directory </font></span><span style="font-family: 宋体">删除目录的权限</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">RETR</font></span><span style="font-family: 宋体">：</span><span lang="EN-US"><font face="Times New Roman">RETRieve </font></span><span style="font-family: 宋体">从服务端下载到客户端的权限</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">STOR</font></span><span style="font-family: 宋体">：</span><span lang="EN-US"><font face="Times New Roman">STORe </font></span><span style="font-family: 宋体">从客户端上传到服务端的权限</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">READ</font></span><span style="font-family: 宋体">：可读的权限，不包括列目录的权限，相当于</span><span lang="EN-US"><font face="Times New Roman">RETR</font></span><span style="font-family: 宋体">，</span><span lang="EN-US"><font face="Times New Roman">STAT</font></span><span style="font-family: 宋体">等</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">WRITE</font></span><span style="font-family: 宋体">：写文件或者目录的权限，包括</span><span lang="EN-US"><font face="Times New Roman">MKD</font></span><span style="font-family: 宋体">和</span><span lang="EN-US"><font face="Times New Roman">RMD</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">DIRS</font></span><span style="font-family: 宋体">：是否允许列目录，相当于</span><span lang="EN-US"><font face="Times New Roman">LIST</font></span><span style="font-family: 宋体">，</span><span lang="EN-US"><font face="Times New Roman">NLST</font></span><span style="font-family: 宋体">等权限，还是比较实用的</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">ALL</font></span><span style="font-family: 宋体">：所有权限</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">LOGIN</font></span><span style="font-family: 宋体">：是否允许登陆的权限</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">3</font></span><span style="font-family: 宋体">、</span><span lang="EN-US"><font face="Times New Roman">limit</font></span><span style="font-family: 宋体">说明</span></p>
+<p><span lang="EN-US"><font face="Times New Roman">AllowUser </font></span><span style="font-family: 宋体">针对某个用户允许的</span><span lang="EN-US"><font face="Times New Roman">Limit</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">DenyUser </font></span><span style="font-family: 宋体">针对某个用户禁止的</span><span lang="EN-US"><font face="Times New Roman">Limit</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">AllowGroup </font></span><span style="font-family: 宋体">针对某个用户组允许的</span><span lang="EN-US"><font face="Times New Roman">Limit</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">DenyGroup </font></span><span style="font-family: 宋体">针对某个用户组禁止的</span><span lang="EN-US"><font face="Times New Roman">Limit</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">AllowAll </font></span><span style="font-family: 宋体">针对所有用户组允许的</span><span lang="EN-US"><font face="Times New Roman">Limit</font></span></p>
+<p><span lang="EN-US"><font face="Times New Roman">DenyAll </font></span><span style="font-family: 宋体">针对所有用户禁止的</span><span lang="EN-US"><font face="Times New Roman">Limit</font></span></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DNS/" rel="tag"># DNS</a>
+          
+            <a href="/tags/Font/" rel="tag"># Font</a>
+          
+            <a href="/tags/Proftpd/" rel="tag"># Proftpd</a>
+          
+            <a href="/tags/Shell/" rel="tag"># Shell</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/01/11/proftp-e5-ae-8c-e6-95-b4-e9-85-8d-e7-bd-ae/" rel="next" title="proftp--完整配置">
+                <i class="fa fa-chevron-left"></i> proftp--完整配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/01/13/e5-b7-a7-e7-94-a8find-e5-91-bd-e4-bb-a4-e7-ae-a1-e7-90-86-e6-96-87-e4-bb-b6-e5-90-8d-e4-b8-ba-e4-b9-b1-e7-a0-81-e7-9a-84-e6-96-87-e4-bb-b6/" rel="prev" title="巧用find命令管理文件名为乱码的文件">
+                巧用find命令管理文件名为乱码的文件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

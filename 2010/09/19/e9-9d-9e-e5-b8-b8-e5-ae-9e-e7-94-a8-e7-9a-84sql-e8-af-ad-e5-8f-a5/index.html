@@ -1,0 +1,728 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="[1、说明：复制表(只复制结构,源表名：a 新表名：b) (Access可用)](http://selboo.com.cn/post/823/)  select  into b from a where 1 &amp;lt;&amp;gt; 1select top 0  into b from a2、说明：拷贝表(拷贝数据,源表名：a 目标表名：b) (Access可用)  insert into b(a, b,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="非常实用的sql语句">
+<meta property="og:url" content="http://yoursite.com/2010/09/19/e9-9d-9e-e5-b8-b8-e5-ae-9e-e7-94-a8-e7-9a-84sql-e8-af-ad-e5-8f-a5/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="[1、说明：复制表(只复制结构,源表名：a 新表名：b) (Access可用)](http://selboo.com.cn/post/823/)  select  into b from a where 1 &amp;lt;&amp;gt; 1select top 0  into b from a2、说明：拷贝表(拷贝数据,源表名：a 目标表名：b) (Access可用)  insert into b(a, b,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="非常实用的sql语句">
+<meta name="twitter:description" content="[1、说明：复制表(只复制结构,源表名：a 新表名：b) (Access可用)](http://selboo.com.cn/post/823/)  select  into b from a where 1 &amp;lt;&amp;gt; 1select top 0  into b from a2、说明：拷贝表(拷贝数据,源表名：a 目标表名：b) (Access可用)  insert into b(a, b,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2010/09/19/e9-9d-9e-e5-b8-b8-e5-ae-9e-e7-94-a8-e7-9a-84sql-e8-af-ad-e5-8f-a5/"/>
+
+
+
+
+
+  <title> 非常实用的sql语句 | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2010/09/19/e9-9d-9e-e5-b8-b8-e5-ae-9e-e7-94-a8-e7-9a-84sql-e8-af-ad-e5-8f-a5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                非常实用的sql语句
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2010-09-19T10:11:16+08:00">
+                2010-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Uncategorized/" itemprop="url" rel="index">
+                    <span itemprop="name">Uncategorized</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1、说明：复制表-只复制结构-源表名：a-新表名：b-Access可用"><a href="#1、说明：复制表-只复制结构-源表名：a-新表名：b-Access可用" class="headerlink" title="[1、说明：复制表(只复制结构,源表名：a 新表名：b) (Access可用)"></a>[1、说明：复制表(只复制结构,源表名：a 新表名：b) (Access可用)</h2><p>](<a href="http://selboo.com.cn/post/823/" target="_blank" rel="external">http://selboo.com.cn/post/823/</a>)</p>
+<p><div></div></p>
+<p><pre class="brush:sql">select <em> into b from a where 1 &lt;&gt; 1<br>select top 0 </em> into b from a<br></pre><br><br>2、说明：拷贝表(拷贝数据,源表名：a 目标表名：b) (Access可用)</p>
+<p><div></div></p>
+<p><pre class="brush:sql">insert into b(a, b, c) select d,e,f from b;</pre><br><br>3、说明：跨数据库之间表的拷贝(具体数据使用绝对路径) (Access可用)</p>
+<p><div>insert into b(a, b, c) select d,e,f from b in ‘具体数据库’ where 条件<br>例子：..from b in ‘ “&amp;Server.MapPath( “. “)&amp; “\data.mdb “ &amp; “ ‘ where..<br><a name="\&quot;entrymore\&quot;"></a>/&gt;</div><br>4、说明：子查询(表名1：a 表名2：b)</p>
+<p><div></div></p>
+<p><pre class="brush:sql">select a,b,c from a where a IN (select d from b )<br>或者: select a,b,c from a where a IN (1,2,3)<br></pre><br><br>5、说明：显示文章、提交人和最后回复时间</p>
+<p><div></div></p>
+<p><pre class="brush:cpp">select a.title,a.username,b.adddate from table a,(select max(adddate) adddate from table where table.title=a.title) b</pre><br><br>6、说明：外连接查询(表名1：a 表名2：b)</p>
+<p><div>select a.a, a.b, a.c, b.c, b.d, b.f from a LEFT OUT JOIN b ON a.a = b.c</div><br>7、说明：在线视图查询(表名1：a )</p>
+<p><div>select * from (SELECT a,b,c FROM a) T where t.a &gt; 1;</div><br>8、说明：between的用法,between限制查询数据范围时包括了边界值,not between不包括</p>
+<p><div>select * from table1 where time between time1 and time2<br>select a,b,c, from table1 where a not between 数值1 and 数值2</div><br>9、说明：in 的使用方法</p>
+<p><div>select * from table1 where a [not] in (‘值1’,’值2’,’值4’,’值6’)</div><br>10、说明：两张关联表，删除主表中已经在副表中没有的信息</p>
+<p><div>delete from table1 where not exists ( select * from table2 where table1.field1=table2.field1 )</div><br>11、说明：四表联查问题：</p>
+<p><div>select * from a left inner join b on a.a=b.b right inner join c on a.a=c.c inner join d on a.a=d.d where …..</div><br>12、说明：日程安排提前五分钟提醒</p>
+<p><div>SQL: select * from 日程安排 where datediff( ‘minute ‘,f开始时间,getdate())&gt; 5</div><br>13、说明：一条sql 语句搞定数据库分页</p>
+<p><div>select top 10 b.* from (select top 20 主键字段,排序字段 from 表名 order by 排序字段 desc) a,表名 b where b.主键字段 = a.主键字段 order by a.排序字段</div><br>14、说明：前10条记录</p>
+<p><div>select top 10 * form table1 where 范围</div><br>15、说明：选择在每一组b值相同的数据中对应的a最大的记录的所有信息(类似这样的用法可以用于论坛每月排行榜,每月热销产品分析,按科目成绩排名,等等.)</p>
+<p><div>select a,b,c from tablename ta where a=(select max(a) from tablename tb where tb.b=ta.b)</div><br>16、说明：包括所有在 TableA 中但不在 TableB和TableC 中的行并消除所有重复行而派生出一个结果表</p>
+<p><div>(select a from tableA ) except (select a from tableB) except (select a from tableC)</div><br>17、说明：随机取出10条数据</p>
+<p><div>select top 10 * from tablename order by newid()</div><br>18、说明：随机选择记录</p>
+<p><div>select newid()</div><br>19、说明：删除重复记录</p>
+<p><div>Delete from tablename where id not in (select max(id) from tablename group by col1,col2,…)</div><br>20、说明：列出数据库里所有的表名</p>
+<p><div>select name from sysobjects where type= ‘U ‘</div><br>21、说明：列出表里的所有的</p>
+<p><div>select name from syscolumns where id=object_id( ‘TableName ‘)</div><br>22、说明：列示type、vender、pcs字段，以type字段排列，case可以方便地实现多重选择，类似select 中的case。</p>
+<p><div>select  type,sum(case vender when ‘A ‘ then pcs else 0 end),sum(case vender  when ‘C ‘ then pcs else 0 end),sum(case vender when ‘B ‘ then pcs else 0  end) FROM tablename group by type<br>显示结果：<br>type vender pcs<br>电脑 A 1<br>电脑 A 1<br>光盘 B 2<br>光盘 A 2<br>手机 B 3<br>手机 C 3</div><br>23、说明：初始化表table1</p>
+<p><div>TRUNCATE TABLE table1</div><br>24、说明：选择从10到15的记录<br>select top 5 <em> from (select top 15 </em> from table order by id asc) table_别名 order by id desc</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2010/09/19/25-e4-b8-aajquery-e7-9a-84-e7-bc-96-e7-a8-8b-e5-b0-8f-e6-8a-84/" rel="next" title="25个jQuery的编程小抄">
+                <i class="fa fa-chevron-left"></i> 25个jQuery的编程小抄
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2010/09/22/mingw-e5-ae-89-e8-a3-85-e4-b8-8e-e4-bd-bf-e7-94-a8-e7-ae-80-e4-bb-8b/" rel="prev" title="MinGW安装与使用简介">
+                MinGW安装与使用简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、说明：复制表-只复制结构-源表名：a-新表名：b-Access可用"><span class="nav-number">1.</span> <span class="nav-text">[1、说明：复制表(只复制结构,源表名：a 新表名：b) (Access可用)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

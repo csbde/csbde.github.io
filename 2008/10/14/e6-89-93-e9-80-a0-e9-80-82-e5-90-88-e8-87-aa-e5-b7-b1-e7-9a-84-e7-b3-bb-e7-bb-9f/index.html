@@ -1,0 +1,805 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="vim,Font,PHP,Google,CMD,Shell,Firefox,GDB," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="下面是自己的一些步骤仅供参考：打造适合自己的系统1 增加快捷键1.1 增加Ctrl+R快捷命令行命令1.1 建立sort目录，将常用操作快捷方式加入到其中（记得将名字改成简单易记的英文名字），并将sort目录添加到系统环境path中。">
+<meta name="keywords" content="vim,Font,PHP,Google,CMD,Shell,Firefox,GDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="打造适合自己的System">
+<meta property="og:url" content="http://yoursite.com/2008/10/14/e6-89-93-e9-80-a0-e9-80-82-e5-90-88-e8-87-aa-e5-b7-b1-e7-9a-84-e7-b3-bb-e7-bb-9f/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="下面是自己的一些步骤仅供参考：打造适合自己的系统1 增加快捷键1.1 增加Ctrl+R快捷命令行命令1.1 建立sort目录，将常用操作快捷方式加入到其中（记得将名字改成简单易记的英文名字），并将sort目录添加到系统环境path中。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="打造适合自己的System">
+<meta name="twitter:description" content="下面是自己的一些步骤仅供参考：打造适合自己的系统1 增加快捷键1.1 增加Ctrl+R快捷命令行命令1.1 建立sort目录，将常用操作快捷方式加入到其中（记得将名字改成简单易记的英文名字），并将sort目录添加到系统环境path中。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/10/14/e6-89-93-e9-80-a0-e9-80-82-e5-90-88-e8-87-aa-e5-b7-b1-e7-9a-84-e7-b3-bb-e7-bb-9f/"/>
+
+
+
+
+
+  <title> 打造适合自己的System | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/10/14/e6-89-93-e9-80-a0-e9-80-82-e5-90-88-e8-87-aa-e5-b7-b1-e7-9a-84-e7-b3-bb-e7-bb-9f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                打造适合自己的System
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-10-14T12:02:50+08:00">
+                2008-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SoftWare/" itemprop="url" rel="index">
+                    <span itemprop="name">SoftWare</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>下面是自己的一些步骤仅供参考：<br>打造适合自己的系统<br>1 增加快捷键<br>1.1 增加Ctrl+R快捷命令行命令<br>1.1 建立sort目录，将常用操作快捷方式加入到其中（记得将名字改成简单易记的英文<br>名字），并将sort目录添加到系统环境path中。<br><a id="more"></a><br>2 软件设置<br>    <li>2.1 下载将firefox。</li></p>
+<li>2.2 firefox AddonList<br></li><li>2.2.1 Ietab<br></li><li><em>2.2.2 vimperator<br><li>2.2.3 firebug<br></li><li></li></em>2.2.4 google toolbar(只用书签功能）<br></li><li>2.2.5 Adblock Plus<br></li><li>2.2.6 Autofile Forms<br></li><li><em>2.2.7 User Agent Switcher<br><li></li></em>2.2.8 Web Developer</li>
+
+<p>2.2 下载VIM，下载自己的VIM配置文件</p>
+<p><pre lang="VIM"><br>“  author: feelinglucky<a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#105;&#46;&#102;&#101;&#101;&#108;&#x69;&#110;&#103;&#x6c;&#117;&#99;&#x6b;&#121;&#x40;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#105;&#46;&#102;&#101;&#101;&#108;&#x69;&#110;&#103;&#x6c;&#117;&#99;&#x6b;&#121;&#x40;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a><br>“  modify:  Simon&lt;csbdess@gmail.com<br>“ website: <a href="http://csbde.cn" target="_blank" rel="external">http://csbde.cn</a><br>“    date: 2008-10-07</pre></p>
+<p>“ 在处理未保存或只读文件的时候，弹出确认<br>set confirm<br>set linebreak<br>set textwidth=80<br>set nocompatible<br>set backspace=2<br>set history=400<br>set ruler<br>set number<br>set hlsearch<br>“逐字符高亮搜索词语<br>set incsearch<br>set expandtab<br>set noerrorbells<br>set novisualbell<br>“高亮的时间<br>set matchtime=5<br>“close visual bell<br>set t_vb=<br>set foldmethod=marker<br>set tabstop=4<br>set shiftwidth=4<br>set nobackup<br>set nowritebackup<br>“set noswapfile<br>set smarttab<br>set smartindent<br>set autoindent<br>set cindent<br>set wrap<br>set autoread<br>set cmdheight=1<br>set showtabline=2<br>“和其他程序共用剪贴(Windows)<br>set clipboard+=unnamed<br>set tabpagemax=20<br>set laststatus=2<br>“状态栏<br>“set statusline=%F%m%r%h [%{&amp;ff}] [%Y] %w  %=[POS] %l,%c %=%P<br>set statusline= %F%m%r%h %w [PWD] %r%{CurrectDir()}%h  %=[%{(&amp;fenc==””)?&amp;enc:&amp;fenc}] [POS] %l,%c %= %P<br>“set statusline=%F%m%r%h%w [FORMAT=%{&amp;ff}] [TYPE=%Y] [POS=%l,%v][%p%%] %{strftime(“%d/%m/%y - %H:%M”)}[PWD] %r%{CurrectDir()}%h<br>function! CurrectDir()<br>    return substitute(getcwd(), “”, “”, “g”)<br>endfunction<br>let g:calendar_diary=$VIM</p>
+<p>“ 配置多语言环境<br>if has(“multi_byte”)<br>    set encoding=utf-8<br>    set termencoding=utf-8<br>    set formatoptions+=mM<br>    set fencs=utf-8,gbk</p>
+<pre><code>if v:lang =~? &apos;^(zh)|(ja)|(ko)&apos;
+    set ambiwidth=double
+endif
+
+if has(&quot;win32&quot;)
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    source $VIMRUNTIME/mswin.vim
+    behave mswin
+    language messages zh_CN.utf-8
+endif
+</code></pre><p>else<br>    echoerr “Sorry, this version of (g)vim was not compiled with +multi_byte”<br>endif</p>
+<p>if has(‘gui_running’)<br>    if has(“win32”)<br>        source $VIMRUNTIME/mswin.vim<br>    endif</p>
+<pre><code>&quot; Always show file types in menu
+let do_syntax_sel_menu=1
+
+unmap  &lt;c-Y&gt;|  &quot; &lt;c-Y&gt; for Redo is kept in insert mode
+iunmap &lt;c-A&gt;|  &quot; &lt;c-A&gt; for Select-All is kept in normal mode
+&quot; Key mapping to switch windows quickly (&lt;c-Tab&gt; is already mapped)
+nnoremap &lt;c-S-Tab&gt; &lt;c-W&gt;W
+inoremap &lt;c-S-Tab&gt; &lt;c-O&gt;&lt;c-W&gt;W
+
+&quot; 针对 Windows 的配置
+if has(&quot;win32&quot;)
+    set guifont=新宋体:h10:cGB2312
+   &quot; set guifontwide=YaHei Consolas Hybrid:h10
+    &quot;au GUIEnter * simalt ~x &quot; 最大化窗口
+     set lines=30
+    set columns=85
+elseif has(&quot;unix&quot;)
+    set guifont=
+    set guifontwide=
+elseif has(&quot;mac&quot;) || has(&quot;macunix&quot;)
+    set guifont=
+    set guifontwide=
+endif
+
+colorscheme desert
+set guioptions=
+set guioptions+=r
+set cursorline
+</code></pre><p>else<br>    “ English messages only<br>    “language messages en</p>
+<pre><code>&quot; set the default theme in no-GUI
+colorscheme default
+
+&quot; Do not increase the windows width in taglist
+let Tlist_Inc_Winwidth=0
+
+&quot; Set text-mode menu
+if has(&apos;wildmenu&apos;)
+    set wildmenu
+    set cpoptions-=&lt;
+    set wildcharm=&lt;c-Z&gt;
+    nmap &lt;f10&gt;      :emenu &lt;c-Z&gt;
+    imap &lt;f10&gt; &lt;c-O&gt;:emenu &lt;c-Z&gt;
+endif
+
+&quot; Change encoding according to the current console code page
+if &amp;termencoding != &apos;&apos; &amp;&amp; &amp;termencoding != &amp;encoding
+    let &amp;encoding=&amp;termencoding
+    let &amp;fileencodings=&apos;ucs-bom,utf-8,&apos; . &amp;encoding
+endif
+</code></pre><p>endif<br>if has(“autocmd”)<br>    filetype plugin indent on<br>   “ autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set number</p>
+<pre><code>augroup vimrcEx
+    au!
+    autocmd FileType text setlocal textwidth=80
+    autocmd BufReadPost *
+                 if line(&quot;&apos;&quot;&quot;) &gt; 0 &amp;&amp; line(&quot;&apos;&quot;&quot;) &lt;= line(&quot;$&quot;) |
+                   exe &quot;normal g`&quot;&quot; |
+                 endif
+augroup END
+function! AutoClose()
+    :inoremap ( ()&lt;esc&gt;i
+    :inoremap &quot; &quot;&quot;&lt;esc&gt;i
+    :inoremap &apos; &apos;&apos;&lt;esc&gt;i
+    :inoremap { {}&lt;esc&gt;i
+    :inoremap [ []&lt;esc&gt;i
+    :inoremap ) &lt;c-r&gt;=ClosePair(&apos;)&apos;)&lt;cr&gt;
+    :inoremap } &lt;c-r&gt;=ClosePair(&apos;}&apos;)&lt;cr&gt;
+    :inoremap ] &lt;c-r&gt;=ClosePair(&apos;]&apos;)&lt;cr&gt;
+endf
+
+function! ClosePair(char)
+    if getline(&apos;.&apos;)[col(&apos;.&apos;) - 1] == a:char
+        return &quot;&lt;right&gt;&quot;
+    else
+        return a:char
+    endif
+endf
+
+&quot;auto close for PHP and Javascript script
+au FileType php,c,cpp,h,python,javascript exe AutoClose()
+</code></pre><p>endif<br>“Other Setting<br>“语法高亮<br>syntax on<br>“ key stock</p>
+<p>“绑定自动补全的快捷键<c-x><c-o>到<leader>;<br>imap <leader>; <c-x><c-o></c-o></c-x></leader></leader></c-o></c-x></p>
+<p>“ca日记h<br>map ca :Calendar<cr><br>“设定开关Taglist插件的快捷键为F4，可以在VIM的左侧栏列出函数列表等<br>map <f4> :Tlist<cr></cr></f4></cr></p>
+<p>“设置程序的编译运行和调试的快捷键F5，F6，Ctrl-F5<br>map <f5> :call CompileRun()<cr><br>map <f7> :call Debug()<cr><br>map <f6> :call Run()<cr></cr></f6></cr></f7></cr></f5></p>
+<p>“设置代码格式化快捷键F3<br>map <f2> :s/^////<cr><br>map <f3> :s/^////<cr><br>“设置tab操作的快捷键，绑定:tabnew到<leader>t，绑定:tabn, :tabp到<leader>n,<br>“<leader>p<br>map <leader>t :tabnew<cr><br>map <leader>n :tabn<cr><br>map <leader>p :tabp<cr></cr></leader></cr></leader></cr></leader></leader></leader></leader></cr></f3></cr></f2></p>
+<p>“使用<leader>e打开当前文件同目录中的文件<br>if has(“unix”)<br>map ,e :e <c-r>=expand(“%:p:h”) . “/“ <cr><br>else<br>map ,e :e <c-r>=expand(“%:p:h”) . “” <cr><br>endif</cr></c-r></cr></c-r></leader></p>
+<p>“定义CompileRun函数，用来调用进行编译和运行<br>func CompileRun()<br>exec “w”<br>“C程序<br>if &amp;filetype == ‘c’<br>if has(“win32”)<br>    exec “!del %&lt;.exe”<br>else<br>    exec “!rm %&lt;.exe”<br>endif<br>exec “!gcc % -o %&lt;.exe”<br>if has(“win32”)<br>    exec “!%&lt;.exe”<br>else<br>    exec “!./%&lt;.exe”<br>endif<br>else<br>if    &amp;filetype == ‘cpp’<br>if has(“win32”)<br>    exec “!del %&lt;.exe”<br>else<br>    exec “!rm %&lt;.exe”<br>endif<br>exec “!g++ % -o %&lt;.exe”<br>if has(“win32”)<br>    exec “!%&lt;.exe”<br>else<br>    exec “!./%&lt;.exe”<br>endif<br>endif<br>endif<br>endfunc<br>“结束定义CompileRun</p>
+<p>“定义Run函数，用来调用进行编译和运行<br>func Run()<br>exec “w”<br>“C程序<br>“<br>if has(“win32”)<br>    exec “!%&lt;.exe”<br>else<br>    exec “!./%&lt;.exe”<br>endif<br>endfunc<br>“结束定义Run</p>
+<p>“定义Debug函数，用来调试程序<br>func Debug()<br>exec “w”<br>if has(“win32”)<br>    exec “!del %&lt;.exe”<br>else<br>    exec “!rm %&lt;.exe”<br>endif<br>exec “!g++ % -g -o %&lt;.exe”<br>exec “!gdb %&lt;.exe”<br>endfunc<br>“结束定义Debug</p>
+<p><br>2.3 下载TC，以及TC设置文件</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vim/" rel="tag"># vim</a>
+          
+            <a href="/tags/Font/" rel="tag"># Font</a>
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+            <a href="/tags/Google/" rel="tag"># Google</a>
+          
+            <a href="/tags/CMD/" rel="tag"># CMD</a>
+          
+            <a href="/tags/Shell/" rel="tag"># Shell</a>
+          
+            <a href="/tags/Firefox/" rel="tag"># Firefox</a>
+          
+            <a href="/tags/GDB/" rel="tag"># GDB</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/10/14/trayconizer-e5-b0-86-e4-bd-a0-e7-9a-84-e7-a8-8b-e5-ba-8f-e6-9c-80-e5-b0-8f-e5-8c-96-e5-88-b0-e6-89-98-e7-9b-98-e5-8c-ba/" rel="next" title="Trayconizer 将你的程序最小化到托盘区">
+                <i class="fa fa-chevron-left"></i> Trayconizer 将你的程序最小化到托盘区
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/10/15/linux-e7-b3-bb-e7-bb-9flocale-e7-9a-84-e8-ae-be-e5-ae-9a/" rel="prev" title="linux系统locale的设定">
+                linux系统locale的设定 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

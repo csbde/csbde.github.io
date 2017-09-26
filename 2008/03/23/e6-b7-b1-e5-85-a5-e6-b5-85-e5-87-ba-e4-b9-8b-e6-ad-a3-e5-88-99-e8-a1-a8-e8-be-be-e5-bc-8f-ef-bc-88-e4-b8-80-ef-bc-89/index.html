@@ -1,0 +1,813 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Font," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前言：&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;半年前我对正则表达式产生了兴趣，在网上查找过不少资料，看过不少的教程，最后在使用一个正则表达式工具RegexBuddy时发现他的教程写的非常好，可以说是我目前见过最好的正则表达式教程。于是一直想把他翻译过来。这个愿望直到这个五一长假才得以实现，结果就有了这篇文章。关于本文的名字，使用&amp;ldquo;深入浅出&amp;r">
+<meta name="keywords" content="Font">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入浅出之正则表达式（一）">
+<meta property="og:url" content="http://yoursite.com/2008/03/23/e6-b7-b1-e5-85-a5-e6-b5-85-e5-87-ba-e4-b9-8b-e6-ad-a3-e5-88-99-e8-a1-a8-e8-be-be-e5-bc-8f-ef-bc-88-e4-b8-80-ef-bc-89/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="前言：&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;半年前我对正则表达式产生了兴趣，在网上查找过不少资料，看过不少的教程，最后在使用一个正则表达式工具RegexBuddy时发现他的教程写的非常好，可以说是我目前见过最好的正则表达式教程。于是一直想把他翻译过来。这个愿望直到这个五一长假才得以实现，结果就有了这篇文章。关于本文的名字，使用&amp;ldquo;深入浅出&amp;r">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入浅出之正则表达式（一）">
+<meta name="twitter:description" content="前言：&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;半年前我对正则表达式产生了兴趣，在网上查找过不少资料，看过不少的教程，最后在使用一个正则表达式工具RegexBuddy时发现他的教程写的非常好，可以说是我目前见过最好的正则表达式教程。于是一直想把他翻译过来。这个愿望直到这个五一长假才得以实现，结果就有了这篇文章。关于本文的名字，使用&amp;ldquo;深入浅出&amp;r">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/03/23/e6-b7-b1-e5-85-a5-e6-b5-85-e5-87-ba-e4-b9-8b-e6-ad-a3-e5-88-99-e8-a1-a8-e8-be-be-e5-bc-8f-ef-bc-88-e4-b8-80-ef-bc-89/"/>
+
+
+
+
+
+  <title> 深入浅出之正则表达式（一） | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/23/e6-b7-b1-e5-85-a5-e6-b5-85-e5-87-ba-e4-b9-8b-e6-ad-a3-e5-88-99-e8-a1-a8-e8-be-be-e5-bc-8f-ef-bc-88-e4-b8-80-ef-bc-89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                深入浅出之正则表达式（一）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-03-23T22:52:56+08:00">
+                2008-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index">
+                    <span itemprop="name">Other</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><span lang="ZH-CN" style="font-family: 宋体;">前言：</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span lang="ZH-CN" style="font-family: 宋体;">半年前我对正则表达式产生了兴趣，在网上查找过不少资料，看过不少的教程，最后在使用一个正则表达式工具</span>RegexBuddy<span lang="ZH-CN" style="font-family: 宋体;">时发现他的教程写的非常好，可以说是我目前见过最好的正则表达式教程。于是一直想把他翻译过来。这个愿望直到这个五一长假才得以实现，结果就有了这篇文章。关于本文的名字，使用</span>&ldquo;<span lang="ZH-CN" style="font-family: 宋体;">深入浅出</span>&rdquo;<span lang="ZH-CN" style="font-family: 宋体;">似乎已经太俗。但是通读原文以后，觉得只有用</span>&ldquo;<span lang="ZH-CN" style="font-family: 宋体;">深入浅出</span>&rdquo;<span lang="ZH-CN" style="font-family: 宋体;">才能准确的表达出该教程给我的感受，所以也就不能免俗了。</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span lang="ZH-CN" style="font-family: 宋体;">本文是</span>Jan Goyvaerts<span lang="ZH-CN" style="font-family: 宋体;">为</span>RegexBuddy<span lang="ZH-CN" style="font-family: 宋体;">写的教程的译文，版权归原作者所有，欢迎转载。但是为了尊重原作者和译者的劳动，请注明出处！谢谢！</span></p>
+<p><strong><span style="font-size: 18pt;"><o:p>&nbsp;</o:p></span></strong></p>
+<p><strong><span style=""><span style="">1.<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>**</strong><span lang="ZH-CN" style="font-family: 宋体;">什么是正则表达式</span><o:p></o:p>**</p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">基本说来，正则表达式是一种用来描述一定数量文本的模式。</span>Regex<span lang="ZH-CN" style="font-family: 宋体;">代表</span>Regular Express<span lang="ZH-CN" style="font-family: 宋体;">。本文将用</span>&lt;&lt;regex&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">来表示一段具体的正则表达式。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">一段文本就是最基本的模式，简单的匹配相同的文本。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><strong><span style=""><span style="">2.<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>**</strong><span lang="ZH-CN" style="font-family: 宋体;">不同的正则表达式引擎</span><o:p></o:p>**</p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">正则表达式引擎是一种可以处理正则表达式的软件。通常，引擎是更大的应用程序的一部分。在软件世界，不同的正则表达式并不互相兼容。本教程会集中讨论</span>Perl 5 <span lang="ZH-CN" style="font-family: 宋体;">类型的引擎，因为这种引擎是应用最广泛的引擎。同时我们也会提到一些和其他引擎的区别。许多近代的引擎都很类似，但不完全一样。例如</span>.NET<span lang="ZH-CN" style="font-family: 宋体;">正则库，</span>JDK<span lang="ZH-CN" style="font-family: 宋体;">正则包。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><strong><span style=""><span style="">3.<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>**</strong><span lang="ZH-CN" style="font-family: 宋体;">文字符号</span><o:p></o:p>**</p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">最基本的正则表达式由单个文字符号组成。如</span>&lt;&lt;a&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">，它将匹配字符串中第一次出现的字符&ldquo;</span>a<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。如对字符串&ldquo;</span>Jack is a boy<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。&ldquo;</span>J<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;后的&ldquo;</span>a<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;将被匹配。而第二个&ldquo;</span>a<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;将不会被匹配。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">正则表达式也可以匹配第二个&ldquo;</span>a<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，这必须是你告诉正则表达式引擎从第一次匹配的地方开始搜索。在文本编辑器中，你可以使用&ldquo;查找下一个&rdquo;。在编程语言中，会有一个函数可以使你从前一次匹配的位置开始继续向后搜索。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">类似的，</span>&lt;&lt;cat&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">会匹配&ldquo;</span>About cats and dogs<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;中的&ldquo;</span>cat<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。这等于是告诉正则表达式引擎，找到一个</span>&lt;&lt;c&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">，紧跟一个</span>&lt;&lt;a&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">，再跟一个</span>&lt;&lt;t&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">要注意，正则表达式引擎缺省是大小写敏感的。除非你告诉引擎忽略大小写，否则</span>&lt;&lt;cat&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">不会匹配&ldquo;</span>Cat<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">特殊字符</span><o:p></o:p></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">对于文字字符，有</span>11<span lang="ZH-CN" style="font-family: 宋体;">个字符被保留作特殊用途。他们是：</span></p>
+<p>[ ]  ^ $ . | ? * + ( )</p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">这些特殊字符也被称作元字符。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">如果你想在正则表达式中将这些字符用作文本字符，你需要用反斜杠&ldquo;</span><span lang="ZH-CN" style="font-family: 宋体;">&rdquo;对其进行换码</span><span lang="ZH-CN"> </span>(escape)<span lang="ZH-CN" style="font-family: 宋体;">。例如你想匹配&ldquo;</span>1+1=2<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，正确的表达式为</span>&lt;&lt;1+1=2&gt;&gt;.</p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">需要注意的是，</span>&lt;&lt;1+1=2&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">也是有效的正则表达式。但它不会匹配&ldquo;</span>1+1=2<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，而会匹配&ldquo;</span>123+111=234<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;中的&ldquo;</span>111=2<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。因为&ldquo;</span>+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;在这里表示特殊含义（重复</span>1<span lang="ZH-CN" style="font-family: 宋体;">次到多次）。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">在编程语言中，要注意，一些特殊的字符会先被编译器处理，然后再传递给正则引擎。因此正则表达式</span>&lt;&lt;1+2=2&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">在</span>C++<span lang="ZH-CN" style="font-family: 宋体;">中要写成&ldquo;</span>1+1=2<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。为了匹配&ldquo;</span>C:temp<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，你要用正则表达式</span>&lt;&lt;C:\temp&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">。而在</span>C++<span lang="ZH-CN" style="font-family: 宋体;">中，正则表达式则变成了&ldquo;</span>C:\temp<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">不可显示字符</span><o:p></o:p></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">可以使用特殊字符序列来代表某些不可显示字符：</span></p>
+<p>&lt;&lt;t&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">代表</span>Tab(0x09)</p>
+<p>&lt;&lt;r&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">代表回车符</span>(0x0D)</p>
+<p>&lt;&lt;n&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">代表换行符</span>(0x0A)</p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">要注意的是</span>Windows<span lang="ZH-CN" style="font-family: 宋体;">中文本文件使用&ldquo;</span>rn<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;来结束一行而</span>Unix<span lang="ZH-CN" style="font-family: 宋体;">使用&ldquo;</span>n<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><strong><span style=""><span style="">4.<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>**</strong><span lang="ZH-CN" style="font-family: 宋体;">正则表达式引擎的内部工作机制</span><o:p></o:p>**</p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">知道正则表达式引擎是如何工作的有助于你很快理解为何某个正则表达式不像你期望的那样工作。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">有两种类型的引擎：文本导向</span>(text-directed)<span lang="ZH-CN" style="font-family: 宋体;">的引擎和正则导向</span>(regex-directed)<span lang="ZH-CN" style="font-family: 宋体;">的引擎。</span>Jeffrey Friedl<span lang="ZH-CN" style="font-family: 宋体;">把他们称作</span>DFA<span lang="ZH-CN" style="font-family: 宋体;">和</span>NFA<span lang="ZH-CN" style="font-family: 宋体;">引擎。本文谈到的是正则导向的引擎。这是因为一些非常有用的特性，如&ldquo;惰性&rdquo;量词</span>(lazy quantifiers)<span lang="ZH-CN" style="font-family: 宋体;">和反向引用</span>(backreferences)<span lang="ZH-CN" style="font-family: 宋体;">，只能在正则导向的引擎中实现。所以毫不意外这种引擎是目前最流行的引擎。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">你可以轻易分辨出所使用的引擎是文本导向还是正则导向。如果反向引用或&ldquo;惰性&rdquo;量词被实现，则可以肯定你使用的引擎是正则导向的。你可以作如下测试：将正则表达式</span>&lt;&lt;regex|regex not&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">应用到字符串&ldquo;</span>regex not<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。如果匹配的结果是</span>regex<span lang="ZH-CN" style="font-family: 宋体;">，则引擎是正则导向的。如果结果是</span>regex not<span lang="ZH-CN" style="font-family: 宋体;">，则是文本导向的。因为正则导向的引擎是&ldquo;猴急&rdquo;的，它会很急切的进行表功，报告它找到的第一个匹配</span><span lang="ZH-CN"> </span><span lang="ZH-CN" style="font-family: 宋体;">。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">正则导向的引擎总是返回最左边的匹配</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">这是需要你理解的很重要的一点：即使以后有可能发现一个&ldquo;更好&rdquo;的匹配，正则导向的引擎也总是返回最左边的匹配。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">当把</span>&lt;&lt;cat&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">应用到&ldquo;</span>He captured a catfish for his cat<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，引擎先比较</span>&lt;&lt;c&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">和&ldquo;</span>H<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，结果失败了。于是引擎再比较</span>&lt;&lt;c&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">和&ldquo;</span>e<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，也失败了。直到第四个字符，</span>&lt;&lt;c&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">匹配了&ldquo;</span>c<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。</span>&lt;&lt;a&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">匹配了第五个字符。到第六个字符</span>&lt;&lt;t&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">没能匹配&ldquo;</span>p<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，也失败了。引擎再继续从第五个字符重新检查匹配性。直到第十五个字符开始，</span>&lt;&lt;cat&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">匹配上了&ldquo;</span>catfish<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;中的&ldquo;</span>cat<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，正则表达式引擎急切的返回第一个匹配的结果，而不会再继续查找是否有其他更好的匹配。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><strong><span style=""><span style="">5.<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>**</strong><span lang="ZH-CN" style="font-family: 宋体;">字符集</span><o:p></o:p>**</p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">字符集是由一对方括号&ldquo;</span>[]<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;括起来的字符集合。使用字符集，你可以告诉正则表达式引擎仅仅匹配多个字符中的一个。如果你想匹配一个&ldquo;</span>a<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;或一个&ldquo;</span>e<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，使用</span>&lt;&lt;[ae]&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">。你可以使用</span>&lt;&lt;gr[ae]y&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">匹配</span>gray<span lang="ZH-CN" style="font-family: 宋体;">或</span>grey<span lang="ZH-CN" style="font-family: 宋体;">。这在你不确定你要搜索的字符是采用美国英语还是英国英语时特别有用。相反，</span>&lt;&lt;gr[ae]y&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">将不会匹配</span>graay<span lang="ZH-CN" style="font-family: 宋体;">或</span>graey<span lang="ZH-CN" style="font-family: 宋体;">。字符集中的字符顺序并没有什么关系，结果都是相同的。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">你可以使用连字符&ldquo;</span>-<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;定义一个字符范围作为字符集。</span>&lt;&lt;[0-9]&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">匹配</span>0<span lang="ZH-CN" style="font-family: 宋体;">到</span>9<span lang="ZH-CN" style="font-family: 宋体;">之间的单个数字。你可以使用不止一个范围。</span>&lt;&lt;[0-9a-fA-F] &gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">匹配单个的十六进制数字，并且大小写不敏感。你也可以结合范围定义与单个字符定义。</span>&lt;&lt;[0-9a-fxA-FX]&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">匹配一个十六进制数字或字母</span>X<span lang="ZH-CN" style="font-family: 宋体;">。再次强调一下，字符和范围定义的先后顺序对结果没有影响。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">字符集的一些应用</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">查找一个可能有拼写错误的单词，比如</span>&lt;&lt;sep[ae]r[ae]te&gt;&gt; <span lang="ZH-CN" style="font-family: 宋体;">或</span><span lang="ZH-CN"> </span>&lt;&lt;li[cs]en[cs]e&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">查找程序语言的标识符，</span>&lt;&lt;A-Za-z_][A-Za-z_0-9]<em>&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">。</span>(</em><span lang="ZH-CN" style="font-family: 宋体;">表示重复</span>0<span lang="ZH-CN" style="font-family: 宋体;">或多次</span>)</p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">查找</span>C<span lang="ZH-CN" style="font-family: 宋体;">风格的十六进制数</span>&lt;&lt;0[xX][A-Fa-f0-9]+&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">。</span>(+<span lang="ZH-CN" style="font-family: 宋体;">表示重复一次或多次</span>)</p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">取反字符集</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">在左方括号&ldquo;</span>[<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;后面紧跟一个尖括号&ldquo;</span>^<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，将会对字符集取反。结果是字符集将匹配任何不在方括号中的字符。不像&ldquo;</span>.<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，取反字符集是可以匹配回车换行符的。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">需要记住的很重要的一点是，取反字符集必须要匹配一个字符。</span>&lt;&lt;q[^u]&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">并不意味着：匹配一个</span>q<span lang="ZH-CN" style="font-family: 宋体;">，后面没有</span>u<span lang="ZH-CN" style="font-family: 宋体;">跟着。它意味着：匹配一个</span>q<span lang="ZH-CN" style="font-family: 宋体;">，后面跟着一个不是</span>u<span lang="ZH-CN" style="font-family: 宋体;">的字符。所以它不会匹配&ldquo;</span>Iraq<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;中的</span>q<span lang="ZH-CN" style="font-family: 宋体;">，而会匹配&ldquo;</span>Iraq is a country<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;中的</span>q<span lang="ZH-CN" style="font-family: 宋体;">和一个空格符。事实上，空格符是匹配中的一部分，因为它是一个&ldquo;不是</span>u<span lang="ZH-CN" style="font-family: 宋体;">的字符&rdquo;。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">如果你只想匹配一个</span>q<span lang="ZH-CN" style="font-family: 宋体;">，条件是</span>q<span lang="ZH-CN" style="font-family: 宋体;">后面有一个不是</span>u<span lang="ZH-CN" style="font-family: 宋体;">的字符，我们可以用后面将讲到的向前查看来解决。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">字符集中的元字符</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">需要注意的是，在字符集中只有</span>4<span lang="ZH-CN" style="font-family: 宋体;">个</span><span lang="ZH-CN"> </span><span lang="ZH-CN" style="font-family: 宋体;">字符具有特殊含义。它们是：&ldquo;</span>]  ^ -<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。&ldquo;</span>]<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;代表字符集定义的结束；&ldquo;</span><span lang="ZH-CN" style="font-family: 宋体;">&rdquo;代表转义；&ldquo;</span>^<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;代表取反；&ldquo;</span>-<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;代表范围定义。其他常见的元字符在字符集定义内部都是正常字符，不需要转义。例如，要搜索星号</span><em><span lang="ZH-CN" style="font-family: 宋体;">或加号</span>+<span lang="ZH-CN" style="font-family: 宋体;">，你可以用</span>&lt;&lt;[+</em>]&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">。当然，如果你对那些通常的元字符进行转义，你的正则表达式一样会工作得很好，但是这会降低可读性。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">在字符集定义中为了将反斜杠&ldquo;</span><span lang="ZH-CN" style="font-family: 宋体;">&rdquo;作为一个文字字符而非特殊含义的字符，你需要用另一个反斜杠对它进行转义。</span>&lt;&lt;[\x]&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">将会匹配一个反斜杠和一个</span>X<span lang="ZH-CN" style="font-family: 宋体;">。&ldquo;</span>]^-<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;都可以用反斜杠进行转义，或者将他们放在一个不可能使用到他们特殊含义的位置。我们推荐后者，因为这样可以增加可读性。比如对于字符&ldquo;</span>^<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，将它放在除了左括号&ldquo;</span>[<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;后面的位置，使用的都是文字字符含义而非取反含义。如</span>&lt;&lt;[x^]&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">会匹配一个</span>x<span lang="ZH-CN" style="font-family: 宋体;">或</span>^<span lang="ZH-CN" style="font-family: 宋体;">。</span>&lt;&lt;[]x]&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">会匹配一个&ldquo;</span>]<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;或&ldquo;</span>x<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。</span>&lt;&lt;[-x]&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">或</span>&lt;&lt;[x-]&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">都会匹配一个&ldquo;</span>-<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;或&ldquo;</span>x<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">字符集的简写</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">因为一些字符集非常常用，所以有一些简写方式。</span></p>
+<p>&lt;&lt;d&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">代表</span>&lt;&lt;[0-9]&gt;&gt;;</p>
+<p>&lt;&lt;w&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">代表单词字符。这个是随正则表达式实现的不同而有些差异。绝大多数的正则表达式实现的单词字符集都包含了</span>&lt;&lt;A-Za-z0-9_]&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">。</span></p>
+<p>&lt;&lt;s&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">代表&ldquo;白字符&rdquo;。这个也是和不同的实现有关的。在绝大多数的实现中，都包含了空格符和</span>Tab<span lang="ZH-CN" style="font-family: 宋体;">符，以及回车换行符</span>&lt;&lt;rn&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">字符集的缩写形式可以用在方括号之内或之外。</span>&lt;&lt;sd&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">匹配一个白字符后面紧跟一个数字。</span>&lt;&lt;[sd]&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">匹配单个白字符或数字。</span>&lt;&lt;[da-fA-F]&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">将匹配一个十六进制数字。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">取反字符集的简写</span></p>
+<p>&lt;&lt;[S]&gt;&gt; = &lt;&lt;[^s]&gt;&gt;</p>
+<p>&lt;&lt;[W]&gt;&gt; = &lt;&lt;[^w]&gt;&gt;</p>
+<p>&lt;&lt;[D]&gt;&gt; = &lt;&lt;[^d]&gt;&gt;</p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">字符集的重复</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">如果你用&ldquo;</span>?*+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;操作符来重复一个字符集，你将会重复整个字符集。而不仅是它匹配的那个字符。正则表达式</span>&lt;&lt;[0-9]+&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">会匹配</span>837<span lang="ZH-CN" style="font-family: 宋体;">以及</span>222<span lang="ZH-CN" style="font-family: 宋体;">。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">如果你仅仅想重复被匹配的那个字符，可以用向后引用达到目的。我们以后将讲到向后引用。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><strong><span style=""><span style="">6.<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>**</strong><span lang="ZH-CN" style="font-family: 宋体;">使用</span>?<strong>*</strong><span lang="ZH-CN" style="font-family: 宋体;">或</span>+ <strong>**<span lang="ZH-CN" style="font-family: 宋体;">进行重复</span><o:p></o:p></strong></p>
+<p>?<span lang="ZH-CN" style="font-family: 宋体;">：告诉引擎匹配前导字符</span>0<span lang="ZH-CN" style="font-family: 宋体;">次或一次。事实上是表示前导字符是可选的。</span></p>
+<p>+<span lang="ZH-CN" style="font-family: 宋体;">：告诉引擎匹配前导字符</span>1<span lang="ZH-CN" style="font-family: 宋体;">次或多次</span></p>
+<p>*<span lang="ZH-CN" style="font-family: 宋体;">：告诉引擎匹配前导字符</span>0<span lang="ZH-CN" style="font-family: 宋体;">次或多次</span></p>
+<p>&lt;[A-Za-z][A-Za-z0-9]*&gt;<span lang="ZH-CN" style="font-family: 宋体;">匹配没有属性的</span>HTML<span lang="ZH-CN" style="font-family: 宋体;">标签，&ldquo;</span>&lt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;以及&ldquo;</span>&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;是文字符号。第一个字符集匹配一个字母，第二个字符集匹配一个字母或数字。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">我们似乎也可以用</span>&lt;[A-Za-z0-9]+&gt;<span lang="ZH-CN" style="font-family: 宋体;">。但是它会匹配</span>&lt;1&gt;<span lang="ZH-CN" style="font-family: 宋体;">。但是这个正则表达式在你知道你要搜索的字符串不包含类似的无效标签时还是足够有效的。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">限制性重复</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">许多现代的正则表达式实现，都允许你定义对一个字符重复多少次。词法是：</span>{min,max}<span lang="ZH-CN" style="font-family: 宋体;">。</span>min<span lang="ZH-CN" style="font-family: 宋体;">和</span>max<span lang="ZH-CN" style="font-family: 宋体;">都是非负整数。如果逗号有而</span>max<span lang="ZH-CN" style="font-family: 宋体;">被忽略了，则</span>max<span lang="ZH-CN" style="font-family: 宋体;">没有限制。如果逗号和</span>max<span lang="ZH-CN" style="font-family: 宋体;">都被忽略了，则重复</span>min<span lang="ZH-CN" style="font-family: 宋体;">次。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">因此</span>{0,}<span lang="ZH-CN" style="font-family: 宋体;">和</span>*<span lang="ZH-CN" style="font-family: 宋体;">一样，</span>{1<span lang="ZH-CN" style="font-family: 宋体;">，</span>}<span lang="ZH-CN" style="font-family: 宋体;">和</span>+ <span lang="ZH-CN" style="font-family: 宋体;">的作用一样。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">你可以用</span>&lt;&lt;b[1-9][0-9]{3}b&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">匹配</span>1000~9999<span lang="ZH-CN" style="font-family: 宋体;">之间的数字</span>(<span lang="ZH-CN" style="font-family: 宋体;">&ldquo;</span>b<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;表示单词边界</span>)<span lang="ZH-CN" style="font-family: 宋体;">。</span>&lt;&lt;b[1-9][0-9]{2,4}b&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">匹配一个在</span>100~99999<span lang="ZH-CN" style="font-family: 宋体;">之间的数字。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">注意贪婪性</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">假设你想用一个正则表达式匹配一个</span>HTML<span lang="ZH-CN" style="font-family: 宋体;">标签。你知道输入将会是一个有效的</span>HTML<span lang="ZH-CN" style="font-family: 宋体;">文件，因此正则表达式不需要排除那些无效的标签。所以如果是在两个尖括号之间的内容，就应该是一个</span>HTML<span lang="ZH-CN" style="font-family: 宋体;">标签。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">许多正则表达式的新手会首先想到用正则表达式</span>&lt;&lt; &lt;.+&gt; &gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">，他们会很惊讶的发现，对于测试字符串，&ldquo;</span>This is a &lt;EM&gt;first&lt;/EM&gt; test<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，你可能期望会返回</span>&lt;EM&gt;<span lang="ZH-CN" style="font-family: 宋体;">，然后继续进行匹配的时候，返回</span>&lt;/EM&gt;<span lang="ZH-CN" style="font-family: 宋体;">。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">但事实是不会。正则表达式将会匹配&ldquo;</span>&lt;EM&gt;first&lt;/EM&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。很显然这不是我们想要的结果。原因在于&ldquo;</span>+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;是贪婪的。也就是说，&ldquo;</span>+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;会导致正则表达式引擎试图尽可能的重复前导字符。只有当这种重复会引起整个正则表达式匹配失败的情况下，引擎会进行回溯。也就是说，它会放弃最后一次的&ldquo;重复&rdquo;，然后处理正则表达式余下的部分。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">和&ldquo;</span>+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;类似，&ldquo;</span>?*<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;的重复也是贪婪的。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">深入正则表达式引擎内部</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">让我们来看看正则引擎如何匹配前面的例子。第一个记号是&ldquo;</span>&lt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，这是一个文字符号。第二个符号是&ldquo;</span>.<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，匹配了字符&ldquo;</span>E<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，然后&ldquo;</span>+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;一直可以匹配其余的字符，直到一行的结束。然后到了换行符，匹配失败</span>(<span lang="ZH-CN" style="font-family: 宋体;">&ldquo;</span>.<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;不匹配换行符</span>)<span lang="ZH-CN" style="font-family: 宋体;">。于是引擎开始对下一个正则表达式符号进行匹配。也即试图匹配&ldquo;</span>&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。到目前为止，&ldquo;</span>&lt;.+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;已经匹配了&ldquo;</span>&lt;EM&gt;first&lt;/EM&gt; test<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。引擎会试图将&ldquo;</span>&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;与换行符进行匹配，结果失败了。于是引擎进行回溯。结果是现在&ldquo;</span>&lt;.+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;匹配&ldquo;</span>&lt;EM&gt;first&lt;/EM&gt; tes<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。于是引擎将&ldquo;</span>&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;与&ldquo;</span>t<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;进行匹配。显然还是会失败。这个过程继续，直到&ldquo;</span>&lt;.+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;匹配&ldquo;</span>&lt;EM&gt;first&lt;/EM<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，&ldquo;</span>&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;与&ldquo;</span>&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;匹配。于是引擎找到了一个匹配&ldquo;</span>&lt;EM&gt;first&lt;/EM&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。记住，正则导向的引擎是&ldquo;急切的&rdquo;，所以它会急着报告它找到的第一个匹配。而不是继续回溯，即使可能会有更好的匹配，例如&ldquo;</span>&lt;EM&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。所以我们可以看到，由于&ldquo;</span>+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;的贪婪性，使得正则表达式引擎返回了一个最左边的最长的匹配。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">用懒惰性取代贪婪性</span><o:p></o:p></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">一个用于修正以上问题的可能方案是用&ldquo;</span>+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;的惰性代替贪婪性。你可以在&ldquo;</span>+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;后面紧跟一个问号&ldquo;</span>?<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;来达到这一点。&ldquo;</span>*<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，&ldquo;</span>{}<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;和&ldquo;</span>?<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;表示的重复也可以用这个方案。因此在上面的例子中我们可以使用&ldquo;</span>&lt;.+?&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。让我们再来看看正则表达式引擎的处理过程。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">再一次，正则表达式记号&ldquo;</span>&lt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;会匹配字符串的第一个&ldquo;</span>&lt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。下一个正则记号是&ldquo;</span>.<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。这次是一个懒惰的&ldquo;</span>+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;来重复上一个字符。这告诉正则引擎，尽可能少的重复上一个字符。因此引擎匹配&ldquo;</span>.<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;和字符&ldquo;</span>E<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，然后用&ldquo;</span>&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;匹配&ldquo;</span>M<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，结果失败了。引擎会进行回溯，和上一个例子不同，因为是惰性重复，所以引擎是扩展惰性重复而不是减少，于是&ldquo;</span>&lt;.+<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;现在被扩展为&ldquo;</span>&lt;EM<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。引擎继续匹配下一个记号&ldquo;</span>&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。这次得到了一个成功匹配。引擎于是报告&ldquo;</span>&lt;EM&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;是一个成功的匹配。整个过程大致如此。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">惰性扩展的一个替代方案</span><o:p></o:p></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">我们还有一个更好的替代方案。可以用一个贪婪重复与一个取反字符集：&ldquo;</span>&lt;[^&gt;]+&gt;<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。之所以说这是一个更好的方案在于使用惰性重复时，引擎会在找到一个成功匹配前对每一个字符进行回溯。而使用取反字符集则不需要进行回溯。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">最后要记住的是，本教程仅仅谈到的是正则导向的引擎。文本导向的引擎是不回溯的。但是同时他们也不支持惰性重复操作。</span><o:p></o:p></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><strong><span style=""><span style="">7.<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>**</strong><span lang="ZH-CN" style="font-family: 宋体;">使用&ldquo;</span>.<strong>**<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;匹配几乎任意字符</span><o:p></o:p></strong></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">在正则表达式中，&ldquo;</span>.<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;是最常用的符号之一。不幸的是，它也是最容易被误用的符号之一。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">&ldquo;</span>.<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;匹配一个单个的字符而不用关心被匹配的字符是什么。唯一的例外是新行符。在本教程中谈到的引擎，缺省情况下都是不匹配新行符的。因此在缺省情况下，&ldquo;</span>.<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;等于是字符集</span><a href="Window">^nr</a><span lang="ZH-CN" style="font-family: 宋体;">或</span><a href="Unix">^n</a><span lang="ZH-CN" style="font-family: 宋体;">的简写。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">这个例外是因为历史的原因。因为早期使用正则表达式的工具是基于行的。它们都是一行一行的读入一个文件，将正则表达式分别应用到每一行上去。在这些工具中，字符串是不包含新行符的。因此&ldquo;</span>.<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;也就从不匹配新行符。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">现代的工具和语言能够将正则表达式应用到很大的字符串甚至整个文件上去。本教程讨论的所有正则表达式实现都提供一个选项，可以使&ldquo;</span>.<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;匹配所有的字符，包括新行符。在</span>RegexBuddy, EditPad Pro<span lang="ZH-CN" style="font-family: 宋体;">或</span>PowerGREP<span lang="ZH-CN" style="font-family: 宋体;">等工具中，你可以简单的选中&ldquo;点号匹配新行符&rdquo;。在</span>Perl<span lang="ZH-CN" style="font-family: 宋体;">中，&ldquo;</span>.<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;可以匹配新行符的模式被称作&ldquo;单行模式&rdquo;。很不幸，这是一个很容易混淆的名词。因为还有所谓&ldquo;多行模式&rdquo;。多行模式只影响行首行尾的锚定</span>(anchor)<span lang="ZH-CN" style="font-family: 宋体;">，而单行模式只影响&ldquo;</span>.<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">其他语言和正则表达式库也采用了</span>Perl<span lang="ZH-CN" style="font-family: 宋体;">的术语定义。当在</span>.NET Framework<span lang="ZH-CN" style="font-family: 宋体;">中使用正则表达式类时，你可以用类似下面的语句来激活单行模式：</span>Regex.Match(&ldquo;string&rdquo;,&rdquo;regex&rdquo;,RegexOptions.SingleLine)</p>
+<p><o:p>&nbsp;</o:p></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">保守的使用点号&ldquo;</span>.<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">点号可以说是最强大的元字符。它允许你偷懒：用一个点号，就能匹配几乎所有的字符。但是问题在于，它也常常会匹配不该匹配的字符。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">我会以一个简单的例子来说明。让我们看看如何匹配一个具有&ldquo;</span>mm/dd/yy<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;格式的日期，但是我们想允许用户来选择分隔符。很快能想到的一个方案是</span>&lt;&lt;dd.dd.dd&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">。看上去它能匹配日期&ldquo;</span>02/12/03<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。问题在于</span>02512703<span lang="ZH-CN" style="font-family: 宋体;">也会被认为是一个有效的日期。</span></p>
+<p>&lt;&lt;dd[-/.]dd[-/.]dd&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">看上去是一个好一点的解决方案。记住点号在一个字符集里不是元字符。这个方案远不够完善，它会匹配&ldquo;</span>99/99/99<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。而</span>&lt;&lt;[0-1]d[-/.][0-3]d[-/.]dd&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">又更进一步。尽管他也会匹配&ldquo;</span>19/39/99<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。你想要你的正则表达式达到如何完美的程度取决于你想达到什么样的目的。如果你想校验用户输入，则需要尽可能的完美。如果你只是想分析一个已知的源，并且我们知道没有错误的数据，用一个比较好的正则表达式来匹配你想要搜寻的字符就已经足够。</span></p>
+<p><strong><o:p>&nbsp;</o:p></strong></p>
+<p><strong><span style=""><span style="">8.<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>**</strong><span lang="ZH-CN" style="font-family: 宋体;">字符串开始和结束的锚定</span><o:p></o:p>**</p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">锚定和一般的正则表达式符号不同，它不匹配任何字符。相反，他们匹配的是字符之前或之后的位置。&ldquo;</span>^<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;匹配一行字符串第一个字符前的位置。</span>&lt;&lt;^a&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">将会匹配字符串&ldquo;</span>abc<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;中的</span>a<span lang="ZH-CN" style="font-family: 宋体;">。</span>&lt;&lt;^b&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">将不会匹配&ldquo;</span>abc<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;中的任何字符。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">类似的，</span>$<span lang="ZH-CN" style="font-family: 宋体;">匹配字符串中最后一个字符的后面的位置。所以</span>&lt;&lt;c$&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">匹配&ldquo;</span>abc<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;中的</span>c<span lang="ZH-CN" style="font-family: 宋体;">。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">锚定的应用</span><o:p></o:p></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">在编程语言中校验用户输入时，使用锚定是非常重要的。如果你想校验用户的输入为整数，用</span>&lt;&lt;^d+$&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">用户输入中，常常会有多余的前导空格或结束空格。你可以用</span>&lt;&lt;^s<em>&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">和</span>&lt;&lt;s</em>$&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">来匹配前导空格或结束空格。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">使用&ldquo;</span>^<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;和&ldquo;</span>$<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;作为行的开始和结束锚定</span><o:p></o:p></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">如果你有一个包含了多行的字符串。例如：&ldquo;</span>first linenrsecond line<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;</span>(<span lang="ZH-CN" style="font-family: 宋体;">其中</span>nr<span lang="ZH-CN" style="font-family: 宋体;">表示一个新行符</span>)<span lang="ZH-CN" style="font-family: 宋体;">。常常需要对每行分别处理而不是整个字符串。因此，几乎所有的正则表达式引擎都提供一个选项，可以扩展这两种锚定的含义。&ldquo;</span>^<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;可以匹配字串的开始位置</span>(<span lang="ZH-CN" style="font-family: 宋体;">在</span>f<span lang="ZH-CN" style="font-family: 宋体;">之前</span>)<span lang="ZH-CN" style="font-family: 宋体;">，以及每一个新行符的后面位置</span>(<span lang="ZH-CN" style="font-family: 宋体;">在</span>nr<span lang="ZH-CN" style="font-family: 宋体;">和</span>s<span lang="ZH-CN" style="font-family: 宋体;">之间</span>)<span lang="ZH-CN" style="font-family: 宋体;">。类似的，</span>$<span lang="ZH-CN" style="font-family: 宋体;">会匹配字串的结束位置</span>(<span lang="ZH-CN" style="font-family: 宋体;">最后一个</span>e<span lang="ZH-CN" style="font-family: 宋体;">之后</span>)<span lang="ZH-CN" style="font-family: 宋体;">，以及每个新行符的前面</span>(<span lang="ZH-CN" style="font-family: 宋体;">在</span>e<span lang="ZH-CN" style="font-family: 宋体;">与</span>nr<span lang="ZH-CN" style="font-family: 宋体;">之间</span>)<span lang="ZH-CN" style="font-family: 宋体;">。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">在</span>.NET<span lang="ZH-CN" style="font-family: 宋体;">中，当你使用如下代码时，将会定义锚定匹配每一个新行符的前面和后面位置：</span>Regex.Match(&quot;string&quot;, &quot;regex&quot;, RegexOptions.Multiline)</p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">应用：</span>string str = Regex.Replace(Original, &quot;^&quot;, &quot;&gt; &quot;, RegexOptions.Multiline)–<span lang="ZH-CN" style="font-family: 宋体;">将会在每行的行首插入&ldquo;</span>&gt; <span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。</span></p>
+<p><o:p>&nbsp;</o:p></p>
+<p><span style="font-family: Symbol;"><span style="">&middot;<span style="font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; font-size: 7pt; line-height: normal; font-size-adjust: none; font-stretch: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span lang="ZH-CN" style="font-family: 宋体;">绝对锚定</span><o:p></o:p></p>
+<p>&lt;&lt;A&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">只匹配整个字符串的开始位置，</span>&lt;&lt;Z&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">只匹配整个字符串的结束位置。即使你使用了&ldquo;多行模式&rdquo;，</span>&lt;&lt;A&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">和</span>&lt;&lt;Z&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">也从不匹配新行符。</span></p>
+<p><span lang="ZH-CN" style="font-family: 宋体;">即使</span>Z<span lang="ZH-CN" style="font-family: 宋体;">和</span>$<span lang="ZH-CN" style="font-family: 宋体;">只匹配字符串的结束位置，仍然有一个例外的情况。如果字符串以新行符结束，则</span>Z<span lang="ZH-CN" style="font-family: 宋体;">和</span>$<span lang="ZH-CN" style="font-family: 宋体;">将会匹配新行符前面的位置，而不是整个字符串的最后面。这个&ldquo;改进&rdquo;是由</span>Perl<span lang="ZH-CN" style="font-family: 宋体;">引进的，然后被许多的正则表达式实现所遵循，包括</span>Java<span lang="ZH-CN" style="font-family: 宋体;">，</span>.NET<span lang="ZH-CN" style="font-family: 宋体;">等。如果应用</span>&lt;&lt;^[a-z]+$&gt;&gt;<span lang="ZH-CN" style="font-family: 宋体;">到&ldquo;</span>joen<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;，则匹配结果是&ldquo;</span>joe<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;而不是&ldquo;</span>joen<span lang="ZH-CN" style="font-family: 宋体;">&rdquo;。</span></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Font/" rel="tag"># Font</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/03/23/e6-b7-b1-e5-85-a5-e6-b5-85-e5-87-ba-e4-b9-8b-e6-ad-a3-e5-88-99-e8-a1-a8-e8-be-be-e5-bc-8f-ef-bc-88-e4-ba-8c-ef-bc-89/" rel="next" title="深入浅出之正则表达式（二）">
+                <i class="fa fa-chevron-left"></i> 深入浅出之正则表达式（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/03/24/best-of-vim-tips-e4-b8-ad-e6-96-87-e7-89-88/" rel="prev" title="Best of Vim Tips 中文版">
+                Best of Vim Tips 中文版 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,734 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CMD,SSH," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="源自：http://hi.baidu.com/yangyingchao … f8108bd43f7cb2.html   大家都知道，在Derbian和Ububtu中，为了安全起见，以普通用户登录以后在终端中不允许通过su命令来切换为超级用户，想要代替超级用户执行命令必须通过sudo命令来实现，使用sudo命令确实比使用su更加安全。例如，在使用su的时候，由于本身属于超级用户，可以对任何文件进行任">
+<meta name="keywords" content="CMD,SSH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fedora （Redhat, RHEL,CENTOS）中使用sudo">
+<meta property="og:url" content="http://yoursite.com/2008/04/01/fedora-ef-bc-88redhat-rhelcentos-ef-bc-89-e4-b8-ad-e4-bd-bf-e7-94-a8sudo/index.html">
+<meta property="og:site_name" content="九王爷">
+<meta property="og:description" content="源自：http://hi.baidu.com/yangyingchao … f8108bd43f7cb2.html   大家都知道，在Derbian和Ububtu中，为了安全起见，以普通用户登录以后在终端中不允许通过su命令来切换为超级用户，想要代替超级用户执行命令必须通过sudo命令来实现，使用sudo命令确实比使用su更加安全。例如，在使用su的时候，由于本身属于超级用户，可以对任何文件进行任">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-26T13:41:35.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Fedora （Redhat, RHEL,CENTOS）中使用sudo">
+<meta name="twitter:description" content="源自：http://hi.baidu.com/yangyingchao … f8108bd43f7cb2.html   大家都知道，在Derbian和Ububtu中，为了安全起见，以普通用户登录以后在终端中不允许通过su命令来切换为超级用户，想要代替超级用户执行命令必须通过sudo命令来实现，使用sudo命令确实比使用su更加安全。例如，在使用su的时候，由于本身属于超级用户，可以对任何文件进行任">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2008/04/01/fedora-ef-bc-88redhat-rhelcentos-ef-bc-89-e4-b8-ad-e4-bd-bf-e7-94-a8sudo/"/>
+
+
+
+
+
+  <title> Fedora （Redhat, RHEL,CENTOS）中使用sudo | 九王爷 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">九王爷</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">九王爷的府邸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/04/01/fedora-ef-bc-88redhat-rhelcentos-ef-bc-89-e4-b8-ad-e4-bd-bf-e7-94-a8sudo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Fedora （Redhat, RHEL,CENTOS）中使用sudo
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-04-01T14:07:10+08:00">
+                2008-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>源自：<a href="http://hi.baidu.com/yangyingchao" target="_blank" rel="external">http://hi.baidu.com/yangyingchao</a> … f8108bd43f7cb2.html<br>   大家都知道，在Derbian和Ububtu中，为了安全起见，以普通用户登录以后在终端中不允许通过su命令来切换为超级用户，想要代替超级用户执行命令必须通过sudo命令来实现，使用sudo命令确实比使用su更加安全。例如，在使用su的时候，由于本身属于超级用户，可以对任何文件进行任何操作，如果因为忘记自己以经成为了超级用户、不小心删除了某些系统所需的重要文件，将会引起及其严重的后果。而如果不使用su，则想执行某个命令，系统会自动检察用户是否拥有这个权限，如果没有，则提醒用户，这个时候再使用sudo命令来暂时替代超级用户来执行，则在这个过程中用户最起码会考虑一下操作是否正确，这样在一定程度上可以防止因粗心而带来的灾难。<a id="more"></a><br>        但而在基于RedHat的Linux发行版（Fedora, RHEL, RedHat, 红旗……）默认使用的是su，而非sudo，如果想要使用sudo，必须正确配置sudoers文件。sudoers位于/etc下，在使用sudo的时候，系统查询sudoers里面给用户分配的权限，然后根据查询结果进行相关操作。下面这个文件是我从Fedora8的sudoers中拷贝出来的，然后进行了翻译和整理，大家可以看一下，然后根据里面的提示进行操作，正确配置自己机器的sudoers文件，打造一个更加安全的系统。</p>
+<p><coolcode></coolcode></p>
+<p>####################################################################</p>
+<h2 id="Sudoers-allows-particular-users-to-run-various-commands-as-the-root-user-without-needing-the-root-password"><a href="#Sudoers-allows-particular-users-to-run-various-commands-as-the-root-user-without-needing-the-root-password" class="headerlink" title="Sudoers allows particular users to run various commands as the root user, without needing the root password."></a>Sudoers allows particular users to run various commands as the root user, without needing the root password.</h2><h2 id="Sudoers-可以使特定的用户以根用户的身份执行各种命令，而无需根密码。"><a href="#Sudoers-可以使特定的用户以根用户的身份执行各种命令，而无需根密码。" class="headerlink" title="Sudoers 可以使特定的用户以根用户的身份执行各种命令，而无需根密码。"></a>Sudoers 可以使特定的用户以根用户的身份执行各种命令，而无需根密码。</h2><h2 id="Examples-are-provided-at-the-bottom-of-the-file-for-collections-ofrelated-commands-which-can-then-be-delegated-out-to-particular-usersor-groups"><a href="#Examples-are-provided-at-the-bottom-of-the-file-for-collections-ofrelated-commands-which-can-then-be-delegated-out-to-particular-usersor-groups" class="headerlink" title="Examples are provided at the bottom of the file for collections ofrelated commands, which can then be delegated out to particular usersor groups."></a>Examples are provided at the bottom of the file for collections ofrelated commands, which can then be delegated out to particular usersor groups.</h2><p>##文件的后面给出了相关指令集的例子，这些例子中的用户和组均可用特定的用户和组来代替（替换成你的系统里面的用户和组。）</p>
+<h2 id="This-file-must-be-edited-with-the-‘visudo’-command"><a href="#This-file-must-be-edited-with-the-‘visudo’-command" class="headerlink" title="This file must be edited with the ‘visudo’ command."></a>This file must be edited with the ‘visudo’ command.</h2><h2 id="这一文件必须使用visudo来进行编辑！！"><a href="#这一文件必须使用visudo来进行编辑！！" class="headerlink" title="这一文件必须使用visudo来进行编辑！！"></a>这一文件必须使用visudo来进行编辑！！</h2><h2 id="Host-Aliases"><a href="#Host-Aliases" class="headerlink" title="Host Aliases"></a>Host Aliases</h2><h2 id="Groups-of-machines-You-may-prefer-to-use-hostnames-perhaps-using-wildcards-for-entire-domains-or-IP-addresses-instead"><a href="#Groups-of-machines-You-may-prefer-to-use-hostnames-perhaps-using-wildcards-for-entire-domains-or-IP-addresses-instead" class="headerlink" title="Groups of machines. You may prefer to use hostnames (perhaps using wildcards for entire domains) or IP addresses instead."></a>Groups of machines. You may prefer to use hostnames (perhaps using wildcards for entire domains) or IP addresses instead.</h2><h1 id="Host-Alias-FILESERVERS-fs1-fs2"><a href="#Host-Alias-FILESERVERS-fs1-fs2" class="headerlink" title="Host_Alias       FILESERVERS = fs1, fs2"></a>Host_Alias       FILESERVERS = fs1, fs2</h1><h1 id="Host-Alias-MAILSERVERS-smtp-smtp2"><a href="#Host-Alias-MAILSERVERS-smtp-smtp2" class="headerlink" title="Host_Alias       MAILSERVERS = smtp, smtp2"></a>Host_Alias       MAILSERVERS = smtp, smtp2</h1><h1 id="机器的组，可以使用hostname或者IP地址来替代。"><a href="#机器的组，可以使用hostname或者IP地址来替代。" class="headerlink" title="机器的组，可以使用hostname或者IP地址来替代。"></a>机器的组，可以使用hostname或者IP地址来替代。</h1><h2 id="User-Aliases"><a href="#User-Aliases" class="headerlink" title="User Aliases"></a>User Aliases</h2><h2 id="These-aren’t-often-necessary-as-you-can-use-regular-groups-ie-from-files-LDAP-NIS-etc-in-this-file-just-use-groupname-ratherthan-USERALIAS"><a href="#These-aren’t-often-necessary-as-you-can-use-regular-groups-ie-from-files-LDAP-NIS-etc-in-this-file-just-use-groupname-ratherthan-USERALIAS" class="headerlink" title="These aren’t often necessary, as you can use regular groups (ie,from files, LDAP, NIS, etc) in this file - just use %groupname ratherthan USERALIAS."></a>These aren’t often necessary, as you can use regular groups (ie,from files, LDAP, NIS, etc) in this file - just use %groupname ratherthan USERALIAS.</h2><h1 id="User-Alias-yyc-yyc"><a href="#User-Alias-yyc-yyc" class="headerlink" title="User_Alias yyc = yyc"></a>User_Alias yyc = yyc</h1><p>#用户入口，这通常并不是必需的，因为我们可以用正常组来替代，即：使用组名（groupname）而不是USERALIAS。</p>
+<h2 id="Command-Aliases"><a href="#Command-Aliases" class="headerlink" title="Command Aliases"></a>Command Aliases</h2><h2 id="These-are-groups-of-related-commands…"><a href="#These-are-groups-of-related-commands…" class="headerlink" title="These are groups of related commands…"></a>These are groups of related commands…</h2><p>#控制入口，以下是相关命令的分组。</p>
+<h2 id="Networking（网络）"><a href="#Networking（网络）" class="headerlink" title="Networking（网络）"></a>Networking（网络）</h2><p>Cmnd_Alias NETWORKING = /sbin/route, /sbin/ifconfig, /bin/ping,/sbin/dhclient, /usr/bin/net, /sbin/iptables, /usr/bin/rfcomm,/usr/bin/wvdial, /sbin/iwconfig, /sbin/mii-tool</p>
+<h2 id="Installation-and-management-of-software（软件的安装和管理）"><a href="#Installation-and-management-of-software（软件的安装和管理）" class="headerlink" title="Installation and management of software（软件的安装和管理）"></a>Installation and management of software（软件的安装和管理）</h2><p>Cmnd_Alias SOFTWARE = /bin/rpm, /usr/bin/up2date, /usr/bin/yum</p>
+<h2 id="Services（服务）"><a href="#Services（服务）" class="headerlink" title="Services（服务）"></a>Services（服务）</h2><p>Cmnd_Alias SERVICES = /sbin/service, /sbin/chkconfig</p>
+<h2 id="Updating-the-locate-database（本地数据库升级）"><a href="#Updating-the-locate-database（本地数据库升级）" class="headerlink" title="Updating the locate database（本地数据库升级）"></a>Updating the locate database（本地数据库升级）</h2><p>Cmnd_Alias LOCATE = /usr/sbin/updatedb</p>
+<h2 id="Storage（存储）"><a href="#Storage（存储）" class="headerlink" title="Storage（存储）"></a>Storage（存储）</h2><p>Cmnd_Alias STORAGE = /sbin/fdisk, /sbin/sfdisk, /sbin/parted, /sbin/partprobe, /bin/mount, /bin/umount</p>
+<h2 id="Delegating-permissions-（委派权限）"><a href="#Delegating-permissions-（委派权限）" class="headerlink" title="Delegating permissions （委派权限）"></a>Delegating permissions （委派权限）</h2><p>Cmnd_Alias DELEGATING = /usr/sbin/visudo, /bin/chown, /bin/chmod, /bin/chgrp</p>
+<h2 id="Processes-（进程相关）"><a href="#Processes-（进程相关）" class="headerlink" title="Processes （进程相关）"></a>Processes （进程相关）</h2><p>Cmnd_Alias PROCESSES = /bin/nice, /bin/kill, /usr/bin/kill, /usr/bin/killall</p>
+<h2 id="Drivers（驱动）"><a href="#Drivers（驱动）" class="headerlink" title="Drivers（驱动）"></a>Drivers（驱动）</h2><p>Cmnd_Alias DRIVERS = /sbin/modprobe</p>
+<h1 id="Defaults-specification（默认说明）"><a href="#Defaults-specification（默认说明）" class="headerlink" title="Defaults specification（默认说明）"></a>Defaults specification（默认说明）</h1><p>#</p>
+<h1 id="Disable-“ssh-hostname-sudo-“-because-it-will-show-thepassword-in-clear-You-have-to-run-“ssh-t-hostname-sudo-“"><a href="#Disable-“ssh-hostname-sudo-“-because-it-will-show-thepassword-in-clear-You-have-to-run-“ssh-t-hostname-sudo-“" class="headerlink" title="Disable “ssh hostname sudo “, because it will show thepassword in clear. You have to run “ssh -t hostname sudo “."></a>Disable “ssh hostname sudo <cmd>“, because it will show thepassword in clear. You have to run “ssh -t hostname sudo <cmd>“.</cmd></cmd></h1><p>#禁止在使用SSH登录的时候使用sudo,这样会显示明码。如果想要在SSH登录的时候使用sudo，登录时候必须使用ssh -t <hostname> 来进行登录。<br>Defaults      requiretty</hostname></p>
+<p>Defaults      env_reset<br>Defaults      env_keep = “COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR<br>                          LS_COLORS MAIL PS1 PS2 QTDIR USERNAME<br>                          LANG LC_ADDRESS LC_CTYPE LC_COLLATE LC_IDENTIFICATION<br>                          LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC<br>                          LC_PAPER LC_TELEPHONE LC_TIME LC_ALL LANGUAGE LINGUAS<br>                          _XKB_CHARSET XAUTHORITY”</p>
+<h2 id="Next-comes-the-main-part-which-users-can-run-what-software-on-whichmachines-the-sudoers-file-can-be-shared-between-multiple-systems"><a href="#Next-comes-the-main-part-which-users-can-run-what-software-on-whichmachines-the-sudoers-file-can-be-shared-between-multiple-systems" class="headerlink" title="Next comes the main part: which users can run what software on whichmachines (the sudoers file can be shared between multiple systems)."></a>Next comes the main part: which users can run what software on whichmachines (the sudoers file can be shared between multiple systems).</h2><h2 id="这一部分是重点，他规定了哪些用户可以在哪些机器上去运行哪些软件。注：不同的系统可以使用同一个sudoers文件。"><a href="#这一部分是重点，他规定了哪些用户可以在哪些机器上去运行哪些软件。注：不同的系统可以使用同一个sudoers文件。" class="headerlink" title="这一部分是重点，他规定了哪些用户可以在哪些机器上去运行哪些软件。注：不同的系统可以使用同一个sudoers文件。"></a>这一部分是重点，他规定了哪些用户可以在哪些机器上去运行哪些软件。注：不同的系统可以使用同一个sudoers文件。</h2><h2 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax:"></a>Syntax:</h2><p>##</p>
+<h2 id="user-MACHINE-COMMANDS"><a href="#user-MACHINE-COMMANDS" class="headerlink" title="user      MACHINE=COMMANDS"></a>user      MACHINE=COMMANDS</h2><p>##</p>
+<h2 id="The-COMMANDS-section-may-have-other-options-added-to-it"><a href="#The-COMMANDS-section-may-have-other-options-added-to-it" class="headerlink" title="The COMMANDS section may have other options added to it."></a>The COMMANDS section may have other options added to it.</h2><p>##</p>
+<h2 id="Allow-root-to-run-any-commands-anywhere-（规定：根用户可以在任何系统上执行所有程序）"><a href="#Allow-root-to-run-any-commands-anywhere-（规定：根用户可以在任何系统上执行所有程序）" class="headerlink" title="Allow root to run any commands anywhere （规定：根用户可以在任何系统上执行所有程序）"></a>Allow root to run any commands anywhere （规定：根用户可以在任何系统上执行所有程序）</h2><p>root      ALL=(ALL)       ALL</p>
+<h2 id="Allows-members-of-the-‘sys’-group-to-run-networking-software-service-management-apps-and-more-使组sys里面的用户可以执行网络，软件，服务管理以及其他命令。"><a href="#Allows-members-of-the-‘sys’-group-to-run-networking-software-service-management-apps-and-more-使组sys里面的用户可以执行网络，软件，服务管理以及其他命令。" class="headerlink" title="Allows members of the ‘sys’ group to run networking, software,service management apps and more.使组sys里面的用户可以执行网络，软件，服务管理以及其他命令。"></a>Allows members of the ‘sys’ group to run networking, software,service management apps and more.使组sys里面的用户可以执行网络，软件，服务管理以及其他命令。</h2><h1 id="sys-ALL-NETWORKING-SOFTWARE-SERVICES-STORAGE-DELEGATING-PROCESSES-LOCATE-DRIVERS"><a href="#sys-ALL-NETWORKING-SOFTWARE-SERVICES-STORAGE-DELEGATING-PROCESSES-LOCATE-DRIVERS" class="headerlink" title="%sys ALL = NETWORKING, SOFTWARE, SERVICES, STORAGE, DELEGATING, PROCESSES, LOCATE, DRIVERS"></a>%sys ALL = NETWORKING, SOFTWARE, SERVICES, STORAGE, DELEGATING, PROCESSES, LOCATE, DRIVERS</h1><p>#将上面的注释去掉即可实现该功能，其中sys改为自己机器上的组即可。下同。</p>
+<h2 id="Allows-people-in-group-wheel-to-run-all-commands（使组wheel里面的用户可以执行所有程序，但使用sudo的时候-需要输入个人密码。）"><a href="#Allows-people-in-group-wheel-to-run-all-commands（使组wheel里面的用户可以执行所有程序，但使用sudo的时候-需要输入个人密码。）" class="headerlink" title="Allows people in group wheel to run all commands（使组wheel里面的用户可以执行所有程序，但使用sudo的时候##需要输入个人密码。）"></a>Allows people in group wheel to run all commands（使组wheel里面的用户可以执行所有程序，但使用sudo的时候##需要输入个人密码。）</h2><h1 id="wheel-ALL-ALL-ALL"><a href="#wheel-ALL-ALL-ALL" class="headerlink" title="%wheel      ALL=(ALL)      ALL"></a>%wheel      ALL=(ALL)      ALL</h1><h2 id="Same-thing-without-a-password-（同上，但是不需要输入密码，我的系统在这里进行了修改，使我可以直接使用sudo命令）"><a href="#Same-thing-without-a-password-（同上，但是不需要输入密码，我的系统在这里进行了修改，使我可以直接使用sudo命令）" class="headerlink" title="Same thing without a password （同上，但是不需要输入密码，我的系统在这里进行了修改，使我可以直接使用sudo命令）"></a>Same thing without a password （同上，但是不需要输入密码，我的系统在这里进行了修改，使我可以直接使用sudo命令）</h2><h1 id="wheel-ALL-ALL-NOPASSWD-ALL"><a href="#wheel-ALL-ALL-NOPASSWD-ALL" class="headerlink" title="%wheel      ALL=(ALL)      NOPASSWD: ALL"></a>%wheel      ALL=(ALL)      NOPASSWD: ALL</h1><p>%yyc  ALL=(ALL)      NOPASSWD: ALL</p>
+<h2 id="Allows-members-of-the-users-group-to-mount-and-unmount-the-cdrom-as-root"><a href="#Allows-members-of-the-users-group-to-mount-and-unmount-the-cdrom-as-root" class="headerlink" title="Allows members of the users group to mount and unmount the  cdrom as root"></a>Allows members of the users group to mount and unmount the  cdrom as root</h2><p>#允许wheel组里面的用户执行mount 和umount。</p>
+<h1 id="users-ALL-sbin-mount-mnt-cdrom-sbin-umount-mnt-cdrom"><a href="#users-ALL-sbin-mount-mnt-cdrom-sbin-umount-mnt-cdrom" class="headerlink" title="%users  ALL=/sbin/mount /mnt/cdrom, /sbin/umount /mnt/cdrom"></a>%users  ALL=/sbin/mount /mnt/cdrom, /sbin/umount /mnt/cdrom</h1><h2 id="Allows-members-of-the-users-group-to-shutdown-this-system允许users里面的用户关闭系统。"><a href="#Allows-members-of-the-users-group-to-shutdown-this-system允许users里面的用户关闭系统。" class="headerlink" title="Allows members of the users group to shutdown this system允许users里面的用户关闭系统。"></a>Allows members of the users group to shutdown this system允许users里面的用户关闭系统。</h2><h1 id="users-localhost-sbin-shutdown-h-now"><a href="#users-localhost-sbin-shutdown-h-now" class="headerlink" title="%users  localhost=/sbin/shutdown -h now"></a>%users  localhost=/sbin/shutdown -h now</h1><p>#####################################################################################################<br><br>其实，如果只是想在一个用户不多的机器上实现sudo并不难，只要修改这个文件相应的位置即可，文件里面的用户，组，以及相关命##令都可以根据自己的实际情况进行设定，这不难。但是如果一个服务器上有很多的用户，很多的组，如何去设定就要仔细推敲一下了</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CMD/" rel="tag"># CMD</a>
+          
+            <a href="/tags/SSH/" rel="tag"># SSH</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2008/04/01/e5-89-8d-e7-bd-aeusb-e6-8e-a5-e5-8f-a3-e4-be-9b-e7-94-b5-e4-b8-8d-e8-b6-b3-e7-9a-84-e5-8e-9f-e5-9b-a0-e5-92-8c-e8-a7-a3-e5-86-b3-e5-8a-9e-e6-b3-95/" rel="next" title="前置USB接口供电不足的原因和解决办法">
+                <i class="fa fa-chevron-left"></i> 前置USB接口供电不足的原因和解决办法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2008/04/09/e3-80-90-e6-9c-ac-e7-ab-99-e4-bd-bf-e7-94-a8-e6-8f-92-e4-bb-b6-e3-80-91wordpress-e4-b8-ad-e4-bd-bf-e7-94-a8wp-syntax-e5-8a-a0-e4-ba-ae-e4-bb-a3-e7-a0-81/" rel="prev" title="[本站使用插件]wordpress中使用WP-Syntax加亮代码">
+                [本站使用插件]wordpress中使用WP-Syntax加亮代码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="九王爷" />
+          <p class="site-author-name" itemprop="name">九王爷</p>
+           
+              <p class="site-description motion-element" itemprop="description">这里是外宅，备份用的</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sudoers-allows-particular-users-to-run-various-commands-as-the-root-user-without-needing-the-root-password"><span class="nav-number">1.</span> <span class="nav-text">Sudoers allows particular users to run various commands as the root user, without needing the root password.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sudoers-可以使特定的用户以根用户的身份执行各种命令，而无需根密码。"><span class="nav-number">2.</span> <span class="nav-text">Sudoers 可以使特定的用户以根用户的身份执行各种命令，而无需根密码。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples-are-provided-at-the-bottom-of-the-file-for-collections-ofrelated-commands-which-can-then-be-delegated-out-to-particular-usersor-groups"><span class="nav-number">3.</span> <span class="nav-text">Examples are provided at the bottom of the file for collections ofrelated commands, which can then be delegated out to particular usersor groups.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#This-file-must-be-edited-with-the-‘visudo’-command"><span class="nav-number">4.</span> <span class="nav-text">This file must be edited with the ‘visudo’ command.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这一文件必须使用visudo来进行编辑！！"><span class="nav-number">5.</span> <span class="nav-text">这一文件必须使用visudo来进行编辑！！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Host-Aliases"><span class="nav-number">6.</span> <span class="nav-text">Host Aliases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Groups-of-machines-You-may-prefer-to-use-hostnames-perhaps-using-wildcards-for-entire-domains-or-IP-addresses-instead"><span class="nav-number">7.</span> <span class="nav-text">Groups of machines. You may prefer to use hostnames (perhaps using wildcards for entire domains) or IP addresses instead.</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Host-Alias-FILESERVERS-fs1-fs2"><span class="nav-number"></span> <span class="nav-text">Host_Alias       FILESERVERS = fs1, fs2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Host-Alias-MAILSERVERS-smtp-smtp2"><span class="nav-number"></span> <span class="nav-text">Host_Alias       MAILSERVERS = smtp, smtp2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#机器的组，可以使用hostname或者IP地址来替代。"><span class="nav-number"></span> <span class="nav-text">机器的组，可以使用hostname或者IP地址来替代。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#User-Aliases"><span class="nav-number">1.</span> <span class="nav-text">User Aliases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#These-aren’t-often-necessary-as-you-can-use-regular-groups-ie-from-files-LDAP-NIS-etc-in-this-file-just-use-groupname-ratherthan-USERALIAS"><span class="nav-number">2.</span> <span class="nav-text">These aren’t often necessary, as you can use regular groups (ie,from files, LDAP, NIS, etc) in this file - just use %groupname ratherthan USERALIAS.</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#User-Alias-yyc-yyc"><span class="nav-number"></span> <span class="nav-text">User_Alias yyc = yyc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Command-Aliases"><span class="nav-number">1.</span> <span class="nav-text">Command Aliases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#These-are-groups-of-related-commands…"><span class="nav-number">2.</span> <span class="nav-text">These are groups of related commands…</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Networking（网络）"><span class="nav-number">3.</span> <span class="nav-text">Networking（网络）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation-and-management-of-software（软件的安装和管理）"><span class="nav-number">4.</span> <span class="nav-text">Installation and management of software（软件的安装和管理）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Services（服务）"><span class="nav-number">5.</span> <span class="nav-text">Services（服务）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Updating-the-locate-database（本地数据库升级）"><span class="nav-number">6.</span> <span class="nav-text">Updating the locate database（本地数据库升级）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Storage（存储）"><span class="nav-number">7.</span> <span class="nav-text">Storage（存储）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Delegating-permissions-（委派权限）"><span class="nav-number">8.</span> <span class="nav-text">Delegating permissions （委派权限）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Processes-（进程相关）"><span class="nav-number">9.</span> <span class="nav-text">Processes （进程相关）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Drivers（驱动）"><span class="nav-number">10.</span> <span class="nav-text">Drivers（驱动）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Defaults-specification（默认说明）"><span class="nav-number"></span> <span class="nav-text">Defaults specification（默认说明）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Disable-“ssh-hostname-sudo-“-because-it-will-show-thepassword-in-clear-You-have-to-run-“ssh-t-hostname-sudo-“"><span class="nav-number"></span> <span class="nav-text">Disable “ssh hostname sudo “, because it will show thepassword in clear. You have to run “ssh -t hostname sudo “.</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Next-comes-the-main-part-which-users-can-run-what-software-on-whichmachines-the-sudoers-file-can-be-shared-between-multiple-systems"><span class="nav-number">1.</span> <span class="nav-text">Next comes the main part: which users can run what software on whichmachines (the sudoers file can be shared between multiple systems).</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这一部分是重点，他规定了哪些用户可以在哪些机器上去运行哪些软件。注：不同的系统可以使用同一个sudoers文件。"><span class="nav-number">2.</span> <span class="nav-text">这一部分是重点，他规定了哪些用户可以在哪些机器上去运行哪些软件。注：不同的系统可以使用同一个sudoers文件。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Syntax"><span class="nav-number">3.</span> <span class="nav-text">Syntax:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#user-MACHINE-COMMANDS"><span class="nav-number">4.</span> <span class="nav-text">user      MACHINE=COMMANDS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-COMMANDS-section-may-have-other-options-added-to-it"><span class="nav-number">5.</span> <span class="nav-text">The COMMANDS section may have other options added to it.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Allow-root-to-run-any-commands-anywhere-（规定：根用户可以在任何系统上执行所有程序）"><span class="nav-number">6.</span> <span class="nav-text">Allow root to run any commands anywhere （规定：根用户可以在任何系统上执行所有程序）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Allows-members-of-the-‘sys’-group-to-run-networking-software-service-management-apps-and-more-使组sys里面的用户可以执行网络，软件，服务管理以及其他命令。"><span class="nav-number">7.</span> <span class="nav-text">Allows members of the ‘sys’ group to run networking, software,service management apps and more.使组sys里面的用户可以执行网络，软件，服务管理以及其他命令。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sys-ALL-NETWORKING-SOFTWARE-SERVICES-STORAGE-DELEGATING-PROCESSES-LOCATE-DRIVERS"><span class="nav-number"></span> <span class="nav-text">%sys ALL = NETWORKING, SOFTWARE, SERVICES, STORAGE, DELEGATING, PROCESSES, LOCATE, DRIVERS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Allows-people-in-group-wheel-to-run-all-commands（使组wheel里面的用户可以执行所有程序，但使用sudo的时候-需要输入个人密码。）"><span class="nav-number">1.</span> <span class="nav-text">Allows people in group wheel to run all commands（使组wheel里面的用户可以执行所有程序，但使用sudo的时候##需要输入个人密码。）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wheel-ALL-ALL-ALL"><span class="nav-number"></span> <span class="nav-text">%wheel      ALL=(ALL)      ALL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Same-thing-without-a-password-（同上，但是不需要输入密码，我的系统在这里进行了修改，使我可以直接使用sudo命令）"><span class="nav-number">1.</span> <span class="nav-text">Same thing without a password （同上，但是不需要输入密码，我的系统在这里进行了修改，使我可以直接使用sudo命令）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wheel-ALL-ALL-NOPASSWD-ALL"><span class="nav-number"></span> <span class="nav-text">%wheel      ALL=(ALL)      NOPASSWD: ALL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Allows-members-of-the-users-group-to-mount-and-unmount-the-cdrom-as-root"><span class="nav-number">1.</span> <span class="nav-text">Allows members of the users group to mount and unmount the  cdrom as root</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#users-ALL-sbin-mount-mnt-cdrom-sbin-umount-mnt-cdrom"><span class="nav-number"></span> <span class="nav-text">%users  ALL=/sbin/mount /mnt/cdrom, /sbin/umount /mnt/cdrom</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Allows-members-of-the-users-group-to-shutdown-this-system允许users里面的用户关闭系统。"><span class="nav-number">1.</span> <span class="nav-text">Allows members of the users group to shutdown this system允许users里面的用户关闭系统。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#users-localhost-sbin-shutdown-h-now"><span class="nav-number"></span> <span class="nav-text">%users  localhost=/sbin/shutdown -h now</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">九王爷</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
