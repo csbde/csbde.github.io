@@ -261,146 +261,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/02/08/shell-e6-9d-a1-e4-bb-b6-e5-88-a4-e6-96-ad-e6-80-bb-e7-bb-93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="九王爷">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九王爷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2007/02/08/shell-e6-9d-a1-e4-bb-b6-e5-88-a4-e6-96-ad-e6-80-bb-e7-bb-93/" itemprop="url">
-                  Shell 条件判断总结
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2007-02-08T12:28:00+08:00">
-                2007-02-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>UNIX Shell 编程<br>一些条件判断 总结<br>-b file 若文件存在且是一个块特殊文件，则为真<br>-c file 若文件存在且是一个字符特殊文件，则为真<br>-d file 若文件存在且是一个目录，则为真<br>-e file 若文件存在，则为真<br>-f file 若文件存在且是一个规则文件，则为真<br>-g file 若文件存在且设置了SGID位的值，则为真<br>-h file 若文件存在且为一个符合链接，则为真<br>-k file 若文件存在且设置了”sticky”位的值<br>-p file 若文件存在且为一已命名管道，则为真<br>-r file 若文件存在且可读，则为真<br>-s file 若文件存在且其大小大于零，则为真<br>-u file 若文件存在且设置了SUID位，则为真<br>-w file 若文件存在且可写，则为真<br>-x file 若文件存在且可执行，则为真<br>-o file 若文件存在且被有效用户ID所拥有，则为真<br>-z string 若string长度为0，则为真<br>-n string 若string长度不为0，则为真<br>string1 = string2 若两个字符串相等，则为真<br>string1 != string2 若两个字符串不相等，则为真<br>int1 -eq int2 若int1等于int2，则为真<br>int1 -ne int2 若int1不等于int2，则为真<br>int1 -lt int2 若int1小于int2，则为真<br>int1 -le int2 若int1小于等于int2，则为真<br>int1 -gt int2 若int1大于int2，则为真<br>int1 -ge int2 若int1大于等于int2，则为真<br>!expr 若expr为假则复合表达式为真。expr可以是任何有效的测试表达式<br>expr1 -a expr2 若expr1和expr2都为真则整式为真<br>expr1 -o expr2 若expr1和expr2有一个为真则整式为真<br>特殊变量<br>$0 正在被执行命令的名字。对于shell脚本而言，这是被激活命令的路径<br>$n 该变量与脚本被激活时所带的参数相对应。n是正整数，与参数位置相对应($1,$2…)<br>$# 提供脚本的参数号<br>$<em> 所有这些参数都被双引号引住。若一个脚本接收两个参数，$</em>等于$1$2<br>$@ 所有这些参数都分别被双引号引住。若一个脚本接收到两个参数，$@等价于$1$2<br>$? 前一个命令执行后的退出状态<br>$$ 当前shell的进程号。对于shell脚本，这是其正在执行时的进程ID<br>$! 前一个后台命令的进程号</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2007/02/02/via-k8m800-e7-b3-bb-e5-88-97-vias3g-unichrome-pro-igp-e6-98-be-e5-8d-a1-e9-a9-b1-e5-8a-a8-e5-ae-89-e8-a3-85-e6-9c-89-e4-bb-a5-e4-b8-8b-e5-87-a0-e7-a7-8d-e9-80-94-e5-be-84-ef-bc-9a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1871,6 +1731,147 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2006/11/24/e6-96-87-e4-bb-b6-e7-bc-96-e7-a0-81-e6-89-b9-e9-87-8f-e8-bd-ac-e6-8d-a2-e8-84-9a-e6-9c-ac/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2006/11/24/e6-96-87-e4-bb-b6-e7-bc-96-e7-a0-81-e6-89-b9-e9-87-8f-e8-bd-ac-e6-8d-a2-e8-84-9a-e6-9c-ac/" itemprop="url">
+                  文件编码批量转换脚本
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2006-11-24T00:34:00+08:00">
+                2006-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>find default -type d -exec mkdir -p utf/{} ;<br>find default -type f -exec iconv -f GBK -t UTF-8 {} -o utf/{} ;</p>
+<p>这两行命令将default目录下的文件由GBK编码转换为UTF-8编码，目录结构不变，转码后的文件保存在utf/default目录下。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1920,7 +1921,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">270</span>
+                <span class="site-state-item-count">269</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1938,7 +1939,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
