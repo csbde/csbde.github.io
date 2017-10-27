@@ -261,6 +261,203 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2009/01/23/将阅读权限限制修改为威望（积分）限制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="九王爷">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九王爷">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2009/01/23/将阅读权限限制修改为威望（积分）限制/" itemprop="url">
+                  将阅读权限限制修改为威望（积分）限制
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2009-01-23T18:02:38+08:00">
+                2009-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SoftWare/" itemprop="url" rel="index">
+                    <span itemprop="name">SoftWare</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre lang="php">将阅读权限限制修改为威望（积分）限制
+
+1、修改数据库(可以不修改)
+
+登录数据库，表 x__threads （x表示表前缀）中 readperm 字段 结构修改
+
+A．将 类型  tinyint  修改为 smallint
+B．将 长度 3 修改为6
+C．属性  UNSIGNED （不修改）
+D．NULL 选择 not null （不修改）
+E. 默认值选择 0 （不修改）
+
+2\. 打开 include/common.inc.php
+
+到第 157 行
+if($thread['readperm'] && $thread['readperm'] > $readaccess && !$forum['ismoderator'] && $thread['authorid'] != $discuz_uid) {
+    showmessage('thread_nopermission', NULL, 'NOPERM');
+}
+修改为
+if($thread['readperm'] && $thread['readperm'] > $extcredits1  && !$forum['ismoderator'] && $thread['authorid'] != $discuz_uid) {
+    showmessage('thread_nopermission', NULL, 'NOPERM');
+}
+//其中$extcredits1 可以更改为$extcredits 积分; 如extcredits1 积分1(威望); extcredits2 积分2(金钱); extcredits3; extcredits4;extcredits5 ;extcredits6 ;extcredits7; extcredits8,可以自行选择一个，或者自行设置加减。
+3\. 修改模板文件，将 “阅读权限”替换为 “威望”或“积分”
+
+3.1 找到 templates\default\templates.lang.php （一共有3行，修改前两行）
+
+第 416 行
+'readperm' =&gt; '阅读权限',
+修改为
+'readperm' =&gt; '威望',
+
+417行
+'readperm_thread' =&gt; '所需阅读权限',
+修改为
+'readperm_thread' =&gt; '所需威望',
+
+3.2 找到templates\default\messages.lang.php （一共有2行，全部替换）
+
+第 47 行
+'thread_nopermission' =&gt; '对不起，本帖要求阅读权限高于 $thread[readperm] 才可浏览，请返回。',
+修改为
+'thread_nopermission' =&gt; '对不起，本帖要求威望高于 $thread[readperm] 才可浏览，请返回。',
+
+第90行
+'attachment_nopermission' =&gt; '对不起，本附件要求阅读权限高于 $attach[readperm] 才可下载，请返回。',
+修改为
+'attachment_nopermission' =&gt; '对不起，本附件要求威望高于 $attach[readperm] 才可下载，请返回。',
+
+3.3找到templates\default\messages.lang.php
+第51行
+'attach_readperm' =&gt; '阅读权限',
+修改为
+'attach_readperm' =&gt; '威望',
+
+3.3找到\forumdata\cache\目录下 （可替换，也可不替换）
+cache_viewpro.php 和 cache_viewthread.php
+
+将 阅读权限 替换为 威望</pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2009/01/21/轻松搞定pidgin里少量MSN消息为方块的BUG/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1679,172 +1876,6 @@ checkPage();
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2009/01/05/spotify_苹果品质的p2p即时音乐播放器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="九王爷">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九王爷">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2009/01/05/spotify_苹果品质的p2p即时音乐播放器/" itemprop="url">
-                  spotify 苹果品质的p2p即时音乐播放器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2009-01-05T10:03:08+08:00">
-                2009-01-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SoftWare/" itemprop="url" rel="index">
-                    <span itemprop="name">SoftWare</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这里有几个关键词:spotify  苹果品质  p2p 音乐播放器</p>
-<p>p2p(点对点) 和音乐播放器就不用我多解释了,看字面就知道意思了,不知道p2p的可以去Google一下</p>
-<p>苹果品质是说的这个播放器像大多数MAC上的软件一样,华丽但不臃肿.</p>
-<p>据说是uTorrent创始人Ludvig Strigeus掺和的一个p2p音乐播放软件。技术上应该没得说。这个软件因为一开始就有两个版本MAC和Windows,MAC甚至排到了Windows前面,所以比较靠近苹果的风格.甚至在网上有人看到一个公式:</p>
-<p>spotify = last.fm + iTunes</p>
-<p>经试用后确实可以使用last.fm的帐号.而且速度确实飞快,点击音乐后就理解可以听,完全没有延迟.上大图</p>
-<p><img src="http://www.9wy.net/wp-content/uploads/2009/01/main_windows.png" alt="main_windows" title="main_windows"></p>
-<p><img src="http://www.9wy.net/wp-content/uploads/2009/01/paly_window2.png" alt="spotify_paly_window2" title="spotify_paly_window2"></p>
-<p>心动了吧,let’s go,</p>
-<p>首先转est兄的</p>
-<p>免邀请码绕IP限制试用下载方法：</p>
-<p>1. 首先找一个UK的代理。 <a href="http://www.proxz.com/proxy_list_uk_0_ext.html" target="_blank" rel="external">http://www.proxz.com/proxy_list_uk_0_ext.html</a><br>2. 用上面的UK代理注册一个帐号</p>
-<p>注册地址:<a href="https://www.spotify.com/en/get-started/" target="_blank" rel="external">https://www.spotify.com/en/get-started/</a></p>
-<p>记得一定要是这个地址才不会要邀请码,否则会要邀请码的,如果你使用的代理没有出现下面这个界面就需要更换代理了,而且代理要选择支持<span style="color: #ff0000;">https</span>的哦:</p>
-<p><img src="http://www.9wy.net/wp-content/uploads/2009/01/spotify_reg.png" alt="spotify_reg" title="spotify_reg"></p>
-<p>邮编post code填 <strong>BA133AH</strong>或去网上搜索一个,下面有我搜索的几个<br>SW1A 0PW - House of Lords, Palace of Westminster<br>SW1A 1AA - Buckingham Palace<br>SW1A 2AA - 10 Downing Street, Prime Minister and First Lord of the Treasury<br>SW1A 2AB - 11 Downing Street, Chancellor of the Exchequer<br>SW1A 2HQ - HM Treasury headquarters<br>W1A 1AA - Broadcasting House<br>W1A 1AB - Selfridges<br>N81 1ER - Electoral Reform Society (the whole of N81 is reserved for the ERS)</p>
-<p>为什么要用代理注册呢？因为目前spotify是beta，只对 UK, Sweden, Finland, Norway, Spain and France 开放</p>
-<p>如果你看到这里,应该已经注册成功了,继续下面的步骤吧</p>
-<p>3. 下载：<a href="http://www.spotify.com/en/download/mac/" target="_blank" rel="external">Mac</a> | <a href="http://www.spotify.com/en/download/windows/" target="_blank" rel="external">Windows</a></p>
-<p>安装后打开会要求登录,用你刚才注册的名字去登录吧</p>
-<p><img src="http://www.9wy.net/wp-content/uploads/2009/01/login_windows.png" alt="login_windows" title="login_windows"></p>
-<p>spotify窗口歌曲可以拖拽到外部窗口文本框，不过地址有点怪异,是他自己的专用链接如:spotify:track:7ijXaWom5VaFpS4PUKuIBA</p>
-<p>也可以右键复制为URL分享给别人。分享的地址可以是Http连接如:<a href="http://open.spotify.com/track/7ijXaWom5VaFpS4PUKuIBA" target="_blank" rel="external">http://open.spotify.com/track/7ijXaWom5VaFpS4PUKuIBA</a></p>
-<p>或者像上面那种spotify专用链接</p>
-<p>支持scrobbling到Last.FM</p>
-<p>歌曲没法下载。不过都是正版。而且一双击就播放，根本没缓冲。</p>
-<p>支持围绕一个artist、专辑、搜索关键词播放。代替了last.fm和pandora</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1894,7 +1925,7 @@ checkPage();
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">268</span>
+                <span class="site-state-item-count">269</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
