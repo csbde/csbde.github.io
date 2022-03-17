@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>网址缩短跳转</title>
+	<meta http-equiv="Refresh" content="0; url={Replace}" />
+	<meta name="referrer" content="no-referrer" />
+</head>
+
+<body>
+	<p>跳转中..<br /><a href="{Replace}">{Replace}</a></p>
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		setTimeout('window.location.replace( "{Replace}" + window.location.hash );', 100 )
+
+/* ]]> */
+	</script>
+</body>
+
+</html>
