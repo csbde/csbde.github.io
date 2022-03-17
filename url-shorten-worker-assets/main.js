@@ -1,7 +1,7 @@
 let res
   function shorturl() {
     if(document.querySelector("#text").value==""){
-        alert("Url cannot be empty!")
+        alert("Url 不能为空!")
         return
     }
 
@@ -17,14 +17,14 @@ let res
   .then(function(myJson) {
     res = myJson;
     document.getElementById("searchbtn").disabled=false;
-	document.getElementById("searchbtn").innerHTML=' Shorten it';
+	document.getElementById("searchbtn").innerHTML=' 点击缩短';
     if(res.key!=="")
     document.getElementById("result").innerHTML=window.location.host+res.key;
     $('#exampleModal').modal('show')
   }).catch(function(err){alert("Unknow error. Please retry!");
   console.log(err);
   document.getElementById("searchbtn").disabled=false;
-	document.getElementById("searchbtn").innerHTML=' Shorten it';})
+	document.getElementById("searchbtn").innerHTML=' 点击缩短';})
   }
   function copyurl (id, attr) {
     let target = null;
@@ -65,6 +65,6 @@ let res
     $('[data-toggle="popover"]').popover()
   })
   let notice="Notice: 仅用作公司内部网址缩短，其它人使用会随时切断链接."
-  if(window.location.host=="5it.me"){
+  if(window.location.host=="qq.com"){
     document.getElementById("notice").innerHTML=notice
   }
