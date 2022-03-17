@@ -14,61 +14,61 @@
     <div id="container"></div>
     <div class="control left">
         <hr>
-        <label for="render">RENDER MODE</label>
+        <label for="render">渲染模式</label>
         <select id="render">
-            <option value="canvas" selected="selected">canvas</option>
-            <option value="image">image</option>
+            <option value="canvas">canvas</option>
+            <option value="image"  selected="selected">image</option>
             <option value="div">div</option>
         </select>
         <hr>
-        <label for="size">SIZE:</label>
+        <label for="size">大小:</label>
         <input id="size" type="range" value="400" min="100" max="1000" step="50">
-        <label for="fill">FILL</label>
+        <label for="fill">填充</label>
         <input id="fill" type="color" value="#333333">
-        <label for="background">BACKGROUND</label>
+        <label for="background">背景</label>
         <input id="background" type="color" value="#ffffff">
-        <label for="text">CONTENT</label>
+        <label for="text">二维码内容</label>
         <textarea id="text">https://yoururl.com/</textarea>
         <hr>
-        <label for="minversion">MIN VERSION:</label>
+        <label for="minversion">最低版本:</label>
         <input id="minversion" type="range" value="6" min="1" max="10" step="1">
-        <label for="eclevel">ERROR CORRECTION LEVEL</label>
+        <label for="eclevel">错误补偿级别</label>
         <select id="eclevel">
-            <option value="L">L - Low (7%)</option>
-            <option value="M">M - Medium (15%)</option>
-            <option value="Q">Q - Quartile (25%)</option>
-            <option value="H" selected="selected">H - High (30%)</option>
+            <option value="L">L - 低 (7%)</option>
+            <option value="M">M - 中 (15%)</option>
+            <option value="Q">Q - 1/4 (25%)</option>
+            <option value="H" selected="selected">H - 高 (30%)</option>
         </select>
         <label for="quiet">QUIET ZONE:</label>
         <input id="quiet" type="range" value="1" min="0" max="4" step="1">
-        <label for="radius">CORNER RADIUS:</label>
+        <label for="radius">圆角:</label>
         <input id="radius" type="range" value="50" min="0" max="50" step="10">
     </div>
     <div class="control right">
-        <label for="mode">MODE</label>
+        <label for="mode">模式</label>
         <select id="mode">
-            <option value="0">0 - Normal</option>
+            <option value="0">0 - 普通</option>
             <option value="1">1 - Label-Strip</option>
             <option value="2" selected="selected">2 - Label-Box</option>
             <option value="3">3 - Image-Strip</option>
             <option value="4">4 - Image-Box</option>
         </select>
         <hr>
-        <label for="msize">SIZE:</label>
+        <label for="msize">大小:</label>
         <input id="msize" type="range" value="11" min="0" max="40" step="1">
-        <label for="mposx">POS X:</label>
+        <label for="mposx">位置 X:</label>
         <input id="mposx" type="range" value="50" min="0" max="100" step="1">
-        <label for="mposy">POS Y:</label>
+        <label for="mposy">位置 Y:</label>
         <input id="mposy" type="range" value="50" min="0" max="100" step="1">
         <hr>
-        <label for="label">LABEL</label>
+        <label for="label">标签</label>
         <input id="label" type="text" value="jQuery.qrcode">
-        <label for="font">FONT NAME</label>
+        <label for="font">字体名称</label>
         <input id="font" type="text" value="Ubuntu Mono">
-        <label for="fontcolor">FONT COLOR</label>
+        <label for="fontcolor">字体颜色</label>
         <input id="fontcolor" type="color" value="#ff9818">
         <hr>
-        <label for="image">IMAGE</label>
+        <label for="image">图片</label>
         <input id="image" type="file">
     </div>
     <img id="img-buffer" src="dummy.png">
