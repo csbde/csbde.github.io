@@ -51,9 +51,9 @@ let res
         window.getSelection().addRange(range);
         document.execCommand('copy');
         window.getSelection().removeAllRanges();
-        console.log('Copy success')
+        console.log('复制成功')
     } catch (e) {
-        console.log('Copy error')
+        console.log('复制失败')
     }
 
     if (attr) {
@@ -64,8 +64,7 @@ let res
   $(function () {
     $('[data-toggle="popover"]').popover()
   })
-  console.log("https://github.com/xyTom/Url-Shorten-Worker/")
-  let notice="Notice: This service is for demonstration purposes only and the generated short links will automatically expire after 24 hours."
+  let notice="Notice: 仅用作公司内部网址缩短，其它人使用会随时切断链接."
   if(window.location.host=="5it.me"){
     document.getElementById("notice").innerHTML=notice
   }
