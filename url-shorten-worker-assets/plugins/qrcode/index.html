@@ -39,7 +39,7 @@
             <option value="Q">Q - 1/4 (25%)</option>
             <option value="H" selected="selected">H - 高 (30%)</option>
         </select>
-        <label for="quiet">QUIET ZONE:</label>
+        <label for="quiet">边框大小:</label>
         <input id="quiet" type="range" value="1" min="0" max="4" step="1">
         <label for="radius">圆角:</label>
         <input id="radius" type="range" value="50" min="0" max="50" step="10">
@@ -47,22 +47,22 @@
     <div class="control right">
         <label for="mode">模式</label>
         <select id="mode">
-            <option value="0">0 - 普通</option>
-            <option value="1">1 - Label-Strip</option>
-            <option value="2" selected="selected">2 - Label-Box</option>
-            <option value="3">3 - Image-Strip</option>
-            <option value="4">4 - Image-Box</option>
+            <option value="0" selected="selected">0 - 普通</option>
+            <option value="1">1 - 文字标签-Strip</option>
+            <option value="2">2 - 文字标签-Box</option>
+            <option value="3">3 - 图片LOGO-Strip</option>
+            <option value="4">4 - 图片LOGO-Box</option>
         </select>
         <hr>
-        <label for="msize">大小:</label>
+        <label for="msize">文字标签大小:</label>
         <input id="msize" type="range" value="11" min="0" max="40" step="1">
-        <label for="mposx">位置 X:</label>
+        <label for="mposx">文字标签位置 X:</label>
         <input id="mposx" type="range" value="50" min="0" max="100" step="1">
-        <label for="mposy">位置 Y:</label>
+        <label for="mposy">文字标签位置 Y:</label>
         <input id="mposy" type="range" value="50" min="0" max="100" step="1">
         <hr>
-        <label for="label">标签</label>
-        <input id="label" type="text" value="jQuery.qrcode">
+        <label for="label">文字标签内容</label>
+        <input id="label" type="text" value="扫码访问">
         <label for="font">字体名称</label>
         <input id="font" type="text" value="Ubuntu Mono">
         <label for="fontcolor">字体颜色</label>
