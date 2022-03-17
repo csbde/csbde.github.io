@@ -69,13 +69,13 @@
 </head>
 <body>
   <div class="card">
-    <h5 class="card-header">🎁 卓谷短域名 !</h5>
+    <h5 class="card-header">卓谷短域名 !</h5>
     <div class="card-body">
       <h5 class="card-title">请输入用于缩短的长域名 :</h5>
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="例如: https://example.com/" id="text">
         <div class="input-group-append">
-          <button class="btn btn-primary" type="button" onclick='shorturl()' id="searchbtn">Shorten it</button>
+          <button class="btn btn-primary" type="button" onclick='shorturl()' id="searchbtn">点击缩短</button>
         </div>
       </div>    
       <p id="notice"></p>             
@@ -92,8 +92,8 @@
         </div>
         <div class="modal-body" id="result">No result</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick='copyurl("result")' data-toggle="popover" data-placement="bottom" data-content="Copied!">Copy</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>    
+          <button type="button" class="btn btn-primary" onclick='copyurl("result")' data-toggle="popover" data-placement="bottom" data-content="已经复制到剪贴板了!">复制</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>    
         </div>
       </div>
     </div>
